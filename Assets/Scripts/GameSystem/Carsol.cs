@@ -9,6 +9,7 @@ public class Carsol : MonoBehaviour
     [SerializeField]
     private List<GameObject> magics = new List<GameObject>();
     public List<GameObject> candidates = new List<GameObject>();
+    public Material carsolTrailMaterial;
     void Start()
     {
     }
@@ -24,15 +25,18 @@ public class Carsol : MonoBehaviour
         {
             FinishJudgment();
         }
-        this.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        this.transform.position = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y,0);
+        
     }
 
     
     void StartJudgment()
     {
-        candidates = magics;
+        candidates = new List<GameObject>(magics);
         myTrailRenderer = this.gameObject.AddComponent<TrailRenderer>();
         myTrailRenderer.time = 256;
+        myTrailRenderer.startWidth = 2.5f;
+        myTrailRenderer.material = carsolTrailMaterial;
         judgmenting = true;
     }
     void FinishJudgment()

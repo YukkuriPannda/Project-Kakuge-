@@ -5,29 +5,38 @@ using System.Collections.Generic;
 public class Carsol : MonoBehaviour
 {
     TrailRenderer myTrailRenderer;
-    [System.NonSerialized] public bool judging = false;
-    public List<GameObject> magics = new List<GameObject>();
-    public List<GameObject> candidates = new List<GameObject>();
     public bool judgmenting;
+    [SerializeField]
+    private List<GameObject> magics = new List<GameObject>();
+    public List<GameObject> candidates = new List<GameObject>();
     public Material carsolTrailMaterial;
     void Start()
     {
+
     }
 
+    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0)) {
-            StartJudgment(); 
-        }
-        if (Input.GetKeyUp(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            FinishJudgment();
+            StartJudgment();
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                StartJudgment();
+            }
+            if (Input.GetKeyUp(KeyCode.Mouse0))
+            {
+                FinishJudgment();
+            }
+
+
         }
-        
-        this.transform.position = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y,0);
-        
+        this.transform.position = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 0);
+
         this.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
+
 
     
     void StartJudgment()
@@ -38,15 +47,10 @@ public class Carsol : MonoBehaviour
         myTrailRenderer.startWidth = 2.5f;
         myTrailRenderer.material = carsolTrailMaterial;
         judgmenting = true;
-        judging = true;
-
-        myTrailRenderer = this.gameObject.AddComponent<TrailRenderer>();
-        myTrailRenderer.time = 256;
     }
     void FinishJudgment()
     {
-        judging = false;
-        
         Destroy(myTrailRenderer);
+        judgmenting = false;
     }
 }

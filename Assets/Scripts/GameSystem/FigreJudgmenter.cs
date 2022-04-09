@@ -18,12 +18,12 @@ public class FigreJudgmenter : MonoBehaviour
             carsol.candidates.Remove(this.gameObject);
         }
     }
-<<<<<<< HEAD
     private void OnCollisionStay2D(Collision2D collision)
-=======
+    {
+
+    }
     
     private void OnCollisionEnter2D(Collision2D collision)
->>>>>>> f7a584e0b5f0f9e5c6ff2cf24db9d10f052bae44
     {
         tatching = true;
     }

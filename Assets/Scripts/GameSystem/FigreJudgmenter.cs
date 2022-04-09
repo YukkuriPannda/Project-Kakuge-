@@ -4,31 +4,35 @@ using UnityEngine;
 
 public class FigreJudgmenter : MonoBehaviour
 {
-    public bool tatching = false;
+    private bool tatching = false;
     public Carsol carsol;
     void Start()
     {
-        
+        this.transform.position = new Vector2(0,0);
     }
     
     void Update()
     {
-        if (carsol.judgmenting && !tatching)
+        if (carsol.judging && !tatching)
         {
             carsol.candidates.Remove(this.gameObject);
         }
     }
+<<<<<<< HEAD
     private void OnCollisionStay2D(Collision2D collision)
+=======
+    
+    private void OnCollisionEnter2D(Collision2D collision)
+>>>>>>> f7a584e0b5f0f9e5c6ff2cf24db9d10f052bae44
     {
         tatching = true;
     }
+
     private void OnCollisionExit2D(Collision2D collision)
     {
         tatching = false;
-    }private void FixedUpdate()
-    {
-        
     }
+    
     void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;

@@ -18,23 +18,20 @@ public class Carsol : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             StartJudgment();
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                StartJudgment();
-            }
-            if (Input.GetKeyUp(KeyCode.Mouse0))
-            {
-                FinishJudgment();
-            }
-
-
         }
+        if (Input.GetKeyUp(KeyCode.Mouse0))
+        {
+            FinishJudgment();
+        }
+
+
+        
         this.transform.position = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 0);
 
-        this.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 
 

@@ -421,7 +421,7 @@ MonoBehaviour:
   stopPointMaxVelocity: 0.006
   sharpAngleJudgePointNum: 6
   sharpAngleJudgeSideLength: 0.05
-  closeJudgeDistance: 0.4
+  closeJudgeDistance: 1
   adjacentDistanceThreshold: 0.05
   target: {fileID: 177371544}
   mouse: {fileID: 112194744}

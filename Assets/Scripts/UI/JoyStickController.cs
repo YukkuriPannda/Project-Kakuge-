@@ -5,16 +5,26 @@ using UnityEngine.UI;
 public class JoyStickController : MonoBehaviour
 {
     public Image joystick_Body;
+    public float radius = 50;
+
+    [Space (10)]
+    [Header("Output")]
     public Vector2 joystickInfo;
     LineRenderer lineRenderer;
-    public float radius = 50;
-    public bool tatchingJoystick = false;
+    bool tatchingJoystick = false;
+    /*
+    this script is joystick controller.
+    joystickInfo output
+      ↑ y > 0
+      ↓ y < 0
+      → x > 0
+      ← x < 0
+    */
     void Start()
     {
         lineRenderer = this.gameObject.GetComponent<LineRenderer>();
     }
    
-    // Update is called once per frame
     void Update()
     {
         if (JoystickDistance() <= radius && Input.GetKeyDown(KeyCode.Mouse0)) tatchingJoystick = true;

@@ -6,6 +6,7 @@ public class JoyStickController : MonoBehaviour
 {
     public Image joystick_Body;
     public float radius = 50;
+    public PlayerController playerController;
 
     [Space (10)]
     [Header("Output")]
@@ -19,6 +20,8 @@ public class JoyStickController : MonoBehaviour
       ↓ y < 0
       → x > 0
       ← x < 0
+      -1<=x<=1
+      -1<=y<=1
     */
     void Start()
     {
@@ -44,6 +47,7 @@ public class JoyStickController : MonoBehaviour
 
         lineRenderer.SetPosition(1, Camera.main.ScreenToWorldPoint(joystick_Body.transform.position));
         lineRenderer.SetPosition(0, Camera.main.ScreenToWorldPoint(this.transform.position));
+        playerController.inputMoveInfo = joystickInfo;
     }
     
     Vector2 JoystickInfoOutPut()

@@ -60,7 +60,7 @@ public class ShapeRecognizer : MonoBehaviour
     #endregion
 
 
-    void Update() 
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0)){
             IsJudging = true;

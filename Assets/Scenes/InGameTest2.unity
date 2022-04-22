@@ -1689,10 +1689,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2022722159}
-  - component: {fileID: 2022722161}
   - component: {fileID: 2022722158}
   - component: {fileID: 2022722157}
   - component: {fileID: 2022722160}
+  - component: {fileID: 2022722161}
   m_Layer: 0
   m_Name: chara
   m_TagString: Untagged

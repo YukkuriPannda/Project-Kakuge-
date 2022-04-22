@@ -16,13 +16,13 @@ public class PlayerController : MonoBehaviour
         rb2D = this.gameObject.GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         moveCon();
     }
     void moveCon()
     {
-        rb2D.AddForce(new Vector2(rb2D.mass * (maxMoveSpeed * inputMoveInfo.x - rb2D.velocity.x)*4  ,0));
+        rb2D.AddForce(new Vector2(rb2D.mass * (maxMoveSpeed * inputMoveInfo.x - rb2D.velocity.x) * 6 ,0));
         if(inputMoveInfo.y >= 0.2f && afterJumpingCount <= 5){
             rb2D.AddForce(transform.up * maxJumpForce * inputMoveInfo.y);
             afterJumpingCount ++;

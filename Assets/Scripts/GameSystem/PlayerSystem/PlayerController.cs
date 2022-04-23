@@ -1,47 +1,36 @@
+using System.Net.Mime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     [Header("InputField")]
-    public float maxMoveSpeed = 10;
-    public float maxJumpForce;
-    public float maxJumpSpeed;
-    int afterJumpingCount;
-    [Space(10)]
-    public Vector2 inputMoveInfo;
-    public string nowState;
-    public bool onGraund;
-    Rigidbody2D rb2D;
+    public float movementSpeed = 200; //movementSpeed * 入力(最大値1) = velocity.x
+    public float JumpForce = 200; //JumpForce * 入力(最大値1) = velocity.y
+
+    private Rigidbody2D rb2D;
+    private EntityBase eBase;
+    [SerializeField] Text debconsole;
+
+
     void Start()
     {
         rb2D = this.gameObject.GetComponent<Rigidbody2D>();
-
+        eBase = this.gameObject.GetComponent<EntityBase>();
     }
 
-    void Update()
-    {
-        
+    public void Move(float force) { // 移動方向/強さ -1~1 として
+        force *= movementSpeed;
+        debconsole.text += "\n" + force;
+        rb2D.velocity = new Vector2(Mathf.Lerp(rb2D.velocity.x,force,0.9f)*Time.deltaTime ,rb2D.velocity.y);
     }
-    private void FixedUpdate() {
-        moveCon();
-    }
-    void moveCon()
-    {
-        rb2D.AddForce(new Vector2(rb2D.mass * (maxMoveSpeed * inputMoveInfo.x - rb2D.velocity.x) / 0.2f,0));//F=ma
-        if(inputMoveInfo.y >= 0.2f && afterJumpingCount <= 5 && rb2D.velocity.y <= maxJumpSpeed){
-            rb2D.AddForce(transform.up * maxJumpForce * inputMoveInfo.y);
-            afterJumpingCount ++;
-        }    
-        if(inputMoveInfo.y <= 0.2f && inputMoveInfo.y >= -0.2f && onGraund) afterJumpingCount = 0;
-    }
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if(other.tag == "Stage") onGraund = true;
-    }
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if(other.tag == "Stage") onGraund = false;
+
+    public void Jump(float force) { // 最大値1,
+        if (eBase.OnGround) {
+            force *= JumpForce;
+            rb2D.velocity = new Vector2(0,rb2D.velocity.y/4 + (force / rb2D.mass));
+        }
     }
 }

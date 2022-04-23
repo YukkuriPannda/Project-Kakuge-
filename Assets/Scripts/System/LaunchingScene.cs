@@ -18,7 +18,7 @@ public class LaunchingScene : MonoBehaviour
         // 3秒後に画面遷移（scene2へ移動）
         if (d_time >= 3.0f)
         {
-            SceneManager.LoadSceneAsync("Scenes/MainMenu");
+            SceneManager.LoadSceneAsync("Scenes/InGameTest2");
         }
     }
 }

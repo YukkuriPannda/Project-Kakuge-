@@ -4,25 +4,27 @@ using UnityEngine;
 
 public class EntityBase : MonoBehaviour
 {
+    [SerializeField] ContactFilter2D filter2d;
 
-    #region [Public parameter]
+    #region [Public Parameters]
     public ushort   Health = 65535;
     public bool     Invulnerable = false;
     public bool     NoGravity = false;
     #endregion
 
-    #region [private parameter]
-    private bool         OnGround = false;
+    #region [Private Parameters]
+    public bool     OnGround = false;
+    private Rigidbody2D rg2D;
     //private List<effect> Effects = new List<effect>();
     #endregion
 
-    void Start()
+    void Start ()
     {
-        
+        rg2D = this.gameObject.GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+	void Update ()
     {
-        
-    }
+        OnGround = rg2D.IsTouching(filter2d);
+	}
 }

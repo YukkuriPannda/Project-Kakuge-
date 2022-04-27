@@ -5,6 +5,7 @@ using UnityEngine;
 public class KeyInputer : MonoBehaviour
 {
     [SerializeField] PlayerController playerController;
+    float moveNumber;
 
     void Start()
     {
@@ -13,14 +14,19 @@ public class KeyInputer : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        moveNumber = 0;
+        if (Input.GetKey(KeyCode.Space)) {
             playerController.Jump(1f);
         }
-        if (Input.GetKeyDown(KeyCode.D)) {
-            playerController.Move(1f);
+        if (Input.GetKey(KeyCode.D)) {
+            moveNumber = 1;
         }
-        if (Input.GetKeyDown(KeyCode.A)) {
-            playerController.Move(-1f);
+        if (Input.GetKey(KeyCode.A)) {
+            moveNumber = -1;
         }
+        if(Input.GetKey(KeyCode.LeftShift)){
+            moveNumber *= 0.5f;
+        }
+        playerController.Move(moveNumber);
     }
 }

@@ -7,10 +7,10 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     [Header("InputField")]
-    public float movementSpeed = 200; //movementSpeed * 入力(最大値1) = velocity.x
+    public float movementSpeed = 5; //movementSpeed * 入力(最大値1) = velocity.x
     public float JumpForce = 200; //JumpForce * 入力(最大値1) = velocity.y
 
-    private Rigidbody2D rb2D;
+    public Rigidbody2D rb2D;
     private EntityBase eBase;
     [SerializeField] Text debconsole;
 
@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
 
     public void Move(float force) { // 移動方向/強さ -1~1 として
         force *= movementSpeed;
-        rb2D.velocity = new Vector2(Mathf.Lerp(rb2D.velocity.x,force,0.9f)*Time.deltaTime ,rb2D.velocity.y);
+        rb2D.AddForce(new Vector2(rb2D.mass * (force * movementSpeed - rb2D.velocity.x)/0.2f ,-0.1f));
     }
 
     public void Jump(float force) { // 最大値1,

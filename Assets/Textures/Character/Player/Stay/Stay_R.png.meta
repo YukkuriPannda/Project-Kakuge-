@@ -1,43 +1,43 @@
 fileFormatVersion: 2
-guid: 9c6234a200c53ae48ae848da807ac152
+guid: 4c31e3232e85b0649b3869f9bb89ecbf
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5518446045040149462
-    second: Stay_0
+      213: -7723395438080746578
+    second: Stay_R_0
   - first:
-      213: 6875347612452424846
-    second: Stay_1
+      213: -6463199831925801637
+    second: Stay_R_1
   - first:
-      213: 3409492104478395494
-    second: Stay_2
+      213: 1439438978534655334
+    second: Stay_R_2
   - first:
-      213: -2138268090450408774
-    second: Stay_3
+      213: 886629548158166850
+    second: Stay_R_3
   - first:
-      213: -3062367339606953649
-    second: Stay_4
+      213: -7502453069466467665
+    second: Stay_R_4
   - first:
-      213: 7103163386327471683
-    second: Stay_5
+      213: -667507638427338809
+    second: Stay_R_5
   - first:
-      213: 424976653981129107
-    second: Stay_6
+      213: 7140440681453776597
+    second: Stay_R_6
   - first:
-      213: 3712769519272856967
-    second: Stay_7
+      213: -3052788507612693430
+    second: Stay_R_7
   - first:
-      213: -1274303977554809053
-    second: Stay_8
+      213: -6320810398162821978
+    second: Stay_R_8
   - first:
-      213: 1769462127653207044
-    second: Stay_9
+      213: -1284385058307024472
+    second: Stay_R_9
   - first:
-      213: -1675233635963565902
-    second: Stay_10
+      213: -2871697343508409148
+    second: Stay_R_10
   - first:
-      213: 8265590261182459777
-    second: Stay_11
+      213: 2908141256523319871
+    second: Stay_R_11
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -104,7 +104,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -116,7 +116,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -124,11 +124,23 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: Android
+    buildTarget: iPhone
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -139,7 +151,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Stay_0
+      name: Stay_R_0
       rect:
         serializedVersion: 2
         x: 0
@@ -153,14 +165,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a2cf83d5f8a8a63b0800000000000000
-      internalID: -5518446045040149462
+      spriteID: eab1355f4ccf0d490800000000000000
+      internalID: -7723395438080746578
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stay_1
+      name: Stay_R_1
       rect:
         serializedVersion: 2
         x: 42
@@ -174,14 +186,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e8c8e83f9342a6f50800000000000000
-      internalID: 6875347612452424846
+      spriteID: b5db2b11ff91e46a0800000000000000
+      internalID: -6463199831925801637
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stay_2
+      name: Stay_R_2
       rect:
         serializedVersion: 2
         x: 84
@@ -195,14 +207,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 66c0fe73103f05f20800000000000000
-      internalID: 3409492104478395494
+      spriteID: 665c86fdf1ae9f310800000000000000
+      internalID: 1439438978534655334
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stay_3
+      name: Stay_R_3
       rect:
         serializedVersion: 2
         x: 126
@@ -216,14 +228,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aba862230885352e0800000000000000
-      internalID: -2138268090450408774
+      spriteID: 247255160e0fd4c00800000000000000
+      internalID: 886629548158166850
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stay_4
+      name: Stay_R_4
       rect:
         serializedVersion: 2
         x: 168
@@ -237,14 +249,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f4138f631294085d0800000000000000
-      internalID: -3062367339606953649
+      spriteID: fa2896adeaee1e790800000000000000
+      internalID: -7502453069466467665
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stay_5
+      name: Stay_R_5
       rect:
         serializedVersion: 2
         x: 210
@@ -258,14 +270,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3461c973771839260800000000000000
-      internalID: 7103163386327471683
+      spriteID: 7c7bda6e6598cb6f0800000000000000
+      internalID: -667507638427338809
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stay_6
+      name: Stay_R_6
       rect:
         serializedVersion: 2
         x: 252
@@ -279,14 +291,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3991162e302d5e500800000000000000
-      internalID: 424976653981129107
+      spriteID: 5deecc5d7f0f71360800000000000000
+      internalID: 7140440681453776597
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stay_7
+      name: Stay_R_7
       rect:
         serializedVersion: 2
         x: 294
@@ -300,14 +312,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 78d0829e438668330800000000000000
-      internalID: 3712769519272856967
+      spriteID: a4cb955d60152a5d0800000000000000
+      internalID: -3052788507612693430
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stay_8
+      name: Stay_R_8
       rect:
         serializedVersion: 2
         x: 336
@@ -321,14 +333,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 32f6af1b843c05ee0800000000000000
-      internalID: -1274303977554809053
+      spriteID: 6acd8e49e68f748a0800000000000000
+      internalID: -6320810398162821978
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stay_9
+      name: Stay_R_9
       rect:
         serializedVersion: 2
         x: 378
@@ -342,14 +354,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 40cb64a1e646e8810800000000000000
-      internalID: 1769462127653207044
+      spriteID: 8a95acc2892fc2ee0800000000000000
+      internalID: -1284385058307024472
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stay_10
+      name: Stay_R_10
       rect:
         serializedVersion: 2
         x: 420
@@ -363,14 +375,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2b80b9442ef50c8e0800000000000000
-      internalID: -1675233635963565902
+      spriteID: 4c49fb12b7ea528d0800000000000000
+      internalID: -2871697343508409148
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Stay_11
+      name: Stay_R_11
       rect:
         serializedVersion: 2
         x: 462
@@ -384,8 +396,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 18f65b0bc8645b270800000000000000
-      internalID: 8265590261182459777
+      spriteID: f3a0bb7901bcb5820800000000000000
+      internalID: 2908141256523319871
       vertices: []
       indices: 
       edges: []

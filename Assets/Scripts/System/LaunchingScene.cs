@@ -1,24 +1,23 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class LaunchingScene : MonoBehaviour
 {
-    private float d_time;
-    // Start is called before the first frame update
-    void Start()
-    {
-        d_time = 0.0f;
-    }
+    public GameObject fade;
+    public string scene;
+    public float speed = 1.0f;
 
-    // Update is called once per frame
+    private bool loading = false;
+    private float d_time = 0.0f;
+
     void Update()
     {
         d_time += Time.deltaTime;
  
-        // 3秒後に画面遷移（scene2へ移動）
-        if (d_time >= 3.0f)
+        if (d_time >= 2.0f && !loading)
         {
-            SceneManager.LoadSceneAsync("Scenes/InGameTest2");
+            GameObject fadeCanvas = Instantiate(fade);
+            fadeCanvas.GetComponent<FadeManager>().fadeStart(scene,speed);
+            loading = true;
         }
     }
 }

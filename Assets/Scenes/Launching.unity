@@ -152,6 +152,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f115fb2e0d4cb74097badda27007602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fade: {fileID: 1373257520289610296, guid: 461f19dbc885a544987844f0dc987903, type: 3}
+  scene: Scenes/InGameTest
+  speed: 0.5
 --- !u!4 &214698157
 Transform:
   m_ObjectHideFlags: 0

@@ -1,6 +1,3 @@
-using System.Net.Mime;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,8 +19,14 @@ public class PlayerController : MonoBehaviour
     }
 
     public void Move(float force) { // 移動方向/強さ -1~1 として
-        force *= movementSpeed;
-        rb2D.AddForce(new Vector2(rb2D.mass * (force * movementSpeed - rb2D.velocity.x)/0.2f ,-0.1f));
+        float forcePower;
+        if (eBase.OnGround) {
+            forcePower = 0.2f;
+        }
+        else {
+            forcePower = 0.2f;
+        }
+        rb2D.AddForce(new Vector2(rb2D.mass * (force * movementSpeed - rb2D.velocity.x)/forcePower ,0));
     }
 
     public void Jump(float force) { // 最大値1,

@@ -7,12 +7,12 @@ public class JoyStickController : MonoBehaviour
 {
     #region [Public Parameters]
     public RectTransform joystick_Body;
-    public float radius = 50f;//半径
+    public float radius = 50f;　//半径
     public float deadzone = 0.2f; //半径に対するデッドゾーン割合(百分率)
-    private float JumpTimeLimit = 0.4f;//ジャンプを認識してからのリミット(s)
+    private float JumpTimeLimit = 0.4f;　//ジャンプを認識してからのリミット(s)
     [SerializeField] PlayerController playerController;
     [SerializeField] Text debconsole;
-    [SerializeField] bool IsJsTouching = false;
+    [SerializeField] bool IsJsTouching　 = false;
     #endregion
 
     #region [Private Parameters]

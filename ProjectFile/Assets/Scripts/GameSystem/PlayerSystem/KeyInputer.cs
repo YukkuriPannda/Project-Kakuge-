@@ -15,8 +15,11 @@ public class KeyInputer : MonoBehaviour
     void Update()
     {
         InputValueForMove = new Vector2(0,0);
-        if (Input.GetKey(KeyCode.Space)) {
+        if (Input.GetKey(KeyCode.W)) {
             InputValueForMove += new Vector2(0,1);
+        }
+        if (Input.GetKey(KeyCode.S)) {
+            InputValueForMove += new Vector2(0,-1);
         }
         if (Input.GetKey(KeyCode.D)) {
             InputValueForMove += new Vector2(1,0);

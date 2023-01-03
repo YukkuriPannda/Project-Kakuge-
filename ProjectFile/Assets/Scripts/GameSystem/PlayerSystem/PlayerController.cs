@@ -51,13 +51,19 @@ public class PlayerController : MonoBehaviour
 
     }
     void isOnground(){
-        RaycastHit2D hitObject = Physics2D.CircleCast(transform.position,0.1f,Vector2.down,playerHeight/2 -0.04f,LayerMask.GetMask("Ground"));
-        if(hitObject){
-            onGround = (hitObject.transform.gameObject.CompareTag("Ground"));
+        int layermask = 1 << LayerMask.NameToLayer("Ground");
+        RaycastHit2D hitObject = Physics2D.CircleCast(transform.position,0.1f,Vector2.down,playerHeight/2,layermask);
+        Debug.Log(layermask);
+        if(hitObject.collider){
+            onGround = true;
+            /*onGround = (hitObject.transform.gameObject.CompareTag("Ground"));
             if(hitObject.transform.gameObject.CompareTag("Ground") && addingforceInJumping >0.06f){
                 jumping = false;
-            }
+            }*/
         }
         else onGround = false;
+    }
+    void OnDrawGizmos() {
+        Gizmos.DrawWireSphere(new Vector2(transform.position.x,transform.position.y-playerHeight/2),0.1f);
     }
 }

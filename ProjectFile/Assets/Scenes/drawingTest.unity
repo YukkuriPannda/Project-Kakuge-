@@ -233,13 +233,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8ecabdee77d07948bd59b621a0078a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionFrequency: 0
+  detectionFrequency: 0.05
   sinceLastAddedPoint: 0
   mousePointer: {fileID: 588898036}
   result: 
   writingTime: 0
   clicking: 0
   inputPoints: []
+  sortPoints: []
+  triangleAccuracyValue: 0
 --- !u!1 &1446934853
 GameObject:
   m_ObjectHideFlags: 0

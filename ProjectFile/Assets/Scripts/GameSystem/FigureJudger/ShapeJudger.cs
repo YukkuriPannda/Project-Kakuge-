@@ -19,10 +19,13 @@ public class ShapeJudger : MonoBehaviour
     [SerializeField]private bool clicking;
     [SerializeField]private List<Vector2> inputPoints = new List<Vector2>();
     [SerializeField]private List<Vector2> sortPoints = new List<Vector2>();
+    [SerializeField]private float CircleAccuracyValue = 0;
     [SerializeField]private float RegularTriangleAccuracyValue = 0;
     [SerializeField]private float InvertedTriangleAccuracyValue = 0;
     [SerializeField]private float thunderAccuracyValue = 0;
     [SerializeField]private float grassAccuracyValue = 0;
+    [SerializeField]private Vector2 center;
+    [SerializeField]private float radius;
     void Start()
     {
         
@@ -42,11 +45,14 @@ public class ShapeJudger : MonoBehaviour
             }
         }
         if(Input.GetMouseButtonUp(0)){
-            sortPoints = SortPoints(inputPoints);
-            RegularTriangleAccuracyValue = CheckRegularTriangle(sortPoints);
-            InvertedTriangleAccuracyValue = CheckInvertedTriangle(sortPoints);
-            thunderAccuracyValue = CheckThunder(sortPoints);
-            grassAccuracyValue = CheckGrass(sortPoints);
+            CircleAccuracyValue = CheckCircle(inputPoints);
+            if(CircleAccuracyValue < 0.65f){
+                sortPoints = SortPoints(inputPoints);
+                RegularTriangleAccuracyValue = CheckRegularTriangle(sortPoints);
+                InvertedTriangleAccuracyValue = CheckInvertedTriangle(sortPoints);
+                thunderAccuracyValue = CheckThunder(sortPoints);
+                grassAccuracyValue = CheckGrass(sortPoints);
+            }
         }
     }
     List<Vector2> SortPoints(List<Vector2> points){
@@ -57,6 +63,34 @@ public class ShapeJudger : MonoBehaviour
         }
         
         return returnPoints;
+    }
+    float CheckCircle(List<Vector2> points){
+        Vector2 sumPos = new Vector2(0,0);
+        foreach(Vector2 point in points){
+            sumPos += point;
+        }
+        center = sumPos/points.Count;
+        Debug.Log(center);
+        float sumDis = 0;
+        float MaxDis = 0;
+        float MinDis = Vector2.Distance(center,points[0]);
+        foreach(Vector2 point in points){
+            float Dis = Vector2.Distance(center,point);
+            sumDis += Dis;
+            if(Dis > MaxDis)MaxDis = Dis;
+            if(Dis < MinDis)MinDis = Dis;
+        }
+        radius = sumDis / points.Count;
+        float sumAccuracy = 0;
+        Debug.Log($"{radius} min{MinDis} max{MaxDis}");
+        foreach(Vector2 point in points){
+            float Dis = Vector2.Distance(center,point);
+            float accuracy = ExtensionMethods.AccuraryCheckFromNum(Dis,radius/2,radius);
+            sumAccuracy += accuracy;
+            Debug.Log($"Pos:{point} Dis:{Dis} accuracy:{accuracy}");
+        }
+
+        return sumAccuracy/points.Count;
     }
     float CheckRegularTriangle(List<Vector2> points){
         Debug.Log("Start Triangle Check");
@@ -139,6 +173,14 @@ public class ShapeJudger : MonoBehaviour
                 Gizmos.DrawSphere(sortPoints[i],0.1f);
             }
         }
+        if(center != null){
+            Gizmos.color = Color.blue;
+            Gizmos.DrawSphere(center,0.1f);
+        }
+        if(radius != 0){
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(center,radius);
+        }
     }
 }
 public class ExtensionMethods{
@@ -146,5 +188,9 @@ public class ExtensionMethods{
         Vector2 a =  point1 - point2;
         Vector2 b = point3 - point2;
         return Mathf.Acos((a.x*b.x+a.y*b.y)/(Mathf.Sqrt(a.x * a.x + a.y * a.y)*Mathf.Sqrt(b.x * b.x + b.y * b.y)));
+    }
+    public static float AccuraryCheckFromNum(float num,float numToMin,float numToMax){
+        if(num> numToMax +numToMin || num < numToMax - numToMin*2)return 0;
+        return Mathf.Cos((num*Mathf.PI-numToMax*Mathf.PI)/numToMin)/2 + 0.5f;
     }
 }

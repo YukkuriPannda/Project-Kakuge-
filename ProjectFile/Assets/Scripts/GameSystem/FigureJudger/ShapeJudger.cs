@@ -32,7 +32,14 @@ public class ShapeJudger : MonoBehaviour
     }
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))inputPoints = new List<Vector2>();
+        if(Input.GetMouseButtonDown(0)){//初期化
+            inputPoints = new List<Vector2>();
+            CircleAccuracyValue = 0;
+            RegularTriangleAccuracyValue = 0;
+            InvertedTriangleAccuracyValue = 0;
+            thunderAccuracyValue = 0;
+            grassAccuracyValue = 0;
+        }
         if(Input.GetMouseButton(0)){
             if(detectionFrequency >= sinceLastAddedPoint){
                 sinceLastAddedPoint = 0;
@@ -52,7 +59,11 @@ public class ShapeJudger : MonoBehaviour
                 InvertedTriangleAccuracyValue = CheckInvertedTriangle(sortPoints);
                 thunderAccuracyValue = CheckThunder(sortPoints);
                 grassAccuracyValue = CheckGrass(sortPoints);
-            }
+                if(RegularTriangleAccuracyValue > 0)result = "RegularTriangle";
+                if(InvertedTriangleAccuracyValue > 0) result = "InvertedTriangle";
+                if(thunderAccuracyValue > 0)result = "Thunder";
+                if(grassAccuracyValue > 0)result = "Grass";
+            }else result = "Circle";
         }
     }
     List<Vector2> SortPoints(List<Vector2> points){

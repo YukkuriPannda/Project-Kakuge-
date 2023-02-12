@@ -13,6 +13,7 @@ public class ShapeJudger : MonoBehaviour
     [Header("Output")]
     public string result ="";
     public float writingTime;
+    public float accuracy = 0;
     [Space(20)]
 
     [Header("Info")]
@@ -39,6 +40,7 @@ public class ShapeJudger : MonoBehaviour
             InvertedTriangleAccuracyValue = 0;
             thunderAccuracyValue = 0;
             grassAccuracyValue = 0;
+            accuracy =0;
         }
         if(Input.GetMouseButton(0)){
             if(detectionFrequency >= sinceLastAddedPoint){
@@ -59,11 +61,36 @@ public class ShapeJudger : MonoBehaviour
                 InvertedTriangleAccuracyValue = CheckInvertedTriangle(sortPoints);
                 thunderAccuracyValue = CheckThunder(sortPoints);
                 grassAccuracyValue = CheckGrass(sortPoints);
-                if(RegularTriangleAccuracyValue > 0)result = "RegularTriangle";
-                if(InvertedTriangleAccuracyValue > 0) result = "InvertedTriangle";
-                if(thunderAccuracyValue > 0)result = "Thunder";
-                if(grassAccuracyValue > 0)result = "Grass";
-            }else result = "Circle";
+                if(RegularTriangleAccuracyValue > 0){
+                    result = "RegularTriangle";
+                    accuracy = RegularTriangleAccuracyValue;
+                }
+                if(InvertedTriangleAccuracyValue > 0) {
+                    result = "InvertedTriangle";
+                    accuracy = InvertedTriangleAccuracyValue;
+                }
+                if(thunderAccuracyValue > 0){
+                    result = "Thunder";
+                    accuracy = thunderAccuracyValue;
+                }
+                if(grassAccuracyValue > 0){
+                    result = "Grass";
+                    accuracy = grassAccuracyValue;
+                }
+            }else {
+                result = "Circle";
+                accuracy = CircleAccuracyValue;
+            }
+
+            if(accuracy <= 0.5f){
+                float drawingAngle = Mathf.Atan2(inputPoints[0].y-inputPoints[inputPoints.Count-1].y,inputPoints[0].x-inputPoints[inputPoints.Count-1].x)+Mathf.PI;
+                Debug.Log($"drawingAngle{drawingAngle}");
+                if(drawingAngle>Mathf.PI/4 && drawingAngle<Mathf.PI*3/4)result = "StraightToUp";
+                if(drawingAngle>Mathf.PI*3/4 && drawingAngle<Mathf.PI*5/4)result = "StraightToLeft";
+                if(drawingAngle>Mathf.PI*5/4 && drawingAngle<Mathf.PI*7/4)result = "StraightToDown";
+                if(drawingAngle>Mathf.PI*7/4 || drawingAngle<Mathf.PI/4)result = "StreightToRight";
+                accuracy = 1;
+            }
         }
     }
     List<Vector2> SortPoints(List<Vector2> points){

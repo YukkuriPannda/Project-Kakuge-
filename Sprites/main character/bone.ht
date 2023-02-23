@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1105 &110500000
+HumanTemplate:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: bone
+  m_BoneTemplate:
+    Chest: Center
+    Head: "\u982D"
+    Hips: v3
+    Left Index Distal: Bone.001_R.019
+    Left Index Intermediate: Bone.001_R.018
+    Left Index Proximal: Bone.001_R.023
+    Left Little Distal: Bone.001_R.006_end
+    Left Little Intermediate: Bone.001_R.006
+    Left Little Proximal: Bone.001_R.005
+    Left Middle Distal: Bone.001_R.015
+    Left Middle Intermediate: Bone.001_R.014
+    Left Middle Proximal: Bone.001_R.022
+    Left Ring Distal: Bone.001_R.011_end
+    Left Ring Intermediate: Bone.001_R.011
+    Left Ring Proximal: Bone.001_R.010
+    Left Thumb Distal: Bone.001_R.024_end
+    Left Thumb Intermediate: Bone.001_R.024
+    Left Thumb Proximal: Bone.001_R.016
+    LeftFoot: "\u8DB3\u9996.L"
+    LeftHand: "\u624B\u9996.L"
+    LeftLowerArm: "\u3072\u3058.L"
+    LeftLowerLeg: "\u3072\u3056.L"
+    LeftShoulder: "\u80A9.L"
+    LeftToes: Bone_R.004_end
+    LeftUpperArm: "\u8155.L"
+    LeftUpperLeg: "\u8DB3.L"
+    Neck: Bone.002
+    RightFoot: "\u8DB3\u9996.R"
+    RightHand: "\u624B\u9996.R"
+    RightLowerArm: "\u624B\u9996.R.001"
+    RightLowerLeg: "\u3072\u3056.R"
+    RightShoulder: "\u80A9.R"
+    RightToes: Bone_L.004_end
+    RightUpperArm: "\u8155.R"
+    RightUpperLeg: "\u8DB3.R"
+    Spine: root
+    UpperChest: "\u30B0\u30EB\u30FC\u30D7"

@@ -5,6 +5,7 @@ using UnityEngine;
 public class VisualControler : MonoBehaviour
 {
     public GameObject Player;
+    public Transform PlayerModel;
     private Animator playerAnimator;
     private PlayerController playerController;
     public string nowPlayerState;
@@ -30,12 +31,12 @@ public class VisualControler : MonoBehaviour
     void Update()
     {
         switch(playerController.InputValueForMove.x){
-            case float f when (f>=1f):
+            case float f when (f>=1f)://RunR
             playerAnimator.SetInteger("AnimNumber",(int)AnimMotions.Run);
             playerAnimator.SetInteger("Orientation",(int)Orientation.Right);
             nowPlayerState = "RUN";
             break;
-            case float f when(f<=-1):
+            case float f when(f<=-1)://RunL
             playerAnimator.SetInteger("AnimNumber",(int)AnimMotions.Run);
             playerAnimator.SetInteger("Orientation",(int)Orientation.Left);
             nowPlayerState = "RUN";
@@ -53,7 +54,6 @@ public class VisualControler : MonoBehaviour
             case float f when(f==0 && nowPlayerState != "STAY"):
             playerAnimator.SetInteger("AnimNumber",(int)AnimMotions.Stay);
             nowPlayerState = "STAY";
-            Debug.Log("PlzStay...stay...");
             break;
         }
     }

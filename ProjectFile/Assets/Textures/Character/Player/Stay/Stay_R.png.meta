@@ -1,43 +1,7 @@
 fileFormatVersion: 2
 guid: 4c31e3232e85b0649b3869f9bb89ecbf
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -7723395438080746578
-    second: Stay_R_0
-  - first:
-      213: -6463199831925801637
-    second: Stay_R_1
-  - first:
-      213: 1439438978534655334
-    second: Stay_R_2
-  - first:
-      213: 886629548158166850
-    second: Stay_R_3
-  - first:
-      213: -7502453069466467665
-    second: Stay_R_4
-  - first:
-      213: -667507638427338809
-    second: Stay_R_5
-  - first:
-      213: 7140440681453776597
-    second: Stay_R_6
-  - first:
-      213: -3052788507612693430
-    second: Stay_R_7
-  - first:
-      213: -6320810398162821978
-    second: Stay_R_8
-  - first:
-      213: -1284385058307024472
-    second: Stay_R_9
-  - first:
-      213: -2871697343508409148
-    second: Stay_R_10
-  - first:
-      213: 2908141256523319871
-    second: Stay_R_11
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -125,6 +89,18 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
     buildTarget: iPhone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -138,18 +114,6 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -178,8 +142,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eab1355f4ccf0d490800000000000000
-      internalID: -7723395438080746578
+      spriteID: 60f0f6c42ea7c3c4490c7c9a4314a4fa
+      internalID: 1340598076
       vertices: []
       indices: 
       edges: []
@@ -199,8 +163,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b5db2b11ff91e46a0800000000000000
-      internalID: -6463199831925801637
+      spriteID: a03be97bef050fc46855181c39ab3b20
+      internalID: 294687441
       vertices: []
       indices: 
       edges: []
@@ -220,8 +184,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 665c86fdf1ae9f310800000000000000
-      internalID: 1439438978534655334
+      spriteID: 4fd3fc7c0e6a57e4ebd1eeecdea5f937
+      internalID: 1267119471
       vertices: []
       indices: 
       edges: []
@@ -241,8 +205,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 247255160e0fd4c00800000000000000
-      internalID: 886629548158166850
+      spriteID: 948cb21ee58ba0d44b5f9ee9df2f2ccf
+      internalID: 1311963874
       vertices: []
       indices: 
       edges: []
@@ -262,8 +226,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fa2896adeaee1e790800000000000000
-      internalID: -7502453069466467665
+      spriteID: 51f56a895b6d6c847b2384b19d3ddaf6
+      internalID: 886401118
       vertices: []
       indices: 
       edges: []
@@ -283,8 +247,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7c7bda6e6598cb6f0800000000000000
-      internalID: -667507638427338809
+      spriteID: 5d82562e95b545043b7bbca4e0aeda11
+      internalID: 669875089
       vertices: []
       indices: 
       edges: []
@@ -304,8 +268,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5deecc5d7f0f71360800000000000000
-      internalID: 7140440681453776597
+      spriteID: 841fbacdde47e5c47adfee42c5330150
+      internalID: 869577778
       vertices: []
       indices: 
       edges: []
@@ -325,8 +289,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a4cb955d60152a5d0800000000000000
-      internalID: -3052788507612693430
+      spriteID: 38795392a5c16414499cd1f7a46635e7
+      internalID: -623198429
       vertices: []
       indices: 
       edges: []
@@ -346,8 +310,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6acd8e49e68f748a0800000000000000
-      internalID: -6320810398162821978
+      spriteID: 9cf47dee6a53ff141af5e2e42a54aa73
+      internalID: 183450492
       vertices: []
       indices: 
       edges: []
@@ -367,8 +331,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8a95acc2892fc2ee0800000000000000
-      internalID: -1284385058307024472
+      spriteID: a0788e47105375245b5fe6a1a72d6103
+      internalID: -1466465520
       vertices: []
       indices: 
       edges: []
@@ -388,8 +352,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4c49fb12b7ea528d0800000000000000
-      internalID: -2871697343508409148
+      spriteID: 388419244e1e6384db625f1a4f149a21
+      internalID: 1102821862
       vertices: []
       indices: 
       edges: []
@@ -409,8 +373,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f3a0bb7901bcb5820800000000000000
-      internalID: 2908141256523319871
+      spriteID: e82cd1a4c288c8c43b6f9ce2726f321a
+      internalID: 214844106
       vertices: []
       indices: 
       edges: []
@@ -430,8 +394,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6ecfa32780254504cb6effe3d7b62f93
-      internalID: -1049012777
+      spriteID: c01f4dac213ef2646abd12a096c95535
+      internalID: -1361257927
       vertices: []
       indices: 
       edges: []
@@ -451,8 +415,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 24440d84c40658b44bfd51d26d213716
-      internalID: -1033288588
+      spriteID: 01ee9904972eeeb489879943459cd822
+      internalID: -387389955
       vertices: []
       indices: 
       edges: []
@@ -472,8 +436,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c35c16285fa70544989acb60eaca6338
-      internalID: -2142482158
+      spriteID: 01b522beeb1c4f443ab2b98c5d991478
+      internalID: -2005180188
       vertices: []
       indices: 
       edges: []
@@ -493,8 +457,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 875e709a5acf1084f96f7bfed9add253
-      internalID: -963840173
+      spriteID: 871e9b882bda6224db060b0fe441f22a
+      internalID: -1916628643
       vertices: []
       indices: 
       edges: []
@@ -514,302 +478,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 12b95c1eadb788a40b2eb485cb32d085
-      internalID: -1807352765
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Stay_R_17
-      rect:
-        serializedVersion: 2
-        x: 1088
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f7a89736f0693064cac3213d02a41a21
-      internalID: 1220705472
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Stay_R_18
-      rect:
-        serializedVersion: 2
-        x: 1152
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ea294b5fc90688c41a57019ea4433082
-      internalID: -491792947
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Stay_R_19
-      rect:
-        serializedVersion: 2
-        x: 1216
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c118f48843fd8f0448e7cd1103c5e8d7
-      internalID: 1843250172
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Stay_R_20
-      rect:
-        serializedVersion: 2
-        x: 1280
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d6a9a38d03155794db33b2ca41237bb0
-      internalID: -1304448532
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Stay_R_21
-      rect:
-        serializedVersion: 2
-        x: 1344
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3f17ba8a2f7c7fb4e817b620d2213ea8
-      internalID: -88134002
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Stay_R_22
-      rect:
-        serializedVersion: 2
-        x: 1408
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4def54eb448a80140a8bffa578ad6730
-      internalID: 108377895
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Stay_R_23
-      rect:
-        serializedVersion: 2
-        x: 1472
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: df261787954102445808b2636ed4e42b
-      internalID: -589948505
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Stay_R_24
-      rect:
-        serializedVersion: 2
-        x: 1536
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0c6619e989962dc4e9a213e1a8812a26
-      internalID: 806027300
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Stay_R_25
-      rect:
-        serializedVersion: 2
-        x: 1600
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2f7c3328c0e13504296573db5c1121fd
-      internalID: -931798871
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Stay_R_26
-      rect:
-        serializedVersion: 2
-        x: 1664
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 443e60dc1d7e3054d96d2b834a12c81c
-      internalID: -371610136
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Stay_R_27
-      rect:
-        serializedVersion: 2
-        x: 1728
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b98c674edf74ccb46be4083cfa19bf72
-      internalID: 2040416435
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Stay_R_28
-      rect:
-        serializedVersion: 2
-        x: 1792
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ebbb3bfb4f20e504c8ae2315c0da1a69
-      internalID: -1355645854
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Stay_R_29
-      rect:
-        serializedVersion: 2
-        x: 1856
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a366a1fd5d750624fbcc1aad5c6ac038
-      internalID: -518747855
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Stay_R_30
-      rect:
-        serializedVersion: 2
-        x: 1920
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 27b18456ed07d2c41b27a474b09e280d
-      internalID: -620588614
+      spriteID: 58cadc52983587c43979b31b9b529c17
+      internalID: -731219898
       vertices: []
       indices: 
       edges: []
@@ -825,37 +495,23 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Stay_R_16: -1807352765
-      Stay_R_25: -931798871
-      Stay_R_2: 1439438978534655334
-      Stay_R_7: -3052788507612693430
-      Stay_R_30: -620588614
-      Stay_R_18: -491792947
-      Stay_R_13: -1033288588
-      Stay_R_22: 108377895
-      Stay_R_20: -1304448532
-      Stay_R_8: -6320810398162821978
-      Stay_R_26: -371610136
-      Stay_R_28: -1355645854
-      Stay_R_3: 886629548158166850
-      Stay_R_17: 1220705472
-      Stay_R_19: 1843250172
-      Stay_R_23: -589948505
-      Stay_R_5: -667507638427338809
-      Stay_R_1: -6463199831925801637
-      Stay_R_9: -1284385058307024472
-      Stay_R_11: 2908141256523319871
-      Stay_R_12: -1049012777
-      Stay_R_0: -7723395438080746578
-      Stay_R_4: -7502453069466467665
-      Stay_R_10: -2871697343508409148
-      Stay_R_21: -88134002
-      Stay_R_27: 2040416435
-      Stay_R_14: -2142482158
-      Stay_R_24: 806027300
-      Stay_R_6: 7140440681453776597
-      Stay_R_15: -963840173
-      Stay_R_29: -518747855
+      Stay_R_16: -731219898
+      Stay_R_2: 1267119471
+      Stay_R_7: -623198429
+      Stay_R_13: -387389955
+      Stay_R_8: 183450492
+      Stay_R_3: 1311963874
+      Stay_R_5: 669875089
+      Stay_R_1: 294687441
+      Stay_R_9: -1466465520
+      Stay_R_11: 214844106
+      Stay_R_12: -1361257927
+      Stay_R_0: 1340598076
+      Stay_R_4: 886401118
+      Stay_R_10: 1102821862
+      Stay_R_14: -2005180188
+      Stay_R_6: 869577778
+      Stay_R_15: -1916628643
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

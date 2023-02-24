@@ -5,19 +5,27 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("InputField")]
+    [Header("States")]
     public float movementSpeed = 5; //movementSpeed * 入力(最大値1) = velocity.x
     public float JumpForce = 5; //JumpForce * 入力(最大値1) = velocity.y
     public float jumpInputArrowableTime = 0.5f;
-    [SerializeField]bool onGround = false;
-    [HideInInspector]public Rigidbody2D rb2D;
-    private EntityBase eBase;
+    public GameObject weapon;
     private float playerHeight;
-    [SerializeField] Text devconsole;
+
+    [Header("InputField")]
+    public string drawShapeName = "None";
+    private string oldDrawShapeName ="None";
+    public Vector2 drawShapePos = new Vector2(0,0);
     public Vector2 InputValueForMove;
     Vector2 oldInputValueForMove;
 
-
+    [Header("Info")]
+    [SerializeField] Text devconsole;
+    [SerializeField] bool onGround = false;
+    [SerializeField] public bool lockMove = false;
+    [HideInInspector]public Rigidbody2D rb2D;
+    private EntityBase eBase;
+    
     void Start()
     {
         rb2D = this.gameObject.GetComponent<Rigidbody2D>();
@@ -30,10 +38,15 @@ public class PlayerController : MonoBehaviour
         isOnground();
         oldInputValueForMove = InputValueForMove;
     }
+    void Update() {
+        if(oldDrawShapeName != drawShapeName){
+            onChangeDrawShapeName();
+        }
+        oldDrawShapeName = drawShapeName;
+    }
     
     public void Move(float input) { // 移動方向/強さ -1~1 として
-        rb2D.AddForce(new Vector2(rb2D.mass * (input * movementSpeed - rb2D.velocity.x)/0.1f ,0));//f=maの応用
-        //rb2D.velocity = new Vector2(input * movementSpeed,0);
+        if(!lockMove)rb2D.AddForce(new Vector2(rb2D.mass * (input * movementSpeed - rb2D.velocity.x) ,0));//f=maの応用
     }
     [SerializeField]float addingforceInJumping = 0;
     [SerializeField]bool jumping;
@@ -49,6 +62,15 @@ public class PlayerController : MonoBehaviour
             rb2D.AddForce(new Vector2(0,JumpForce * input * (-addingforceInJumping *addingforceInJumping + jumpInputArrowableTime)/jumpInputArrowableTime));
         }
 
+    }
+    public void onChangeDrawShapeName(){
+        if(oldDrawShapeName == "None"){
+            lockMove = true;
+        }
+    }
+    public void OnFinishAttack(){
+        drawShapeName = "None";
+        lockMove = false;
     }
     void isOnground(){
         int layermask = 1 << LayerMask.NameToLayer("Ground");

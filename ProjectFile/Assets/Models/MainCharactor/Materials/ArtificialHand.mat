@@ -112,6 +112,6 @@ Material:
     - _MinColor: {r: 0.21976727, g: 0, b: 0.4056604, a: 1}
     - _OtlColor: {r: 0.20754719, g: 0.19279526, b: 0, a: 1}
     - _RimColor: {r: 0.48124656, g: 0.43867922, b: 1, a: 1}
-    - _ShnColor: {r: 0.38679248, g: 0.36915573, b: 0.33388218, a: 1}
+    - _ShnColor: {r: 0.4339623, g: 0.41860986, b: 0.39097545, a: 1}
     - _SpcColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

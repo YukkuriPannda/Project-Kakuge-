@@ -8,10 +8,11 @@ public class ShapeJudger : MonoBehaviour
     public float detectionFrequency;
     public float sinceLastAddedPoint = 0;
     [SerializeField] Transform mousePointer;
+    [SerializeField] PlayerController plc;
     [Space(5)]
 
     [Header("Output")]
-    public string result ="";
+    public string result ="None";
     public float writingTime;
     public float accuracy = 0;
     [Space(20)]
@@ -91,6 +92,8 @@ public class ShapeJudger : MonoBehaviour
                 if(drawingAngle>Mathf.PI*7/4 || drawingAngle<Mathf.PI/4)result = "StreightToRight";
                 accuracy = 1;
             }
+            plc.drawShapeName = result;
+            plc.drawShapePos = center;
         }
     }
     List<Vector2> SortPoints(List<Vector2> points){

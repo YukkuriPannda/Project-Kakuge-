@@ -89,7 +89,7 @@ public class ShapeJudger : MonoBehaviour
                 if(drawingAngle>Mathf.PI/4 && drawingAngle<Mathf.PI*3/4)result = "StraightToUp";
                 if(drawingAngle>Mathf.PI*3/4 && drawingAngle<Mathf.PI*5/4)result = "StraightToLeft";
                 if(drawingAngle>Mathf.PI*5/4 && drawingAngle<Mathf.PI*7/4)result = "StraightToDown";
-                if(drawingAngle>Mathf.PI*7/4 || drawingAngle<Mathf.PI/4)result = "StreightToRight";
+                if(drawingAngle>Mathf.PI*7/4 || drawingAngle<Mathf.PI/4)result = "StraightToRight";
                 accuracy = 1;
             }
             plc.drawShapeName = result;

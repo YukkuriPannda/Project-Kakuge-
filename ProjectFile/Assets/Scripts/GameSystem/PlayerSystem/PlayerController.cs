@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     [Header("Info")]
     [SerializeField] Text devconsole;
     [SerializeField] bool onGround = false;
-    [SerializeField] public bool lockMove = false;
+    [SerializeField] public bool lockOperation = false;
     [HideInInspector]public Rigidbody2D rb2D;
     private EntityBase eBase;
     
@@ -40,13 +40,13 @@ public class PlayerController : MonoBehaviour
     }
     void Update() {
         if(oldDrawShapeName != drawShapeName){
-            onChangeDrawShapeName();
+            StartCoroutine(onChangeDrawShapeName());
         }
         oldDrawShapeName = drawShapeName;
     }
     
     public void Move(float input) { // 移動方向/強さ -1~1 として
-        if(!lockMove)rb2D.AddForce(new Vector2(rb2D.mass * (input * movementSpeed - rb2D.velocity.x) ,0));//f=maの応用
+        if(!lockOperation)rb2D.AddForce(new Vector2(rb2D.mass * (input * movementSpeed - rb2D.velocity.x) ,0));//f=maの応用
     }
     [SerializeField]float addingforceInJumping = 0;
     [SerializeField]bool jumping;
@@ -63,14 +63,43 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-    public void onChangeDrawShapeName(){
+    public IEnumerator onChangeDrawShapeName(){
         if(oldDrawShapeName == "None"){
-            lockMove = true;
+            lockOperation = true;
+            int direction = 0;
+            if(drawShapePos.x > transform.position.x) direction =-1;
+            else direction = 1;
+            switch(drawShapeName){
+                case "StraightToRight":
+                    for(int i = 0;i < 10;i++){
+                        transform.Translate(-0.15f,0,0);
+                        yield return new WaitForEndOfFrame();
+                    }
+                break;
+                case "StraightToLeft":
+                    for(int i = 0;i < 10;i++){
+                        transform.Translate(0.15f,0,0);
+                        yield return new WaitForEndOfFrame();
+                    }
+                break;
+                case  "StraightToUp":
+                    for(int i = 0;i < 10;i++){
+                        transform.Translate(0.08f*direction,0,0);
+                        yield return new WaitForEndOfFrame();
+                    }
+                break;
+                case  "StraightToDown":
+                    for(int i = 0;i < 10;i++){
+                        transform.Translate(0.08f*direction,0,0);
+                        yield return new WaitForEndOfFrame();
+                    }
+                break;
+            }
         }
     }
     public void OnFinishAttack(){
         drawShapeName = "None";
-        lockMove = false;
+        lockOperation = false;
     }
     void isOnground(){
         int layermask = 1 << LayerMask.NameToLayer("Ground");
@@ -78,10 +107,6 @@ public class PlayerController : MonoBehaviour
         Debug.Log(layermask);
         if(hitObject.collider){
             onGround = true;
-            /*onGround = (hitObject.transform.gameObject.CompareTag("Ground"));
-            if(hitObject.transform.gameObject.CompareTag("Ground") && addingforceInJumping >0.06f){
-                jumping = false;
-            }*/
         }
         else onGround = false;
     }

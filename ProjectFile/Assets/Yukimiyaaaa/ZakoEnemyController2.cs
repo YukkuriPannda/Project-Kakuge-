@@ -42,6 +42,24 @@ public class ZakoEnemyController2 : MonoBehaviour
         {
             rb2D.AddForce(new Vector2(rb2D.mass * (-1 * movementSpeed - rb2D.velocity.x) , 0));
         }
+
+            //攻撃
+        if(Mathf.Abs(playerObject.transform.position.x - transform.position.x)<=attackRadius)
+        {
+
+        }else{
+            //追尾再び
+            if (PlayerPosition.x > EnemyPosition.x)
+            {
+                  rb2D.AddForce(new Vector2(rb2D.mass * (1 * movementSpeed - rb2D.velocity.x) , 0));
+            }
+            else if (PlayerPosition.x < EnemyPosition.x)
+            {
+                  rb2D.AddForce(new Vector2(rb2D.mass * (-1 * movementSpeed - rb2D.velocity.x) , 0));
+            }
+
+        }
+
         }else{
         //常に往復運動
         rb2D.AddForce(new Vector2(rb2D.mass * (num * movementSpeed - rb2D.velocity.x) , 0));

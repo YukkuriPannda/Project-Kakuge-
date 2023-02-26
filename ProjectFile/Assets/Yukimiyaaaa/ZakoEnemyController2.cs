@@ -27,11 +27,11 @@ public class ZakoEnemyController2 : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //常に往復運動
         pos=transform.position;
-        rb2D.AddForce(new Vector2(rb2D.mass * (movementSpeed ) / 0.1f, 0)*num);
+        rb2D.AddForce(new Vector2(rb2D.mass * (num * movementSpeed - rb2D.velocity.x) , 0));
 
         if(pos.x>2)
         {

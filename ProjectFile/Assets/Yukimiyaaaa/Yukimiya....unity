@@ -218,6 +218,7 @@ GameObject:
   - component: {fileID: 1131251714}
   - component: {fileID: 1131251716}
   - component: {fileID: 1131251713}
+  - component: {fileID: 1131251717}
   - component: {fileID: 1131251712}
   - component: {fileID: 1131251715}
   m_Layer: 0
@@ -291,6 +292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aee27ab9857be4bccbe3a3a377c01fbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  detecitrRadius: 3
   rb2D: {fileID: 0}
   movementSpeed: 5
   Player: {fileID: 1188894267}
@@ -344,6 +346,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fe1843d1c0a3490597598a8799f0378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1131251717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1131251711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41beda9f9ac695944a444832b4b45742, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb2D: {fileID: 1131251715}
+  target: {fileID: 1188894267}
+  movementSpeed: 1
 --- !u!1 &1188894267
 GameObject:
   m_ObjectHideFlags: 0

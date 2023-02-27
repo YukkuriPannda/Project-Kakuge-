@@ -11,6 +11,13 @@ public class PlayerController : MonoBehaviour
     public float jumpInputArrowableTime = 0.5f;
     public GameObject weapon;
     private float playerHeight;
+    public AttackColliderPrefabs attackColliders;
+    [System.Serializable]
+    public class AttackColliderPrefabs{
+        public GameObject UpSlash;
+        public GameObject Thrust;
+        public GameObject DownSlash;
+    }
 
     [Header("InputField")]
     public string drawShapeName = "None";
@@ -83,6 +90,8 @@ public class PlayerController : MonoBehaviour
                     }
                 break;
                 case  "StraightToUp":
+                yield return new WaitForSeconds(0.1f);
+                    Destroy(Instantiate(attackColliders.UpSlash,new Vector2(transform.position.x + 1.7f,transform.position.y),transform.rotation),0.1f);
                     for(int i = 0;i < 10;i++){
                         transform.Translate(0.08f*direction,0,0);
                         yield return new WaitForEndOfFrame();
@@ -104,7 +113,6 @@ public class PlayerController : MonoBehaviour
     void isOnground(){
         int layermask = 1 << LayerMask.NameToLayer("Ground");
         RaycastHit2D hitObject = Physics2D.CircleCast(transform.position,0.1f,Vector2.down,playerHeight/2,layermask);
-        Debug.Log(layermask);
         if(hitObject.collider){
             onGround = true;
         }

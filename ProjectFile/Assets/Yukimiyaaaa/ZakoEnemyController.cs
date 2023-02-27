@@ -10,7 +10,7 @@ public class ZakoEnemyController : MonoBehaviour
     private Vector3 PlayerPosition;
     private Vector3 EnemyPosition;
 
-    private float detecitrRadius=3.0f;
+    public float detecitrRadius=3.0f;
     private float attackRadius = 1.0f;
     [HideInInspector] public Rigidbody2D rb2D;
     public float movementSpeed = 5.0f;
@@ -48,8 +48,6 @@ public class ZakoEnemyController : MonoBehaviour
         }
 
         [SerializeField]float walkingspeed=1.0f;
-    public object Heal { get; private set; }
-
     // Start is called before the first frame update
     void Start()
     {

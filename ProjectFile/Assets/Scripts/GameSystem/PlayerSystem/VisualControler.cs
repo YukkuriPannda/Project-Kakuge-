@@ -43,33 +43,33 @@ public class VisualControler : MonoBehaviour
             playerController.weapon.transform.rotation = centerBone.rotation;
             switch(playerController.InputValueForMove.x){
                 case float f when (f>=1f)://RunR
-                PlayerModel.localEulerAngles = new Vector3(0,0,0);
-                playerAnimator.SetInteger("AnimNumber",(int)AnimMotions.Run);
-                playerAnimator.SetInteger("Orientation",(int)Orientation.Right);
-                nowPlayerState = "RUN";
+                    PlayerModel.localEulerAngles = new Vector3(0,0,0);
+                    playerAnimator.SetInteger("AnimNumber",(int)AnimMotions.Run);
+                    playerAnimator.SetInteger("Orientation",(int)Orientation.Right);
+                    nowPlayerState = "RUN";
                 break;
                 case float f when(f<=-1)://RunL
-                PlayerModel.localEulerAngles = new Vector3(0,180,0);
-                playerAnimator.SetInteger("AnimNumber",(int)AnimMotions.Run);
-                playerAnimator.SetInteger("Orientation",(int)Orientation.Left);
-                nowPlayerState = "RUN";
+                    PlayerModel.localEulerAngles = new Vector3(0,180,0);
+                    playerAnimator.SetInteger("AnimNumber",(int)AnimMotions.Run);
+                    playerAnimator.SetInteger("Orientation",(int)Orientation.Left);
+                    nowPlayerState = "RUN";
                 break;
                 case float f when(f>0)://WalkR
-                PlayerModel.localEulerAngles = new Vector3(0,0,0);
-                playerAnimator.SetInteger("AnimNumber",(int)AnimMotions.Walk);
-                playerAnimator.SetInteger("Orientation",(int)Orientation.Right);
-                nowPlayerState = "WALK";
+                    PlayerModel.localEulerAngles = new Vector3(0,0,0);
+                    playerAnimator.SetInteger("AnimNumber",(int)AnimMotions.Walk);
+                    playerAnimator.SetInteger("Orientation",(int)Orientation.Right);
+                    nowPlayerState = "WALK";
                 break;
                 case float f when(f<0)://WalkL
-                PlayerModel.localEulerAngles = new Vector3(0,180,0);
-                playerAnimator.SetInteger("AnimNumber",(int)AnimMotions.Walk);
-                playerAnimator.SetInteger("Orientation",(int)Orientation.Left);
-                nowPlayerState = "WALK";
+                    PlayerModel.localEulerAngles = new Vector3(0,180,0);
+                    playerAnimator.SetInteger("AnimNumber",(int)AnimMotions.Walk);
+                    playerAnimator.SetInteger("Orientation",(int)Orientation.Left);
+                    nowPlayerState = "WALK";
                 break;//Stay
                 case float f when(f==0 && nowPlayerState != "STAY"):
-                PlayerModel.localEulerAngles = new Vector3(0,0,0);
-                playerAnimator.SetInteger("AnimNumber",(int)AnimMotions.Stay);
-                nowPlayerState = "STAY";
+                    PlayerModel.localEulerAngles = new Vector3(0,0,0);
+                    playerAnimator.SetInteger("AnimNumber",(int)AnimMotions.Stay);
+                    nowPlayerState = "STAY";
                 break;
             }
         }else{

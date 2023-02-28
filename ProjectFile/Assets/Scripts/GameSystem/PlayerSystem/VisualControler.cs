@@ -43,13 +43,13 @@ public class VisualControler : MonoBehaviour
             playerController.weapon.transform.rotation = centerBone.rotation;
             switch(playerController.InputValueForMove.x){
                 case float f when (f>=1f)://RunR
-                    PlayerModel.localEulerAngles = new Vector3(0,0,0);
+                    PlayerModel.localEulerAngles = new Vector3(0,180,0);
                     playerAnimator.SetInteger("AnimNumber",(int)AnimMotions.Run);
                     playerAnimator.SetInteger("Orientation",(int)Orientation.Right);
                     nowPlayerState = "RUN";
                 break;
                 case float f when(f<=-1)://RunL
-                    PlayerModel.localEulerAngles = new Vector3(0,180,0);
+                    PlayerModel.localEulerAngles = new Vector3(0,0,0);
                     playerAnimator.SetInteger("AnimNumber",(int)AnimMotions.Run);
                     playerAnimator.SetInteger("Orientation",(int)Orientation.Left);
                     nowPlayerState = "RUN";

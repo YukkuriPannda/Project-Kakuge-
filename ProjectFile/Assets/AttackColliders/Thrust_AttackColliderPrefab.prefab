@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 642442030821904801}
   - component: {fileID: 6839894086956316147}
   m_Layer: 0
-  m_Name: UpSlash_AttackColliderPrefab
+  m_Name: Thrust_AttackColliderPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 7114548282539418036}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.77, y: 0.85, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.7, z: 1}
+  m_LocalScale: {x: 4, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -49,7 +49,7 @@ MonoBehaviour:
   damage: 10
   magicAttribute: 0
   hurtCoolTime: 0.05
-  knockBack: {x: 1000, y: 5000}
+  knockBack: {x: 7000, y: 2000}
   teamBelonged: 0
   hurtTime: 0
 --- !u!61 &642442030821904801

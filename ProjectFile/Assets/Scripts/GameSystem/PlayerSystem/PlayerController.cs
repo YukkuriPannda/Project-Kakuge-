@@ -74,35 +74,62 @@ public class PlayerController : MonoBehaviour
         if(oldDrawShapeName == "None"){
             lockOperation = true;
             int direction = 0;
-            if(drawShapePos.x > transform.position.x) direction =-1;
-            else direction = 1;
+            if(drawShapePos.x > transform.position.x) direction =1;
+            else direction = -1;
+            
             switch(drawShapeName){
-                case "StraightToRight":
+                case "StraightToRight":{
+                    yield return new WaitForSeconds(0.1f);
+                    GameObject DMGObject = Instantiate(attackColliders.Thrust,new Vector2(transform.position.x + 3f,transform.position.y),transform.rotation);
+                    AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
+                    attackBase.damage *= 1;
+                    attackBase.teamBelonged = TeamBelonged.player;
+                    attackBase.knockBack = new Vector2(attackBase.knockBack.x,attackBase.knockBack.y);
+                    Destroy(DMGObject,0.1f);
                     for(int i = 0;i < 10;i++){
-                        transform.Translate(-0.15f,0,0);
+                        transform.Translate(0.2f,0,0);
                         yield return new WaitForEndOfFrame();
                     }
-                break;
-                case "StraightToLeft":
+                }break;
+                case "StraightToLeft":{
+                    yield return new WaitForSeconds(0.1f);
+                    GameObject DMGObject = Instantiate(attackColliders.Thrust,new Vector2(transform.position.x - 3f,transform.position.y),transform.rotation);
+                    AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
+                    attackBase.damage *= 1;
+                    attackBase.teamBelonged = TeamBelonged.player;
+                    attackBase.knockBack = new Vector2(-attackBase.knockBack.x,attackBase.knockBack.y);
+                    Destroy(DMGObject,0.1f);
                     for(int i = 0;i < 10;i++){
-                        transform.Translate(0.15f,0,0);
+                        transform.Translate(-0.2f,0,0);
                         yield return new WaitForEndOfFrame();
                     }
-                break;
-                case  "StraightToUp":
-                yield return new WaitForSeconds(0.1f);
-                    Destroy(Instantiate(attackColliders.UpSlash,new Vector2(transform.position.x + 1.7f,transform.position.y),transform.rotation),0.1f);
+                }break;
+                case  "StraightToUp":{
+                    yield return new WaitForSeconds(0.1f);
+                    GameObject DMGObject = Instantiate(attackColliders.UpSlash,new Vector2(transform.position.x + 1.7f * direction,transform.position.y),transform.rotation);
+                    AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
+                    attackBase.damage *= 1;
+                    attackBase.teamBelonged = TeamBelonged.player;
+                    attackBase.knockBack = new Vector2(attackBase.knockBack.x * direction,attackBase.knockBack.y);
+                    Destroy(DMGObject,0.1f);
                     for(int i = 0;i < 10;i++){
                         transform.Translate(0.08f*direction,0,0);
                         yield return new WaitForEndOfFrame();
                     }
-                break;
-                case  "StraightToDown":
+                }break;
+                case  "StraightToDown":{
+                    yield return new WaitForSeconds(0.1f);
+                    GameObject DMGObject = Instantiate(attackColliders.DownSlash,new Vector2(transform.position.x + 1.7f * direction,transform.position.y),transform.rotation);
+                    AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
+                    attackBase.damage *= 1;
+                    attackBase.teamBelonged = TeamBelonged.player;
+                    attackBase.knockBack = new Vector2(attackBase.knockBack.x * direction,attackBase.knockBack.y);
+                    Destroy(DMGObject,0.1f);
                     for(int i = 0;i < 10;i++){
                         transform.Translate(0.08f*direction,0,0);
                         yield return new WaitForEndOfFrame();
                     }
-                break;
+                }break;
             }
         }
     }

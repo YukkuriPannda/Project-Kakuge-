@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 642442030821904801}
   - component: {fileID: 6839894086956316147}
   m_Layer: 0
-  m_Name: UpSlash_AttackColliderPrefab
+  m_Name: DownSlash_AttackColliderPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,10 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4783b916a6d73e740b19263d0dd0155f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 20
   magicAttribute: 0
   hurtCoolTime: 0.05
-  knockBack: {x: 1000, y: 5000}
+  knockBack: {x: 5200, y: -1000}
   teamBelonged: 0
   hurtTime: 0
 --- !u!61 &642442030821904801

@@ -15,8 +15,9 @@ public class EntityBase : MonoBehaviour
     public bool     Invulnerable = false;
     public bool     NoGravity = false;
     public bool     OnGround = false;
-    public void Hurt(float DMG,TeamBelonged AttackBelongedTeam,MagicAttribute magicAttribute = MagicAttribute.none){
+    public void Hurt(float DMG,TeamBelonged AttackBelongedTeam,Vector2 knockBack,MagicAttribute magicAttribute = MagicAttribute.none){
         if(teamBelonged != AttackBelongedTeam){
+            gameObject.GetComponent<Rigidbody2D>().AddForce(knockBack);
             switch(magicAttribute){
                 case MagicAttribute m when(
                     (m == MagicAttribute.aqua && myMagicAttribute == MagicAttribute.flame)

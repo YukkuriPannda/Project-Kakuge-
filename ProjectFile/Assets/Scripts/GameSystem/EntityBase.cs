@@ -9,14 +9,13 @@ public class EntityBase : MonoBehaviour
 
     public float   Health = 65535;
     public MagicAttribute myMagicAttribute = MagicAttribute.none;
-    public TeamBelonged teamBelonged;
 
     public bool gard = false;
-    public bool     Invulnerable = false;
-    public bool     NoGravity = false;
-    public bool     OnGround = false;
-    public void Hurt(float DMG,TeamBelonged AttackBelongedTeam,Vector2 knockBack,MagicAttribute magicAttribute = MagicAttribute.none){
-        if(teamBelonged != AttackBelongedTeam){
+    public bool Invulnerable = false;
+    public bool NoGravity = false;
+    public bool OnGround = false;
+    public void Hurt(float DMG,string AttackBelongedTeam,Vector2 knockBack,MagicAttribute magicAttribute = MagicAttribute.none){
+        if(gameObject.CompareTag(AttackBelongedTeam)){
             gameObject.GetComponent<Rigidbody2D>().AddForce(knockBack);
             switch(magicAttribute){
                 case MagicAttribute m when(
@@ -52,8 +51,4 @@ public enum MagicAttribute{
     aqua,
     electro,
     terra
-}
-public enum TeamBelonged{
-    player,
-    enemy
 }

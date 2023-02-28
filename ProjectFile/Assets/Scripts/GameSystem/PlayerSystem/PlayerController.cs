@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour
                     GameObject DMGObject = Instantiate(attackColliders.Thrust,new Vector2(transform.position.x + 3f,transform.position.y),transform.rotation);
                     AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
                     attackBase.damage *= 1;
-                    attackBase.teamBelonged = TeamBelonged.player;
+                    DMGObject.tag = "Player";
                     attackBase.knockBack = new Vector2(attackBase.knockBack.x,attackBase.knockBack.y);
                     Destroy(DMGObject,0.1f);
                     for(int i = 0;i < 10;i++){
@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour
                     GameObject DMGObject = Instantiate(attackColliders.Thrust,new Vector2(transform.position.x - 3f,transform.position.y),transform.rotation);
                     AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
                     attackBase.damage *= 1;
-                    attackBase.teamBelonged = TeamBelonged.player;
+                    DMGObject.tag = "Player";
                     attackBase.knockBack = new Vector2(-attackBase.knockBack.x,attackBase.knockBack.y);
                     Destroy(DMGObject,0.1f);
                     for(int i = 0;i < 10;i++){
@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour
                     GameObject DMGObject = Instantiate(attackColliders.UpSlash,new Vector2(transform.position.x + 1.7f * direction,transform.position.y),transform.rotation);
                     AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
                     attackBase.damage *= 1;
-                    attackBase.teamBelonged = TeamBelonged.player;
+                    DMGObject.tag = "Player";
                     attackBase.knockBack = new Vector2(attackBase.knockBack.x * direction,attackBase.knockBack.y);
                     Destroy(DMGObject,0.1f);
                     for(int i = 0;i < 10;i++){
@@ -122,7 +122,7 @@ public class PlayerController : MonoBehaviour
                     GameObject DMGObject = Instantiate(attackColliders.DownSlash,new Vector2(transform.position.x + 1.7f * direction,transform.position.y),transform.rotation);
                     AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
                     attackBase.damage *= 1;
-                    attackBase.teamBelonged = TeamBelonged.player;
+                    DMGObject.tag = "Player";
                     attackBase.knockBack = new Vector2(attackBase.knockBack.x * direction,attackBase.knockBack.y);
                     Destroy(DMGObject,0.1f);
                     for(int i = 0;i < 10;i++){

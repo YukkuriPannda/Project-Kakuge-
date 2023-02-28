@@ -5,74 +5,63 @@ using UnityEngine;
 
 public class ZakoEnemyController2 : MonoBehaviour
 {
-    private float detecitrRadius=3.0f;
-    private float attackRadius = 1.0f;
-    private Vector2 StartPos;
-    private int num=1;
-    private int count;
-    private Vector2 PlayerPosition;
-    private Vector2 EnemyPosition;
-    private GameObject playerObject;
-    public Rigidbody2D rb2D;
-    public GameObject target;//(target=Player)
     public float movementSpeed=1.0f;
+    public float detecitrRadius=10.0f;
+    public float attackRadius = 1.0f;
+    public GameObject attackCollider;
+    [ReadOnly]public GameObject target;
+    private Rigidbody2D rb2D;
+    private Vector2 StartPos;
 
     // Start is called before the first frame update
     void Start()
     {
         this.rb2D=GetComponent<Rigidbody2D>();
-        playerObject = GameObject.FindWithTag("Player");
+        target = GameObject.FindWithTag("Player");
         StartPos=transform.position;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(Mathf.Abs(playerObject.transform.position.x - transform.position.x)<=detecitrRadius)
+        if(Mathf.Abs(target.transform.position.x - transform.position.x)<=detecitrRadius)
         {
-            //追尾
-        PlayerPosition = playerObject.transform.position;
-        EnemyPosition = transform.position;
-        
-        if (PlayerPosition.x > EnemyPosition.x)
-        {
-            rb2D.AddForce(new Vector2(rb2D.mass * (1 * movementSpeed - rb2D.velocity.x) , 0));
-        }
-        else if (PlayerPosition.x < EnemyPosition.x)
-        {
-            rb2D.AddForce(new Vector2(rb2D.mass * (-1 * movementSpeed - rb2D.velocity.x) , 0));
-        }
-
-            //攻撃
-        if(Mathf.Abs(playerObject.transform.position.x - transform.position.x)<=attackRadius)
-        {
-
-        }else{
-            //追尾再び
-            if (PlayerPosition.x > EnemyPosition.x)
+            if(Mathf.Abs(target.transform.position.x - transform.position.x)<=attackRadius)
             {
-                  rb2D.AddForce(new Vector2(rb2D.mass * (1 * movementSpeed - rb2D.velocity.x) , 0));
-            }
-            else if (PlayerPosition.x < EnemyPosition.x)
-            {
-                  rb2D.AddForce(new Vector2(rb2D.mass * (-1 * movementSpeed - rb2D.velocity.x) , 0));
+                //攻撃
+            }else{
+                //追尾
+                if (target.transform.position.x > transform.position.x)
+                {
+                    rb2D.AddForce(new Vector2(rb2D.mass * (1 * movementSpeed - rb2D.velocity.x) , 0));
+                }
+                else
+                {
+                    rb2D.AddForce(new Vector2(rb2D.mass * (-1 * movementSpeed - rb2D.velocity.x) , 0));
+                }
             }
 
-        }
-
         }else{
-        //常に往復運動
-        rb2D.AddForce(new Vector2(rb2D.mass * (num * movementSpeed - rb2D.velocity.x) , 0));
+            int num=1;
+            //常に往復運動
 
-        if(transform.position.x - StartPos.x>2)
-        {
-            num=-1;
-        }
-        else if(transform.position.x - StartPos.x<-2)
-        {
-            num=1;
-        }
+            if(transform.position.x - StartPos.x>2)
+            {
+                num=-1;
+            }
+            else if(transform.position.x - StartPos.x<-2)
+            {
+                num=1;
+            }
+            rb2D.AddForce(new Vector2(rb2D.mass * (num * movementSpeed - rb2D.velocity.x) , 0));
         }
         
+    }
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position,detecitrRadius);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position,attackRadius);
     }
 } 

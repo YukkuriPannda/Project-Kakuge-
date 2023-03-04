@@ -13,7 +13,8 @@ public class AttackBase : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.GetComponent<EntityBase>()){
-            hurtTime = 0;
+            hurtTime = Time.deltaTime;
+            other.gameObject.GetComponent<EntityBase>().Hurt(damage,gameObject.tag,knockBack,magicAttribute);
         }
     }
     void OnTriggerStay2D(Collider2D other)

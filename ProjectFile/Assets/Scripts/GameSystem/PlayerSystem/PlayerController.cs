@@ -18,6 +18,16 @@ public class PlayerController : MonoBehaviour
         public GameObject Thrust;
         public GameObject DownSlash;
     }
+    [SerializeField] public List<DrawMagicSymbol> drawMagicSymbols = new List<DrawMagicSymbol>();
+    [System.Serializable]
+    public class DrawMagicSymbol{
+        public DrawMagicSymbol(string magicSymbol,float accuracy){
+            this.magicSymbol = magicSymbol;
+            this.accuracy = accuracy;
+        } 
+        public string magicSymbol;
+        public float accuracy;
+    }
 
     [Header("InputField")]
     public string drawShapeName = "None";
@@ -27,9 +37,9 @@ public class PlayerController : MonoBehaviour
     Vector2 oldInputValueForMove;
 
     [Header("Info")]
-    [SerializeField] Text devconsole;
-    [SerializeField] bool onGround = false;
-    [SerializeField] public bool lockOperation = false;
+    [SerializeField,ReadOnly] Text devconsole;
+    [SerializeField,ReadOnly] bool onGround = false;
+    [SerializeField,ReadOnly] public bool lockOperation = false;
     [HideInInspector]public Rigidbody2D rb2D;
     private EntityBase eBase;
     
@@ -85,7 +95,7 @@ public class PlayerController : MonoBehaviour
                     attackBase.damage *= 1;
                     DMGObject.tag = "Player";
                     attackBase.knockBack = new Vector2(attackBase.knockBack.x,attackBase.knockBack.y);
-                    Destroy(DMGObject,0.1f);
+                    Destroy(DMGObject,0.2f);
                     for(int i = 0;i < 10;i++){
                         transform.Translate(0.2f,0,0);
                         yield return new WaitForEndOfFrame();
@@ -98,7 +108,7 @@ public class PlayerController : MonoBehaviour
                     attackBase.damage *= 1;
                     DMGObject.tag = "Player";
                     attackBase.knockBack = new Vector2(-attackBase.knockBack.x,attackBase.knockBack.y);
-                    Destroy(DMGObject,0.1f);
+                    Destroy(DMGObject,0.2f);
                     for(int i = 0;i < 10;i++){
                         transform.Translate(-0.2f,0,0);
                         yield return new WaitForEndOfFrame();
@@ -106,12 +116,12 @@ public class PlayerController : MonoBehaviour
                 }break;
                 case  "StraightToUp":{
                     yield return new WaitForSeconds(0.1f);
-                    GameObject DMGObject = Instantiate(attackColliders.UpSlash,new Vector2(transform.position.x + 1.7f * direction,transform.position.y),transform.rotation);
+                    GameObject DMGObject = Instantiate(attackColliders.UpSlash,new Vector2(transform.position.x + 1.5f * direction,transform.position.y),transform.rotation);
                     AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
                     attackBase.damage *= 1;
                     DMGObject.tag = "Player";
                     attackBase.knockBack = new Vector2(attackBase.knockBack.x * direction,attackBase.knockBack.y);
-                    Destroy(DMGObject,0.1f);
+                    Destroy(DMGObject,0.2f);
                     for(int i = 0;i < 10;i++){
                         transform.Translate(0.08f*direction,0,0);
                         yield return new WaitForEndOfFrame();
@@ -119,15 +129,57 @@ public class PlayerController : MonoBehaviour
                 }break;
                 case  "StraightToDown":{
                     yield return new WaitForSeconds(0.1f);
-                    GameObject DMGObject = Instantiate(attackColliders.DownSlash,new Vector2(transform.position.x + 1.7f * direction,transform.position.y),transform.rotation);
+                    GameObject DMGObject = Instantiate(attackColliders.DownSlash,new Vector2(transform.position.x + 1.5f * direction,transform.position.y),transform.rotation);
                     AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
                     attackBase.damage *= 1;
                     DMGObject.tag = "Player";
                     attackBase.knockBack = new Vector2(attackBase.knockBack.x * direction,attackBase.knockBack.y);
-                    Destroy(DMGObject,0.1f);
+                    Destroy(DMGObject,0.2f);
                     for(int i = 0;i < 10;i++){
                         transform.Translate(0.08f*direction,0,0);
                         yield return new WaitForEndOfFrame();
+                    }
+                }break;
+                case "RegularTriangle":{
+                    drawMagicSymbols.Add(new DrawMagicSymbol("RegularTriangle",1));
+                    drawShapeName = "None";
+                    oldDrawShapeName ="None";
+                    lockOperation = false;
+                }break;
+                case "InvertedTriangle":{
+                    drawMagicSymbols.Add(new DrawMagicSymbol("InvertedTriangle",1));
+                    drawShapeName = "None";
+                    oldDrawShapeName ="None";
+                    lockOperation = false;
+                }break;
+                case "Thunder":{
+                    drawMagicSymbols.Add(new DrawMagicSymbol("Thunder",1));
+                    drawShapeName = "None";
+                    oldDrawShapeName ="None";
+                    lockOperation = false;
+                }break;
+                case "Grass":{
+                    drawMagicSymbols.Add(new DrawMagicSymbol("Grass",1));
+                    drawShapeName = "None";
+                    oldDrawShapeName ="None";
+                    lockOperation = false;
+                }break;
+                case "tap":{
+                    if(drawMagicSymbols.Count > 0){
+                        switch(drawMagicSymbols[0].magicSymbol){
+                            case "RegularTriangle":{
+                                gameObject.GetComponent<EntityBase>().myMagicAttribute = MagicAttribute.flame;
+                            }break;
+                            case "InvertedTriangle":{
+                                gameObject.GetComponent<EntityBase>().myMagicAttribute = MagicAttribute.aqua;
+                            }break;
+                            case "Thunder":{
+                                gameObject.GetComponent<EntityBase>().myMagicAttribute = MagicAttribute.electro;
+                            }break;
+                            case "Grass":{
+                                gameObject.GetComponent<EntityBase>().myMagicAttribute = MagicAttribute.terra;
+                            }break;
+                        }
                     }
                 }break;
             }
@@ -135,6 +187,7 @@ public class PlayerController : MonoBehaviour
     }
     public void OnFinishAttack(){
         drawShapeName = "None";
+        drawMagicSymbols = new List<DrawMagicSymbol>();
         lockOperation = false;
     }
     void isOnground(){

@@ -15,8 +15,8 @@ public class EntityBase : MonoBehaviour
     public bool NoGravity = false;
     public bool OnGround = false;
     public void Hurt(float DMG,string AttackBelongedTeam,Vector2 knockBack,MagicAttribute magicAttribute = MagicAttribute.none){
-        if(gameObject.CompareTag(AttackBelongedTeam)){
-            gameObject.GetComponent<Rigidbody2D>().AddForce(knockBack);
+        if(!gameObject.CompareTag(AttackBelongedTeam)){
+            gameObject.GetComponent<Rigidbody2D>().AddForce(knockBack,ForceMode2D.Impulse);
             switch(magicAttribute){
                 case MagicAttribute m when(
                     (m == MagicAttribute.aqua && myMagicAttribute == MagicAttribute.flame)
@@ -41,8 +41,8 @@ public class EntityBase : MonoBehaviour
                     else Health -= DMG;
                 break;
             }
+            Debug.Log($"Hurt  DMG:{DMG} margicAttribute:{magicAttribute} knockBack:{knockBack}");
         }
-        Debug.Log($"Hurt  DMG:{DMG} margicAttribute:{magicAttribute}");
     }
 }
 public enum MagicAttribute{

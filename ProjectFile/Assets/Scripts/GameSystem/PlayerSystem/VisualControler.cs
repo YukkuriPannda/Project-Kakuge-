@@ -19,6 +19,7 @@ public class VisualControler : MonoBehaviour
         Jump,
         SwordAttack=50,
         MagicAttack=70,
+        Enchant,
         Doyaa = 100
     }
     enum SwordAttackType:int{
@@ -121,6 +122,14 @@ public class VisualControler : MonoBehaviour
                     playerAnimator.SetInteger("SwordNumber",(int)SwordAttackType.Down);
                     playerController.weapon.transform.position = rightHandBone.position;
                     playerController.weapon.transform.rotation = rightHandBone.rotation;
+                break;
+                case "tap":
+                    if(playerController.drawMagicSymbols.Count > 0){
+                        nowPlayerState = "Enchant";
+                        playerAnimator.SetInteger("AnimNumber",(int)AnimMotions.Enchant);
+                        playerController.weapon.transform.position = rightHandBone.position;
+                        playerController.weapon.transform.rotation = rightHandBone.rotation;
+                    }
                 break;
             }
         }

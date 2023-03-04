@@ -56,34 +56,38 @@ public class ShapeJudger : MonoBehaviour
         }
         if(Input.GetMouseButtonUp(0)){
             CircleAccuracyValue = CheckCircle(inputPoints);
-            if(CircleAccuracyValue < 0.65f){
+            if(CircleAccuracyValue < 0.67f){
                 sortPoints = SortPoints(inputPoints);
                 RegularTriangleAccuracyValue = CheckRegularTriangle(sortPoints);
                 InvertedTriangleAccuracyValue = CheckInvertedTriangle(sortPoints);
                 thunderAccuracyValue = CheckThunder(sortPoints);
                 grassAccuracyValue = CheckGrass(sortPoints);
-                if(RegularTriangleAccuracyValue > 0){
+                if(RegularTriangleAccuracyValue > 0 && RegularTriangleAccuracyValue > CircleAccuracyValue){
                     result = "RegularTriangle";
                     accuracy = RegularTriangleAccuracyValue;
                 }
-                if(InvertedTriangleAccuracyValue > 0) {
+                if(InvertedTriangleAccuracyValue > 0 && InvertedTriangleAccuracyValue > CircleAccuracyValue) {
                     result = "InvertedTriangle";
                     accuracy = InvertedTriangleAccuracyValue;
                 }
-                if(thunderAccuracyValue > 0){
+                if(thunderAccuracyValue > 0 && thunderAccuracyValue > CircleAccuracyValue){
                     result = "Thunder";
                     accuracy = thunderAccuracyValue;
                 }
-                if(grassAccuracyValue > 0){
+                if(grassAccuracyValue > 0 && grassAccuracyValue > CircleAccuracyValue){
                     result = "Grass";
                     accuracy = grassAccuracyValue;
+                }
+                if(result == null){
+                    result = "Circle";
+                    accuracy = CircleAccuracyValue;
                 }
             }else {
                 result = "Circle";
                 accuracy = CircleAccuracyValue;
             }
 
-            if(accuracy <= 0.5f){
+            if(sortPoints.Count < 3){
                 float drawingAngle = Mathf.Atan2(inputPoints[0].y-inputPoints[inputPoints.Count-1].y,inputPoints[0].x-inputPoints[inputPoints.Count-1].x)+Mathf.PI;
                 Debug.Log($"drawingAngle{drawingAngle}");
                 if(drawingAngle>Mathf.PI/4 && drawingAngle<Mathf.PI*3/4)result = "StraightToUp";
@@ -91,6 +95,10 @@ public class ShapeJudger : MonoBehaviour
                 if(drawingAngle>Mathf.PI*5/4 && drawingAngle<Mathf.PI*7/4)result = "StraightToDown";
                 if(drawingAngle>Mathf.PI*7/4 || drawingAngle<Mathf.PI/4)result = "StraightToRight";
                 accuracy = 1;
+            }
+            if(radius < 0.15f){
+                result = "tap";
+                accuracy = 1; 
             }
             plc.drawShapeName = result;
             plc.drawShapePos = center;

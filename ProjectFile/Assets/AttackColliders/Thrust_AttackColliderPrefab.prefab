@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 7114548282539418036}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.77, y: 0.85, z: 0}
-  m_LocalScale: {x: 4, y: 0.5, z: 1}
+  m_LocalScale: {x: 3, y: 0.75, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -48,9 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   magicAttribute: 0
-  hurtCoolTime: 0.05
-  knockBack: {x: 7000, y: 2000}
-  teamBelonged: 0
+  hurtCoolTime: 1
+  knockBack: {x: 300, y: 100}
   hurtTime: 0
 --- !u!61 &642442030821904801
 BoxCollider2D:

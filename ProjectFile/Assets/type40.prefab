@@ -68,6 +68,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6909630715788253298}
   - component: {fileID: 6909630715788253303}
+  - component: {fileID: 3233162502744404744}
   - component: {fileID: 6606982434000357862}
   - component: {fileID: 6909630715788253296}
   - component: {fileID: 6909630715788253301}
@@ -108,14 +109,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 190e0fb583adf4c859eb0647201f3886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalMovementSpeed: 5
-  spotMovementSpeed: 10
-  detecitrRadius: 10
-  attackRadius: 2
+  normalMovementSpeed: 2
+  spotMovementSpeed: 5
+  detecitrRadius: 0
+  attackRadius: 0.75
   attackCollider: {fileID: 0}
   skillKind: 0
   target: {fileID: 0}
   nowState: finding
+  direction: 1
+--- !u!114 &3233162502744404744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6909630715788253297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b501157418aec304ea5c3023f9ed5a0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nowState: 
 --- !u!114 &6606982434000357862
 MonoBehaviour:
   m_ObjectHideFlags: 0

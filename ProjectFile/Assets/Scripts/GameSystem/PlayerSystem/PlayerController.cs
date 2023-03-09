@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
         public GameObject Thrust;
         public GameObject DownSlash;
     }
+    [SerializeField] public ParticleSystem particleSystem;
     [SerializeField] public List<DrawMagicSymbol> drawMagicSymbols = new List<DrawMagicSymbol>();
     [System.Serializable]
     public class DrawMagicSymbol{
@@ -42,6 +43,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField,ReadOnly] public bool lockOperation = false;
     [HideInInspector]public Rigidbody2D rb2D;
     private EntityBase eBase;
+    private float oldHealth;
     
     void Start()
     {
@@ -60,10 +62,20 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(onChangeDrawShapeName());
         }
         oldDrawShapeName = drawShapeName;
+        if(oldHealth > eBase.Health){
+            lockOperation = true;
+            drawShapeName = "None";
+        }
+        oldHealth = eBase.Health;
     }
     
     public void Move(float input) { // 移動方向/強さ -1~1 として
-        if(!lockOperation)rb2D.AddForce(new Vector2(rb2D.mass * (input * movementSpeed - rb2D.velocity.x) ,0));//f=maの応用
+        if(!lockOperation)if(onGround) {
+            rb2D.AddForce(new Vector2(rb2D.mass * (input * movementSpeed - rb2D.velocity.x)/0.02f ,0));//f=maの応用
+        }else{
+            rb2D.AddForce(new Vector2(rb2D.mass * (input * movementSpeed - rb2D.velocity.x)/0.5f,0));
+        }
+        
     }
     [SerializeField]float addingforceInJumping = 0;
     [SerializeField]bool jumping;
@@ -75,22 +87,21 @@ public class PlayerController : MonoBehaviour
         }
         if(jumping)addingforceInJumping += 0.02f;
         else addingforceInJumping = 0;
-        if(addingforceInJumping > 0&&addingforceInJumping <= jumpInputArrowableTime){
+        if(addingforceInJumping > 0 && addingforceInJumping <= jumpInputArrowableTime){
             rb2D.AddForce(new Vector2(0,JumpForce * input * (-addingforceInJumping *addingforceInJumping + jumpInputArrowableTime)/jumpInputArrowableTime));
         }
 
     }
     public IEnumerator onChangeDrawShapeName(){
-        if(oldDrawShapeName == "None"){
+        if(oldDrawShapeName == "None" && !lockOperation){
             lockOperation = true;
             int direction = 0;
             if(drawShapePos.x > transform.position.x) direction =1;
             else direction = -1;
-            
             switch(drawShapeName){
                 case "StraightToRight":{
                     yield return new WaitForSeconds(0.1f);
-                    GameObject DMGObject = Instantiate(attackColliders.Thrust,new Vector2(transform.position.x + 3f,transform.position.y),transform.rotation);
+                    GameObject DMGObject = Instantiate(attackColliders.Thrust,new Vector2(transform.position.x + 2f,transform.position.y),transform.rotation);
                     AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
                     attackBase.damage *= 1;
                     DMGObject.tag = "Player";
@@ -103,7 +114,7 @@ public class PlayerController : MonoBehaviour
                 }break;
                 case "StraightToLeft":{
                     yield return new WaitForSeconds(0.1f);
-                    GameObject DMGObject = Instantiate(attackColliders.Thrust,new Vector2(transform.position.x - 3f,transform.position.y),transform.rotation);
+                    GameObject DMGObject = Instantiate(attackColliders.Thrust,new Vector2(transform.position.x - 2f,transform.position.y),transform.rotation);
                     AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
                     attackBase.damage *= 1;
                     DMGObject.tag = "Player";

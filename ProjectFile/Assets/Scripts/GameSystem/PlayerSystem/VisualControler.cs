@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class VisualControler : MonoBehaviour
 {
-    public GameObject Player;
     public Transform PlayerModel;
     public Animator playerAnimator;
-    private PlayerController playerController;
+    public PlayerController playerController;
     [SerializeField] private Transform centerBone;
     [SerializeField] private Transform rightHandBone;
 
@@ -17,6 +16,7 @@ public class VisualControler : MonoBehaviour
         Walk,
         Run,
         Jump,
+        Damage = 10,
         SwordAttack=50,
         MagicAttack=70,
         Enchant,
@@ -31,15 +31,15 @@ public class VisualControler : MonoBehaviour
         Right,Left
     }
     private void Start() {
-        playerAnimator = Player.GetComponent<Animator>();
-        playerController = Player.GetComponent<PlayerController>();
         playerAnimator.SetInteger("AnimNumber",(int)AnimMotions.Stay);
         playerAnimator.SetInteger("Orientation",(int)Orientation.Right);
         nowPlayerState = "STAY";
     }
     void Update()
     {
-        if(!playerController.lockOperation && !(playerController.InputValueForMove.x == 0 && (nowPlayerState =="UpSlash" || nowPlayerState =="DownSlash" || nowPlayerState =="Streight"))){
+        if(!playerController.lockOperation && !(playerController.InputValueForMove.x == 0 && 
+            (nowPlayerState =="UpSlash" || nowPlayerState =="DownSlash" || nowPlayerState =="Streight" || nowPlayerState == "Damage")
+                )){
             playerController.weapon.transform.position = centerBone.position;
             playerController.weapon.transform.rotation = centerBone.rotation;
             switch(playerController.InputValueForMove.x){
@@ -131,6 +131,12 @@ public class VisualControler : MonoBehaviour
                         playerController.weapon.transform.rotation = rightHandBone.rotation;
                     }
                 break;
+                case "None":{
+                    if(playerController.lockOperation){
+                        nowPlayerState = "Damage";
+                        playerAnimator.SetInteger("AnimNumber",(int)AnimMotions.Damage);
+                    }
+                }break;
             }
         }
     }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +15,11 @@ public class ZakoEnemyController : MonoBehaviour
     private string oldState;
     private Rigidbody2D rb2D;
     Vector2 StartPos;
-    int direction = 1;
+    [SerializeField,ReadOnly]private float staycount = 0;
+    [ReadOnly]public int direction = 1;
+    [ReadOnly]public bool onGround = false;
+    int stayAnimNum = 0;
+    float bottom;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +27,7 @@ public class ZakoEnemyController : MonoBehaviour
         this.rb2D=GetComponent<Rigidbody2D>();
         target = GameObject.FindWithTag("Player");
         StartPos=transform.position;
+        bottom = gameObject.GetComponent<BoxCollider2D>().size.y/2 - gameObject.GetComponent<BoxCollider2D>().offset.y;
     }
 
     void FixedUpdate()
@@ -36,24 +40,26 @@ public class ZakoEnemyController : MonoBehaviour
         }
     }
     void Update(){
-        if(Mathf.Abs(target.transform.position.x - transform.position.x)<=attackRadius)
+        if(Mathf.Abs(target.transform.position.x - transform.position.x)<=attackRadius && nowState != "attacking")
         {
-            if(nowState != "attacking"){
-                rb2D.velocity = new Vector2(0,rb2D.velocity.y);
-                nowState = "attacking";
-                //攻撃
-                ZakoEnemySkillFactory zakoEnemySkillFactory = new ZakoEnemySkillFactory();
-                ZakoEnemySkillBase zakoEnemySkillBase = zakoEnemySkillFactory.Create(skillKind);
-                StartCoroutine(zakoEnemySkillBase.Attack(this));
-            }
+            rb2D.velocity = new Vector2(0,rb2D.velocity.y);
+            nowState = "attacking";
+            //攻撃
+            ZakoEnemySkillFactory zakoEnemySkillFactory = new ZakoEnemySkillFactory();
+            ZakoEnemySkillBase zakoEnemySkillBase = zakoEnemySkillFactory.Create(skillKind);
+            StartCoroutine(zakoEnemySkillBase.Attack(this));
         }else{
-            if(Mathf.Abs(target.transform.position.x - transform.position.x) < detecitrRadius)
-            {
-                nowState = "following";
-            }else{
-                nowState = "finding";
+            if(nowState != "attacking"){
+                if(Mathf.Abs(target.transform.position.x - transform.position.x) < detecitrRadius)
+                {
+                    nowState = "following";
+                }else{
+                    if(LotteryStayAnim()==0) nowState = "finding";
+                    else nowState = "stopping";
+                }
             }
         }
+        isOnground();
     }
     void Finding(){
         if(transform.position.x - StartPos.x>2)
@@ -64,18 +70,16 @@ public class ZakoEnemyController : MonoBehaviour
         {
             direction=1;
         }
-        rb2D.AddForce(new Vector2(rb2D.mass * (direction * normalMovementSpeed - rb2D.velocity.x) , 0));
+        if(onGround)rb2D.AddForce(new Vector2(rb2D.mass * (direction * normalMovementSpeed - rb2D.velocity.x)/0.02f , 0));
     }
     void Following(){
         //追尾
-        if (target.transform.position.x > transform.position.x)
-        {
-            rb2D.AddForce(new Vector2(rb2D.mass * (1 * spotMovementSpeed - rb2D.velocity.x) , 0));
-        }
-        else
-        {
-            rb2D.AddForce(new Vector2(rb2D.mass * (-1 * spotMovementSpeed - rb2D.velocity.x) , 0));
-        }
+        if (target.transform.position.x > transform.position.x)direction = 1;
+        else direction = -1;
+        if(onGround)rb2D.AddForce(new Vector2(rb2D.mass * (direction * spotMovementSpeed - rb2D.velocity.x)/0.05f , 0));
+    }
+    public void OnFinishAttack(){
+        nowState = "following";
     }
     void OnDrawGizmos()
     {
@@ -83,5 +87,22 @@ public class ZakoEnemyController : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position,detecitrRadius);
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position,attackRadius);
+        Gizmos.DrawWireSphere(new Vector2(transform.position.x,transform.position.y-bottom),0.1f);
     }
-} 
+    int LotteryStayAnim(){
+        staycount += Time.deltaTime;
+        if(staycount > 3){
+            stayAnimNum = Random.Range(0,2);
+            staycount = 0;
+        }
+        return stayAnimNum;
+    }
+    void isOnground(){
+        int layermask = 1 << LayerMask.NameToLayer("Ground");
+        RaycastHit2D hitObject = Physics2D.BoxCast(transform.position,new Vector2(1,0.1f),0,Vector2.down,bottom,layermask);
+        if(hitObject.collider){
+            onGround = true;
+        }
+        else onGround = false;
+    }
+}

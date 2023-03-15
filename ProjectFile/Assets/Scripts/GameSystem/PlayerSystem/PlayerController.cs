@@ -11,14 +11,22 @@ public class PlayerController : MonoBehaviour
     public float jumpInputArrowableTime = 0.5f;
     public GameObject weapon;
     private float playerHeight;
-    public AttackColliderPrefabs attackColliders;
     [System.Serializable]
     public class AttackColliderPrefabs{
         public GameObject UpSlash;
         public GameObject Thrust;
         public GameObject DownSlash;
     }
-    [SerializeField] public ParticleSystem particleSystem;
+    public AttackColliderPrefabs attackColliders;
+
+    [System.Serializable]
+    public class MagicAttributeParticles{
+        public ParticleSystem flameParticle;
+        [HideInInspector]public ParticleSystem.EmissionModule flameEmission;
+    }
+    public MagicAttributeParticles magicAttributeParticles;
+    public TrailRenderer trailRenderer;    
+
     [SerializeField] public List<DrawMagicSymbol> drawMagicSymbols = new List<DrawMagicSymbol>();
     [System.Serializable]
     public class DrawMagicSymbol{
@@ -50,6 +58,7 @@ public class PlayerController : MonoBehaviour
         rb2D = this.gameObject.GetComponent<Rigidbody2D>();
         eBase = this.gameObject.GetComponent<EntityBase>();
         playerHeight = gameObject.GetComponent<BoxCollider2D>().size.y + gameObject.GetComponent<BoxCollider2D>().edgeRadius*2;
+        magicAttributeParticles.flameEmission = magicAttributeParticles.flameParticle.emission;
     }
     void FixedUpdate(){
         Move(InputValueForMove.x);
@@ -126,7 +135,10 @@ public class PlayerController : MonoBehaviour
                     }
                 }break;
                 case  "StraightToUp":{
+                    magicAttributeParticles.flameParticle.Play();
+                    trailRenderer.enabled = true;
                     yield return new WaitForSeconds(0.1f);
+
                     GameObject DMGObject = Instantiate(attackColliders.UpSlash,new Vector2(transform.position.x + 1.5f * direction,transform.position.y),transform.rotation);
                     AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
                     attackBase.damage *= 1;
@@ -139,6 +151,8 @@ public class PlayerController : MonoBehaviour
                     }
                 }break;
                 case  "StraightToDown":{
+                    magicAttributeParticles.flameParticle.Play();
+                    trailRenderer.enabled = true;
                     yield return new WaitForSeconds(0.1f);
                     GameObject DMGObject = Instantiate(attackColliders.DownSlash,new Vector2(transform.position.x + 1.5f * direction,transform.position.y),transform.rotation);
                     AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
@@ -200,6 +214,12 @@ public class PlayerController : MonoBehaviour
         drawShapeName = "None";
         drawMagicSymbols = new List<DrawMagicSymbol>();
         lockOperation = false;
+        magicAttributeParticles.flameParticle.Stop();
+        StartCoroutine(StopTrail());
+    }
+    IEnumerator StopTrail(){
+        yield return new WaitForSeconds(0.5f);
+        trailRenderer.enabled = false;
     }
     void isOnground(){
         int layermask = 1 << LayerMask.NameToLayer("Ground");

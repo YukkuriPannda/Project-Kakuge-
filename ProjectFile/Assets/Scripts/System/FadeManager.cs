@@ -28,6 +28,7 @@ public class FadeManager : MonoBehaviour
                 alpha = 1.0f;
                 SceneManager.LoadScene(sceneName);
                 FadeSwitch = false;
+                
             }
             this.GetComponentInChildren<Image>().color = new Color(0.0f, 0.0f, 0.0f, alpha);
         }

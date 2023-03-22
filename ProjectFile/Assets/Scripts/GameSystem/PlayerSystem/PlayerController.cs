@@ -211,7 +211,7 @@ public class PlayerController : MonoBehaviour
                         switch(drawMagicSymbols[0].magicSymbol){
                             case "RegularTriangle":{
                                 gameObject.GetComponent<EntityBase>().myMagicAttribute = MagicAttribute.flame;
-                                enchantAnim.transform.position = transform.position + new Vector3(0,0.8f,-2.5f);
+                                enchantAnim.transform.position = transform.position + new Vector3(0,0.8f,-2);
                                 enchantAnim.Play("Flame",0,0);
                             }break;
                             case "InvertedTriangle":{

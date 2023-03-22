@@ -25,8 +25,8 @@ public class PlayerController : MonoBehaviour
         [HideInInspector]public ParticleSystem.EmissionModule flameEmission;
     }
     public MagicAttributeParticles magicAttributeParticles;
-    public TrailRenderer trailRenderer;    
-
+    public Animator slashanim;
+    public Animator enchantAnim;
     [SerializeField] public List<DrawMagicSymbol> drawMagicSymbols = new List<DrawMagicSymbol>();
     [System.Serializable]
     public class DrawMagicSymbol{
@@ -109,34 +109,47 @@ public class PlayerController : MonoBehaviour
             else direction = -1;
             switch(drawShapeName){
                 case "StraightToRight":{
+                    magicAttributeParticles.flameParticle.Play();
+                    slashanim.transform.localEulerAngles = new Vector3(0,0,0);
+                    slashanim.transform.position = transform.position + new Vector3(2.7f,0f,-3f);
                     yield return new WaitForSeconds(0.1f);
+                    slashanim.Play("Slash_Thrust",0,0);
+
                     GameObject DMGObject = Instantiate(attackColliders.Thrust,new Vector2(transform.position.x + 2f,transform.position.y),transform.rotation);
                     AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
                     attackBase.damage *= 1;
                     DMGObject.tag = "Player";
                     attackBase.knockBack = new Vector2(attackBase.knockBack.x,attackBase.knockBack.y);
                     Destroy(DMGObject,0.2f);
-                    for(int i = 0;i < 10;i++){
-                        transform.Translate(0.2f,0,0);
+                    for(int i = 0;i < 5;i++){
+                        transform.Translate(0.4f,0,0);
                         yield return new WaitForEndOfFrame();
                     }
                 }break;
                 case "StraightToLeft":{
+                    magicAttributeParticles.flameParticle.Play();
+                    slashanim.transform.localEulerAngles = new Vector3(0,180,0);
+                    slashanim.transform.position = transform.position + new Vector3(-2.7f,0f,-3f);
                     yield return new WaitForSeconds(0.1f);
+                    slashanim.Play("Slash_Thrust",0,0);
+                    
                     GameObject DMGObject = Instantiate(attackColliders.Thrust,new Vector2(transform.position.x - 2f,transform.position.y),transform.rotation);
                     AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
                     attackBase.damage *= 1;
                     DMGObject.tag = "Player";
                     attackBase.knockBack = new Vector2(-attackBase.knockBack.x,attackBase.knockBack.y);
                     Destroy(DMGObject,0.2f);
-                    for(int i = 0;i < 10;i++){
-                        transform.Translate(-0.2f,0,0);
+                    for(int i = 0;i < 5;i++){
+                        transform.Translate(-0.4f,0,0);
                         yield return new WaitForEndOfFrame();
                     }
                 }break;
                 case  "StraightToUp":{
                     magicAttributeParticles.flameParticle.Play();
-                    trailRenderer.enabled = true;
+                    slashanim.Play("Slash_Up",0,-0.05f);
+                    if(direction < 0) slashanim.transform.localEulerAngles = new Vector3(-30,180,0);
+                    else slashanim.transform.localEulerAngles = new Vector3(30,0,0);
+                    slashanim.transform.position = transform.position + new Vector3(1.3f * direction,0.2f,-2);
                     yield return new WaitForSeconds(0.1f);
 
                     GameObject DMGObject = Instantiate(attackColliders.UpSlash,new Vector2(transform.position.x + 1.5f * direction,transform.position.y),transform.rotation);
@@ -152,8 +165,12 @@ public class PlayerController : MonoBehaviour
                 }break;
                 case  "StraightToDown":{
                     magicAttributeParticles.flameParticle.Play();
-                    trailRenderer.enabled = true;
+                    slashanim.Play("Slash_Down",0,0);
+                    if(direction < 0) slashanim.transform.localEulerAngles = new Vector3(-30,180,0);
+                    else slashanim.transform.localEulerAngles = new Vector3(30,0,0);
+                    slashanim.transform.position = transform.position + new Vector3(0.9f * direction,0.2f,-2);
                     yield return new WaitForSeconds(0.1f);
+
                     GameObject DMGObject = Instantiate(attackColliders.DownSlash,new Vector2(transform.position.x + 1.5f * direction,transform.position.y),transform.rotation);
                     AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
                     attackBase.damage *= 1;
@@ -194,6 +211,8 @@ public class PlayerController : MonoBehaviour
                         switch(drawMagicSymbols[0].magicSymbol){
                             case "RegularTriangle":{
                                 gameObject.GetComponent<EntityBase>().myMagicAttribute = MagicAttribute.flame;
+                                enchantAnim.transform.position = transform.position + new Vector3(0,0.8f,-2);
+                                enchantAnim.Play("Flame",0,0);
                             }break;
                             case "InvertedTriangle":{
                                 gameObject.GetComponent<EntityBase>().myMagicAttribute = MagicAttribute.aqua;
@@ -215,11 +234,6 @@ public class PlayerController : MonoBehaviour
         drawMagicSymbols = new List<DrawMagicSymbol>();
         lockOperation = false;
         magicAttributeParticles.flameParticle.Stop();
-        StartCoroutine(StopTrail());
-    }
-    IEnumerator StopTrail(){
-        yield return new WaitForSeconds(0.5f);
-        trailRenderer.enabled = false;
     }
     void isOnground(){
         int layermask = 1 << LayerMask.NameToLayer("Ground");

@@ -9,6 +9,9 @@ public class PlayerController : MonoBehaviour
     public float movementSpeed = 5; //movementSpeed * 入力(最大値1) = velocity.x
     public float JumpForce = 5; //JumpForce * 入力(最大値1) = velocity.y
     public float jumpInputArrowableTime = 0.5f;
+    public float enchantDuraction = 5;
+    public float enchantDetectionRadius = 2;
+    private float timeFromEnchanted = 0;
     public GameObject weapon;
     private float playerHeight;
     [System.Serializable]
@@ -19,14 +22,6 @@ public class PlayerController : MonoBehaviour
     }
     public AttackColliderPrefabs attackColliders;
 
-    [System.Serializable]
-    public class MagicAttributeParticles{
-        public ParticleSystem flameParticle;
-        [HideInInspector]public ParticleSystem.EmissionModule flameEmission;
-    }
-    public MagicAttributeParticles magicAttributeParticles;
-    public Animator slashanim;
-    public Animator enchantAnim;
     [SerializeField] public List<DrawMagicSymbol> drawMagicSymbols = new List<DrawMagicSymbol>();
     [System.Serializable]
     public class DrawMagicSymbol{
@@ -58,7 +53,6 @@ public class PlayerController : MonoBehaviour
         rb2D = this.gameObject.GetComponent<Rigidbody2D>();
         eBase = this.gameObject.GetComponent<EntityBase>();
         playerHeight = gameObject.GetComponent<BoxCollider2D>().size.y + gameObject.GetComponent<BoxCollider2D>().edgeRadius*2;
-        magicAttributeParticles.flameEmission = magicAttributeParticles.flameParticle.emission;
     }
     void FixedUpdate(){
         Move(InputValueForMove.x);
@@ -84,7 +78,13 @@ public class PlayerController : MonoBehaviour
         }else{
             rb2D.AddForce(new Vector2(rb2D.mass * (input * movementSpeed - rb2D.velocity.x)/0.5f,0));
         }
-        
+        if(timeFromEnchanted > 0){
+            timeFromEnchanted += Time.deltaTime;
+        }
+        if(timeFromEnchanted > enchantDuraction){
+            gameObject.GetComponent<EntityBase>().myMagicAttribute = MagicAttribute.none;
+            timeFromEnchanted = 0;
+        }
     }
     [SerializeField]float addingforceInJumping = 0;
     [SerializeField]bool jumping;
@@ -109,11 +109,6 @@ public class PlayerController : MonoBehaviour
             else direction = -1;
             switch(drawShapeName){
                 case "StraightToRight":{
-                    magicAttributeParticles.flameParticle.Play();
-                    slashanim.transform.localEulerAngles = new Vector3(0,0,0);
-                    slashanim.transform.position = transform.position + new Vector3(2.7f,0f,-3f);
-                    yield return new WaitForSeconds(0.1f);
-                    slashanim.Play("Slash_Thrust",0,0);
 
                     GameObject DMGObject = Instantiate(attackColliders.Thrust,new Vector2(transform.position.x + 2f,transform.position.y),transform.rotation);
                     AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
@@ -127,11 +122,6 @@ public class PlayerController : MonoBehaviour
                     }
                 }break;
                 case "StraightToLeft":{
-                    magicAttributeParticles.flameParticle.Play();
-                    slashanim.transform.localEulerAngles = new Vector3(0,180,0);
-                    slashanim.transform.position = transform.position + new Vector3(-2.7f,0f,-3f);
-                    yield return new WaitForSeconds(0.1f);
-                    slashanim.Play("Slash_Thrust",0,0);
                     
                     GameObject DMGObject = Instantiate(attackColliders.Thrust,new Vector2(transform.position.x - 2f,transform.position.y),transform.rotation);
                     AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
@@ -145,11 +135,6 @@ public class PlayerController : MonoBehaviour
                     }
                 }break;
                 case  "StraightToUp":{
-                    magicAttributeParticles.flameParticle.Play();
-                    slashanim.Play("Slash_Up",0,-0.05f);
-                    if(direction < 0) slashanim.transform.localEulerAngles = new Vector3(-30,180,0);
-                    else slashanim.transform.localEulerAngles = new Vector3(30,0,0);
-                    slashanim.transform.position = transform.position + new Vector3(1.3f * direction,0.2f,-2);
                     yield return new WaitForSeconds(0.1f);
 
                     GameObject DMGObject = Instantiate(attackColliders.UpSlash,new Vector2(transform.position.x + 1.5f * direction,transform.position.y),transform.rotation);
@@ -164,11 +149,6 @@ public class PlayerController : MonoBehaviour
                     }
                 }break;
                 case  "StraightToDown":{
-                    magicAttributeParticles.flameParticle.Play();
-                    slashanim.Play("Slash_Down",0,0);
-                    if(direction < 0) slashanim.transform.localEulerAngles = new Vector3(-30,180,0);
-                    else slashanim.transform.localEulerAngles = new Vector3(30,0,0);
-                    slashanim.transform.position = transform.position + new Vector3(0.9f * direction,0.2f,-2);
                     yield return new WaitForSeconds(0.1f);
 
                     GameObject DMGObject = Instantiate(attackColliders.DownSlash,new Vector2(transform.position.x + 1.5f * direction,transform.position.y),transform.rotation);
@@ -208,32 +188,44 @@ public class PlayerController : MonoBehaviour
                 }break;
                 case "tap":{
                     if(drawMagicSymbols.Count > 0){
+                        MagicAttribute magicAttribute = 0;
                         switch(drawMagicSymbols[0].magicSymbol){
                             case "RegularTriangle":{
-                                gameObject.GetComponent<EntityBase>().myMagicAttribute = MagicAttribute.flame;
-                                enchantAnim.transform.position = transform.position + new Vector3(0,0.8f,-2);
-                                enchantAnim.Play("Flame",0,0);
+                                magicAttribute = MagicAttribute.flame;
                             }break;
                             case "InvertedTriangle":{
-                                gameObject.GetComponent<EntityBase>().myMagicAttribute = MagicAttribute.aqua;
+                                magicAttribute = MagicAttribute.aqua;
                             }break;
                             case "Thunder":{
-                                gameObject.GetComponent<EntityBase>().myMagicAttribute = MagicAttribute.electro;
+                                magicAttribute = MagicAttribute.electro;
                             }break;
                             case "Grass":{
-                                gameObject.GetComponent<EntityBase>().myMagicAttribute = MagicAttribute.terra;
+                                magicAttribute = MagicAttribute.terra;
                             }break;
                         }
+                        if(Vector2.Distance(drawShapePos,transform.position) < enchantDetectionRadius) gameObject.GetComponent<EntityBase>().myMagicAttribute = magicAttribute;
+                        else {
+                            yield return new WaitForSeconds(0.2f);
+                            FireBall bullet = Instantiate((GameObject)Resources.Load("Magics/FireBall"),transform.position + new Vector3(0.3f * direction,0.3f,0),transform.rotation).GetComponent<FireBall>();
+                            bullet.speed *= direction;
+                        }
+                        Debug.Log("Radius is " + Vector2.Distance(drawShapePos,transform.position));
+                        timeFromEnchanted += Time.deltaTime;
+                    }else {     
+                        drawShapeName = "None";
+                        oldDrawShapeName ="None";
+                        lockOperation = false;
                     }
                 }break;
             }
         }
+
     }
     public void OnFinishAttack(){
         drawShapeName = "None";
         drawMagicSymbols = new List<DrawMagicSymbol>();
         lockOperation = false;
-        magicAttributeParticles.flameParticle.Stop();
+        Debug.Log("UnLocked operation");
     }
     void isOnground(){
         int layermask = 1 << LayerMask.NameToLayer("Ground");
@@ -245,5 +237,6 @@ public class PlayerController : MonoBehaviour
     }
     void OnDrawGizmos() {
         Gizmos.DrawWireSphere(new Vector2(transform.position.x,transform.position.y-playerHeight/2),0.1f);
+        Gizmos.DrawWireSphere(transform.position,enchantDetectionRadius);
     }
 }

@@ -15,6 +15,7 @@ public class ShapeJudger : MonoBehaviour
     public string result ="None";
     public float writingTime;
     public float accuracy = 0;
+    public bool OutPutLog = false;
     [Space(20)]
 
     [Header("Info")]
@@ -131,70 +132,70 @@ public class ShapeJudger : MonoBehaviour
         }
         radius = sumDis / points.Count;
         float sumAccuracy = 0;
-        Debug.Log($"{radius} min{MinDis} max{MaxDis}");
+        if(OutPutLog)Debug.Log($"{radius} min{MinDis} max{MaxDis}");
         foreach(Vector2 point in points){
             float Dis = Vector2.Distance(center,point);
             float accuracy = ExtensionMethods.AccuraryCheckFromNum(Dis,radius/2,radius);
             sumAccuracy += accuracy;
-            Debug.Log($"Pos:{point} Dis:{Dis} accuracy:{accuracy}");
+            if(OutPutLog)Debug.Log($"Pos:{point} Dis:{Dis} accuracy:{accuracy}");
         }
 
         return sumAccuracy/points.Count;
     }
     float CheckRegularTriangle(List<Vector2> points){
-        Debug.Log("Start Triangle Check");
+       if(OutPutLog) Debug.Log("Start Triangle Check");
         float accuracyValue = 0;
         if(points.Count == 4 && points[1].y < points[3].y && points[1].y < points[0].y){
             float A = ExtensionMethods.InteriorAngle(points[2],points[0],points[1]);
             float B = ExtensionMethods.InteriorAngle(points[0],points[1],points[2]);
             float C = ExtensionMethods.InteriorAngle(points[1],points[2],points[0]);
-            Debug.Log($"Angle is A:{A} B:{B} C:{C}");
+            if(OutPutLog)Debug.Log($"Angle is A:{A} B:{B} C:{C}");
             accuracyValue = (AnAngleAccurary(A,Mathf.PI/3) + AnAngleAccurary(B,Mathf.PI/3) + AnAngleAccurary(C,Mathf.PI/3))/3;
-            Debug.Log($"Angle Accuray is {accuracyValue} (A:{AnAngleAccurary(A,Mathf.PI/3)} B:{AnAngleAccurary(B,Mathf.PI/3)} C:{AnAngleAccurary(C,Mathf.PI/3)})");
+            if(OutPutLog)Debug.Log($"Angle Accuray is {accuracyValue} (A:{AnAngleAccurary(A,Mathf.PI/3)} B:{AnAngleAccurary(B,Mathf.PI/3)} C:{AnAngleAccurary(C,Mathf.PI/3)})");
         } 
-        Debug.Log(accuracyValue);
+        if(OutPutLog)Debug.Log(accuracyValue);
         return accuracyValue;
     }
     float CheckInvertedTriangle(List<Vector2> points){
-        Debug.Log("Start Triangle Check");
+        if(OutPutLog)Debug.Log("Start Triangle Check");
         float accuracyValue = 0;
         if(points.Count == 4 && points[1].y > points[3].y && points[1].y > points[0].y){
             float A = ExtensionMethods.InteriorAngle(points[2],points[0],points[1]);
             float B = ExtensionMethods.InteriorAngle(points[0],points[1],points[2]);
             float C = ExtensionMethods.InteriorAngle(points[1],points[2],points[0]);
-            Debug.Log($"Angle is A:{A} B:{B} C:{C}");
+            if(OutPutLog)Debug.Log($"Angle is A:{A} B:{B} C:{C}");
             accuracyValue = (AnAngleAccurary(A,Mathf.PI/3) + AnAngleAccurary(B,Mathf.PI/3) + AnAngleAccurary(C,Mathf.PI/3))/3;
-            Debug.Log($"Angle Accuray is {accuracyValue} (A:{AnAngleAccurary(A,Mathf.PI/3)} B:{AnAngleAccurary(B,Mathf.PI/3)} C:{AnAngleAccurary(C,Mathf.PI/3)})");
+            if(OutPutLog)Debug.Log($"Angle Accuray is {accuracyValue} (A:{AnAngleAccurary(A,Mathf.PI/3)} B:{AnAngleAccurary(B,Mathf.PI/3)} C:{AnAngleAccurary(C,Mathf.PI/3)})");
         } 
-        Debug.Log(accuracyValue);
+        if(OutPutLog)Debug.Log(accuracyValue);
         return accuracyValue;
     }
     float CheckThunder(List<Vector2> points){
-        Debug.Log("Start Thunder Check");
+        if(OutPutLog)Debug.Log("Start Thunder Check");
         float accuracyValue = 0;
         if(points.Count == 4 && points[1].y > points[3].y && points[0].y > points[1].y){
             float A = ExtensionMethods.InteriorAngle(points[2],points[0],points[1]);
             float B = ExtensionMethods.InteriorAngle(points[0],points[1],points[2]);
             float C = ExtensionMethods.InteriorAngle(points[1],points[2],points[0]);
-            Debug.Log($"Angle is A:{A} B:{B} C:{C}");
+            if(OutPutLog)Debug.Log($"Angle is A:{A} B:{B} C:{C}");
             accuracyValue = (AnAngleAccurary(A,Mathf.PI/3) + AnAngleAccurary(B,Mathf.PI/3) + AnAngleAccurary(C,Mathf.PI/3))/3;
-            Debug.Log($"Angle Accuray is {accuracyValue} (A:{AnAngleAccurary(A,Mathf.PI/3)} B:{AnAngleAccurary(B,Mathf.PI/3)} C:{AnAngleAccurary(C,Mathf.PI/3)})");
+            if(OutPutLog)Debug.Log($"Angle Accuray is {accuracyValue} (A:{AnAngleAccurary(A,Mathf.PI/3)} B:{AnAngleAccurary(B,Mathf.PI/3)} C:{AnAngleAccurary(C,Mathf.PI/3)})");
         } 
-        Debug.Log(accuracyValue);
+        if(OutPutLog)Debug.Log(accuracyValue);
         return accuracyValue;
     }
     float CheckGrass(List<Vector2> points){
-        Debug.Log("Start Grass Check");
+        if(OutPutLog)Debug.Log("Start Grass Check");
         float accuracyValue = 0;
         if(points.Count == 5){
             float A = ExtensionMethods.InteriorAngle(points[0],points[1],points[2]);
             float B = ExtensionMethods.InteriorAngle(points[1],points[2],points[3]);
             float C = ExtensionMethods.InteriorAngle(points[2],points[3],points[4]);
-            Debug.Log($"Angle is A:{A} B:{B} C:{C}");
+            if(OutPutLog)Debug.Log($"Angle is A:{A} B:{B} C:{C}");
             accuracyValue = (AnAngleAccurary(A,Mathf.PI/4) + AnAngleAccurary(B,Mathf.PI/4) + AnAngleAccurary(C,Mathf.PI/4))/3;
-            Debug.Log($"Angle Accuray is {accuracyValue} (A:{AnAngleAccurary(A,Mathf.PI/4)} B:{AnAngleAccurary(B,Mathf.PI/4)} C:{AnAngleAccurary(C,Mathf.PI/4)})");
+            if(OutPutLog)Debug.Log($"Angle Accuray is {accuracyValue} (A:{AnAngleAccurary(A,Mathf.PI/4)} B:{AnAngleAccurary(B,Mathf.PI/4)} C:{AnAngleAccurary(C,Mathf.PI/4)})");
         } 
-        Debug.Log(accuracyValue);
+        if(OutPutLog)Debug.Log(accuracyValue);
         return accuracyValue;
     }
     

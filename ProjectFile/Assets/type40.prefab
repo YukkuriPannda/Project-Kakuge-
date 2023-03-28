@@ -117,7 +117,9 @@ MonoBehaviour:
   skillKind: 0
   target: {fileID: 0}
   nowState: finding
+  staycount: 0
   direction: 1
+  onGround: 0
 --- !u!114 &3233162502744404744
 MonoBehaviour:
   m_ObjectHideFlags: 0

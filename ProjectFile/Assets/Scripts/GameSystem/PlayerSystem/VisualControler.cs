@@ -54,6 +54,7 @@ public class VisualControler : MonoBehaviour
     private EntityBase plEntityBase;//pl=player
     private MagicAttribute oldPlayerMagicAttribute;
     private bool oldLockOperation;
+    private float oldHealth;
     enum AnimMotions :int {
         Stay,
         Walk,
@@ -240,12 +241,6 @@ public class VisualControler : MonoBehaviour
                         }
                     }
                 break;
-                case "None":{
-                    if(playerController.lockOperation){
-                        nowPlayerState = "Damage";
-                        playerAnimator.SetInteger("AnimNumber",(int)AnimMotions.Damage);
-                    }
-                }break;
             }
         }
         if(oldPlayerMagicAttribute != plEntityBase.myMagicAttribute){
@@ -266,6 +261,13 @@ public class VisualControler : MonoBehaviour
                 break;
             }
         }
+        if(oldHealth > plEntityBase.Health){
+            nowPlayerState = "Damage";
+            playerAnimator.SetInteger("AnimNumber",(int)AnimMotions.Damage);
+            if(playerAnimator.GetInteger("Orientation") == 0) playerAnimator.Play("Damage_R",0,0);
+            else playerAnimator.Play("Damage_L",0,0);
+        }
+        oldHealth = plEntityBase.Health;
         oldPlayerState = nowPlayerState;
         oldLockOperation = playerController.lockOperation;
         oldPlayerMagicAttribute = plEntityBase.myMagicAttribute;

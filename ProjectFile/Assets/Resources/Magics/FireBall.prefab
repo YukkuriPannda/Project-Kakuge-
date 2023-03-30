@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2262490452257661336}
   - component: {fileID: 2262490452257661339}
   - component: {fileID: 2262490452257661338}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: AttackParticle (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ Transform:
 --- !u!198 &2262490452257661339
 ParticleSystem:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 2717346330088835650, guid: 05f2495792c86b04eaac4b6dc78b5c55, type: 3}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2262490452257661341}
@@ -4252,7 +4252,7 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0.02702713
+          value: 0.0007133484
           inSlope: 1.5253065
           outSlope: 1.5253065
           tangentMode: 0
@@ -4823,9 +4823,10 @@ GameObject:
   - component: {fileID: 4237903755009274953}
   - component: {fileID: 4237903755009274958}
   - component: {fileID: 4237903755009274959}
-  - component: {fileID: 4237903755009274956}
   - component: {fileID: 4237903755009274952}
   - component: {fileID: 4518914903050713697}
+  - component: {fileID: 6901044020136619979}
+  - component: {fileID: 39102443584189968}
   m_Layer: 0
   m_Name: FireBall
   m_TagString: Untagged
@@ -4840,7 +4841,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4237903755009274957}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
@@ -4900,19 +4901,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &4237903755009274956
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4237903755009274957}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4237903755009274952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4925,7 +4913,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1a8ecb1344231e4296e83a9a5aeabaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 5
+  lifeTime: 2
+  hitParticlePrefab: {fileID: 7998920042566930391, guid: e35e5ec8b461da046baca1a6afb61529, type: 3}
+  age: 0
 --- !u!114 &4518914903050713697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4941,8 +4932,45 @@ MonoBehaviour:
   damage: 10
   magicAttribute: 1
   hurtCoolTime: 0.2
-  knockBack: {x: 100, y: 10}
+  knockBack: {x: 100, y: 100}
   hurtTime: 0
+--- !u!58 &6901044020136619979
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4237903755009274957}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!50 &39102443584189968
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4237903755009274957}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &4237903756523204450
 GameObject:
   m_ObjectHideFlags: 0
@@ -4954,7 +4982,6 @@ GameObject:
   - component: {fileID: 4237903756523203741}
   - component: {fileID: 4237903756523203742}
   - component: {fileID: 4237903756523203743}
-  - component: {fileID: 4237903756523203740}
   m_Layer: 0
   m_Name: FireBall (1)
   m_TagString: Untagged
@@ -5027,16 +5054,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &4237903756523203740
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4237903756523204450}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}

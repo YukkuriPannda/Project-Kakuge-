@@ -975,6 +975,7 @@ MonoBehaviour:
   onGround: 0
   lockOperation: 0
   rb2D: {fileID: 0}
+  oldHealth: 0
   addingforceInJumping: 0
   jumping: 0
 --- !u!4 &988327580
@@ -3377,7 +3378,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6909630715788253297, guid: c46a28dd681b71347981927b3fe0c1b8, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6909630715788253297, guid: c46a28dd681b71347981927b3fe0c1b8, type: 3}
       propertyPath: m_TagString

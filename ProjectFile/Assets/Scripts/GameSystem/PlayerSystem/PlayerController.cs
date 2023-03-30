@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField,ReadOnly] public bool lockOperation = false;
     [HideInInspector]public Rigidbody2D rb2D;
     private EntityBase eBase;
-    private float oldHealth;
+    [HideInInspector]public float oldHealth;
     
     void Start()
     {
@@ -208,6 +208,7 @@ public class PlayerController : MonoBehaviour
                             yield return new WaitForSeconds(0.2f);
                             FireBall bullet = Instantiate((GameObject)Resources.Load("Magics/FireBall"),transform.position + new Vector3(0.3f * direction,0.3f,0),transform.rotation).GetComponent<FireBall>();
                             bullet.speed *= direction;
+                            bullet.gameObject.tag = "Player";
                         }
                         Debug.Log("Radius is " + Vector2.Distance(drawShapePos,transform.position));
                         timeFromEnchanted += Time.deltaTime;

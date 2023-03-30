@@ -15,6 +15,11 @@ public class PlayerController : MonoBehaviour
     public GameObject weapon;
     private float playerHeight;
     [System.Serializable]
+    public class MagicHolder{
+        public PlayerMagicFactory.PlayerFlameMagicKind flameMagic;
+    }
+    [SerializeField]public MagicHolder magicHolder;
+    [System.Serializable]
     public class AttackColliderPrefabs{
         public GameObject UpSlash;
         public GameObject Thrust;
@@ -22,7 +27,6 @@ public class PlayerController : MonoBehaviour
     }
     public AttackColliderPrefabs attackColliders;
 
-    [SerializeField] public List<DrawMagicSymbol> drawMagicSymbols = new List<DrawMagicSymbol>();
     [System.Serializable]
     public class DrawMagicSymbol{
         public DrawMagicSymbol(string magicSymbol,float accuracy){
@@ -32,6 +36,9 @@ public class PlayerController : MonoBehaviour
         public string magicSymbol;
         public float accuracy;
     }
+    [SerializeField] public List<DrawMagicSymbol> drawMagicSymbols = new List<DrawMagicSymbol>();
+    
+    
 
     [Header("InputField")]
     public string drawShapeName = "None";
@@ -102,7 +109,7 @@ public class PlayerController : MonoBehaviour
 
     }
     public IEnumerator onChangeDrawShapeName(){
-        if(oldDrawShapeName == "None" && !lockOperation){
+        if(oldDrawShapeName == "None"){
             lockOperation = true;
             int direction = 0;
             if(drawShapePos.x > transform.position.x) direction =1;
@@ -128,6 +135,7 @@ public class PlayerController : MonoBehaviour
                     attackBase.damage *= 1;
                     DMGObject.tag = "Player";
                     attackBase.knockBack = new Vector2(-attackBase.knockBack.x,attackBase.knockBack.y);
+                    drawMagicSymbols = new List<DrawMagicSymbol>();
                     Destroy(DMGObject,0.2f);
                     for(int i = 0;i < 5;i++){
                         transform.Translate(-0.4f,0,0);
@@ -142,6 +150,7 @@ public class PlayerController : MonoBehaviour
                     attackBase.damage *= 1;
                     DMGObject.tag = "Player";
                     attackBase.knockBack = new Vector2(attackBase.knockBack.x * direction,attackBase.knockBack.y);
+                    drawMagicSymbols = new List<DrawMagicSymbol>();
                     Destroy(DMGObject,0.2f);
                     for(int i = 0;i < 10;i++){
                         transform.Translate(0.08f*direction,0,0);
@@ -156,6 +165,7 @@ public class PlayerController : MonoBehaviour
                     attackBase.damage *= 1;
                     DMGObject.tag = "Player";
                     attackBase.knockBack = new Vector2(attackBase.knockBack.x * direction,attackBase.knockBack.y);
+                    drawMagicSymbols = new List<DrawMagicSymbol>();
                     Destroy(DMGObject,0.2f);
                     for(int i = 0;i < 10;i++){
                         transform.Translate(0.08f*direction,0,0);
@@ -188,36 +198,63 @@ public class PlayerController : MonoBehaviour
                 }break;
                 case "tap":{
                     if(drawMagicSymbols.Count > 0){
-                        MagicAttribute magicAttribute = 0;
-                        switch(drawMagicSymbols[0].magicSymbol){
-                            case "RegularTriangle":{
-                                magicAttribute = MagicAttribute.flame;
-                            }break;
-                            case "InvertedTriangle":{
-                                magicAttribute = MagicAttribute.aqua;
-                            }break;
-                            case "Thunder":{
-                                magicAttribute = MagicAttribute.electro;
-                            }break;
-                            case "Grass":{
-                                magicAttribute = MagicAttribute.terra;
-                            }break;
+                            Debug.Log("AEAAAA");
+                        if(drawMagicSymbols[drawMagicSymbols.Count-1].magicSymbol != "Circle"){
+                            Debug.Log("BEAAAA");
+                            //NormalMagic
+                            MagicAttribute magicAttribute = 0;
+                            switch(drawMagicSymbols[0].magicSymbol){
+                                case "RegularTriangle":{
+                                    magicAttribute = MagicAttribute.flame;
+                                }break;
+                                case "InvertedTriangle":{
+                                    magicAttribute = MagicAttribute.aqua;
+                                }break;
+                                case "Thunder":{
+                                    magicAttribute = MagicAttribute.electro;
+                                }break;
+                                case "Grass":{
+                                    magicAttribute = MagicAttribute.terra;
+                                }break;
+                            }
+                            if(Vector2.Distance(drawShapePos,transform.position) < enchantDetectionRadius) {
+                                //Enchant
+                                gameObject.GetComponent<EntityBase>().myMagicAttribute = magicAttribute;
+                            }
+                            else {
+                                //Bullet
+                                yield return new WaitForSeconds(0.2f);
+                                FireBall bullet = Instantiate((GameObject)Resources.Load("Magics/FireBall"),transform.position + new Vector3(0.3f * direction,0.3f,0),transform.rotation).GetComponent<FireBall>();
+                                bullet.speed *= direction;
+                                bullet.gameObject.tag = "Player";
+                            }
+                            timeFromEnchanted += Time.deltaTime;
+                        }else{
+                            //SpecialMagic
+                            Debug.Log("CEAAAA");
+                            PlayerMagicFactory playerMagicFactory = new PlayerMagicFactory();
+                            PlayerMagicBase zakoEnemySkillBase = playerMagicFactory.Create(magicHolder.flameMagic);
+                            StartCoroutine(zakoEnemySkillBase.ActivationFlameMagic(this));
+                            
                         }
-                        if(Vector2.Distance(drawShapePos,transform.position) < enchantDetectionRadius) gameObject.GetComponent<EntityBase>().myMagicAttribute = magicAttribute;
-                        else {
-                            yield return new WaitForSeconds(0.2f);
-                            FireBall bullet = Instantiate((GameObject)Resources.Load("Magics/FireBall"),transform.position + new Vector3(0.3f * direction,0.3f,0),transform.rotation).GetComponent<FireBall>();
-                            bullet.speed *= direction;
-                            bullet.gameObject.tag = "Player";
-                        }
-                        Debug.Log("Radius is " + Vector2.Distance(drawShapePos,transform.position));
-                        timeFromEnchanted += Time.deltaTime;
                     }else {     
                         drawShapeName = "None";
                         oldDrawShapeName ="None";
                         lockOperation = false;
                     }
                 }break;
+                case "Circle":{
+                    if(drawMagicSymbols.Count >0){
+                        drawMagicSymbols.Add(new DrawMagicSymbol("Circle",1));
+                        drawShapeName = "None";
+                        oldDrawShapeName ="None";
+                    }else{
+                        drawShapeName = "None";
+                        oldDrawShapeName ="None";
+                        lockOperation = false;
+                    }
+                }
+                break;
             }
         }
 

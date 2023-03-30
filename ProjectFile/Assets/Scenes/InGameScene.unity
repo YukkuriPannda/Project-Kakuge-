@@ -3378,7 +3378,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6909630715788253297, guid: c46a28dd681b71347981927b3fe0c1b8, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6909630715788253297, guid: c46a28dd681b71347981927b3fe0c1b8, type: 3}
       propertyPath: m_TagString
@@ -3447,6 +3447,14 @@ PrefabInstance:
     - target: {fileID: 6909630715788253303, guid: c46a28dd681b71347981927b3fe0c1b8, type: 3}
       propertyPath: detecitrRadius
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909630715788253303, guid: c46a28dd681b71347981927b3fe0c1b8, type: 3}
+      propertyPath: spotMovementSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909630715788253303, guid: c46a28dd681b71347981927b3fe0c1b8, type: 3}
+      propertyPath: normalMovementSpeed
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c46a28dd681b71347981927b3fe0c1b8, type: 3}

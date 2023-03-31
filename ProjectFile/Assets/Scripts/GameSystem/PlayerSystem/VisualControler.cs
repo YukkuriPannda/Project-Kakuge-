@@ -226,9 +226,15 @@ public class VisualControler : MonoBehaviour
                                 //ShotMagicBullet
                                 if(direction > 0)PlayerModel.localEulerAngles = new Vector3(0,0,0);
                                 else PlayerModel.localEulerAngles = new Vector3(0,180,0);
-                                enchantAnim.transform.position = transform.position + new Vector3(0.6f * direction,0.3f,-2);
-                                playerAnimator.Play("ShotMagicBullet",0,0);
-                                enchantAnim.Play("ShotMagicBullet");
+                                if(playerController.drawMagicSymbols[playerController.drawMagicSymbols.Count - 1].magicSymbol != "Circle"){
+                                    enchantAnim.transform.position = transform.position + new Vector3(0.6f * direction,0.3f,-2);
+                                    playerAnimator.Play("ShotMagicBullet",0,0);
+                                    enchantAnim.Play("ShotMagicBullet");
+                                }else{
+                                    enchantAnim.transform.position = transform.position + new Vector3(0.6f * direction,0.3f,-2);
+                                    playerAnimator.Play("ShotMagicBullet",0,0);
+                                    enchantAnim.Play("ShotMagicBullet");
+                                }
                             }else {
                                 //Enchant
                                 if(plEntityBase.myMagicAttribute != MagicAttribute.none)

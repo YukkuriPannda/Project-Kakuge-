@@ -963,6 +963,8 @@ MonoBehaviour:
   enchantDuraction: 5
   enchantDetectionRadius: 1
   weapon: {fileID: 919132149611924720}
+  magicHolder:
+    flameMagic: 0
   attackColliders:
     UpSlash: {fileID: 7114548282539418036, guid: ab1dd93e7b415554cac0754d2800b7b3, type: 3}
     Thrust: {fileID: 7114548282539418036, guid: 5abef4804e51cdc4ca5125260820ee57, type: 3}

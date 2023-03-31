@@ -198,9 +198,7 @@ public class PlayerController : MonoBehaviour
                 }break;
                 case "tap":{
                     if(drawMagicSymbols.Count > 0){
-                            Debug.Log("AEAAAA");
                         if(drawMagicSymbols[drawMagicSymbols.Count-1].magicSymbol != "Circle"){
-                            Debug.Log("BEAAAA");
                             //NormalMagic
                             MagicAttribute magicAttribute = 0;
                             switch(drawMagicSymbols[0].magicSymbol){
@@ -231,11 +229,9 @@ public class PlayerController : MonoBehaviour
                             timeFromEnchanted += Time.deltaTime;
                         }else{
                             //SpecialMagic
-                            Debug.Log("CEAAAA");
                             PlayerMagicFactory playerMagicFactory = new PlayerMagicFactory();
                             PlayerMagicBase zakoEnemySkillBase = playerMagicFactory.Create(magicHolder.flameMagic);
                             StartCoroutine(zakoEnemySkillBase.ActivationFlameMagic(this));
-                            
                         }
                     }else {     
                         drawShapeName = "None";
@@ -248,6 +244,7 @@ public class PlayerController : MonoBehaviour
                         drawMagicSymbols.Add(new DrawMagicSymbol("Circle",1));
                         drawShapeName = "None";
                         oldDrawShapeName ="None";
+                        lockOperation = false;
                     }else{
                         drawShapeName = "None";
                         oldDrawShapeName ="None";

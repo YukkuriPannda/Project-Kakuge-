@@ -19,19 +19,20 @@ public class ShapeJudger : MonoBehaviour
     [Space(20)]
 
     [Header("Info")]
-    [SerializeField]private bool clicking;
-    [SerializeField]private List<Vector2> inputPoints = new List<Vector2>();
-    [SerializeField]private List<Vector2> sortPoints = new List<Vector2>();
-    [SerializeField]private float CircleAccuracyValue = 0;
-    [SerializeField]private float RegularTriangleAccuracyValue = 0;
-    [SerializeField]private float InvertedTriangleAccuracyValue = 0;
-    [SerializeField]private float thunderAccuracyValue = 0;
-    [SerializeField]private float grassAccuracyValue = 0;
-    [SerializeField]private Vector2 center;
-    [SerializeField]private float radius;
+    [SerializeField,ReadOnly]private bool clicking;
+    [SerializeField,ReadOnly]private List<Vector2> inputPoints = new List<Vector2>();
+    [SerializeField,ReadOnly]private List<Vector2> sortPoints = new List<Vector2>();
+    [SerializeField,ReadOnly]private float CircleAccuracyValue = 0;
+    [SerializeField,ReadOnly]private float RegularTriangleAccuracyValue = 0;
+    [SerializeField,ReadOnly]private float InvertedTriangleAccuracyValue = 0;
+    [SerializeField,ReadOnly]private float thunderAccuracyValue = 0;
+    [SerializeField,ReadOnly]private float grassAccuracyValue = 0;
+    [SerializeField,ReadOnly]private Vector2 center;
+    [SerializeField,ReadOnly]private float radius;
+    private LineRenderer lineRenderer;
     void Start()
     {
-        
+        lineRenderer = gameObject.GetComponent<LineRenderer>();
     }
     void Update()
     {
@@ -104,6 +105,7 @@ public class ShapeJudger : MonoBehaviour
             plc.drawShapeName = result;
             plc.drawShapePos = center;
         }
+        DrawLine();
     }
     List<Vector2> SortPoints(List<Vector2> points){
         List<Vector2> returnPoints = points;
@@ -204,6 +206,16 @@ public class ShapeJudger : MonoBehaviour
         {
             return -Mathf.Cos(angle*(Mathf.PI/targetAngle))/2 + 0.5f;
         }else return 0;
+    }
+    void DrawLine(){
+        if(inputPoints.Count>0){
+            Vector3[] poses = new Vector3[inputPoints.Count];
+            lineRenderer.positionCount = inputPoints.Count;
+            for(int i = 0;i < inputPoints.Count;i++){
+                poses[i] = new Vector3(inputPoints[i].x,inputPoints[i].y,-5);
+            }
+            lineRenderer.SetPositions(poses);
+        }
     }
     void OnDrawGizmos()
     {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor.Animations;
 
 public class VisualControler : MonoBehaviour
 {
@@ -46,15 +47,25 @@ public class VisualControler : MonoBehaviour
         [HideInInspector]public ParticleSystem.EmissionModule flameEmission;
     }
     public EnchantMagicAttributeParticles enchantMagicAttributeParticles;
-    public Animator enchantAnim;
+    public Animator enchantEffectAnim;
+
+    [System.Serializable]
+    public class SpecialMagicAnimationClips{
+        public AnimationClip flame;
+        public AnimationClip aqua;
+        public AnimationClip electro;
+        public AnimationClip terra;
+    }
+    public SpecialMagicAnimationClips specialMagicAnimationClips;
+
     //infos
     [ReadOnly]public string nowPlayerState;
     private string oldPlayerState;
-
     private EntityBase plEntityBase;//pl=player
     private MagicAttribute oldPlayerMagicAttribute;
     private bool oldLockOperation;
     private float oldHealth;
+
     enum AnimMotions :int {
         Stay,
         Walk,
@@ -81,6 +92,7 @@ public class VisualControler : MonoBehaviour
         plEntityBase = playerController.gameObject.GetComponent<EntityBase>();
         normalAttributeParticles.flameEmission = normalAttributeParticles.flame.emission;
         meshRenderer.material.EnableKeyword("_EMISSION");
+        SetSpecialMagicAnimClip();
     }
     void Update()
     {
@@ -227,19 +239,18 @@ public class VisualControler : MonoBehaviour
                                 if(direction > 0)PlayerModel.localEulerAngles = new Vector3(0,0,0);
                                 else PlayerModel.localEulerAngles = new Vector3(0,180,0);
                                 if(playerController.drawMagicSymbols[playerController.drawMagicSymbols.Count - 1].magicSymbol != "Circle"){
-                                    enchantAnim.transform.position = transform.position + new Vector3(0.6f * direction,0.3f,-2);
+                                    enchantEffectAnim.transform.position = transform.position + new Vector3(0.6f * direction,0.3f,-2);
                                     playerAnimator.Play("ShotMagicBullet",0,0);
-                                    enchantAnim.Play("ShotMagicBullet");
+                                    enchantEffectAnim.Play("ShotMagicBullet");
                                 }else{
-                                    enchantAnim.transform.position = transform.position + new Vector3(0.6f * direction,0.3f,-2);
-                                    playerAnimator.Play("ShotMagicBullet",0,0);
-                                    enchantAnim.Play("ShotMagicBullet");
+                                    //SpecialMagic
+                                    playerAnimator.Play("FlameMagic",0,0);
                                 }
                             }else {
                                 //Enchant
                                 if(plEntityBase.myMagicAttribute != MagicAttribute.none)
-                                enchantAnim.transform.position = transform.position + new Vector3(0,0.8f,-2);
-                                enchantAnim.Play("Flame",0,0);
+                                enchantEffectAnim.transform.position = transform.position + new Vector3(0,0.8f,-2);
+                                enchantEffectAnim.Play("Flame",0,0);
                                 if(direction > 0) playerAnimator.Play("Enchant_R");
                                 else playerAnimator.Play("Enchant_L");
                                 enchantMagicAttributeParticles.flame.Play();
@@ -291,6 +302,21 @@ public class VisualControler : MonoBehaviour
             case MagicAttribute.none:
             break;
         }
+    }
+    void SetSpecialMagicAnimClip(){
+        Debug.Log(playerAnimator.runtimeAnimatorController.animationClips[0]);
+        AnimatorController animController = playerAnimator.runtimeAnimatorController as UnityEditor.Animations.AnimatorController;
+        animController.layers[0].stateMachine.states[GetStateFromName("FlameMagic",animController.layers[0].stateMachine.states)].state.motion = specialMagicAnimationClips.flame;
+    }
+    int GetStateFromName(string name,ChildAnimatorState[] states){
+        int result = 0;
+        for(; states[result].state.name != name;result ++){
+            if(result >= states.Length){
+                Debug.LogError("Not Found AnimationState "+name);
+                return -1;
+            }
+        }
+        return result;
     }
     
 }

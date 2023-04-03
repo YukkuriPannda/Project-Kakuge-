@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField,ReadOnly] Text devconsole;
     [SerializeField,ReadOnly] bool onGround = false;
     [SerializeField,ReadOnly] public bool lockOperation = false;
+    [ReadOnly]public int direction = 0;
     [HideInInspector]public Rigidbody2D rb2D;
     private EntityBase eBase;
     [HideInInspector]public float oldHealth;
@@ -111,7 +112,6 @@ public class PlayerController : MonoBehaviour
     public IEnumerator onChangeDrawShapeName(){
         if(oldDrawShapeName == "None"){
             lockOperation = true;
-            int direction = 0;
             if(drawShapePos.x > transform.position.x) direction =1;
             else direction = -1;
             switch(drawShapeName){

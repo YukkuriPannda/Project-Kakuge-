@@ -976,6 +976,7 @@ MonoBehaviour:
   devconsole: {fileID: 0}
   onGround: 0
   lockOperation: 0
+  direction: 0
   rb2D: {fileID: 0}
   oldHealth: 0
   addingforceInJumping: 0
@@ -1027,7 +1028,12 @@ MonoBehaviour:
     terra: {r: 0.765832, g: 2.5458739, b: 0.71408665, a: 0}
   enchantMagicAttributeParticles:
     flame: {fileID: 2012489369}
-  enchantAnim: {fileID: 1918399621}
+  enchantEffectAnim: {fileID: 1918399621}
+  specialMagicAnimationClips:
+    flame: {fileID: 7400000, guid: 1f419d07867fac24a94fa7ebf5241b64, type: 2}
+    aqua: {fileID: 0}
+    electro: {fileID: 0}
+    terra: {fileID: 0}
   nowPlayerState: 
 --- !u!95 &988327582
 Animator:
@@ -3380,7 +3386,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6909630715788253297, guid: c46a28dd681b71347981927b3fe0c1b8, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6909630715788253297, guid: c46a28dd681b71347981927b3fe0c1b8, type: 3}
       propertyPath: m_TagString
@@ -3452,11 +3458,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6909630715788253303, guid: c46a28dd681b71347981927b3fe0c1b8, type: 3}
       propertyPath: spotMovementSpeed
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6909630715788253303, guid: c46a28dd681b71347981927b3fe0c1b8, type: 3}
       propertyPath: normalMovementSpeed
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c46a28dd681b71347981927b3fe0c1b8, type: 3}

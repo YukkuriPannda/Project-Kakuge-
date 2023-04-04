@@ -45,7 +45,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.1}
+  m_Offset: {x: 0, y: -0.2}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 6909630715788253302}
   m_Layer: 6
   m_Name: type40
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,17 +109,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 190e0fb583adf4c859eb0647201f3886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalMovementSpeed: 2
-  spotMovementSpeed: 5
-  detecitrRadius: 0
+  normalMovementSpeed: 1
+  spotMovementSpeed: 2
+  detecitrRadius: 4
   attackRadius: 0.75
-  attackCollider: {fileID: 0}
+  attackCollider: {fileID: 7114548282539418036, guid: 4ae002a3738754e4b99468d5ce01c405, type: 3}
   skillKind: 0
   target: {fileID: 0}
   nowState: finding
   staycount: 0
   direction: 1
   onGround: 0
+  lockOperation: 0
+  entityBase: {fileID: 0}
+  oldHealth: 0
 --- !u!114 &3233162502744404744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,7 +162,8 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  Health: 65535
+  MaxHealth: 100
+  Health: 100
   myMagicAttribute: 0
   gard: 0
   Invulnerable: 0
@@ -205,8 +209,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: aebae38c4951b904d8b19720c0229937, type: 3}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 876634131, guid: 827d16bf01c3b624880935a6707b3ad5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -237,7 +241,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &6909630715788253300
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -251,7 +255,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.1}
+  m_Offset: {x: 0, y: -0.2}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}

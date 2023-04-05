@@ -5,7 +5,6 @@ using UnityEngine;
 public class EntityBase : MonoBehaviour
 {
     //HP管理や被攻撃処理をする。HPを持つオブジェクト全部にアタッチ
-    [SerializeField] ContactFilter2D filter2d;
     public float MaxHealth = 65535;
     public float Health = 65535;
     public MagicAttribute myMagicAttribute = MagicAttribute.none;

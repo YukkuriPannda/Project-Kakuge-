@@ -42,7 +42,7 @@ public class ZakoEnemyVisualController : MonoBehaviour
                 }break;
             }
         }
-        if(zakoEnemyController.entityBase.Health < oldHealth && zakoEnemyController.nowState == "damaging"){
+        if(zakoEnemyController.entityBase.Health < oldHealth){
             if(zakoEnemyController.direction == 1) animator.Play("Damage_R",0,0);
             else animator.Play("Damage_L",0,0);
         }

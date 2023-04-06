@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FlameCoreCover
+  m_Name: FlameShell
   m_Shader: {fileID: -6465566751694194690, guid: 7ef94bd7887675a48a0530643d6d9c03, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -38,7 +38,8 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _Color: {r: 29.857058, g: 0, b: 0, a: 1}
+    - _Color: {r: 30.915825, g: 13.577152, b: 4.8123693, a: 1}
+    - _HDR: {r: 3.5849056, g: 1.9409292, b: 0.82858676, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &1342654945725023580
 MonoBehaviour:

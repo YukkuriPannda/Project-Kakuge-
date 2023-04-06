@@ -21,10 +21,10 @@ public class FireBall : MonoBehaviour
         }
     }
     void OnTriggerEnter2D(Collider2D other){
+        Debug.Log(other.gameObject.CompareTag(this.gameObject.tag));
         if(!other.gameObject.CompareTag(this.gameObject.tag)){
             Destroy(Instantiate(hitParticlePrefab,transform.position,transform.rotation),2);
             Destroy(this.gameObject);
-            Debug.Log("Hit");
         }
     }
 }

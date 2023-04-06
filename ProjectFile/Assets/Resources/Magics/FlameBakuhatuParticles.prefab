@@ -14449,7 +14449,7 @@ GameObject:
   - component: {fileID: 8050402317454981474}
   - component: {fileID: 2160855685527966653}
   m_Layer: 0
-  m_Name: BakuhatuParticles
+  m_Name: FlameBakuhatuParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

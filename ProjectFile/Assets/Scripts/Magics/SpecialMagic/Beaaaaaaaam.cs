@@ -14,7 +14,10 @@ public class Beaaaaaaaam: PlayerMagicBase
             .GetComponent<AttackBase>();
         BoxCollider2D[] boxColliders2D = beaaaam.gameObject.GetComponents<BoxCollider2D>();
         beaaaam.tag = "Player";
-        if(direction == -1)beaaaam.gameObject.transform.eulerAngles = new Vector3(0,180,0);
+        if(direction == -1){
+            beaaaam.gameObject.transform.eulerAngles = new Vector3(0,180,0);
+            beaaaam.knockBack *= new Vector2(-1,1);
+        }
         GameObject.Destroy(beaaaam.gameObject,2.7f);
         yield return new WaitForSeconds(0.6f);
         boxColliders2D[0].enabled = true;

@@ -4828,7 +4828,7 @@ GameObject:
   - component: {fileID: 6901044020136619979}
   - component: {fileID: 39102443584189968}
   m_Layer: 0
-  m_Name: FireBall
+  m_Name: FlameBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4929,7 +4929,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4783b916a6d73e740b19263d0dd0155f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 15
   magicAttribute: 1
   hurtCoolTime: 0.2
   knockBack: {x: 100, y: 100}

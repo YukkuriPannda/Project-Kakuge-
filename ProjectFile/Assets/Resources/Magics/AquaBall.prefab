@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  lifeTime: 10
+  lifeTime: 2
   hitParticlePrefab: {fileID: 7998920042566930391, guid: aa92e62eb704ff646bc5a7bdfcb62252, type: 3}
   age: 0
 --- !u!114 &499189410669301307
@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4783b916a6d73e740b19263d0dd0155f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 15
   magicAttribute: 2
   hurtCoolTime: 0.2
   knockBack: {x: 100, y: 100}

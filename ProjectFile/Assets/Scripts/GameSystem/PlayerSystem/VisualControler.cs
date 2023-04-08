@@ -40,6 +40,16 @@ public class VisualControler : MonoBehaviour
     [SerializeField] private MeshRenderer meshRenderer;
     public EnchantedBladeEmissionColors enchantedBladeColors;
 
+    //BladeMaterial
+    [System.Serializable]
+    public class EffectMaterials{
+        public Material flame;
+        public Material aqua;
+        public Material electro;
+        public Material terra;
+    }
+    public EffectMaterials effectMaterials;
+
     //Enchant
     [System.Serializable]
     public class EnchantMagicAttributeParticles{
@@ -239,6 +249,20 @@ public class VisualControler : MonoBehaviour
                                 if(direction > 0)PlayerModel.localEulerAngles = new Vector3(0,0,0);
                                 else PlayerModel.localEulerAngles = new Vector3(0,180,0);
                                 if(playerController.drawMagicSymbols[playerController.drawMagicSymbols.Count - 1].magicSymbol != "Circle"){
+                                    switch(playerController.drawMagicSymbols[playerController.drawMagicSymbols.Count - 1].magicSymbol){
+                                        case "RegularTriangle":{
+                                            enchantEffectAnim.gameObject.GetComponent<SpriteRenderer>().material = effectMaterials.flame;
+                                        }break;
+                                        case "InvertedTriangle":{
+                                            enchantEffectAnim.gameObject.GetComponent<SpriteRenderer>().material = effectMaterials.aqua;
+                                        }break;
+                                        case "Thunder":{
+                                            enchantEffectAnim.gameObject.GetComponent<SpriteRenderer>().material = effectMaterials.electro;
+                                        }break;
+                                        case "Grass":{
+                                            enchantEffectAnim.gameObject.GetComponent<SpriteRenderer>().material = effectMaterials.terra;
+                                        }break;
+                                    }
                                     enchantEffectAnim.transform.position = transform.position + new Vector3(0.6f * direction,0.3f,-2);
                                     playerAnimator.Play("ShotMagicBullet",0,0);
                                     enchantEffectAnim.Play("ShotMagicBullet");

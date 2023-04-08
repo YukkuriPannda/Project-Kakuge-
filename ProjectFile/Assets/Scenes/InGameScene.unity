@@ -840,6 +840,11 @@ MonoBehaviour:
     aqua: {r: 1.5326858, g: 4.6353045, b: 8.331522, a: 0}
     electro: {r: 4.6228814, g: 0.5170716, b: 9.965379, a: 0}
     terra: {r: 0.765832, g: 2.5458739, b: 0.71408665, a: 0}
+  effectMaterials:
+    flame: {fileID: 2100000, guid: dcdf5a4d95c0c3042955cfb1ab842195, type: 2}
+    aqua: {fileID: 2100000, guid: 56f278dc47b63ba43b683cfe306661af, type: 2}
+    electro: {fileID: 2100000, guid: ad9addade170eed4ea85cf412821ae6d, type: 2}
+    terra: {fileID: 2100000, guid: 1d34818f88422804b85682c32318db22, type: 2}
   enchantMagicAttributeParticles:
     flame: {fileID: 2012489369}
   enchantEffectAnim: {fileID: 1918399621}
@@ -3424,7 +3429,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: dcdf5a4d95c0c3042955cfb1ab842195, type: 2}
+  - {fileID: 2100000, guid: 56f278dc47b63ba43b683cfe306661af, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7901,7 +7906,7 @@ ParticleSystem:
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
   CustomDataModule:
-    enabled: 0
+    enabled: 1
     mode0: 1
     vectorComponentCount0: 1
     color0:

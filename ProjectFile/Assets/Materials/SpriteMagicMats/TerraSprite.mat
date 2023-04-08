@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TerraSprite 1
+  m_Name: TerraSprite
   m_Shader: {fileID: -6465566751694194690, guid: 41289a22f97d9664e977ac0ba8e711b2, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []

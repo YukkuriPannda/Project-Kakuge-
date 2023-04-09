@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour
     [System.Serializable]
     public class MagicHolder{
         public PlayerMagicFactory.PlayerFlameMagicKind flameMagic;
+        public PlayerMagicFactory.PlayerFlameMagicKind aquaMagic;
+        public PlayerMagicFactory.PlayerFlameMagicKind electroMagic;
+        public PlayerMagicFactory.PlayerFlameMagicKind terraMagic;
     }
     [SerializeField]public MagicHolder magicHolder;
     [System.Serializable]
@@ -245,8 +248,24 @@ public class PlayerController : MonoBehaviour
                         }else{
                             //SpecialMagic
                             PlayerMagicFactory playerMagicFactory = new PlayerMagicFactory();
-                            PlayerMagicBase zakoEnemySkillBase = playerMagicFactory.Create(magicHolder.flameMagic);
-                            StartCoroutine(zakoEnemySkillBase.ActivationFlameMagic(this));
+                            switch(drawMagicSymbols[0].magicSymbol){
+                                case "RegularTriangle":{
+                                    PlayerMagicBase zakoEnemySkillBase = playerMagicFactory.Create(magicHolder.flameMagic);
+                                    StartCoroutine(zakoEnemySkillBase.ActivationFlameMagic(this));
+                                }break;
+                                case "InvertedTriangle":{
+                                    PlayerMagicBase zakoEnemySkillBase = playerMagicFactory.Create(magicHolder.aquaMagic);
+                                    StartCoroutine(zakoEnemySkillBase.ActivationAquaMagic(this));
+                                }break;
+                                case "Thunder":{
+                                    PlayerMagicBase zakoEnemySkillBase = playerMagicFactory.Create(magicHolder.electroMagic);
+                                    StartCoroutine(zakoEnemySkillBase.ActivationElectroMagic(this));
+                                }break;
+                                case "Grass":{
+                                    PlayerMagicBase zakoEnemySkillBase = playerMagicFactory.Create(magicHolder.terraMagic);
+                                    StartCoroutine(zakoEnemySkillBase.ActivationTerraMagic(this));
+                                }break;
+                            }
                         }
                     }else {     
                         drawShapeName = "None";

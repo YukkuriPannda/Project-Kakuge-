@@ -20097,6 +20097,9 @@ MonoBehaviour:
   weapon: {fileID: 919132149611924720}
   magicHolder:
     flameMagic: 0
+    aquaMagic: 0
+    electroMagic: 0
+    terraMagic: 0
   attackColliders:
     UpSlash: {fileID: 7114548282539418036, guid: ab1dd93e7b415554cac0754d2800b7b3, type: 3}
     Thrust: {fileID: 7114548282539418036, guid: 5abef4804e51cdc4ca5125260820ee57, type: 3}
@@ -52729,7 +52732,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d69140d4168276b48a48046aa0f0c490, type: 2}
+  - {fileID: 2100000, guid: 5e3ce558808cedd408d6bd584356bb78, type: 2}
   - {fileID: 2100000, guid: 4300191384b5f424c9ef56abb07d0585, type: 2}
   - {fileID: 2100000, guid: 6ab15eeb24f3ef446a3c9a8faabda944, type: 2}
   - {fileID: 2100000, guid: 6c0d7610b8140bf4d87dced2c3b3bff7, type: 2}
@@ -52972,7 +52975,7 @@ SkinnedMeshRenderer:
   m_Materials:
   - {fileID: 2100000, guid: c5c22a01dd40c014d91c602aced27e07, type: 2}
   - {fileID: 2100000, guid: 6d7f2a1d5c8444e4a98682f645b6674c, type: 2}
-  - {fileID: 2100000, guid: d69140d4168276b48a48046aa0f0c490, type: 2}
+  - {fileID: 2100000, guid: 5e3ce558808cedd408d6bd584356bb78, type: 2}
   - {fileID: 2100000, guid: 12f3dad9346ead4468ce87ed5835d5d8, type: 2}
   - {fileID: 2100000, guid: 6c0d7610b8140bf4d87dced2c3b3bff7, type: 2}
   - {fileID: 2100000, guid: 8669189d79af3d246bc0099dd176240d, type: 2}

@@ -10,8 +10,6 @@ public class KnockDown : ZakoEnemySkillBase
     { 
         get {return ZakoEnemySkillFactory.ZakoEnemySkillKind.KnockDown;}
     }
-
-    // スキル「ライトニング」の実行
     public override IEnumerator Attack(ZakoEnemyController zec)
     {
         yield return new WaitForSeconds(0.5f); 

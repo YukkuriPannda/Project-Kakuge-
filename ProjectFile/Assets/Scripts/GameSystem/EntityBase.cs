@@ -5,9 +5,8 @@ using UnityEngine;
 public class EntityBase : MonoBehaviour
 {
     //HP管理や被攻撃処理をする。HPを持つオブジェクト全部にアタッチ
-    [SerializeField] ContactFilter2D filter2d;
-
-    public float   Health = 65535;
+    public float MaxHealth = 65535;
+    public float Health = 65535;
     public MagicAttribute myMagicAttribute = MagicAttribute.none;
 
     public bool gard = false;
@@ -15,7 +14,7 @@ public class EntityBase : MonoBehaviour
     public bool NoGravity = false;
     public bool OnGround = false;
     public void Hurt(float DMG,string AttackBelongedTeam,Vector2 knockBack,MagicAttribute magicAttribute = MagicAttribute.none){
-        if(!gameObject.CompareTag(AttackBelongedTeam)){
+        if(!gameObject.CompareTag(AttackBelongedTeam) && Health >= 0){
             gameObject.GetComponent<Rigidbody2D>().AddForce(knockBack,ForceMode2D.Impulse);
             switch(magicAttribute){
                 case MagicAttribute m when(

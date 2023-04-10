@@ -7,7 +7,8 @@ public class ZakoEnemyVisualController : MonoBehaviour
     [SerializeField,ReadOnly]private string nowState;
     private ZakoEnemyController zakoEnemyController;
     private Animator animator;
-    private string oldState;    
+    private string oldState;
+    private float oldHealth;  
     void Start()
     {
         animator = gameObject.GetComponent<Animator>();
@@ -28,16 +29,26 @@ public class ZakoEnemyVisualController : MonoBehaviour
             case "following":{
                 animator.SetInteger("AnimNumber",(int)AnimState.running);
             }break;
-            case "attacking":{
-                animator.SetInteger("AnimNumber",(int)AnimState.attacking);
-            }break;
         }
-        if(nowState != oldState){
-            
+        if(nowState != oldState){//onchange state
+            switch(nowState){
+                case "attacking":{
+                    if(zakoEnemyController.direction == 1) animator.Play("Attack_R",0,0);
+                    else animator.Play("Attack_L",0,0);
+                }break;
+                case "deathing":{
+                    if(zakoEnemyController.direction == 1) animator.Play("Death_R",0,0);
+                    else animator.Play("Death_L",0,0);
+                }break;
+            }
         }
+        if(zakoEnemyController.entityBase.Health < oldHealth){
+            if(zakoEnemyController.direction == 1) animator.Play("Damage_R",0,0);
+            else animator.Play("Damage_L",0,0);
+        }
+        oldHealth = zakoEnemyController.entityBase.Health;
         oldState = nowState;
-    }
-    enum AnimState{
+    }    enum AnimState{
         staying,
         walking,
         running,

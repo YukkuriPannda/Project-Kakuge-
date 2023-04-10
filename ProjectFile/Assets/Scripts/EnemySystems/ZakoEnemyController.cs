@@ -18,8 +18,11 @@ public class ZakoEnemyController : MonoBehaviour
     [SerializeField,ReadOnly]private float staycount = 0;
     [ReadOnly]public int direction = 1;
     [ReadOnly]public bool onGround = false;
+    [ReadOnly]public bool lockOperation = false;
     int stayAnimNum = 0;
     float bottom;
+    [HideInInspector]public EntityBase entityBase;
+    [HideInInspector]public float oldHealth;
 
     // Start is called before the first frame update
     void Start()
@@ -28,38 +31,49 @@ public class ZakoEnemyController : MonoBehaviour
         target = GameObject.FindWithTag("Player");
         StartPos=transform.position;
         bottom = gameObject.GetComponent<BoxCollider2D>().size.y/2 - gameObject.GetComponent<BoxCollider2D>().offset.y;
+        entityBase = gameObject.GetComponent<EntityBase>();
     }
 
     void FixedUpdate()
     {
-        if(nowState == "following"){
-            Following();
-        }
-        if(nowState == "finding"){
-            Finding();
+        if(!lockOperation){
+            if(nowState == "following"){
+                Following();
+            }
+            if(nowState == "finding"){
+                Finding();
+            }
         }
     }
     void Update(){
-        if(Mathf.Abs(target.transform.position.x - transform.position.x)<=attackRadius && nowState != "attacking")
-        {
-            rb2D.velocity = new Vector2(0,rb2D.velocity.y);
-            nowState = "attacking";
-            //攻撃
-            ZakoEnemySkillFactory zakoEnemySkillFactory = new ZakoEnemySkillFactory();
-            ZakoEnemySkillBase zakoEnemySkillBase = zakoEnemySkillFactory.Create(skillKind);
-            StartCoroutine(zakoEnemySkillBase.Attack(this));
-        }else{
-            if(nowState != "attacking"){
-                if(Mathf.Abs(target.transform.position.x - transform.position.x) < detecitrRadius)
-                {
-                    nowState = "following";
-                }else{
-                    if(LotteryStayAnim()==0) nowState = "finding";
-                    else nowState = "stopping";
+        if(!lockOperation){
+            if(Mathf.Abs(target.transform.position.x - transform.position.x)<=attackRadius && nowState != "attacking")
+            {
+                rb2D.velocity = new Vector2(0,rb2D.velocity.y);
+                nowState = "attacking";
+                //攻撃
+                ZakoEnemySkillFactory zakoEnemySkillFactory = new ZakoEnemySkillFactory();
+                ZakoEnemySkillBase zakoEnemySkillBase = zakoEnemySkillFactory.Create(skillKind);
+                StartCoroutine(zakoEnemySkillBase.Attack(this));
+            }else{
+                if(nowState != "attacking"){
+                    if(Mathf.Abs(target.transform.position.x - transform.position.x) < detecitrRadius)
+                    {
+                        nowState = "following";
+                    }else{
+                        if(LotteryStayAnim()==0) nowState = "finding";
+                        else nowState = "stopping";
+                    }
                 }
             }
         }
+        if(entityBase.Health < oldHealth){
+            lockOperation = true;
+            if(entityBase.Health <= 0)nowState = "deathing";
+            else nowState = "damaging";
+        }
         isOnground();
+        oldHealth = entityBase.Health;
     }
     void Finding(){
         if(transform.position.x - StartPos.x>2)
@@ -79,7 +93,9 @@ public class ZakoEnemyController : MonoBehaviour
         if(onGround)rb2D.AddForce(new Vector2(rb2D.mass * (direction * spotMovementSpeed - rb2D.velocity.x)/0.05f , 0));
     }
     public void OnFinishAttack(){
+        if(nowState == "deathing")Destroy(gameObject);
         nowState = "following";
+        lockOperation = false;
     }
     void OnDrawGizmos()
     {

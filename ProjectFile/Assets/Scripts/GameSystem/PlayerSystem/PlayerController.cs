@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour
     [System.Serializable]
     public class MagicHolder{
         public PlayerMagicFactory.PlayerFlameMagicKind flameMagic;
+        public PlayerMagicFactory.PlayerFlameMagicKind aquaMagic;
+        public PlayerMagicFactory.PlayerFlameMagicKind electroMagic;
+        public PlayerMagicFactory.PlayerFlameMagicKind terraMagic;
     }
     [SerializeField]public MagicHolder magicHolder;
     [System.Serializable]
@@ -222,7 +225,22 @@ public class PlayerController : MonoBehaviour
                             else {
                                 //Bullet
                                 yield return new WaitForSeconds(0.2f);
-                                FireBall bullet = Instantiate((GameObject)Resources.Load("Magics/FireBall"),transform.position + new Vector3(0.3f * direction,0.3f,0),transform.rotation).GetComponent<FireBall>();
+                                string path = "";
+                                switch(drawMagicSymbols[0].magicSymbol){
+                                    case "RegularTriangle":{
+                                        path = "Magics/FlameBall";
+                                    }break;
+                                    case "InvertedTriangle":{
+                                        path = "Magics/AquaBall";
+                                    }break;
+                                    case "Thunder":{
+                                        path = "Magics/ElectroBall";
+                                    }break;
+                                    case "Grass":{
+                                        path = "Magics/TerraBall";
+                                    }break;
+                                }
+                                FireBall bullet = Instantiate((GameObject)Resources.Load(path),transform.position + new Vector3(0.3f * direction,0.3f,0),transform.rotation).GetComponent<FireBall>();
                                 bullet.speed *= direction;
                                 bullet.gameObject.tag = "Player";
                             }
@@ -230,8 +248,24 @@ public class PlayerController : MonoBehaviour
                         }else{
                             //SpecialMagic
                             PlayerMagicFactory playerMagicFactory = new PlayerMagicFactory();
-                            PlayerMagicBase zakoEnemySkillBase = playerMagicFactory.Create(magicHolder.flameMagic);
-                            StartCoroutine(zakoEnemySkillBase.ActivationFlameMagic(this));
+                            switch(drawMagicSymbols[0].magicSymbol){
+                                case "RegularTriangle":{
+                                    PlayerMagicBase zakoEnemySkillBase = playerMagicFactory.Create(magicHolder.flameMagic);
+                                    StartCoroutine(zakoEnemySkillBase.ActivationFlameMagic(this));
+                                }break;
+                                case "InvertedTriangle":{
+                                    PlayerMagicBase zakoEnemySkillBase = playerMagicFactory.Create(magicHolder.aquaMagic);
+                                    StartCoroutine(zakoEnemySkillBase.ActivationAquaMagic(this));
+                                }break;
+                                case "Thunder":{
+                                    PlayerMagicBase zakoEnemySkillBase = playerMagicFactory.Create(magicHolder.electroMagic);
+                                    StartCoroutine(zakoEnemySkillBase.ActivationElectroMagic(this));
+                                }break;
+                                case "Grass":{
+                                    PlayerMagicBase zakoEnemySkillBase = playerMagicFactory.Create(magicHolder.terraMagic);
+                                    StartCoroutine(zakoEnemySkillBase.ActivationTerraMagic(this));
+                                }break;
+                            }
                         }
                     }else {     
                         drawShapeName = "None";

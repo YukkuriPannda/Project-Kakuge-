@@ -23,4 +23,7 @@ public class PlayerMagicFactory
 abstract public class PlayerMagicBase{
     public abstract PlayerMagicFactory.PlayerFlameMagicKind SkillKind { get; }
     public abstract IEnumerator ActivationFlameMagic(PlayerController plc);
+    public abstract IEnumerator ActivationAquaMagic(PlayerController plc);
+    public abstract IEnumerator ActivationElectroMagic(PlayerController plc);
+    public abstract IEnumerator ActivationTerraMagic(PlayerController plc);
 }

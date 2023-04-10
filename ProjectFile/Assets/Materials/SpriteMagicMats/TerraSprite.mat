@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TerraSprite 1
+  m_Name: TerraSprite
   m_Shader: {fileID: -6465566751694194690, guid: 41289a22f97d9664e977ac0ba8e711b2, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -57,7 +57,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _Color: {r: 2.8197114, g: 6.713751, b: 1.265419, a: 1}
+    - _Color: {r: 1.5593535, g: 3.6845045, b: 0.67780983, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &1081136389506475811
 MonoBehaviour:

@@ -16,6 +16,9 @@ public class VisualControler : MonoBehaviour
     public class NormalMagicAttributeParticles{
         public ParticleSystem flame;
         [HideInInspector]public ParticleSystem.EmissionModule flameEmission;
+        public ParticleSystem aqua;
+        public ParticleSystem electro;
+        public ParticleSystem terra;
     }
     public NormalMagicAttributeParticles normalAttributeParticles;
 
@@ -24,6 +27,9 @@ public class VisualControler : MonoBehaviour
     public class SlashMagicAttributeParticles{
         public ParticleSystem flame;
         [HideInInspector]public ParticleSystem.EmissionModule flameEmission;
+        public ParticleSystem aqua;
+        public ParticleSystem electro;
+        public ParticleSystem terra;
     }
     public SlashMagicAttributeParticles magicAttributeParticles;
     public Animator slashanim;
@@ -40,11 +46,23 @@ public class VisualControler : MonoBehaviour
     [SerializeField] private MeshRenderer meshRenderer;
     public EnchantedBladeEmissionColors enchantedBladeColors;
 
+    //BladeMaterial
+    [System.Serializable]
+    public class EffectMaterials{
+        public Material flame;
+        public Material aqua;
+        public Material electro;
+        public Material terra;
+    }
+    public EffectMaterials effectMaterials;
+
     //Enchant
     [System.Serializable]
     public class EnchantMagicAttributeParticles{
         public ParticleSystem flame;
-        [HideInInspector]public ParticleSystem.EmissionModule flameEmission;
+        public ParticleSystem aqua;
+        public ParticleSystem electro;
+        public ParticleSystem terra;
     }
     public EnchantMagicAttributeParticles enchantMagicAttributeParticles;
     public Animator enchantEffectAnim;
@@ -239,6 +257,20 @@ public class VisualControler : MonoBehaviour
                                 if(direction > 0)PlayerModel.localEulerAngles = new Vector3(0,0,0);
                                 else PlayerModel.localEulerAngles = new Vector3(0,180,0);
                                 if(playerController.drawMagicSymbols[playerController.drawMagicSymbols.Count - 1].magicSymbol != "Circle"){
+                                    switch(playerController.drawMagicSymbols[playerController.drawMagicSymbols.Count - 1].magicSymbol){
+                                        case "RegularTriangle":{
+                                            enchantEffectAnim.gameObject.GetComponent<SpriteRenderer>().material = effectMaterials.flame;
+                                        }break;
+                                        case "InvertedTriangle":{
+                                            enchantEffectAnim.gameObject.GetComponent<SpriteRenderer>().material = effectMaterials.aqua;
+                                        }break;
+                                        case "Thunder":{
+                                            enchantEffectAnim.gameObject.GetComponent<SpriteRenderer>().material = effectMaterials.electro;
+                                        }break;
+                                        case "Grass":{
+                                            enchantEffectAnim.gameObject.GetComponent<SpriteRenderer>().material = effectMaterials.terra;
+                                        }break;
+                                    }
                                     enchantEffectAnim.transform.position = transform.position + new Vector3(0.6f * direction,0.3f,-2);
                                     playerAnimator.Play("ShotMagicBullet",0,0);
                                     enchantEffectAnim.Play("ShotMagicBullet");
@@ -248,12 +280,31 @@ public class VisualControler : MonoBehaviour
                                 }
                             }else {
                                 //Enchant
-                                if(plEntityBase.myMagicAttribute != MagicAttribute.none)
-                                enchantEffectAnim.transform.position = transform.position + new Vector3(0,0.8f,-2);
-                                enchantEffectAnim.Play("Flame",0,0);
-                                if(direction > 0) playerAnimator.Play("Enchant_R");
-                                else playerAnimator.Play("Enchant_L");
-                                enchantMagicAttributeParticles.flame.Play();
+                                if(plEntityBase.myMagicAttribute != MagicAttribute.none){
+                                    switch(playerController.drawMagicSymbols[playerController.drawMagicSymbols.Count - 1].magicSymbol){
+                                        case "RegularTriangle":{
+                                            enchantEffectAnim.gameObject.GetComponent<SpriteRenderer>().material = effectMaterials.flame;
+                                            enchantMagicAttributeParticles.flame.Play();
+                                        }break;
+                                        case "InvertedTriangle":{
+                                            enchantEffectAnim.gameObject.GetComponent<SpriteRenderer>().material = effectMaterials.aqua;
+                                            enchantMagicAttributeParticles.aqua.Play();
+                                        }break;
+                                        case "Thunder":{
+                                            enchantEffectAnim.gameObject.GetComponent<SpriteRenderer>().material = effectMaterials.electro;
+                                            enchantMagicAttributeParticles.electro.Play();
+                                        }break;
+                                        case "Grass":{
+                                            enchantEffectAnim.gameObject.GetComponent<SpriteRenderer>().material = effectMaterials.terra;
+                                            enchantMagicAttributeParticles.terra.Play();
+                                        }break;
+                                    }
+                                    enchantEffectAnim.transform.position = transform.position + new Vector3(0,0.8f,-2);
+                                    enchantEffectAnim.Play("Enchant",0,0);
+                                    if(direction > 0) playerAnimator.Play("Enchant_R");
+                                    else playerAnimator.Play("Enchant_L");
+
+                                }
                             }
                         }
                     }
@@ -261,18 +312,32 @@ public class VisualControler : MonoBehaviour
             }
         }
         if(oldPlayerMagicAttribute != plEntityBase.myMagicAttribute){
-            if(plEntityBase.myMagicAttribute == MagicAttribute.flame){
-                normalAttributeParticles.flameEmission.enabled = true;
-                meshRenderer.material.SetColor("_EmissionColor",enchantedBladeColors.flame);
-            }
             switch(plEntityBase.myMagicAttribute){
                 case MagicAttribute.flame:
-                    normalAttributeParticles.flameEmission.enabled = true;
+                    normalAttributeParticles.flame.Play();
                     meshRenderer.material.SetColor("_EmissionColor",enchantedBladeColors.flame);
                     slashanim.gameObject.GetComponent<SpriteRenderer>().color = new Color(enchantedBladeColors.flame.r,enchantedBladeColors.flame.g,enchantedBladeColors.flame.b,1);
                 break;
+                case MagicAttribute.aqua:
+                    normalAttributeParticles.aqua.Play();
+                    meshRenderer.material.SetColor("_EmissionColor",enchantedBladeColors.aqua);
+                    slashanim.gameObject.GetComponent<SpriteRenderer>().color = new Color(enchantedBladeColors.aqua.r,enchantedBladeColors.aqua.g,enchantedBladeColors.aqua.b,1);
+                break;
+                case MagicAttribute.electro:
+                    normalAttributeParticles.electro.Play();
+                    meshRenderer.material.SetColor("_EmissionColor",enchantedBladeColors.electro);
+                    slashanim.gameObject.GetComponent<SpriteRenderer>().color = new Color(enchantedBladeColors.electro.r,enchantedBladeColors.electro.g,enchantedBladeColors.electro.b,1);
+                break;
+                case MagicAttribute.terra:
+                    normalAttributeParticles.terra.Play();
+                    meshRenderer.material.SetColor("_EmissionColor",enchantedBladeColors.terra);
+                    slashanim.gameObject.GetComponent<SpriteRenderer>().color = new Color(enchantedBladeColors.terra.r,enchantedBladeColors.terra.g,enchantedBladeColors.terra.b,1);
+                break;
                 case MagicAttribute.none:
-                    normalAttributeParticles.flameEmission.enabled = false;
+                    normalAttributeParticles.flame.Stop();
+                    normalAttributeParticles.aqua.Stop();
+                    normalAttributeParticles.electro.Stop();
+                    normalAttributeParticles.terra.Stop();
                     meshRenderer.material.SetColor("_EmissionColor",enchantedBladeColors.normal);
                     slashanim.gameObject.GetComponent<SpriteRenderer>().color = new Color(1,1,1,1);
                 break;
@@ -298,6 +363,15 @@ public class VisualControler : MonoBehaviour
         switch(plEntityBase.myMagicAttribute){
             case MagicAttribute.flame:
                 magicAttributeParticles.flame.Play();
+            break;
+            case MagicAttribute.aqua:
+                magicAttributeParticles.aqua.Play();
+            break;
+            case MagicAttribute.electro:
+                magicAttributeParticles.electro.Play();
+            break;
+            case MagicAttribute.terra:
+                magicAttributeParticles.terra.Play();
             break;
             case MagicAttribute.none:
             break;

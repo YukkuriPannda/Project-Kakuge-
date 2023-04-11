@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     public float enchantDuraction = 5;
     public float enchantDetectionRadius = 2;
     private float timeFromEnchanted = 0;
+    public float magicStones = 6;
+    public float MaxMagicStones = 6;
     public GameObject weapon;
     private float playerHeight;
     [System.Serializable]
@@ -58,7 +60,6 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]public Rigidbody2D rb2D;
     private EntityBase eBase;
     [HideInInspector]public float oldHealth;
-    
     void Start()
     {
         rb2D = this.gameObject.GetComponent<Rigidbody2D>();
@@ -113,7 +114,7 @@ public class PlayerController : MonoBehaviour
 
     }
     public IEnumerator onChangeDrawShapeName(){
-        if(oldDrawShapeName == "None"){
+        if(oldDrawShapeName == "None" && magicStones > 0){
             lockOperation = true;
             if(drawShapePos.x > transform.position.x) direction =1;
             else direction = -1;
@@ -221,6 +222,7 @@ public class PlayerController : MonoBehaviour
                             if(Vector2.Distance(drawShapePos,transform.position) < enchantDetectionRadius) {
                                 //Enchant
                                 gameObject.GetComponent<EntityBase>().myMagicAttribute = magicAttribute;
+                                magicStones --;
                             }
                             else {
                                 //Bullet
@@ -243,6 +245,7 @@ public class PlayerController : MonoBehaviour
                                 FireBall bullet = Instantiate((GameObject)Resources.Load(path),transform.position + new Vector3(0.3f * direction,0.3f,0),transform.rotation).GetComponent<FireBall>();
                                 bullet.speed *= direction;
                                 bullet.gameObject.tag = "Player";
+                                magicStones --;
                             }
                             timeFromEnchanted += Time.deltaTime;
                         }else{
@@ -266,6 +269,7 @@ public class PlayerController : MonoBehaviour
                                     StartCoroutine(zakoEnemySkillBase.ActivationTerraMagic(this));
                                 }break;
                             }
+                            magicStones --;
                         }
                     }else {     
                         drawShapeName = "None";
@@ -288,7 +292,6 @@ public class PlayerController : MonoBehaviour
                 break;
             }
         }
-
     }
     public void OnFinishAttack(){
         drawShapeName = "None";

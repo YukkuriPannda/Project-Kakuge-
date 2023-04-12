@@ -4,9 +4,11 @@ using UnityEngine;
 public class MousePointer : MonoBehaviour {
     Transform mytrf;
     public EntityBase targetEntityBase;
+    private float oldMagicStone;
     private VisualControler visualctl;
     private PlayerController plc;
     public SpriteRenderer core;
+    public Animator shell;
     public SpriteRenderer symbol;
     [System.Serializable]
     public class CoreColors{
@@ -54,6 +56,9 @@ public class MousePointer : MonoBehaviour {
                 symbol.sprite = null;
             }break;
         }
-        
+        if(oldMagicStone !=plc.magicStones){
+            shell.Play("main",0,(6-plc.magicStones)/7);
+        }
+        oldMagicStone = plc.magicStones;
     }   
 }

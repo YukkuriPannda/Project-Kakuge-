@@ -20285,6 +20285,8 @@ MonoBehaviour:
   jumpInputArrowableTime: 0.25
   enchantDuraction: 10
   enchantDetectionRadius: 1
+  magicStones: 6
+  MaxMagicStones: 6
   weapon: {fileID: 919132149611924720}
   magicHolder:
     flameMagic: 0
@@ -42376,6 +42378,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1910237210}
   - component: {fileID: 1910237211}
+  - component: {fileID: 1910237212}
   m_Layer: 0
   m_Name: Circle_Shell
   m_TagString: Untagged
@@ -42450,6 +42453,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1910237212
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910237209}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: acb3ea980c8653b4a913ef1deffc05a4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1918399620
 GameObject:
   m_ObjectHideFlags: 0
@@ -53696,7 +53719,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2214709297015842901}
   - component: {fileID: 2214709297015842898}
-  - component: {fileID: 2214709297015842899}
   - component: {fileID: 2214709297015842900}
   - component: {fileID: 2214709297015842903}
   m_Layer: 0
@@ -53718,58 +53740,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c393221f5783a44439ff0966f52f1f5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!212 &2214709297015842899
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2214709297015842896}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 101fb929c209f6e4cbc15ce70bb578f2, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 0.32, y: 0.32}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  targetEntityBase: {fileID: 988327578}
+  core: {fileID: 1099304147}
+  shell: {fileID: 1910237212}
+  symbol: {fileID: 685746002}
+  coreColors:
+    flame: {r: 1, g: 0.64705884, b: 0.2509804, a: 1}
+    aqua: {r: 0.38204575, g: 0.5983658, b: 0.8867924, a: 1}
+    electro: {r: 1, g: 0.9717777, b: 0.40251565, a: 1}
+    terra: {r: 0.5099199, g: 1, b: 0.31760997, a: 1}
+  coreSymbols:
+    flame: {fileID: 21300000, guid: a02c1b3e87f3fda4ba8e94c3b5cd9277, type: 3}
+    aqua: {fileID: 21300000, guid: 8e5650d6186caf84e81c046f33441e0f, type: 3}
+    electro: {fileID: 21300000, guid: 56a5ab950facfc044b655b1166a181f9, type: 3}
+    terra: {fileID: 21300000, guid: 38353a3178c8abe48bb8c65b0355446c, type: 3}
 --- !u!114 &2214709297015842900
 MonoBehaviour:
   m_ObjectHideFlags: 0

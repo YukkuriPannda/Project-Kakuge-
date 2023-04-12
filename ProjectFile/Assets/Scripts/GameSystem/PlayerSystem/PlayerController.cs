@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour
 
     }
     public IEnumerator onChangeDrawShapeName(){
-        if(oldDrawShapeName == "None" && magicStones > 0){
+        if(oldDrawShapeName == "None"){
             lockOperation = true;
             if(drawShapePos.x > transform.position.x) direction =1;
             else direction = -1;
@@ -201,7 +201,7 @@ public class PlayerController : MonoBehaviour
                     lockOperation = false;
                 }break;
                 case "tap":{
-                    if(drawMagicSymbols.Count > 0){
+                    if(drawMagicSymbols.Count > 0 && magicStones>0){
                         if(drawMagicSymbols[drawMagicSymbols.Count-1].magicSymbol != "Circle"){
                             //NormalMagic
                             MagicAttribute magicAttribute = 0;
@@ -291,6 +291,7 @@ public class PlayerController : MonoBehaviour
                 }
                 break;
             }
+            
         }
     }
     public void OnFinishAttack(){

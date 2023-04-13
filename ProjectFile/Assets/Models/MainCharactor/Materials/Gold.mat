@@ -333,7 +333,7 @@ Material:
     - _SpcColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
     - _ViewShift: {r: 0, g: 0, b: 0, a: 1}
-    - _main: {r: 0.9697885, g: 0.9716981, b: 0.25361925, a: 0}
+    - _main: {r: 1, g: 0.91175294, b: 0.4198113, a: 0}
     - _outline: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &7422718949108655025

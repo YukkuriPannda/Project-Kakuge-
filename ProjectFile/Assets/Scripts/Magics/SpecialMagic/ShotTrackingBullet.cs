@@ -12,13 +12,11 @@ public class ShotTrackingBullet : PlayerMagicBase
     {
         int direction = plc.direction;
         for(int i = 0;i< 5;i++){
-            AttackBase bullet = GameObject.Instantiate((GameObject)Resources.Load("Magics/TrackingBullet/FlameTrackingBulletPrefab"),plc.transform.position + new Vector3(1f * direction,0.3f,0),Quaternion.Euler(0,0,Random.Range(30,90)))
+            AttackBase bullet = GameObject.Instantiate((GameObject)Resources.Load("Magics/TrackingBullet/FlameTrackingBulletPrefab"),plc.transform.position + new Vector3(-1f * direction,0.3f,0),Quaternion.Euler(0,0,Random.Range(30,120)))
                 .GetComponent<AttackBase>();
             bullet.gameObject.tag = "Player";
-            if(direction == -1){
-                bullet.gameObject.transform.eulerAngles = new Vector3(0,180,0);
-                bullet.knockBack *= new Vector2(-1,1);
-            }
+            bullet.gameObject.GetComponent<TrackingBullet>().speed *= Random.Range(0.5f,2f);
+            bullet.gameObject.GetComponent<TrackingBullet>().rotateSpeed *= Random.Range(0.5f,3f);
             GameObject.Destroy(bullet.gameObject,2.7f);
             yield return new WaitForSeconds(0.1f);
         }

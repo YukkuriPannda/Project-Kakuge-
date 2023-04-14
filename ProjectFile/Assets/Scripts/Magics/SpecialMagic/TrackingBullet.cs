@@ -13,7 +13,6 @@ public class TrackingBullet : MonoBehaviour
     void Start()
     {
         rb2D = gameObject.GetComponent<Rigidbody2D>();
-        rotateSpeed = Random.Range(150,210);
     }
     void Update()
     {
@@ -36,8 +35,7 @@ public class TrackingBullet : MonoBehaviour
         t += Time.deltaTime;
     }
     void OnTriggerEnter2D(Collider2D other){
-        Debug.Log(other.gameObject.CompareTag(this.gameObject.tag));
-        if(!other.gameObject.CompareTag(this.gameObject.tag)){
+        if(!other.gameObject.CompareTag(this.gameObject.tag) && !other.gameObject.CompareTag("Ground")){
             Destroy(Instantiate(hitParticlePrefab,transform.position,transform.rotation),2);
             Destroy(this.gameObject);
         }

@@ -12,7 +12,10 @@ public class ShotTrackingBullet : PlayerMagicBase
     {
         int direction = plc.direction;
         for(int i = 0;i< 5;i++){
-            AttackBase bullet = GameObject.Instantiate((GameObject)Resources.Load("Magics/TrackingBullet/FlameTrackingBulletPrefab"),plc.transform.position + new Vector3(-1f * direction,0.3f,0),Quaternion.Euler(0,0,Random.Range(30,120)))
+            AttackBase bullet;
+            if(direction < 0)bullet = GameObject.Instantiate((GameObject)Resources.Load("Magics/TrackingBullet/FlameTrackingBulletPrefab"),plc.transform.position + new Vector3(-1f * direction,0.3f,0),Quaternion.Euler(0,0,Random.Range(30,120)))
+                .GetComponent<AttackBase>();
+            else bullet = GameObject.Instantiate((GameObject)Resources.Load("Magics/TrackingBullet/FlameTrackingBulletPrefab"),plc.transform.position + new Vector3(-1f * direction,0.3f,0),Quaternion.Euler(0,0,Random.Range(120,210)))
                 .GetComponent<AttackBase>();
             bullet.gameObject.tag = "Player";
             bullet.gameObject.GetComponent<TrackingBullet>().speed *= Random.Range(0.5f,2f);

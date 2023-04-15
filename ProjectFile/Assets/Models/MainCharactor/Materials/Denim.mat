@@ -147,11 +147,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _1: 0.3
+    - _1: -0.05
     - _1st2nd_Shades_Feather: 0.0001
     - _1st_ShadeColor_Feather: 0.0001
     - _1st_ShadeColor_Step: 0.5
-    - _2: -0.3
+    - _2: -0.57
     - _2nd_ShadeColor_Feather: 0.0001
     - _2nd_ShadeColor_Step: 0
     - _ARSampler_AlphaOn: 0
@@ -331,7 +331,7 @@ Material:
     - _SpcColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
     - _ViewShift: {r: 0, g: 0, b: 0, a: 1}
-    - _main: {r: 0.1665845, g: 0.15218824, b: 0.34509805, a: 1}
+    - _main: {r: 0.3046458, g: 0.29436633, b: 0.46226418, a: 1}
     - _outline: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &5904672176026228138

@@ -20289,7 +20289,7 @@ MonoBehaviour:
   MaxMagicStones: 6
   weapon: {fileID: 919132149611924720}
   magicHolder:
-    flameMagic: 0
+    flameMagic: 1
     aquaMagic: 0
     electroMagic: 0
     terraMagic: 0

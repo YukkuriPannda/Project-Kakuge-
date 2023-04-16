@@ -13,6 +13,8 @@ public class ShapeJudger : MonoBehaviour
 
     [Header("Output")]
     public string result ="None";
+    public bool IsGard;
+    public Vector2 gardVector;
     public float writingTime;
     public float accuracy = 0;
     public bool OutPutLog = false;
@@ -30,6 +32,7 @@ public class ShapeJudger : MonoBehaviour
     [SerializeField,ReadOnly]private Vector2 center;
     [SerializeField,ReadOnly]private float radius;
     private LineRenderer lineRenderer;
+    private IEnumerator fadeOutLine;
     void Start()
     {
         lineRenderer = gameObject.GetComponent<LineRenderer>();
@@ -44,66 +47,86 @@ public class ShapeJudger : MonoBehaviour
             thunderAccuracyValue = 0;
             grassAccuracyValue = 0;
             accuracy =0;
+            if(Vector2.Distance(mousePointer.localPosition,new Vector2(0,0)) < 1f)result = "Gard";
+            
+            lineRenderer.startWidth = 0.1f;
+            lineRenderer.endWidth = 0.1f;
+            if(fadeOutLine != null && result != "Gard")StopCoroutine(fadeOutLine);
         }
         if(Input.GetMouseButton(0)){
-            if(detectionFrequency >= sinceLastAddedPoint){
-                sinceLastAddedPoint = 0;
-                if(inputPoints.Count > 0){
-                    if(Vector2.Distance(inputPoints[inputPoints.Count-1],mousePointer.position)>=0.3f)inputPoints.Add(mousePointer.position);
-                }else inputPoints.Add(mousePointer.position);
+            if(result != "Gard"){
+                if(detectionFrequency >= sinceLastAddedPoint){
+                    sinceLastAddedPoint = 0;
+                    if(inputPoints.Count > 0){
+                        if(Vector2.Distance(inputPoints[inputPoints.Count-1],mousePointer.localPosition)>=0.3f)inputPoints.Add(mousePointer.localPosition);
+                    }else inputPoints.Add(mousePointer.localPosition);
+                }else{
+                    writingTime += Time.deltaTime;
+                    sinceLastAddedPoint += Time.deltaTime;
+                }
             }else{
-                writingTime += Time.deltaTime;
-                sinceLastAddedPoint += Time.deltaTime;
+                gardVector = mousePointer.position.normalized;
+                plc.drawShapeName = result;
+                plc.drawShapePos = center;
             }
         }
         if(Input.GetMouseButtonUp(0)){
-            CircleAccuracyValue = CheckCircle(inputPoints);
-            if(CircleAccuracyValue < 0.67f){
-                sortPoints = SortPoints(inputPoints);
-                RegularTriangleAccuracyValue = CheckRegularTriangle(sortPoints);
-                InvertedTriangleAccuracyValue = CheckInvertedTriangle(sortPoints);
-                thunderAccuracyValue = CheckThunder(sortPoints);
-                grassAccuracyValue = CheckGrass(sortPoints);
-                if(RegularTriangleAccuracyValue > 0 && RegularTriangleAccuracyValue > CircleAccuracyValue){
-                    result = "RegularTriangle";
-                    accuracy = RegularTriangleAccuracyValue;
-                }
-                if(InvertedTriangleAccuracyValue > 0 && InvertedTriangleAccuracyValue > CircleAccuracyValue) {
-                    result = "InvertedTriangle";
-                    accuracy = InvertedTriangleAccuracyValue;
-                }
-                if(thunderAccuracyValue > 0 && thunderAccuracyValue > CircleAccuracyValue){
-                    result = "Thunder";
-                    accuracy = thunderAccuracyValue;
-                }
-                if(grassAccuracyValue > 0 && grassAccuracyValue > CircleAccuracyValue){
-                    result = "Grass";
-                    accuracy = grassAccuracyValue;
-                }
-                if(result == null){
+            fadeOutLine = null;
+            fadeOutLine = FadeOutLine();
+            StartCoroutine(fadeOutLine);
+            if(result == "Gard"){
+                result = "None";
+                plc.drawShapeName = result;
+            }else{
+                CircleAccuracyValue = CheckCircle(inputPoints);
+                if(CircleAccuracyValue < 0.67f){
+                    sortPoints = SortPoints(inputPoints);
+                    RegularTriangleAccuracyValue = CheckRegularTriangle(sortPoints);
+                    InvertedTriangleAccuracyValue = CheckInvertedTriangle(sortPoints);
+                    thunderAccuracyValue = CheckThunder(sortPoints);
+                    grassAccuracyValue = CheckGrass(sortPoints);
+                    if(RegularTriangleAccuracyValue > 0 && RegularTriangleAccuracyValue > CircleAccuracyValue){
+                        result = "RegularTriangle";
+                        accuracy = RegularTriangleAccuracyValue;
+                    }
+                    if(InvertedTriangleAccuracyValue > 0 && InvertedTriangleAccuracyValue > CircleAccuracyValue) {
+                        result = "InvertedTriangle";
+                        accuracy = InvertedTriangleAccuracyValue;
+                    }
+                    if(thunderAccuracyValue > 0 && thunderAccuracyValue > CircleAccuracyValue){
+                        result = "Thunder";
+                        accuracy = thunderAccuracyValue;
+                    }
+                    if(grassAccuracyValue > 0 && grassAccuracyValue > CircleAccuracyValue){
+                        result = "Grass";
+                        accuracy = grassAccuracyValue;
+                    }
+                    if(result == null){
+                        result = "Circle";
+                        accuracy = CircleAccuracyValue;
+                    }
+                }else {
                     result = "Circle";
                     accuracy = CircleAccuracyValue;
                 }
-            }else {
-                result = "Circle";
-                accuracy = CircleAccuracyValue;
-            }
 
-            if(sortPoints.Count < 3 && CircleAccuracyValue < 0.67f){
-                float drawingAngle = Mathf.Atan2(inputPoints[0].y-inputPoints[inputPoints.Count-1].y,inputPoints[0].x-inputPoints[inputPoints.Count-1].x)+Mathf.PI;
-                Debug.Log($"drawingAngle{drawingAngle}");
-                if(drawingAngle>Mathf.PI/4 && drawingAngle<Mathf.PI*3/4)result = "StraightToUp";
-                if(drawingAngle>Mathf.PI*3/4 && drawingAngle<Mathf.PI*5/4)result = "StraightToLeft";
-                if(drawingAngle>Mathf.PI*5/4 && drawingAngle<Mathf.PI*7/4)result = "StraightToDown";
-                if(drawingAngle>Mathf.PI*7/4 || drawingAngle<Mathf.PI/4)result = "StraightToRight";
-                accuracy = 1;
+                if(sortPoints.Count < 3 && CircleAccuracyValue < 0.67f){
+                    float drawingAngle = Mathf.Atan2(inputPoints[0].y-inputPoints[inputPoints.Count-1].y,inputPoints[0].x-inputPoints[inputPoints.Count-1].x)+Mathf.PI;
+                    Debug.Log($"drawingAngle{drawingAngle}");
+                    if(drawingAngle>Mathf.PI/4 && drawingAngle<Mathf.PI*3/4)result = "StraightToUp";
+                    if(drawingAngle>Mathf.PI*3/4 && drawingAngle<Mathf.PI*5/4)result = "StraightToLeft";
+                    if(drawingAngle>Mathf.PI*5/4 && drawingAngle<Mathf.PI*7/4)result = "StraightToDown";
+                    if(drawingAngle>Mathf.PI*7/4 || drawingAngle<Mathf.PI/4)result = "StraightToRight";
+                    accuracy = 1;
+                }
+                if(radius < 0.15f){
+                    result = "tap";
+                    accuracy = 1; 
+                }
+                plc.drawShapeName = result;
+                plc.drawShapePos = center;
+                plc.gardVector = gardVector;
             }
-            if(radius < 0.15f){
-                result = "tap";
-                accuracy = 1; 
-            }
-            plc.drawShapeName = result;
-            plc.drawShapePos = center;
         }
         DrawLine();
     }
@@ -212,7 +235,7 @@ public class ShapeJudger : MonoBehaviour
             Vector3[] poses = new Vector3[inputPoints.Count];
             lineRenderer.positionCount = inputPoints.Count;
             for(int i = 0;i < inputPoints.Count;i++){
-                poses[i] = new Vector3(inputPoints[i].x,inputPoints[i].y,-5);
+                poses[i] = new Vector3(inputPoints[i].x,inputPoints[i].y,1);
             }
             lineRenderer.SetPositions(poses);
         }
@@ -243,6 +266,14 @@ public class ShapeJudger : MonoBehaviour
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(center,radius);
         }
+    }
+    IEnumerator FadeOutLine(){
+        for(float t = 1;t > 0;t -= Time.deltaTime){
+            lineRenderer.startWidth = t * 0.1f;
+            lineRenderer.endWidth = t * 0.1f;
+            yield return null;
+        }
+        yield break;
     }
 }
 public class ExtensionMethods{

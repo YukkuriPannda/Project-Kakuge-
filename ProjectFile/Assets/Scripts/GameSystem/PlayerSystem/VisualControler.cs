@@ -53,6 +53,7 @@ public class VisualControler : MonoBehaviour
         public Material aqua;
         public Material electro;
         public Material terra;
+        public Material none;
     }
     public EffectMaterials effectMaterials;
 
@@ -83,6 +84,7 @@ public class VisualControler : MonoBehaviour
     private MagicAttribute oldPlayerMagicAttribute;
     private bool oldLockOperation;
     private float oldHealth;
+    private string oldDrawShapeName;
 
     enum AnimMotions :int {
         Stay,
@@ -93,6 +95,7 @@ public class VisualControler : MonoBehaviour
         SwordAttack=50,
         MagicAttack=70,
         Enchant,
+        Gard,
         Doyaa = 100
     }
     enum SwordAttackType:int{
@@ -117,6 +120,7 @@ public class VisualControler : MonoBehaviour
         if(!playerController.lockOperation && !(playerController.InputValueForMove.x == 0 && 
             (nowPlayerState != "RUN" && nowPlayerState != "WALK" && nowPlayerState != "STAY")
                 )){
+            enchantEffectAnim.SetBool("Gard",false);
             playerController.weapon.transform.position = centerBone.position;
             playerController.weapon.transform.rotation = centerBone.rotation;
             switch(playerController.InputValueForMove.x){
@@ -154,7 +158,7 @@ public class VisualControler : MonoBehaviour
             int direction = 0;
             switch(playerController.drawShapeName){
                 case "StraightToUp":
-                    if(playerController.drawShapePos.x - transform.position.x > 0){ 
+                    if(playerController.drawShapePos.x > 0){ 
                         PlayerModel.localEulerAngles = new Vector3(0,0,0);
                         playerAnimator.SetInteger("Orientation",(int)Orientation.Right);
                         direction = 1;
@@ -212,7 +216,7 @@ public class VisualControler : MonoBehaviour
                     }
                 break;
                 case "StraightToDown":
-                    if(playerController.drawShapePos.x - transform.position.x > 0){ 
+                    if(playerController.drawShapePos.x > 0){ 
                         PlayerModel.localEulerAngles = new Vector3(0,0,0);
                         playerAnimator.SetInteger("Orientation",(int)Orientation.Right);
                         direction = 1;
@@ -238,21 +242,20 @@ public class VisualControler : MonoBehaviour
                 break;
                 case "tap":
                     if(playerController.drawMagicSymbols.Count > 0){
-                        nowPlayerState = "Enchant";
-                        if(playerController.drawShapePos.x - transform.position.x > 0){ 
+                        nowPlayerState = "ShotMagic";
+                        if(playerController.drawShapePos.x > 0){ 
                             playerAnimator.SetInteger("Orientation",(int)Orientation.Right);
                             direction = 1;
                         }else{
                             playerAnimator.SetInteger("Orientation",(int)Orientation.Left);
                             direction = -1;
                         }
-                        playerAnimator.SetInteger("AnimNumber",(int)AnimMotions.Enchant);
-                        playerController.weapon.transform.position = rightHandBone.position;
-                        playerController.weapon.transform.rotation = rightHandBone.rotation;
+                        playerController.weapon.transform.position = centerBone.position;
+                        playerController.weapon.transform.rotation = centerBone.rotation;
                         
                         //on change playerstate
                         if(playerController.lockOperation != oldLockOperation){
-                            if(Vector2.Distance(playerController.drawShapePos,transform.position) > playerController.enchantDetectionRadius){
+                            if(Vector2.Distance(playerController.drawShapePos,new Vector2(0,0)) > playerController.enchantDetectionRadius){
                                 //ShotMagicBullet
                                 if(direction > 0)PlayerModel.localEulerAngles = new Vector3(0,0,0);
                                 else PlayerModel.localEulerAngles = new Vector3(0,180,0);
@@ -272,43 +275,72 @@ public class VisualControler : MonoBehaviour
                                         }break;
                                     }
                                     enchantEffectAnim.transform.position = transform.position + new Vector3(0.6f * direction,0.3f,-2);
+                                    playerAnimator.SetInteger("AnimNumber",(int)AnimMotions.MagicAttack);
                                     playerAnimator.Play("ShotMagicBullet",0,0);
                                     enchantEffectAnim.Play("ShotMagicBullet");
+                                    Debug.Log("B");
                                 }else{
                                     //SpecialMagic
+                                    Debug.Log("A");
+                                    playerAnimator.SetInteger("AnimNumber",(int)AnimMotions.MagicAttack);
                                     playerAnimator.Play("FlameMagic",0,0);
-                                }
-                            }else {
-                                //Enchant
-                                if(plEntityBase.myMagicAttribute != MagicAttribute.none){
-                                    switch(playerController.drawMagicSymbols[playerController.drawMagicSymbols.Count - 1].magicSymbol){
-                                        case "RegularTriangle":{
-                                            enchantEffectAnim.gameObject.GetComponent<SpriteRenderer>().material = effectMaterials.flame;
-                                            enchantMagicAttributeParticles.flame.Play();
-                                        }break;
-                                        case "InvertedTriangle":{
-                                            enchantEffectAnim.gameObject.GetComponent<SpriteRenderer>().material = effectMaterials.aqua;
-                                            enchantMagicAttributeParticles.aqua.Play();
-                                        }break;
-                                        case "Thunder":{
-                                            enchantEffectAnim.gameObject.GetComponent<SpriteRenderer>().material = effectMaterials.electro;
-                                            enchantMagicAttributeParticles.electro.Play();
-                                        }break;
-                                        case "Grass":{
-                                            enchantEffectAnim.gameObject.GetComponent<SpriteRenderer>().material = effectMaterials.terra;
-                                            enchantMagicAttributeParticles.terra.Play();
-                                        }break;
-                                    }
-                                    enchantEffectAnim.transform.position = transform.position + new Vector3(0,0.8f,-2);
-                                    enchantEffectAnim.Play("Enchant",0,0);
-                                    if(direction > 0) playerAnimator.Play("Enchant_R");
-                                    else playerAnimator.Play("Enchant_L");
-
                                 }
                             }
                         }
                     }
                 break;
+                case "Gard":{
+                    if(playerController.lockOperation != oldLockOperation){
+                        if(plEntityBase.gard){
+                            nowPlayerState = "Gard";
+                            playerAnimator.SetInteger("AnimNumber",(int)AnimMotions.Gard);
+                            playerAnimator.Play("Gard",0,0);
+                            if(playerAnimator.GetInteger("Orientation") == (int)Orientation.Right)PlayerModel.localEulerAngles = new Vector3(0,0,0);
+                            else PlayerModel.localEulerAngles = new Vector3(0,180,0);
+                            enchantEffectAnim.Play("Gard",0,0);
+                            enchantEffectAnim.SetBool("Gard",true);
+                            enchantEffectAnim.transform.position = new Vector3(transform.position.x,transform.position.y,-3);
+                            enchantEffectAnim.transform.localScale = new Vector3(1.5f,1.5f,1);
+                        }else{
+                            //Enchant
+                            if(plEntityBase.myMagicAttribute != MagicAttribute.none){
+                                nowPlayerState = "Enchant";
+                                switch(playerController.drawMagicSymbols[playerController.drawMagicSymbols.Count - 1].magicSymbol){
+                                    case "RegularTriangle":{
+                                        enchantEffectAnim.gameObject.GetComponent<SpriteRenderer>().material = effectMaterials.flame;
+                                        enchantMagicAttributeParticles.flame.Play();
+                                    }break;
+                                    case "InvertedTriangle":{
+                                        enchantEffectAnim.gameObject.GetComponent<SpriteRenderer>().material = effectMaterials.aqua;
+                                        enchantMagicAttributeParticles.aqua.Play();
+                                    }break;
+                                    case "Thunder":{
+                                        enchantEffectAnim.gameObject.GetComponent<SpriteRenderer>().material = effectMaterials.electro;
+                                        enchantMagicAttributeParticles.electro.Play();
+                                    }break;
+                                    case "Grass":{
+                                        enchantEffectAnim.gameObject.GetComponent<SpriteRenderer>().material = effectMaterials.terra;
+                                        enchantMagicAttributeParticles.terra.Play();
+                                    }break;
+                                }
+                                enchantEffectAnim.transform.position = transform.position + new Vector3(0,0.8f,-2);
+                                enchantEffectAnim.transform.localScale = new Vector3(1,1,1);
+                                playerAnimator.SetInteger("AnimNumber",(int)AnimMotions.Enchant);
+                                enchantEffectAnim.Play("Enchant",0,0);
+                                if(direction > 0) playerAnimator.Play("Enchant_R");
+                                else playerAnimator.Play("Enchant_L");
+                            }else enchantEffectAnim.gameObject.GetComponent<SpriteRenderer>().material = effectMaterials.none;
+                        }
+                    }
+                }break;
+                case "None":{
+                    if(nowPlayerState == "Gard"){
+                        nowPlayerState = "Stay";
+                        playerAnimator.SetInteger("AnimNumber",(int)AnimMotions.Stay);
+                        enchantEffectAnim.SetBool("Gard",false);
+                        PlayerModel.localEulerAngles = new Vector3(0,0,0);
+                    }
+                }break;
             }
         }
         if(oldPlayerMagicAttribute != plEntityBase.myMagicAttribute){
@@ -343,16 +375,21 @@ public class VisualControler : MonoBehaviour
                 break;
             }
         }
-        if(oldHealth > plEntityBase.Health){
-            nowPlayerState = "Damage";
-            playerAnimator.SetInteger("AnimNumber",(int)AnimMotions.Damage);
-            if(playerAnimator.GetInteger("Orientation") == 0) playerAnimator.Play("Damage_R",0,0);
-            else playerAnimator.Play("Damage_L",0,0);
+        if(oldHealth > plEntityBase.Health){//Damage
+            if(plEntityBase.gard){
+                
+            }else{
+                nowPlayerState = "Damage";
+                playerAnimator.SetInteger("AnimNumber",(int)AnimMotions.Damage);
+                if(playerAnimator.GetInteger("Orientation") == 0) playerAnimator.Play("Damage_R",0,0);
+                else playerAnimator.Play("Damage_L",0,0);
+            }
         }
         oldHealth = plEntityBase.Health;
         oldPlayerState = nowPlayerState;
         oldLockOperation = playerController.lockOperation;
         oldPlayerMagicAttribute = plEntityBase.myMagicAttribute;
+        oldDrawShapeName = playerController.drawShapeName;
     }
     public void OnFinishAttackMotion(){
         playerAnimator.SetInteger("AnimNumber",(int)AnimMotions.Stay);

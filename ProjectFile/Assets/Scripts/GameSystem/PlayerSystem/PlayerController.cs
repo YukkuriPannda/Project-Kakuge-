@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     public float jumpInputArrowableTime = 0.5f;
     public float enchantDuraction = 5;
     public float enchantDetectionRadius = 2;
-    private float timeFromEnchanted = 0;
+    [ReadOnly]public float timeFromEnchanted = 0;
     public float magicStones = 6;
     public float MaxMagicStones = 6;
     public GameObject weapon;
@@ -49,6 +49,7 @@ public class PlayerController : MonoBehaviour
     public string drawShapeName = "None";
     private string oldDrawShapeName ="None";
     public Vector2 drawShapePos = new Vector2(0,0);
+    public Vector2 gardVector = new Vector2(0,0);
     public Vector2 InputValueForMove;
     Vector2 oldInputValueForMove;
 
@@ -79,7 +80,7 @@ public class PlayerController : MonoBehaviour
         oldDrawShapeName = drawShapeName;
         if(oldHealth > eBase.Health){
             lockOperation = true;
-            drawShapeName = "None";
+            if(drawShapeName != "Gard") drawShapeName = "None";
         }
         oldHealth = eBase.Health;
     }
@@ -89,6 +90,8 @@ public class PlayerController : MonoBehaviour
             rb2D.AddForce(new Vector2(rb2D.mass * (input * movementSpeed - rb2D.velocity.x)/0.02f ,0));//f=maの応用
         }else{
             rb2D.AddForce(new Vector2(rb2D.mass * (input * movementSpeed - rb2D.velocity.x)/0.5f,0));
+        }else{
+            if(drawShapeName == "Gard")rb2D.AddForce(new Vector2(rb2D.mass * (input * 0 - rb2D.velocity.x)/0.1f ,0));
         }
         if(timeFromEnchanted > 0){
             timeFromEnchanted += Time.deltaTime;
@@ -116,7 +119,7 @@ public class PlayerController : MonoBehaviour
     public IEnumerator onChangeDrawShapeName(){
         if(oldDrawShapeName == "None"){
             lockOperation = true;
-            if(drawShapePos.x > transform.position.x) direction =1;
+            if(drawShapePos.x > 0) direction =1;
             else direction = -1;
             switch(drawShapeName){
                 case "StraightToRight":{
@@ -219,7 +222,7 @@ public class PlayerController : MonoBehaviour
                                     magicAttribute = MagicAttribute.terra;
                                 }break;
                             }
-                            if(Vector2.Distance(drawShapePos,transform.position) < enchantDetectionRadius) {
+                            if(Vector2.Distance(drawShapePos,new Vector2(0,0)) < enchantDetectionRadius) {
                                 //Enchant
                                 gameObject.GetComponent<EntityBase>().myMagicAttribute = magicAttribute;
                                 magicStones --;
@@ -228,17 +231,17 @@ public class PlayerController : MonoBehaviour
                                 //Bullet
                                 yield return new WaitForSeconds(0.2f);
                                 string path = "";
-                                switch(drawMagicSymbols[0].magicSymbol){
-                                    case "RegularTriangle":{
+                                switch(magicAttribute){
+                                    case MagicAttribute.flame:{
                                         path = "Magics/FlameBall";
                                     }break;
-                                    case "InvertedTriangle":{
+                                    case MagicAttribute.aqua:{
                                         path = "Magics/AquaBall";
                                     }break;
-                                    case "Thunder":{
+                                    case MagicAttribute.electro:{
                                         path = "Magics/ElectroBall";
                                     }break;
-                                    case "Grass":{
+                                    case MagicAttribute.terra:{
                                         path = "Magics/TerraBall";
                                     }break;
                                 }
@@ -247,7 +250,6 @@ public class PlayerController : MonoBehaviour
                                 bullet.gameObject.tag = "Player";
                                 magicStones --;
                             }
-                            timeFromEnchanted += Time.deltaTime;
                         }else{
                             //SpecialMagic
                             PlayerMagicFactory playerMagicFactory = new PlayerMagicFactory();
@@ -280,18 +282,49 @@ public class PlayerController : MonoBehaviour
                 case "Circle":{
                     if(drawMagicSymbols.Count >0){
                         drawMagicSymbols.Add(new DrawMagicSymbol("Circle",1));
-                        drawShapeName = "None";
-                        oldDrawShapeName ="None";
-                        lockOperation = false;
-                    }else{
-                        drawShapeName = "None";
-                        oldDrawShapeName ="None";
-                        lockOperation = false;
                     }
+                    drawShapeName = "None";
+                    oldDrawShapeName ="None";
+                    lockOperation = false;
                 }
                 break;
+                case "Gard":{
+                    if(drawMagicSymbols.Count > 0){
+                        if(drawMagicSymbols[drawMagicSymbols.Count -1].magicSymbol != "Circle"){
+                            //Enchant
+                            MagicAttribute magicAttribute = 0;
+                            switch(drawMagicSymbols[0].magicSymbol){
+                                case "RegularTriangle":{
+                                    magicAttribute = MagicAttribute.flame;
+                                }break;
+                                case "InvertedTriangle":{
+                                    magicAttribute = MagicAttribute.aqua;
+                                }break;
+                                case "Thunder":{
+                                    magicAttribute = MagicAttribute.electro;
+                                }break;
+                                case "Grass":{
+                                    magicAttribute = MagicAttribute.terra;
+                                }break;
+                            }
+                            gameObject.GetComponent<EntityBase>().myMagicAttribute = magicAttribute;
+                            magicStones --;
+                            timeFromEnchanted += Time.deltaTime;
+                        }else{
+                            drawShapeName = "None";
+                            drawMagicSymbols = new List<DrawMagicSymbol>();
+                            lockOperation = false;
+                        }
+                    }else{
+                        //Gard
+                        eBase.gard = true;
+                    }
+
+                }break;
             }
-            
+        }else if(oldDrawShapeName == "Gard"){
+            lockOperation = false;
+            eBase.gard = false;
         }
     }
     public void OnFinishAttack(){

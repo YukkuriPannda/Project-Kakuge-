@@ -281,7 +281,6 @@ public class VisualControler : MonoBehaviour
                                     Debug.Log("B");
                                 }else{
                                     //SpecialMagic
-                                    Debug.Log("A");
                                     playerAnimator.SetInteger("AnimNumber",(int)AnimMotions.MagicAttack);
                                     playerAnimator.Play("FlameMagic",0,0);
                                 }

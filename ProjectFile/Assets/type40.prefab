@@ -149,20 +149,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adfa0d2d5a07ef9409b928c12da3e886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filter2d:
-    useTriggers: 0
-    useLayerMask: 0
-    useDepth: 0
-    useOutsideDepth: 0
-    useNormalAngle: 0
-    useOutsideNormalAngle: 0
-    layerMask:
-      serializedVersion: 2
-      m_Bits: 0
-    minDepth: 0
-    maxDepth: 0
-    minNormalAngle: 0
-    maxNormalAngle: 0
   MaxHealth: 100
   Health: 100
   myMagicAttribute: 0
@@ -190,7 +176,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e1b9682295e68c145b9eaababeee857c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -296,6 +282,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6909630715788253298}
     m_Modifications:
+    - target: {fileID: 8023468367283264496, guid: 504de6f520761b94597e66d47cbfe44a, type: 3}
+      propertyPath: entityBase
+      value: 
+      objectReference: {fileID: 6606982434000357862}
     - target: {fileID: 8023468367283264497, guid: 504de6f520761b94597e66d47cbfe44a, type: 3}
       propertyPath: m_RootOrder
       value: 1

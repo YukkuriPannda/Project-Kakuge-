@@ -69,6 +69,7 @@ public class ZakoEnemyController : MonoBehaviour
         }
         if(entityBase.Health < oldHealth){
             lockOperation = true;
+            Debug.Log(entityBase.Health);
             if(entityBase.Health <= 0)nowState = "deathing";
             else nowState = "damaging";
         }

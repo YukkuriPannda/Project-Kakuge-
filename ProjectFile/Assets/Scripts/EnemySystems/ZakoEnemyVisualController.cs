@@ -39,14 +39,21 @@ public class ZakoEnemyVisualController : MonoBehaviour
                     if(zakoEnemyController.direction == 1) animator.Play("Attack_R",0,0);
                     else animator.Play("Attack_L",0,0);
                 }break;
+                case "deathing":{
+                    Debug.Log(zakoEnemyController.nowState + "Death");
+                    if(zakoEnemyController.direction == 1) animator.Play("Death_R",0,0);
+                    else animator.Play("Death_L",0,0);
+                }break;
             }
         }
         if(zakoEnemyController.entityBase.Health < oldHealth){
             if(zakoEnemyController.nowState != "deathing"){
                 if(zakoEnemyController.direction == 1) animator.Play("Damage_R",0,0);
                 else animator.Play("Damage_L",0,0);
+                Debug.Log(zakoEnemyController.nowState);
                 StartCoroutine(HurtEffect());
             }else{
+                Debug.Log(zakoEnemyController.nowState + "Death");
                 if(zakoEnemyController.direction == 1) animator.Play("Death_R",0,0);
                 else animator.Play("Death_L",0,0);
             }

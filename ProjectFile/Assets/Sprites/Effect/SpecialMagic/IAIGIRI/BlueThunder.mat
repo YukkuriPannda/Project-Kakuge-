@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Thunder
+  m_Name: BlueThunder
   m_Shader: {fileID: -6465566751694194690, guid: 41289a22f97d9664e977ac0ba8e711b2, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -62,7 +62,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 4
     m_Colors:
-    - _Color: {r: 9.734288, g: 7.542799, b: 0.45868373, a: 1}
+    - _Color: {r: 1.5972295, g: 13.132775, b: 33.89676, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &1081136389506475811
 MonoBehaviour:

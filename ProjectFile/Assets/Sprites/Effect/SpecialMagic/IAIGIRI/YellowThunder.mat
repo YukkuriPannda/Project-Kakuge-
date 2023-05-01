@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Thunder
+  m_Name: YellowThunder
   m_Shader: {fileID: -6465566751694194690, guid: 41289a22f97d9664e977ac0ba8e711b2, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -33,10 +33,6 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _EmmisionTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 9820a27c38506744aad1b30abe07ff11, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -58,11 +54,10 @@ Material:
     - _Alpha: 1
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
-    - _Emmision_from_texture: 0
     - _QueueControl: 0
     - _QueueOffset: 4
     m_Colors:
-    - _Color: {r: 9.734288, g: 7.542799, b: 0.45868373, a: 1}
+    - _Color: {r: 6.4222345, g: 4.9763913, b: 0.30261838, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &1081136389506475811
 MonoBehaviour:

@@ -141,7 +141,7 @@ public class PlayerController : MonoBehaviour
             switch(drawShapeName){
                 case "StraightToRight":{
                     nowPlayerState = PlayerStates.Thrust;
-                    direction = -1;
+                    direction = 1;
                     GameObject DMGObject = Instantiate(attackColliders.Thrust,new Vector2(transform.position.x + 2f,transform.position.y),transform.rotation);
                     AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
                     attackBase.damage *= 1;
@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviour
                 }break;
                 case "StraightToLeft":{
                     nowPlayerState = PlayerStates.Thrust;
-                    direction = 1;
+                    direction = -1;
                     GameObject DMGObject = Instantiate(attackColliders.Thrust,new Vector2(transform.position.x - 2f,transform.position.y),transform.rotation);
                     AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
                     attackBase.damage *= 1;

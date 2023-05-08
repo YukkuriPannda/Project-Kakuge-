@@ -36,44 +36,46 @@ public class PlayerVisualController : MonoBehaviour
                 plAnim.SetInteger("AnimNum",(int)AnimMotions.Stay);
             }break;
             case PlayerController.PlayerStates.Runing:{
-                plAnim.SetInteger("AnimNum",(int)AnimMotions.Run);
             }break;
         }
         if(plc.nowPlayerState != oldPlcState){
             switch (plc.nowPlayerState){
                 case PlayerController.PlayerStates.Stay:{
+                    plAnim.SetInteger("AnimNum",(int)AnimMotions.Stay);
                     plc.weapon.transform.parent = back.transform;
                     plc.weapon.transform.localPosition = new Vector3(0,0,0);
                     plc.weapon.transform.localEulerAngles = new Vector3(0,0,0);
-                    model.transform.localEulerAngles = new Vector3(0,180,0);
+                    model.transform.localEulerAngles = new Vector3(0,0,0);
                 }break;
                 case PlayerController.PlayerStates.Runing:{
+                    plAnim.SetInteger("AnimNum",(int)AnimMotions.Run);
+                    plAnim.Play("Run",0,0);
                     plc.weapon.transform.parent = back.transform;
                     plc.weapon.transform.localPosition = new Vector3(0,0,0);
                     plc.weapon.transform.localEulerAngles = new Vector3(0,0,0);
-                    if(plc.direction < 0) model.transform.localEulerAngles = new Vector3(0,180,0);
-                    else model.transform.localEulerAngles = new Vector3(0,0,0);
+                    if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);
+                    else model.transform.localEulerAngles = new Vector3(0,180,0);
                 }break;
                 case PlayerController.PlayerStates.UpSlash:{
                     plAnim.Play("UpSlash",0,0);
                     plc.weapon.transform.parent = rightHand.transform;
                     plc.weapon.transform.localPosition = new Vector3(0,0,0);
-                    if(plc.direction < 0) model.transform.localEulerAngles = new Vector3(0,180,0);
-                    else model.transform.localEulerAngles = new Vector3(0,0,0);
+                    if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);
+                    else model.transform.localEulerAngles = new Vector3(0,180,0);
                 }break;
                 case PlayerController.PlayerStates.Thrust:{
                     plAnim.Play("Thrust",0,0);
                     plc.weapon.transform.parent = rightHand.transform;
                     plc.weapon.transform.localPosition = new Vector3(0,0,0);
-                    if(plc.direction < 0) model.transform.localEulerAngles = new Vector3(0,180,0);
-                    else model.transform.localEulerAngles = new Vector3(0,0,0);
+                    if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);
+                    else model.transform.localEulerAngles = new Vector3(0,180,0);
                 }break;
                 case PlayerController.PlayerStates.DownSlash:{
                     plAnim.Play("DownSlash",0,0);
                     plc.weapon.transform.parent = rightHand.transform;
                     plc.weapon.transform.localPosition = new Vector3(0,0,0);
-                    if(plc.direction < 0) model.transform.localEulerAngles = new Vector3(0,180,0);
-                    else model.transform.localEulerAngles = new Vector3(0,0,0);
+                    if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);
+                    else model.transform.localEulerAngles = new Vector3(0,180,0);
                 }break;
                 case PlayerController.PlayerStates.ShotMagicBullet:{
                     plAnim.Play("ShotMagic",0,0);

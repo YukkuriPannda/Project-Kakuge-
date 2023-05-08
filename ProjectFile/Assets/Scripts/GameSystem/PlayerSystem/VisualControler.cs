@@ -282,7 +282,20 @@ public class VisualControler : MonoBehaviour
                                 }else{
                                     //SpecialMagic
                                     playerAnimator.SetInteger("AnimNumber",(int)AnimMotions.MagicAttack);
-                                    playerAnimator.Play("FlameMagic",0,0);
+                                    switch(playerController.drawMagicSymbols[playerController.drawMagicSymbols.Count - 2].magicSymbol){
+                                        case "RegularTriangle":{
+                                            playerAnimator.Play("FlameMagic",0,0);
+                                        }break;
+                                        case "InvertedTriangle":{
+                                            playerAnimator.Play("AquaMagic",0,0);
+                                        }break;
+                                        case "Thunder":{
+                                            playerAnimator.Play("ElectroMagic",0,0);
+                                        }break;
+                                        case "Grass":{
+                                            playerAnimator.Play("TerraMagic",0,0);
+                                        }break;
+                                    }
                                 }
                             }
                         }

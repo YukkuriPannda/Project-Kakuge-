@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-6246816759545709742
+--- !u!114 &-7740138704979387695
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 639247ca83abc874e893eb93af2b5e44, type: 3}
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 0
+  version: 5
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -21,24 +21,24 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: BlueThunder
-  m_Shader: {fileID: -6465566751694194690, guid: 41289a22f97d9664e977ac0ba8e711b2, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: cf6c5cf9fe6be1146a547faa4fe2a585, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 4
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3004
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _EmmisionTex:
-        m_Texture: {fileID: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 1eb53dcc71ef8224395682bdbf7cff18, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 9820a27c38506744aad1b30abe07ff11, type: 3}
+    - _Texture2DAsset_0bb95a36bb354ac2b60381662c508457_Out_0:
+        m_Texture: {fileID: 2800000, guid: e9dedd887016ea64d9a95c7a24451684, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -56,24 +56,10 @@ Material:
     m_Ints: []
     m_Floats:
     - _Alpha: 1
-    - _BUILTIN_QueueControl: 0
-    - _BUILTIN_QueueOffset: 0
-    - _Emmision_from_texture: 0
     - _QueueControl: 0
-    - _QueueOffset: 4
+    - _QueueOffset: 0
+    - _grow: -1
     m_Colors:
-    - _Color: {r: 1.5972295, g: 13.132775, b: 33.89676, a: 1}
+    - _Color: {r: 1.9042312, g: 4.5705776, b: 7.9066987, a: 0}
+    - _Posi: {r: 0, g: 1.15, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &1081136389506475811
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 5

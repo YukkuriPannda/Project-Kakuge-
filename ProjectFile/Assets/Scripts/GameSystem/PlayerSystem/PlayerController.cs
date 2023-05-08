@@ -42,8 +42,6 @@ public class PlayerController : MonoBehaviour
         public float accuracy;
     }
     [SerializeField] public List<DrawMagicSymbol> drawMagicSymbols = new List<DrawMagicSymbol>();
-    
-    
 
     [Header("InputField")]
     public string drawShapeName = "None";
@@ -57,10 +55,23 @@ public class PlayerController : MonoBehaviour
     [SerializeField,ReadOnly] Text devconsole;
     [SerializeField,ReadOnly] bool onGround = false;
     [SerializeField,ReadOnly] public bool lockOperation = false;
-    [ReadOnly]public int direction = 0;
+    [ReadOnly]public int direction = 1;
     [HideInInspector]public Rigidbody2D rb2D;
     private EntityBase eBase;
     [HideInInspector]public float oldHealth;
+    [ReadOnly]public PlayerStates nowPlayerState = PlayerStates.Stay;
+    public enum PlayerStates{
+        Stay,
+        Walking,
+        Runing,
+        UpSlash,
+        Thrust,
+        DownSlash,
+        ShotMagicBullet,
+        Garding,
+        EnchantMySelf,
+        ActivateSpecialMagic
+    }
     void Start()
     {
         rb2D = this.gameObject.GetComponent<Rigidbody2D>();
@@ -86,10 +97,16 @@ public class PlayerController : MonoBehaviour
     }
     
     public void Move(float input) { // 移動方向/強さ -1~1 として
-        if(!lockOperation)if(onGround) {
-            rb2D.AddForce(new Vector2(rb2D.mass * (input * movementSpeed - rb2D.velocity.x)/0.02f ,0));//f=maの応用
-        }else{
-            rb2D.AddForce(new Vector2(rb2D.mass * (input * movementSpeed - rb2D.velocity.x)/0.5f,0));
+        if(!lockOperation){
+            if(InputValueForMove.x != 0) nowPlayerState = PlayerStates.Runing;
+            else nowPlayerState = PlayerStates.Stay;
+            if(InputValueForMove.x > 0)direction = 1;
+            if(InputValueForMove.x < 0)direction = -1;
+            if(onGround) {
+                rb2D.AddForce(new Vector2(rb2D.mass * (input * movementSpeed - rb2D.velocity.x)/0.02f ,0));//f=maの応用
+            }else{
+                rb2D.AddForce(new Vector2(rb2D.mass * (input * movementSpeed - rb2D.velocity.x)/0.5f,0));
+            }
         }else{
             if(drawShapeName == "Gard")rb2D.AddForce(new Vector2(rb2D.mass * (input * 0 - rb2D.velocity.x)/0.1f ,0));
         }
@@ -123,7 +140,8 @@ public class PlayerController : MonoBehaviour
             else direction = -1;
             switch(drawShapeName){
                 case "StraightToRight":{
-
+                    nowPlayerState = PlayerStates.Thrust;
+                    direction = -1;
                     GameObject DMGObject = Instantiate(attackColliders.Thrust,new Vector2(transform.position.x + 2f,transform.position.y),transform.rotation);
                     AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
                     attackBase.damage *= 1;
@@ -136,7 +154,8 @@ public class PlayerController : MonoBehaviour
                     }
                 }break;
                 case "StraightToLeft":{
-                    
+                    nowPlayerState = PlayerStates.Thrust;
+                    direction = 1;
                     GameObject DMGObject = Instantiate(attackColliders.Thrust,new Vector2(transform.position.x - 2f,transform.position.y),transform.rotation);
                     AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
                     attackBase.damage *= 1;
@@ -150,6 +169,7 @@ public class PlayerController : MonoBehaviour
                     }
                 }break;
                 case  "StraightToUp":{
+                    nowPlayerState = PlayerStates.UpSlash;
                     yield return new WaitForSeconds(0.1f);
 
                     GameObject DMGObject = Instantiate(attackColliders.UpSlash,new Vector2(transform.position.x + 1.5f * direction,transform.position.y),transform.rotation);
@@ -165,6 +185,7 @@ public class PlayerController : MonoBehaviour
                     }
                 }break;
                 case  "StraightToDown":{
+                    nowPlayerState = PlayerStates.DownSlash;
                     yield return new WaitForSeconds(0.1f);
 
                     GameObject DMGObject = Instantiate(attackColliders.DownSlash,new Vector2(transform.position.x + 1.5f * direction,transform.position.y),transform.rotation);
@@ -224,11 +245,13 @@ public class PlayerController : MonoBehaviour
                             }
                             if(Vector2.Distance(drawShapePos,new Vector2(0,0)) < enchantDetectionRadius) {
                                 //Enchant
+                                nowPlayerState = PlayerStates.EnchantMySelf;
                                 gameObject.GetComponent<EntityBase>().myMagicAttribute = magicAttribute;
                                 magicStones --;
                             }
                             else {
                                 //Bullet
+                                nowPlayerState = PlayerStates.ShotMagicBullet;
                                 yield return new WaitForSeconds(0.2f);
                                 string path = "";
                                 switch(magicAttribute){
@@ -252,6 +275,7 @@ public class PlayerController : MonoBehaviour
                             }
                         }else{
                             //SpecialMagic
+                            nowPlayerState = PlayerStates.ActivateSpecialMagic;
                             PlayerMagicFactory playerMagicFactory = new PlayerMagicFactory();
                             switch(drawMagicSymbols[0].magicSymbol){
                                 case "RegularTriangle":{
@@ -292,6 +316,7 @@ public class PlayerController : MonoBehaviour
                     if(drawMagicSymbols.Count > 0){
                         if(drawMagicSymbols[drawMagicSymbols.Count -1].magicSymbol != "Circle"){
                             //Enchant
+                            nowPlayerState = PlayerStates.EnchantMySelf;
                             MagicAttribute magicAttribute = 0;
                             switch(drawMagicSymbols[0].magicSymbol){
                                 case "RegularTriangle":{
@@ -317,6 +342,7 @@ public class PlayerController : MonoBehaviour
                         }
                     }else{
                         //Gard
+                        nowPlayerState = PlayerStates.Garding;
                         eBase.gard = true;
                     }
 
@@ -327,7 +353,7 @@ public class PlayerController : MonoBehaviour
             eBase.gard = false;
         }
     }
-    public void OnFinishAttack(){
+    public void UnLockOperation(){
         drawShapeName = "None";
         drawMagicSymbols = new List<DrawMagicSymbol>();
         lockOperation = false;

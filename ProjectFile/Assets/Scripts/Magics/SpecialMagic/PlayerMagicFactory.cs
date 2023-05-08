@@ -6,14 +6,16 @@ public class PlayerMagicFactory
     // スキル一覧
     static readonly PlayerMagicBase[] skills = {
         new Beaaaaaaaam(),
-        new ShotTrackingBullet()
+        new ShotTrackingBullet(),
+        new Type01Senkou()
     };
 
     /// スキルのenum
     public enum PlayerFlameMagicKind
     {
         Beaaaaaaaaaaam,
-        ShotTrackingBullet
+        ShotTrackingBullet,
+        Type01Senkou
     }
 
     // SkillKindを引数に、それに応じたスキルを返す

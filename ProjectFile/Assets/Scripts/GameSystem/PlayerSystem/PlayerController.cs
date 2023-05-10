@@ -134,7 +134,7 @@ public class PlayerController : MonoBehaviour
 
     }
     public IEnumerator onChangeDrawShapeName(){
-        if(oldDrawShapeName == "None"){
+        if(oldDrawShapeName == "None" && !lockOperation){
             lockOperation = true;
             if(drawShapePos.x > 0) direction =1;
             else direction = -1;

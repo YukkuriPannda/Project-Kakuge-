@@ -42,10 +42,13 @@ public class PlayerVisualController : MonoBehaviour
             switch (plc.nowPlayerState){
                 case PlayerController.PlayerStates.Stay:{
                     plAnim.SetInteger("AnimNum",(int)AnimMotions.Stay);
-                    plc.weapon.transform.parent = back.transform;
-                    plc.weapon.transform.localPosition = new Vector3(0,0,0);
-                    plc.weapon.transform.localEulerAngles = new Vector3(0,0,0);
-                    model.transform.localEulerAngles = new Vector3(0,0,0);
+                    Debug.Log("BBB");
+                    if(plAnim.GetCurrentAnimatorStateInfo(0).IsName("StayR") || plAnim.GetCurrentAnimatorStateInfo(0).IsName("StayL")){
+                        plc.weapon.transform.parent = back.transform;
+                        plc.weapon.transform.localPosition = new Vector3(0,0,0);
+                        plc.weapon.transform.localEulerAngles = new Vector3(0,0,0);
+                        model.transform.localEulerAngles = new Vector3(0,0,0);
+                    }
                 }break;
                 case PlayerController.PlayerStates.Runing:{
                     plAnim.SetInteger("AnimNum",(int)AnimMotions.Run);
@@ -60,13 +63,16 @@ public class PlayerVisualController : MonoBehaviour
                     plAnim.Play("UpSlash",0,0);
                     plc.weapon.transform.parent = rightHand.transform;
                     plc.weapon.transform.localPosition = new Vector3(0,0,0);
+                    plc.weapon.transform.localEulerAngles = new Vector3(0,0,0);
                     if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);
                     else model.transform.localEulerAngles = new Vector3(0,180,0);
+                    Debug.Log(model.transform.localEulerAngles);
                 }break;
                 case PlayerController.PlayerStates.Thrust:{
                     plAnim.Play("Thrust",0,0);
                     plc.weapon.transform.parent = rightHand.transform;
                     plc.weapon.transform.localPosition = new Vector3(0,0,0);
+                    plc.weapon.transform.localEulerAngles = new Vector3(0,0,0);
                     if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);
                     else model.transform.localEulerAngles = new Vector3(0,180,0);
                 }break;
@@ -74,6 +80,7 @@ public class PlayerVisualController : MonoBehaviour
                     plAnim.Play("DownSlash",0,0);
                     plc.weapon.transform.parent = rightHand.transform;
                     plc.weapon.transform.localPosition = new Vector3(0,0,0);
+                    plc.weapon.transform.localEulerAngles = new Vector3(0,0,0);
                     if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);
                     else model.transform.localEulerAngles = new Vector3(0,180,0);
                 }break;
@@ -111,5 +118,11 @@ public class PlayerVisualController : MonoBehaviour
         }
         oldPlcState = plc.nowPlayerState;
         oldDire = plc.direction;
+    }
+    public void OnSpecialMotionExit(){
+        plc.weapon.transform.parent = back.transform;
+        plc.weapon.transform.localPosition = new Vector3(0,0,0);
+        plc.weapon.transform.localEulerAngles = new Vector3(0,0,0);
+        model.transform.localEulerAngles = new Vector3(0,0,0);
     }
 }

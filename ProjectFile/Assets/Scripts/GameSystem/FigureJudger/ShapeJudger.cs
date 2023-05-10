@@ -112,7 +112,7 @@ public class ShapeJudger : MonoBehaviour
 
                 if(sortPoints.Count < 3 && CircleAccuracyValue < 0.67f){
                     float drawingAngle = Mathf.Atan2(inputPoints[0].y-inputPoints[inputPoints.Count-1].y,inputPoints[0].x-inputPoints[inputPoints.Count-1].x)+Mathf.PI;
-                    Debug.Log($"drawingAngle{drawingAngle}");
+                    if(OutPutLog)Debug.Log($"drawingAngle{drawingAngle}");
                     if(drawingAngle>Mathf.PI/4 && drawingAngle<Mathf.PI*3/4)result = "StraightToUp";
                     if(drawingAngle>Mathf.PI*3/4 && drawingAngle<Mathf.PI*5/4)result = "StraightToLeft";
                     if(drawingAngle>Mathf.PI*5/4 && drawingAngle<Mathf.PI*7/4)result = "StraightToDown";

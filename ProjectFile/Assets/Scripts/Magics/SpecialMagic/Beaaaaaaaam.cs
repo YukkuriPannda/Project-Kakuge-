@@ -15,7 +15,6 @@ public class Beaaaaaaaam: PlayerMagicBase
         BoxCollider2D[] boxColliders2D = beaaaam.gameObject.GetComponents<BoxCollider2D>();
         beaaaam.tag = "Player";
         beaaaam.magicAttribute = MagicAttribute.flame;
-        beaaaam.gameObject.GetComponentInChildren<SpriteRenderer>().material = plc.gameObject.GetComponent<VisualControler>().effectMaterials.flame;
         if(direction == -1){
             beaaaam.gameObject.transform.eulerAngles = new Vector3(0,180,0);
             beaaaam.knockBack *= new Vector2(-1,1);
@@ -37,7 +36,6 @@ public class Beaaaaaaaam: PlayerMagicBase
         BoxCollider2D[] boxColliders2D = beaaaam.gameObject.GetComponents<BoxCollider2D>();
         beaaaam.tag = "Player";
         beaaaam.magicAttribute = MagicAttribute.aqua;
-        beaaaam.gameObject.GetComponentInChildren<SpriteRenderer>().material = plc.gameObject.GetComponent<VisualControler>().effectMaterials.aqua;
         if(direction == -1){
             beaaaam.gameObject.transform.eulerAngles = new Vector3(0,180,0);
             beaaaam.knockBack *= new Vector2(-1,1);
@@ -59,7 +57,6 @@ public class Beaaaaaaaam: PlayerMagicBase
         BoxCollider2D[] boxColliders2D = beaaaam.gameObject.GetComponents<BoxCollider2D>();
         beaaaam.tag = "Player";
         beaaaam.magicAttribute = MagicAttribute.electro;
-        beaaaam.gameObject.GetComponentInChildren<SpriteRenderer>().material = plc.gameObject.GetComponent<VisualControler>().effectMaterials.electro;
         if(direction == -1){
             beaaaam.gameObject.transform.eulerAngles = new Vector3(0,180,0);
             beaaaam.knockBack *= new Vector2(-1,1);
@@ -81,7 +78,6 @@ public class Beaaaaaaaam: PlayerMagicBase
         BoxCollider2D[] boxColliders2D = beaaaam.gameObject.GetComponents<BoxCollider2D>();
         beaaaam.tag = "Player";
         beaaaam.magicAttribute = MagicAttribute.terra;
-        beaaaam.gameObject.GetComponentInChildren<SpriteRenderer>().material = plc.gameObject.GetComponent<VisualControler>().effectMaterials.terra;
         if(direction == -1){
             beaaaam.gameObject.transform.eulerAngles = new Vector3(0,180,0);
             beaaaam.knockBack *= new Vector2(-1,1);

@@ -5,7 +5,6 @@ public class MousePointer : MonoBehaviour {
     Transform mytrf;
     public EntityBase targetEntityBase;
     private float oldMagicStone;
-    private VisualControler visualctl;
     private PlayerController plc;
     public SpriteRenderer core;
     public Animator shell;
@@ -28,8 +27,6 @@ public class MousePointer : MonoBehaviour {
     public CoreSymbols coreSymbols = new CoreSymbols();
     void Start(){
         mytrf = transform;
-
-        visualctl = targetEntityBase.gameObject.GetComponent<VisualControler>();
         plc = targetEntityBase.gameObject.GetComponent<PlayerController>();
     }
     void Update(){

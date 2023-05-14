@@ -112,6 +112,9 @@ public class PlayerVisualController : MonoBehaviour
                     }
                     plAnim.Play("Enchant",0,0);
                 }break;
+                case PlayerController.PlayerStates.Hurt:{
+                    plAnim.Play("Damage",0,0);
+                }break;
             }
             plAnim.SetInteger("Direction",plc.direction);
         }

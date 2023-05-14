@@ -70,7 +70,8 @@ public class PlayerController : MonoBehaviour
         ShotMagicBullet,
         Garding,
         EnchantMySelf,
-        ActivateSpecialMagic
+        ActivateSpecialMagic,
+        Hurt
     }
     void Start()
     {
@@ -92,6 +93,7 @@ public class PlayerController : MonoBehaviour
         if(oldHealth > eBase.Health){
             lockOperation = true;
             if(drawShapeName != "Gard") drawShapeName = "None";
+            nowPlayerState = PlayerStates.Hurt;
         }
         oldHealth = eBase.Health;
     }
@@ -143,11 +145,13 @@ public class PlayerController : MonoBehaviour
                     nowPlayerState = PlayerStates.Thrust;
                     direction = 1;
                     GameObject DMGObject = Instantiate(attackColliders.Thrust,new Vector2(transform.position.x + 2f,transform.position.y),transform.rotation);
+                    DMGObject.transform.GetChild(0).eulerAngles = new Vector3(0,0,0);
                     AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
                     attackBase.damage *= 1;
                     DMGObject.tag = "Player";
                     attackBase.knockBack = new Vector2(attackBase.knockBack.x,attackBase.knockBack.y);
-                    Destroy(DMGObject,0.2f);
+                    Destroy(DMGObject.GetComponent<AttackBase>(),0.2f);
+                    Destroy(DMGObject,1);
                     for(int i = 0;i < 5;i++){
                         transform.Translate(0.4f,0,0);
                         yield return new WaitForEndOfFrame();
@@ -157,12 +161,14 @@ public class PlayerController : MonoBehaviour
                     nowPlayerState = PlayerStates.Thrust;
                     direction = -1;
                     GameObject DMGObject = Instantiate(attackColliders.Thrust,new Vector2(transform.position.x - 2f,transform.position.y),transform.rotation);
+                    DMGObject.transform.GetChild(0).eulerAngles = new Vector3(0,180,0);
                     AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
                     attackBase.damage *= 1;
                     DMGObject.tag = "Player";
                     attackBase.knockBack = new Vector2(-attackBase.knockBack.x,attackBase.knockBack.y);
                     drawMagicSymbols = new List<DrawMagicSymbol>();
-                    Destroy(DMGObject,0.2f);
+                    Destroy(DMGObject.GetComponent<AttackBase>(),0.2f);
+                    Destroy(DMGObject,1);
                     for(int i = 0;i < 5;i++){
                         transform.Translate(-0.4f,0,0);
                         yield return new WaitForEndOfFrame();
@@ -173,12 +179,14 @@ public class PlayerController : MonoBehaviour
                     yield return new WaitForSeconds(0.1f);
 
                     GameObject DMGObject = Instantiate(attackColliders.UpSlash,new Vector2(transform.position.x + 1.5f * direction,transform.position.y),transform.rotation);
+                    if(direction < 0)DMGObject.transform.GetChild(0).eulerAngles = new Vector3(30,180,0);
                     AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
                     attackBase.damage *= 1;
                     DMGObject.tag = "Player";
                     attackBase.knockBack = new Vector2(attackBase.knockBack.x * direction,attackBase.knockBack.y);
                     drawMagicSymbols = new List<DrawMagicSymbol>();
-                    Destroy(DMGObject,0.2f);
+                    Destroy(DMGObject.GetComponent<AttackBase>(),0.2f);
+                    Destroy(DMGObject,1);
                     for(int i = 0;i < 10;i++){
                         transform.Translate(0.08f*direction,0,0);
                         yield return new WaitForEndOfFrame();
@@ -188,13 +196,15 @@ public class PlayerController : MonoBehaviour
                     nowPlayerState = PlayerStates.DownSlash;
                     yield return new WaitForSeconds(0.1f);
 
-                    GameObject DMGObject = Instantiate(attackColliders.DownSlash,new Vector2(transform.position.x + 1.5f * direction,transform.position.y),transform.rotation);
+                    GameObject DMGObject = Instantiate(attackColliders.DownSlash,new Vector2(transform.position.x + 1.3f * direction,transform.position.y),Quaternion.identity);
+                    if(direction < 0)DMGObject.transform.GetChild(0).eulerAngles = new Vector3(0,180,0);
                     AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
                     attackBase.damage *= 1;
                     DMGObject.tag = "Player";
                     attackBase.knockBack = new Vector2(attackBase.knockBack.x * direction,attackBase.knockBack.y);
                     drawMagicSymbols = new List<DrawMagicSymbol>();
-                    Destroy(DMGObject,0.2f);
+                    Destroy(DMGObject.GetComponent<AttackBase>(),0.2f);
+                    Destroy(DMGObject,1);
                     for(int i = 0;i < 10;i++){
                         transform.Translate(0.08f*direction,0,0);
                         yield return new WaitForEndOfFrame();

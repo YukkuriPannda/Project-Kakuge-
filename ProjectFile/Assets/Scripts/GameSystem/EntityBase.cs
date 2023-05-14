@@ -13,6 +13,11 @@ public class EntityBase : MonoBehaviour
     public bool Invulnerable = false;
     public bool NoGravity = false;
     public bool OnGround = false;
+    private WaitForSeconds chachedHitStop;
+    void Start()
+    {
+        chachedHitStop = new WaitForSeconds(0.005f);
+    }
     public void Hurt(float DMG,string AttackBelongedTeam,Vector2 knockBack,MagicAttribute magicAttribute = MagicAttribute.none){
         if(!gameObject.CompareTag(AttackBelongedTeam) && Health >= 0){
             gameObject.GetComponent<Rigidbody2D>().AddForce(knockBack,ForceMode2D.Impulse);
@@ -40,8 +45,17 @@ public class EntityBase : MonoBehaviour
                     else Health -= DMG;
                 break;
             }
+            StartCoroutine(HitStop());
             Debug.Log($"Hurt  DMG:{DMG} margicAttribute:{magicAttribute} knockBack:{knockBack}");
         }
+    }
+    IEnumerator HitStop(){
+        Debug.Log("HitStop Start");
+        Time.timeScale = 0.1f;
+        yield return chachedHitStop;
+        Time.timeScale = 1f;
+        Debug.Log("HitStop End");
+        yield break;
     }
 }
 public enum MagicAttribute{

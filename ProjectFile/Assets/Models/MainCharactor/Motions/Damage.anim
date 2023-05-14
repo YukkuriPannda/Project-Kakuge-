@@ -8758,7 +8758,7 @@ AnimationClip:
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
     m_StopTime: 0.5
-    m_OrientationOffsetY: 0
+    m_OrientationOffsetY: 180
     m_Level: 0
     m_CycleOffset: 0
     m_HasAdditiveReferencePose: 0
@@ -16594,14 +16594,14 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.16666667
-    functionName: OnFinishAttack
+    functionName: UnLockOperation
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.5
-    functionName: OnFinishAttackMotion
+    functionName: OnSpecialMotionExit
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

@@ -50,6 +50,7 @@ MonoBehaviour:
   damage: 20
   magicAttribute: 0
   hurtCoolTime: 1
+  hitStopTime: 0.1
   knockBack: {x: 100, y: -50}
   hurtTime: 0
 --- !u!61 &642442030821904801

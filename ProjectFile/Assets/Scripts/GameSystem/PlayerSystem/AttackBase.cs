@@ -7,6 +7,7 @@ public class AttackBase : MonoBehaviour
     public float damage;
     public MagicAttribute magicAttribute;
     public float hurtCoolTime;
+    public float hitStopTime = 0.1f;
     public Vector2 knockBack;
     [Header("Infos")]
     [ReadOnly,SerializeField] private float hurtTime = 0;
@@ -22,7 +23,9 @@ public class AttackBase : MonoBehaviour
         if(other.gameObject.GetComponent<EntityBase>()){
             if(hurtTime == 0)other.gameObject.GetComponent<EntityBase>().Hurt(damage,gameObject.tag,knockBack,magicAttribute);
             hurtTime += Time.deltaTime;
-            if(hurtCoolTime <= hurtTime)hurtTime = 0;
+            if(hurtCoolTime <= hurtTime){
+                hurtTime = 0;
+            }
         }
     }
     void OnDrawGizmos()

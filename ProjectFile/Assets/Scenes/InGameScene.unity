@@ -349,7 +349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 732825d843d5cb44983edefa25afb769, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputFlame: {r: 14.928529, g: 7.1570144, b: 4.4551105, a: 1}
+  inputFlame: {r: 14.289978, g: 4.877167, b: 0.60664976, a: 1}
   inputAqua: {r: 1.0084331, g: 6.8116, b: 19.435255, a: 1}
   inputElectro: {r: 3.5849051, g: 3.0740263, b: 0.8446111, a: 1}
   inputTerra: {r: 1.148748, g: 2.3492415, b: 0.4967559, a: 1}

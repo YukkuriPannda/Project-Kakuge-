@@ -205,6 +205,7 @@ public class PlayerController : MonoBehaviour
                     drawMagicSymbols = new List<DrawMagicSymbol>();
                     Destroy(DMGObject.GetComponent<AttackBase>(),0.2f);
                     Destroy(DMGObject,1);
+                    DMGObject.GetComponentInChildren<SpriteRenderer>().material.SetColor("_Color",EffectColor(eBase.myMagicAttribute));
                     for(int i = 0;i < 10;i++){
                         transform.Translate(0.08f*direction,0,0);
                         yield return new WaitForEndOfFrame();
@@ -368,6 +369,24 @@ public class PlayerController : MonoBehaviour
         drawMagicSymbols = new List<DrawMagicSymbol>();
         lockOperation = false;
         Debug.Log("UnLocked operation");
+    }
+    Color EffectColor(MagicAttribute magicAttribute){
+        Color res =Color.white;
+        switch(magicAttribute){
+            case MagicAttribute.flame:{
+                res = MagicColorManager.flame;
+            }break;
+            case MagicAttribute.aqua:{
+                res = MagicColorManager.aqua;
+            }break;
+            case MagicAttribute.electro:{
+                res = MagicColorManager.electro;
+            }break;
+            case MagicAttribute.terra:{
+                res = MagicColorManager.terra;
+            }break;
+        }
+        return res;
     }
     void isOnground(){
         int layermask = 1 << LayerMask.NameToLayer("Ground");

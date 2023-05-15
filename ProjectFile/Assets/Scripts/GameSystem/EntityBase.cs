@@ -16,7 +16,7 @@ public class EntityBase : MonoBehaviour
     private WaitForSeconds chachedHitStop;
     void Start()
     {
-        chachedHitStop = new WaitForSeconds(0.005f);
+        chachedHitStop = new WaitForSeconds(0.007f);
     }
     public void Hurt(float DMG,string AttackBelongedTeam,Vector2 knockBack,MagicAttribute magicAttribute = MagicAttribute.none){
         if(!gameObject.CompareTag(AttackBelongedTeam) && Health >= 0){

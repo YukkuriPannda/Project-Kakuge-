@@ -16,15 +16,19 @@ public class FireBall : MonoBehaviour
         transform.Translate(speed *Time.deltaTime,0,0);
         age += Time.deltaTime;
         if(age > lifeTime){
-            Destroy(Instantiate(hitParticlePrefab,transform.position,transform.rotation),2);
-            Destroy(this.gameObject);
+            Bakuhatu();
         }
     }
     void OnTriggerEnter2D(Collider2D other){
         Debug.Log(other.gameObject.CompareTag(this.gameObject.tag));
         if(!other.gameObject.CompareTag(this.gameObject.tag)){
-            Destroy(Instantiate(hitParticlePrefab,transform.position,transform.rotation),2);
-            Destroy(this.gameObject);
+            Bakuhatu();
         }
+    }
+    void Bakuhatu(){
+        GameObject hitParticle = Instantiate(hitParticlePrefab,transform.position,transform.rotation);
+        Destroy(hitParticle,2);
+        Destroy(hitParticle.GetComponent<AttackBase>(),0.2f);
+        Destroy(this.gameObject);
     }
 }

@@ -314,8 +314,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 61662440}
+  - component: {fileID: 61662441}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -330,12 +331,28 @@ Transform:
   m_GameObject: {fileID: 61662439}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &61662441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 61662439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 732825d843d5cb44983edefa25afb769, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputFlame: {r: 14.928529, g: 7.1570144, b: 4.4551105, a: 1}
+  inputAqua: {r: 1.0084331, g: 6.8116, b: 19.435255, a: 1}
+  inputElectro: {r: 3.5849051, g: 3.0740263, b: 0.8446111, a: 1}
+  inputTerra: {r: 1.148748, g: 2.3492415, b: 0.4967559, a: 1}
 --- !u!1 &81414767
 GameObject:
   m_ObjectHideFlags: 0
@@ -20459,7 +20476,7 @@ MonoBehaviour:
   MaxMagicStones: 6
   weapon: {fileID: 919132149611924720}
   magicHolder:
-    flameMagic: 2
+    flameMagic: 0
     aquaMagic: 0
     electroMagic: 0
     terraMagic: 0
@@ -20493,6 +20510,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1160485445}
   - {fileID: 1918399623}
   - {fileID: 1299639039}
   - {fileID: 1978117791}
@@ -20537,6 +20555,11 @@ MonoBehaviour:
   rightHand: {fileID: 408544038}
   leftHand: {fileID: 4570892983044060600}
   back: {fileID: 665204355}
+  specialMagicMotions:
+    flame: {fileID: 7400000, guid: 1f419d07867fac24a94fa7ebf5241b64, type: 2}
+    aqua: {fileID: 7400000, guid: 1f419d07867fac24a94fa7ebf5241b64, type: 2}
+    electro: {fileID: 7400000, guid: 1f419d07867fac24a94fa7ebf5241b64, type: 2}
+    terra: {fileID: 7400000, guid: 1f419d07867fac24a94fa7ebf5241b64, type: 2}
 --- !u!1 &1061808568
 GameObject:
   m_ObjectHideFlags: 0
@@ -27362,8 +27385,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1160485444}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.8, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -27372,7 +27395,7 @@ Transform:
   - {fileID: 2035186745}
   - {fileID: 184976655}
   - {fileID: 81414768}
-  m_Father: {fileID: 1918399623}
+  m_Father: {fileID: 988327580}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1198340548
@@ -37402,7 +37425,7 @@ Transform:
   m_Children:
   - {fileID: 543450651806925601}
   m_Father: {fileID: 988327580}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1299639040
 BoxCollider2D:
@@ -42973,7 +42996,7 @@ PrefabInstance:
       objectReference: {fileID: 988327578}
     - target: {fileID: 8023468367283264497, guid: 504de6f520761b94597e66d47cbfe44a, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8023468367283264497, guid: 504de6f520761b94597e66d47cbfe44a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -43227,10 +43250,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.8, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1160485445}
+  m_Children: []
   m_Father: {fileID: 988327580}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1978117791 stripped
 Transform:
@@ -53453,7 +53475,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6261079412085386576, guid: c392273d95a56624d918a2f22f5ce823, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6261079412085386577, guid: c392273d95a56624d918a2f22f5ce823, type: 3}
       propertyPath: m_Sprite

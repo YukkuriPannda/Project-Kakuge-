@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor.Animations;
+
 
 public class PlayerVisualController : MonoBehaviour
 {
@@ -10,6 +12,14 @@ public class PlayerVisualController : MonoBehaviour
     public Transform rightHand;
     public Transform leftHand;
     public Transform back;
+    [System.Serializable]
+    class SpecialMagicMotions{
+        public AnimationClip flame;
+        public AnimationClip aqua;
+        public AnimationClip electro;
+        public AnimationClip terra;
+    }
+    [SerializeField]SpecialMagicMotions specialMagicMotions;
     enum AnimMotions :int {
         Stay,
         Walk,
@@ -26,7 +36,7 @@ public class PlayerVisualController : MonoBehaviour
     private int oldDire;
     void Start()
     {
-        
+        SetSpecialMagicAnimClip();
     }
 
     void Update()
@@ -83,34 +93,36 @@ public class PlayerVisualController : MonoBehaviour
                     plc.weapon.transform.localEulerAngles = new Vector3(0,0,0);
                     if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);
                     else model.transform.localEulerAngles = new Vector3(0,180,0);
-                    Debug.Log($"Model Angle:{model.transform.localEulerAngles}");
                 }break;
                 case PlayerController.PlayerStates.ShotMagicBullet:{
                     plAnim.Play("ShotMagic",0,0);
+                    if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);
+                    else model.transform.localEulerAngles = new Vector3(0,180,0);
                 }break;
                 case PlayerController.PlayerStates.Garding:{
-                    plAnim.Play("ShotMagic",0,0);
+                    plAnim.Play("Gard",0,0);
                 }break;
                 case PlayerController.PlayerStates.EnchantMySelf:{
                     plAnim.Play("Enchant",0,0);
                 }break;
                 case PlayerController.PlayerStates.ActivateSpecialMagic:{
+                    if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);
+                    else model.transform.localEulerAngles = new Vector3(0,180,0);
                     switch(plc.drawMagicSymbols[plc.drawMagicSymbols.Count - 2].magicSymbol){
                         case "RegularTriangle":{
-
+                            plAnim.Play("Special_Flame");
                         }break;
                         case "InvertedTriangle":{
-
+                            plAnim.Play("Special_Aqua");
                         }break;
                         case "Thunder":{
-
+                            plAnim.Play("Special_Electro");
                         }break;
                         case "Grass":{
-
+                            plAnim.Play("Special_Terra");
                         }break;
 
                     }
-                    plAnim.Play("Enchant",0,0);
                 }break;
                 case PlayerController.PlayerStates.Hurt:{
                     plAnim.Play("Damage",0,0);
@@ -120,6 +132,42 @@ public class PlayerVisualController : MonoBehaviour
         }
         oldPlcState = plc.nowPlayerState;
         oldDire = plc.direction;
+    }
+    void SetSpecialMagicAnimClip(){
+        Debug.Log(plAnim.runtimeAnimatorController.animationClips[0]);
+        AnimatorController animController = plAnim.runtimeAnimatorController as UnityEditor.Animations.AnimatorController;
+        animController.layers[0].stateMachine.states[GetStateFromName("Special_Flame",animController.layers[0].stateMachine.states)].state.motion = specialMagicMotions.flame;
+        animController.layers[0].stateMachine.states[GetStateFromName("Special_Aqua",animController.layers[0].stateMachine.states)].state.motion = specialMagicMotions.flame;
+        animController.layers[0].stateMachine.states[GetStateFromName("Special_Electro",animController.layers[0].stateMachine.states)].state.motion = specialMagicMotions.flame;
+        animController.layers[0].stateMachine.states[GetStateFromName("Special_Terra",animController.layers[0].stateMachine.states)].state.motion = specialMagicMotions.flame;
+    }
+    Color EffectColor(MagicAttribute magicAttribute){
+        Color res =Color.white;
+        switch(magicAttribute){
+            case MagicAttribute.flame:{
+                res = MagicColorManager.flame;
+            }break;
+            case MagicAttribute.aqua:{
+                res = MagicColorManager.aqua;
+            }break;
+            case MagicAttribute.electro:{
+                res = MagicColorManager.electro;
+            }break;
+            case MagicAttribute.terra:{
+                res = MagicColorManager.terra;
+            }break;
+        }
+        return res;
+    }
+    int GetStateFromName(string name,ChildAnimatorState[] states){
+        int result = 0;
+        for(; states[result].state.name != name;result ++){
+            if(result >= states.Length){
+                Debug.LogError("Not Found AnimationState "+name);
+                return -1;
+            }
+        }
+        return result;
     }
     public void OnSpecialMotionExit(){
         Debug.Log("Exit");

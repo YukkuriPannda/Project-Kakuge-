@@ -15,8 +15,9 @@ public class Beaaaaaaaam: PlayerMagicBase
         BoxCollider2D[] boxColliders2D = beaaaam.gameObject.GetComponents<BoxCollider2D>();
         beaaaam.tag = "Player";
         beaaaam.magicAttribute = MagicAttribute.flame;
+        beaaaam.gameObject.GetComponentInChildren<SpriteRenderer>().material.SetColor("_Color",MagicColorManager.flame);
         if(direction == -1){
-            beaaaam.gameObject.transform.eulerAngles = new Vector3(0,180,0);
+            beaaaam.gameObject.transform.localScale = new Vector3(-1,1,1);
             beaaaam.knockBack *= new Vector2(-1,1);
         }
         GameObject.Destroy(beaaaam.gameObject,2.7f);
@@ -36,8 +37,9 @@ public class Beaaaaaaaam: PlayerMagicBase
         BoxCollider2D[] boxColliders2D = beaaaam.gameObject.GetComponents<BoxCollider2D>();
         beaaaam.tag = "Player";
         beaaaam.magicAttribute = MagicAttribute.aqua;
+        beaaaam.gameObject.GetComponentInChildren<SpriteRenderer>().material.SetColor("_Color",MagicColorManager.aqua);
         if(direction == -1){
-            beaaaam.gameObject.transform.eulerAngles = new Vector3(0,180,0);
+            beaaaam.gameObject.transform.localScale = new Vector3(-1,1,1);
             beaaaam.knockBack *= new Vector2(-1,1);
         }
         GameObject.Destroy(beaaaam.gameObject,2.7f);
@@ -57,8 +59,9 @@ public class Beaaaaaaaam: PlayerMagicBase
         BoxCollider2D[] boxColliders2D = beaaaam.gameObject.GetComponents<BoxCollider2D>();
         beaaaam.tag = "Player";
         beaaaam.magicAttribute = MagicAttribute.electro;
+        beaaaam.gameObject.GetComponentInChildren<SpriteRenderer>().material.SetColor("_Color",MagicColorManager.electro);
         if(direction == -1){
-            beaaaam.gameObject.transform.eulerAngles = new Vector3(0,180,0);
+            beaaaam.gameObject.transform.localScale = new Vector3(-1,1,1);
             beaaaam.knockBack *= new Vector2(-1,1);
         }
         GameObject.Destroy(beaaaam.gameObject,2.7f);
@@ -78,8 +81,9 @@ public class Beaaaaaaaam: PlayerMagicBase
         BoxCollider2D[] boxColliders2D = beaaaam.gameObject.GetComponents<BoxCollider2D>();
         beaaaam.tag = "Player";
         beaaaam.magicAttribute = MagicAttribute.terra;
+        beaaaam.gameObject.GetComponentInChildren<SpriteRenderer>().material.SetColor("_Color",MagicColorManager.terra);
         if(direction == -1){
-            beaaaam.gameObject.transform.eulerAngles = new Vector3(0,180,0);
+            beaaaam.gameObject.transform.localScale = new Vector3(-1,1,1);
             beaaaam.knockBack *= new Vector2(-1,1);
         }
         GameObject.Destroy(beaaaam.gameObject,2.7f);

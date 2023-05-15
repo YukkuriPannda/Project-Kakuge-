@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_Sprite: {fileID: -1660892451, guid: 2c50f048da77a8d448c3e2404af60586, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.08962262, b: 0.2324269, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -207,5 +207,6 @@ MonoBehaviour:
   damage: 10
   magicAttribute: 1
   hurtCoolTime: 0.1
+  hitStopTime: 0.1
   knockBack: {x: 50, y: 10}
   hurtTime: 0

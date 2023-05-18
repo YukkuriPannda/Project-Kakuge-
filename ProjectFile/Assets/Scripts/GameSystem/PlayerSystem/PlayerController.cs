@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField,ReadOnly] public bool lockOperation = false;
     [ReadOnly]public int direction = 1;
     [HideInInspector]public Rigidbody2D rb2D;
-    private EntityBase eBase;
+    public EntityBase eBase;
     [HideInInspector]public float oldHealth;
     [ReadOnly]public PlayerStates nowPlayerState = PlayerStates.Stay;
     public enum PlayerStates{

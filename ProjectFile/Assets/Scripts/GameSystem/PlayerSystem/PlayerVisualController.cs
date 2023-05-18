@@ -8,6 +8,7 @@ public class PlayerVisualController : MonoBehaviour
 {
     public PlayerController plc;
     public Animator plAnim;
+    private PlayerEffectController plEC;
     public Transform model;
     public Transform rightHand;
     public Transform leftHand;
@@ -37,6 +38,7 @@ public class PlayerVisualController : MonoBehaviour
     void Start()
     {
         SetSpecialMagicAnimClip();
+        plEC = gameObject.GetComponent<PlayerEffectController>();
     }
 
     void Update()
@@ -76,6 +78,7 @@ public class PlayerVisualController : MonoBehaviour
                     plc.weapon.transform.localEulerAngles = new Vector3(0,0,0);
                     if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);
                     else model.transform.localEulerAngles = new Vector3(0,180,0);
+                    plEC.StartCoroutine(plEC.ActivationAttackParticle(plc.eBase.myMagicAttribute));
                     Debug.Log($"Model Angle:{model.transform.localEulerAngles}");
                 }break;
                 case PlayerController.PlayerStates.Thrust:{
@@ -83,14 +86,17 @@ public class PlayerVisualController : MonoBehaviour
                     plc.weapon.transform.parent = rightHand.transform;
                     plc.weapon.transform.localPosition = new Vector3(0,0,0);
                     plc.weapon.transform.localEulerAngles = new Vector3(0,0,0);
+                    plEC.StartCoroutine(plEC.ActivationAttackParticle(plc.eBase.myMagicAttribute));
                     if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);
                     else model.transform.localEulerAngles = new Vector3(0,180,0);
                 }break;
                 case PlayerController.PlayerStates.DownSlash:{
                     plAnim.Play("DownSlash",0,0);
                     plc.weapon.transform.parent = rightHand.transform;
+                    
                     plc.weapon.transform.localPosition = new Vector3(0,0,0);
                     plc.weapon.transform.localEulerAngles = new Vector3(0,0,0);
+                    plEC.StartCoroutine(plEC.ActivationAttackParticle(plc.eBase.myMagicAttribute));
                     if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);
                     else model.transform.localEulerAngles = new Vector3(0,180,0);
                 }break;
@@ -104,6 +110,7 @@ public class PlayerVisualController : MonoBehaviour
                 }break;
                 case PlayerController.PlayerStates.EnchantMySelf:{
                     plAnim.Play("Enchant",0,0);
+                    plEC.StartCoroutine(plEC.ActivationNormalParticle(plc.eBase.myMagicAttribute,plc.enchantDuraction));
                 }break;
                 case PlayerController.PlayerStates.ActivateSpecialMagic:{
                     if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);

@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
         public GameObject UpSlash;
         public GameObject Thrust;
         public GameObject DownSlash;
+        public GameObject Enchant;
     }
     public AttackColliderPrefabs attackColliders;
 
@@ -187,6 +188,7 @@ public class PlayerController : MonoBehaviour
                     drawMagicSymbols = new List<DrawMagicSymbol>();
                     Destroy(DMGObject.GetComponent<AttackBase>(),0.2f);
                     Destroy(DMGObject,1);
+                    DMGObject.GetComponentInChildren<SpriteRenderer>().material.SetColor("_Color",EffectColor(eBase.myMagicAttribute));
                     for(int i = 0;i < 10;i++){
                         transform.Translate(0.08f*direction,0,0);
                         yield return new WaitForEndOfFrame();
@@ -253,14 +255,9 @@ public class PlayerController : MonoBehaviour
                                 case "Grass":{
                                     magicAttribute = MagicAttribute.terra;
                                 }break;
+                                
                             }
-                            if(Vector2.Distance(drawShapePos,new Vector2(0,0)) < enchantDetectionRadius) {
-                                //Enchant
-                                nowPlayerState = PlayerStates.EnchantMySelf;
-                                gameObject.GetComponent<EntityBase>().myMagicAttribute = magicAttribute;
-                                magicStones --;
-                            }
-                            else {
+                            if(Vector2.Distance(drawShapePos,new Vector2(0,0)) > enchantDetectionRadius) {
                                 //Bullet
                                 nowPlayerState = PlayerStates.ShotMagicBullet;
                                 yield return new WaitForSeconds(0.2f);
@@ -344,6 +341,10 @@ public class PlayerController : MonoBehaviour
                                 }break;
                             }
                             gameObject.GetComponent<EntityBase>().myMagicAttribute = magicAttribute;
+                            AttackBase attackBase = Instantiate(attackColliders.Enchant,transform.position,Quaternion.identity).GetComponent<AttackBase>();
+                            attackBase.magicAttribute = magicAttribute;
+                            attackBase.tag = gameObject.tag;
+                            attackBase.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().material.SetColor("_Color",MagicColorManager.GetColorFromMagicArticle(magicAttribute));
                             magicStones --;
                             timeFromEnchanted += Time.deltaTime;
                         }else{

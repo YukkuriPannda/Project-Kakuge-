@@ -35,6 +35,7 @@ public class PlayerEffectController : MonoBehaviour
             }break;
             case MagicAttribute.terra:{
                 normalParticle.terra.Play(true);
+                
                 bladeMaterial.SetColor("_Color",MagicColorManager.terra);
             }break;
         }
@@ -43,6 +44,7 @@ public class PlayerEffectController : MonoBehaviour
         normalParticle.aqua.Stop();
         normalParticle.electro.Stop();
         normalParticle.terra.Stop();
+        bladeMaterial.SetColor("_Color",Color.white * 0.5f);
         yield break;
     }
     public IEnumerator ActivationAttackParticle(MagicAttribute magicAttribute){

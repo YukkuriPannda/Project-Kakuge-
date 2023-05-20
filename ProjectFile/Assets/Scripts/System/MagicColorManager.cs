@@ -19,4 +19,32 @@ public class MagicColorManager : MonoBehaviour
         electro = inputElectro;
         terra = inputTerra;
     }
+    public static Color GetColorFromMagicArticle(MagicAttribute magicAttribute){
+        Color res;
+        switch(magicAttribute){
+            case MagicAttribute.flame:
+                res=flame;
+            break;
+            case MagicAttribute.aqua:
+                res = aqua;
+            break;
+            case MagicAttribute.electro:
+                res = electro;
+            break;
+            case MagicAttribute.terra:
+                res = terra;
+            break;
+            default:
+                res = Color.white;
+            break;
+        }
+        return res;
+    }
+}
+public enum MagicAttribute{
+    none,
+    flame,
+    aqua,
+    electro,
+    terra
 }

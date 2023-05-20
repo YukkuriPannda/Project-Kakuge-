@@ -58,10 +58,3 @@ public class EntityBase : MonoBehaviour
         yield break;
     }
 }
-public enum MagicAttribute{
-    none,
-    flame,
-    aqua,
-    electro,
-    terra
-}

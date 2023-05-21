@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
         public GameObject Thrust;
         public GameObject DownSlash;
         public GameObject Enchant;
+        public GameObject Gard;
     }
     public AttackColliderPrefabs attackColliders;
 
@@ -61,6 +62,7 @@ public class PlayerController : MonoBehaviour
     public EntityBase eBase;
     [HideInInspector]public float oldHealth;
     [ReadOnly]public PlayerStates nowPlayerState = PlayerStates.Stay;
+    private AttackBase gardObject;
     public enum PlayerStates{
         Stay,
         Walking,
@@ -97,6 +99,7 @@ public class PlayerController : MonoBehaviour
             nowPlayerState = PlayerStates.Hurt;
         }
         oldHealth = eBase.Health;
+        if(nowPlayerState!=PlayerStates.Garding && gardObject)Destroy(gardObject.gameObject,0.1f);
     }
     
     public void Move(float input) { // 移動方向/強さ -1~1 として
@@ -139,8 +142,6 @@ public class PlayerController : MonoBehaviour
     public IEnumerator onChangeDrawShapeName(){
         if(oldDrawShapeName == "None" && !lockOperation){
             lockOperation = true;
-            if(drawShapePos.x > 0) direction =1;
-            else direction = -1;
             switch(drawShapeName){
                 case "StraightToRight":{
                     nowPlayerState = PlayerStates.Thrust;
@@ -176,6 +177,8 @@ public class PlayerController : MonoBehaviour
                     }
                 }break;
                 case  "StraightToUp":{
+                    if(drawShapePos.x > 0) direction =1;
+                    else direction = -1;
                     nowPlayerState = PlayerStates.UpSlash;
                     yield return new WaitForSeconds(0.1f);
 
@@ -195,6 +198,8 @@ public class PlayerController : MonoBehaviour
                     }
                 }break;
                 case  "StraightToDown":{
+                    if(drawShapePos.x > 0) direction =1;
+                    else direction = -1;
                     nowPlayerState = PlayerStates.DownSlash;
                     yield return new WaitForSeconds(0.1f);
 
@@ -213,32 +218,17 @@ public class PlayerController : MonoBehaviour
                         yield return new WaitForEndOfFrame();
                     }
                 }break;
-                case "RegularTriangle":{
-                    drawMagicSymbols.Add(new DrawMagicSymbol("RegularTriangle",1));
+                case "RegularTriangle": case"InvertedTriangle": case "Thunder":case "Electro":{
+                    drawMagicSymbols.Add(new DrawMagicSymbol(drawShapeName,1));
                     drawShapeName = "None";
                     oldDrawShapeName ="None";
                     lockOperation = false;
-                }break;
-                case "InvertedTriangle":{
-                    drawMagicSymbols.Add(new DrawMagicSymbol("InvertedTriangle",1));
-                    drawShapeName = "None";
-                    oldDrawShapeName ="None";
-                    lockOperation = false;
-                }break;
-                case "Thunder":{
-                    drawMagicSymbols.Add(new DrawMagicSymbol("Thunder",1));
-                    drawShapeName = "None";
-                    oldDrawShapeName ="None";
-                    lockOperation = false;
-                }break;
-                case "Grass":{
-                    drawMagicSymbols.Add(new DrawMagicSymbol("Grass",1));
-                    drawShapeName = "None";
-                    oldDrawShapeName ="None";
-                    lockOperation = false;
+
                 }break;
                 case "tap":{
                     if(drawMagicSymbols.Count > 0 && magicStones>0){
+                        if(drawShapePos.x > 0) direction =1;
+                        else direction = -1;
                         if(drawMagicSymbols[drawMagicSymbols.Count-1].magicSymbol != "Circle"){
                             //NormalMagic
                             MagicAttribute magicAttribute = 0;
@@ -347,19 +337,23 @@ public class PlayerController : MonoBehaviour
                             attackBase.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().material.SetColor("_Color",MagicColorManager.GetColorFromMagicArticle(magicAttribute));
                             magicStones --;
                             timeFromEnchanted += Time.deltaTime;
-                        }else{
-                            drawShapeName = "None";
-                            drawMagicSymbols = new List<DrawMagicSymbol>();
-                            lockOperation = false;
                         }
+                        drawShapeName = "None";
+                        drawMagicSymbols = new List<DrawMagicSymbol>();
+                        lockOperation = false;
                     }else{
                         //Gard
                         nowPlayerState = PlayerStates.Garding;
                         eBase.gard = true;
+                        gardObject = Instantiate(attackColliders.Gard,transform.position,Quaternion.identity,transform).GetComponent<AttackBase>();
+                        gardObject.magicAttribute = eBase.myMagicAttribute;
+                        gardObject.tag = gameObject.tag;
+                        gardObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().material.SetColor("_Color",MagicColorManager.GetColorFromMagicArticle(eBase.myMagicAttribute));
                     }
 
                 }break;
             }
+            
         }else if(oldDrawShapeName == "Gard"){
             lockOperation = false;
             eBase.gard = false;

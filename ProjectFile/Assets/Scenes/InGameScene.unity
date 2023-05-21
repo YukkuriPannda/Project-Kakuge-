@@ -349,7 +349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 732825d843d5cb44983edefa25afb769, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputFlame: {r: 22.363522, g: 7.7277093, b: 1.0537785, a: 1}
+  inputFlame: {r: 4.237095, g: 1.4641271, b: 0.19965369, a: 1}
   inputAqua: {r: 1.0084331, g: 6.8116, b: 19.435255, a: 1}
   inputElectro: {r: 3.5849051, g: 3.0740263, b: 0.8446111, a: 1}
   inputTerra: {r: 1.148748, g: 2.3492415, b: 0.4967559, a: 1}
@@ -34956,6 +34956,7 @@ MonoBehaviour:
     Thrust: {fileID: 7114548282539418036, guid: 5abef4804e51cdc4ca5125260820ee57, type: 3}
     DownSlash: {fileID: 7114548282539418036, guid: 4ae002a3738754e4b99468d5ce01c405, type: 3}
     Enchant: {fileID: 4634353251714883583, guid: 069b82b7a77909649b8843ae817d824c, type: 3}
+    Gard: {fileID: 4246732901243451201, guid: 2c4a56ffd585fde469613f1dae73d817, type: 3}
   drawMagicSymbols: []
   drawShapeName: None
   drawShapePos: {x: 0, y: 0}
@@ -72783,7 +72784,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6261079412085386576, guid: c392273d95a56624d918a2f22f5ce823, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6261079412085386577, guid: c392273d95a56624d918a2f22f5ce823, type: 3}
       propertyPath: m_Sprite

@@ -50,72 +50,7 @@ public class PlayerVisualController : MonoBehaviour
             }break;
         }
         if(plc.nowPlayerState != oldPlcState || oldDire != plc.direction){
-            switch (plc.nowPlayerState){
-                case PlayerController.PlayerStates.Stay:{
-                    plAnim.SetInteger("AnimNum",(int)AnimMotions.Stay);
-                    if(plAnim.GetCurrentAnimatorStateInfo(0).IsName("StayR") || plAnim.GetCurrentAnimatorStateInfo(0).IsName("StayL") 
-                        || oldPlcState == PlayerController.PlayerStates.Runing){
-                        Debug.Log("Stay");
-                        plc.weapon.transform.parent = back.transform;
-                        plc.weapon.transform.localPosition = new Vector3(0,0,0);
-                        plc.weapon.transform.localEulerAngles = new Vector3(0,0,0);
-                        model.transform.localEulerAngles = new Vector3(0,0,0);
-                    }
-                }break;
-                case PlayerController.PlayerStates.Runing:{
-                    plAnim.SetInteger("AnimNum",(int)AnimMotions.Run);
-                    plAnim.Play("Run",0,0);
-                    plc.weapon.transform.parent = back.transform;
-                    plc.weapon.transform.localPosition = new Vector3(0,0,0);
-                    plc.weapon.transform.localEulerAngles = new Vector3(0,0,0);
-                    if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);
-                    else model.transform.localEulerAngles = new Vector3(0,180,0);
-                }break;
-                case PlayerController.PlayerStates.UpSlash:{
-                    PlayAttackAnim("UpSlash");
-                }break;
-                case PlayerController.PlayerStates.Thrust:{
-                    PlayAttackAnim("Thrust");
-                }break;
-                case PlayerController.PlayerStates.DownSlash:{
-                    PlayAttackAnim("DownSlash");
-                }break;
-                case PlayerController.PlayerStates.ShotMagicBullet:{
-                    plAnim.Play("ShotMagic",0,0);
-                    if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);
-                    else model.transform.localEulerAngles = new Vector3(0,180,0);
-                }break;
-                case PlayerController.PlayerStates.Garding:{
-                    plAnim.Play("Gard",0,0);
-                }break;
-                case PlayerController.PlayerStates.EnchantMySelf:{
-                    if(plc.direction > 0)plAnim.Play("Enchant_R",0,0);
-                    else plAnim.Play("Enchant_L",0,0);
-                    plEC.StartCoroutine(plEC.ActivationNormalParticle(plc.eBase.myMagicAttribute,plc.enchantDuraction));
-                }break;
-                case PlayerController.PlayerStates.ActivateSpecialMagic:{
-                    if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);
-                    else model.transform.localEulerAngles = new Vector3(0,180,0);
-                    switch(plc.drawMagicSymbols[plc.drawMagicSymbols.Count - 2].magicSymbol){
-                        case "RegularTriangle":{
-                            plAnim.Play("Special_Flame");
-                        }break;
-                        case "InvertedTriangle":{
-                            plAnim.Play("Special_Aqua");
-                        }break;
-                        case "Thunder":{
-                            plAnim.Play("Special_Electro");
-                        }break;
-                        case "Grass":{
-                            plAnim.Play("Special_Terra");
-                        }break;
-
-                    }
-                }break;
-                case PlayerController.PlayerStates.Hurt:{
-                    plAnim.Play("Damage",0,0);
-                }break;
-            }
+            PlayAnim();
             plAnim.SetInteger("Direction",plc.direction);
         }
         oldPlcState = plc.nowPlayerState;
@@ -137,6 +72,87 @@ public class PlayerVisualController : MonoBehaviour
         if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);
         else model.transform.localEulerAngles = new Vector3(0,180,0);
         plEC.StartCoroutine(plEC.ActivationAttackParticle(plc.eBase.myMagicAttribute));
+    }
+    void PlayAnim(){
+        switch (plc.nowPlayerState){
+            case PlayerController.PlayerStates.Stay:{
+                plAnim.SetInteger("AnimNum",(int)AnimMotions.Stay);
+                if(plAnim.GetCurrentAnimatorStateInfo(0).IsName("StayR") || plAnim.GetCurrentAnimatorStateInfo(0).IsName("StayL") 
+                    || oldPlcState == PlayerController.PlayerStates.Runing){
+                    Debug.Log("Stay");
+                    plc.weapon.transform.parent = back.transform;
+                    plc.weapon.transform.localPosition = new Vector3(0,0,0);
+                    plc.weapon.transform.localEulerAngles = new Vector3(0,0,0);
+                    model.transform.localEulerAngles = new Vector3(0,0,0);
+                }
+            }break;
+            case PlayerController.PlayerStates.Runing:{
+                plAnim.SetInteger("AnimNum",(int)AnimMotions.Run);
+                plAnim.Play("Run",0,0);
+                plc.weapon.transform.parent = back.transform;
+                plc.weapon.transform.localPosition = new Vector3(0,0,0);
+                plc.weapon.transform.localEulerAngles = new Vector3(0,0,0);
+                if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);
+                else model.transform.localEulerAngles = new Vector3(0,180,0);
+            }break;
+            case PlayerController.PlayerStates.UpSlash:{
+                plAnim.SetInteger("AnimNum",(int)AnimMotions.SwordAttack);
+                PlayAttackAnim("UpSlash");
+            }break;
+            case PlayerController.PlayerStates.Thrust:{
+                plAnim.SetInteger("AnimNum",(int)AnimMotions.SwordAttack);
+                PlayAttackAnim("Thrust");
+            }break;
+            case PlayerController.PlayerStates.DownSlash:{
+                plAnim.SetInteger("AnimNum",(int)AnimMotions.SwordAttack);
+                PlayAttackAnim("DownSlash");
+            }break;
+            case PlayerController.PlayerStates.ShotMagicBullet:{
+                plAnim.Play("ShotMagic",0,0);
+                if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);
+                else model.transform.localEulerAngles = new Vector3(0,180,0);
+            }break;
+            case PlayerController.PlayerStates.Garding:{
+                plAnim.SetInteger("AnimNum",(int)AnimMotions.Gard);
+                plAnim.Play(GetDirectionAnimationName("Gard"),0,0);
+                plc.weapon.transform.parent = back.transform;
+                plc.weapon.transform.localPosition = new Vector3(0,0,0);
+                plc.weapon.transform.localEulerAngles = new Vector3(0,0,0);
+                model.transform.localEulerAngles = new Vector3(0,0,0);
+            }break;
+            case PlayerController.PlayerStates.EnchantMySelf:{
+                plAnim.Play(GetDirectionAnimationName("Enchant"),0,0);
+                plEC.StartCoroutine(plEC.ActivationNormalParticle(plc.eBase.myMagicAttribute,plc.enchantDuraction));
+            }break;
+            case PlayerController.PlayerStates.ActivateSpecialMagic:{
+                if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);
+                else model.transform.localEulerAngles = new Vector3(0,180,0);
+                switch(plc.drawMagicSymbols[plc.drawMagicSymbols.Count - 2].magicSymbol){
+                    case "RegularTriangle":{
+                        plAnim.Play("Special_Flame");
+                    }break;
+                    case "InvertedTriangle":{
+                        plAnim.Play("Special_Aqua");
+                    }break;
+                    case "Thunder":{
+                        plAnim.Play("Special_Electro");
+                    }break;
+                    case "Grass":{
+                        plAnim.Play("Special_Terra");
+                    }break;
+
+                }
+            }break;
+            case PlayerController.PlayerStates.Hurt:{
+                plAnim.Play("Damage",0,0);
+            }break;
+        }
+    }
+    string GetDirectionAnimationName(string name){
+        string res = name;
+        if(plc.direction > 0)res += "_R";
+        else res +="_L";
+        return res;
     }
     Color EffectColor(MagicAttribute magicAttribute){
         Color res =Color.white;
@@ -168,10 +184,7 @@ public class PlayerVisualController : MonoBehaviour
     }
     public void OnSpecialMotionExit(){
         Debug.Log("Exit");
-        plAnim.SetInteger("AnimNum",(int)AnimMotions.Stay);
-        plc.weapon.transform.parent = back.transform;
-        plc.weapon.transform.localPosition = new Vector3(0,0,0);
-        plc.weapon.transform.localEulerAngles = new Vector3(0,0,0);
-        model.transform.localEulerAngles = new Vector3(0,0,0);
+        PlayAnim();
+        plAnim.SetInteger("Direction",plc.direction);
     }
 }

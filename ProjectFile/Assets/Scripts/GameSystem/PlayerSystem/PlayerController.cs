@@ -338,9 +338,6 @@ public class PlayerController : MonoBehaviour
                             magicStones --;
                             timeFromEnchanted += Time.deltaTime;
                         }
-                        drawShapeName = "None";
-                        drawMagicSymbols = new List<DrawMagicSymbol>();
-                        lockOperation = false;
                     }else{
                         //Gard
                         nowPlayerState = PlayerStates.Garding;
@@ -349,6 +346,9 @@ public class PlayerController : MonoBehaviour
                         gardObject.magicAttribute = eBase.myMagicAttribute;
                         gardObject.tag = gameObject.tag;
                         gardObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().material.SetColor("_Color",MagicColorManager.GetColorFromMagicArticle(eBase.myMagicAttribute));
+                        drawMagicSymbols = new List<DrawMagicSymbol>();
+                        drawShapeName = "None";
+                        oldDrawShapeName ="None";
                     }
 
                 }break;

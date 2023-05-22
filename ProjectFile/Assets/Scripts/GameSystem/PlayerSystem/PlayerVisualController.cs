@@ -142,6 +142,7 @@ public class PlayerVisualController : MonoBehaviour
                     }break;
 
                 }
+                Debug.Log("Special");
             }break;
             case PlayerController.PlayerStates.Hurt:{
                 plAnim.Play("Damage",0,0);

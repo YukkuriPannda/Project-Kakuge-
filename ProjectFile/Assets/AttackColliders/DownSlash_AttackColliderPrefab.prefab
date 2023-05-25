@@ -47,11 +47,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4783b916a6d73e740b19263d0dd0155f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
+  damage: 50
   magicAttribute: 0
   hurtCoolTime: 1
   hitStopTime: 0.1
   knockBack: {x: 100, y: -50}
+  onlyFirstHurt: 0
+  radicalHurt: 0
   hurtTime: 0
 --- !u!61 &642442030821904801
 BoxCollider2D:

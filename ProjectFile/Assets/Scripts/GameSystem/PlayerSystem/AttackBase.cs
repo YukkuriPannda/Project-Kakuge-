@@ -26,14 +26,15 @@ public class AttackBase : MonoBehaviour
             Vector2 resKnockBack = knockBack;
             if(radicalHurt)resKnockBack = (other.transform.position - transform.position).normalized * knockBackPower;
             other.gameObject.GetComponent<EntityBase>().Hurt(damage,gameObject.tag,resKnockBack,magicAttribute);
+            Debug.Log("Hit FirstAttack");
         }
     }
     void OnTriggerStay2D(Collider2D other)
     {
-        if(!onlyFirstHurt)if(other.gameObject.GetComponent<EntityBase>()){
+        if(!onlyFirstHurt){
             if(radicalHurt)knockBack = (other.transform.position - transform.position).normalized * knockBackPower;
             if(hurtTime == 0){
-                other.gameObject.GetComponent<EntityBase>().Hurt(damage,gameObject.tag,knockBack,magicAttribute);
+                if(other.gameObject.GetComponent<EntityBase>())other.gameObject.GetComponent<EntityBase>().Hurt(damage,gameObject.tag,knockBack,magicAttribute);
             }
             hurtTime += Time.deltaTime;
             if(hurtCoolTime <= hurtTime){

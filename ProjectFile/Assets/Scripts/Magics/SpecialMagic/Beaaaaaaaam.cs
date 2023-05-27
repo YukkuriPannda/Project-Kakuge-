@@ -38,6 +38,8 @@ public class Beaaaaaaaam: PlayerMagicBase
         if(direction == -1){
             beaaaam.gameObject.GetComponentInChildren<SpriteRenderer>().flipX = true;
             beaaaam.knockBack *= new Vector2(-1,1);
+            boxColliders2D[0].offset = new Vector2(-boxColliders2D[0].offset.x,boxColliders2D[0].offset.y);
+            boxColliders2D[1].offset = new Vector2(-boxColliders2D[1].offset.x,boxColliders2D[1].offset.y);
         }
         GameObject.Destroy(beaaaam.gameObject,2.7f);
         yield return new WaitForSeconds(0.6f);

@@ -168,6 +168,7 @@ public class PlayerController : MonoBehaviour
                     attackBase.damage *= 1;
                     DMGObject.tag = "Player";
                     attackBase.knockBack = new Vector2(-attackBase.knockBack.x,attackBase.knockBack.y);
+                    attackBase.magicAttribute = eBase.myMagicAttribute;
                     drawMagicSymbols = new List<DrawMagicSymbol>();
                     Destroy(DMGObject.GetComponent<AttackBase>(),0.2f);
                     Destroy(DMGObject,1);
@@ -188,6 +189,7 @@ public class PlayerController : MonoBehaviour
                     attackBase.damage *= 1;
                     DMGObject.tag = "Player";
                     attackBase.knockBack = new Vector2(attackBase.knockBack.x * direction,attackBase.knockBack.y);
+                    attackBase.magicAttribute = eBase.myMagicAttribute;
                     drawMagicSymbols = new List<DrawMagicSymbol>();
                     Destroy(DMGObject.GetComponent<AttackBase>(),0.2f);
                     Destroy(DMGObject,1);
@@ -209,6 +211,7 @@ public class PlayerController : MonoBehaviour
                     attackBase.damage *= 1;
                     DMGObject.tag = "Player";
                     attackBase.knockBack = new Vector2(attackBase.knockBack.x * direction,attackBase.knockBack.y);
+                    attackBase.magicAttribute = eBase.myMagicAttribute;
                     drawMagicSymbols = new List<DrawMagicSymbol>();
                     Destroy(DMGObject.GetComponent<AttackBase>(),0.2f);
                     Destroy(DMGObject,1);

@@ -68,13 +68,12 @@ public class ZakoEnemyVisualController : MonoBehaviour
     }
     IEnumerator HurtEffect(){
         StartCoroutine(HurtMarkEffect());
-        material.SetInteger("_Hurt",1);
+        if(material.GetInt("_Hurt") != 1) material.SetInt("_Hurt",1);
         yield return new WaitForSeconds(0.25f);
-        material.SetInteger("_Hurt",0);
+        material.SetInt("_Hurt",0);
         yield break;
     }
     IEnumerator HurtMarkEffect(){
-        Debug.Log("H");
         HitMark.SetActive(true);
         HitMark.transform.localScale = new Vector3(0.5f,0.5f,1);
         for(float t = 0.25f;t >= 0;t-=Time.deltaTime){

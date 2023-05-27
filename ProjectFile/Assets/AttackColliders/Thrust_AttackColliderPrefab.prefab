@@ -50,7 +50,10 @@ MonoBehaviour:
   damage: 10
   magicAttribute: 0
   hurtCoolTime: 1
+  hitStopTime: 0.2
   knockBack: {x: 200, y: 50}
+  onlyFirstHurt: 1
+  radicalHurt: 0
   hurtTime: 0
 --- !u!61 &642442030821904801
 BoxCollider2D:

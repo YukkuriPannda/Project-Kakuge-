@@ -14,6 +14,7 @@ public class EntityBase : MonoBehaviour
     public bool NoGravity = false;
     public bool OnGround = false;
     private WaitForSeconds chachedHitStop;
+    [ReadOnly]public MagicAttribute hurtMagicAtttribute = MagicAttribute.none;
     void Start()
     {
         chachedHitStop = new WaitForSeconds(0.007f);
@@ -21,6 +22,7 @@ public class EntityBase : MonoBehaviour
     public void Hurt(float DMG,string AttackBelongedTeam,Vector2 knockBack,MagicAttribute magicAttribute = MagicAttribute.none){
         if(!gameObject.CompareTag(AttackBelongedTeam) && Health >= 0){
             gameObject.GetComponent<Rigidbody2D>().AddForce(knockBack,ForceMode2D.Impulse);
+            hurtMagicAtttribute = magicAttribute;
             switch(magicAttribute){
                 case MagicAttribute m when(
                     (m == MagicAttribute.aqua && myMagicAttribute == MagicAttribute.flame)
@@ -51,8 +53,9 @@ public class EntityBase : MonoBehaviour
     }
     IEnumerator HitStop(){
         Debug.Log("HitStop Start");
-        Time.timeScale = 0.1f;
-        yield return chachedHitStop;
+        Time.timeScale = 0.05f;
+        if(Health != 0) yield return chachedHitStop;
+        else yield return new WaitForSeconds(0.04f);
         Time.timeScale = 1f;
         Debug.Log("HitStop End");
         yield break;

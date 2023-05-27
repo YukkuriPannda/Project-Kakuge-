@@ -56,23 +56,6 @@ public class PlayerVisualController : MonoBehaviour
         oldPlcState = plc.nowPlayerState;
         oldDire = plc.direction;
     }
-    void SetSpecialMagicAnimClip(){
-        Debug.Log(plAnim.runtimeAnimatorController.animationClips[0]);
-        AnimatorController animController = plAnim.runtimeAnimatorController as UnityEditor.Animations.AnimatorController;
-        animController.layers[0].stateMachine.states[GetStateFromName("Special_Flame",animController.layers[0].stateMachine.states)].state.motion = specialMagicMotions.flame;
-        animController.layers[0].stateMachine.states[GetStateFromName("Special_Aqua",animController.layers[0].stateMachine.states)].state.motion = specialMagicMotions.flame;
-        animController.layers[0].stateMachine.states[GetStateFromName("Special_Electro",animController.layers[0].stateMachine.states)].state.motion = specialMagicMotions.flame;
-        animController.layers[0].stateMachine.states[GetStateFromName("Special_Terra",animController.layers[0].stateMachine.states)].state.motion = specialMagicMotions.flame;
-    }
-    void PlayAttackAnim(string playAnimName){
-        plAnim.Play(playAnimName,0,0);
-        plc.weapon.transform.parent = rightHand.transform;
-        plc.weapon.transform.localPosition = new Vector3(0,0,0);
-        plc.weapon.transform.localEulerAngles = new Vector3(0,0,0);
-        if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);
-        else model.transform.localEulerAngles = new Vector3(0,180,0);
-        plEC.StartCoroutine(plEC.ActivationAttackParticle(plc.eBase.myMagicAttribute));
-    }
     void PlayAnim(){
         switch (plc.nowPlayerState){
             case PlayerController.PlayerStates.Stay:{
@@ -148,6 +131,23 @@ public class PlayerVisualController : MonoBehaviour
                 plAnim.Play("Damage",0,0);
             }break;
         }
+    }
+    void SetSpecialMagicAnimClip(){
+        Debug.Log(plAnim.runtimeAnimatorController.animationClips[0]);
+        AnimatorController animController = plAnim.runtimeAnimatorController as UnityEditor.Animations.AnimatorController;
+        animController.layers[0].stateMachine.states[GetStateFromName("Special_Flame",animController.layers[0].stateMachine.states)].state.motion = specialMagicMotions.flame;
+        animController.layers[0].stateMachine.states[GetStateFromName("Special_Aqua",animController.layers[0].stateMachine.states)].state.motion = specialMagicMotions.flame;
+        animController.layers[0].stateMachine.states[GetStateFromName("Special_Electro",animController.layers[0].stateMachine.states)].state.motion = specialMagicMotions.flame;
+        animController.layers[0].stateMachine.states[GetStateFromName("Special_Terra",animController.layers[0].stateMachine.states)].state.motion = specialMagicMotions.flame;
+    }
+    void PlayAttackAnim(string playAnimName){
+        plAnim.Play(playAnimName,0,0);
+        plc.weapon.transform.parent = rightHand.transform;
+        plc.weapon.transform.localPosition = new Vector3(0,0,0);
+        plc.weapon.transform.localEulerAngles = new Vector3(0,0,0);
+        if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);
+        else model.transform.localEulerAngles = new Vector3(0,180,0);
+        plEC.StartCoroutine(plEC.ActivationAttackParticle(plc.eBase.myMagicAttribute));
     }
     string GetDirectionAnimationName(string name){
         string res = name;

@@ -221,7 +221,7 @@ public class PlayerController : MonoBehaviour
                         yield return new WaitForEndOfFrame();
                     }
                 }break;
-                case "RegularTriangle": case"InvertedTriangle": case "Thunder":case "Electro":{
+                case "RegularTriangle": case"InvertedTriangle": case "Thunder":case "Grass":{
                     drawMagicSymbols.Add(new DrawMagicSymbol(drawShapeName,1));
                     drawShapeName = "None";
                     oldDrawShapeName ="None";

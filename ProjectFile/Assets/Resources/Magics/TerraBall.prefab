@@ -201,9 +201,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 15
-  magicAttribute: 2
+  magicAttribute: 4
   hurtCoolTime: 0.2
-  knockBack: {x: 100, y: 100}
+  hitStop: 1
+  hitStopTime: 0.1
+  knockBack: {x: 0, y: 0}
+  onlyFirstHurt: 0
+  radicalHurt: 0
   hurtTime: 0
 --- !u!58 &8328119534971231403
 CircleCollider2D:

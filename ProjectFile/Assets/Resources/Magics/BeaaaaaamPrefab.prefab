@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 168625370573670851}
   - component: {fileID: 168625370573670853}
   - component: {fileID: 168625370573670850}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Beaaaaam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 168625371076282844}
   - component: {fileID: 168625371076282845}
   - component: {fileID: 168625371076282842}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BeaaaaaamPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -207,6 +207,7 @@ MonoBehaviour:
   damage: 10
   magicAttribute: 1
   hurtCoolTime: 0.1
+  hitStop: 0
   hitStopTime: 0.1
   knockBack: {x: 50, y: 10}
   onlyFirstHurt: 0

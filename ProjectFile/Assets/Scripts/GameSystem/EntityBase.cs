@@ -13,13 +13,13 @@ public class EntityBase : MonoBehaviour
     public bool Invulnerable = false;
     public bool NoGravity = false;
     public bool OnGround = false;
-    private WaitForSeconds chachedHitStop;
+    private WaitForSecondsRealtime chachedHitStop;
     [ReadOnly]public MagicAttribute hurtMagicAtttribute = MagicAttribute.none;
     void Start()
     {
-        chachedHitStop = new WaitForSeconds(0.007f);
+        chachedHitStop = new WaitForSecondsRealtime(0.1f);
     }
-    public void Hurt(float DMG,string AttackBelongedTeam,Vector2 knockBack,MagicAttribute magicAttribute = MagicAttribute.none){
+    public void Hurt(float DMG,string AttackBelongedTeam,Vector2 knockBack,MagicAttribute magicAttribute = MagicAttribute.none,bool hitStop = true){
         if(!gameObject.CompareTag(AttackBelongedTeam) && Health >= 0){
             gameObject.GetComponent<Rigidbody2D>().AddForce(knockBack,ForceMode2D.Impulse);
             hurtMagicAtttribute = magicAttribute;
@@ -47,7 +47,7 @@ public class EntityBase : MonoBehaviour
                     else Health -= DMG;
                 break;
             }
-            StartCoroutine(HitStop());
+            if(hitStop)StartCoroutine(HitStop());
             Debug.Log($"Hurt  DMG:{DMG} margicAttribute:{magicAttribute} knockBack:{knockBack}");
         }
     }
@@ -55,7 +55,7 @@ public class EntityBase : MonoBehaviour
         Debug.Log("HitStop Start");
         Time.timeScale = 0.05f;
         if(Health != 0) yield return chachedHitStop;
-        else yield return new WaitForSeconds(0.04f);
+        else yield return new WaitForSecondsRealtime(0.2f);
         Time.timeScale = 1f;
         Debug.Log("HitStop End");
         yield break;

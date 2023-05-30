@@ -7,6 +7,7 @@ public class AttackBase : MonoBehaviour
     public float damage;
     public MagicAttribute magicAttribute;
     public float hurtCoolTime;
+    public bool hitStop = true;
     public float hitStopTime = 0.1f;
     public Vector2 knockBack;
     public bool onlyFirstHurt = false;
@@ -34,7 +35,7 @@ public class AttackBase : MonoBehaviour
         if(!onlyFirstHurt){
             if(radicalHurt)knockBack = (other.transform.position - transform.position).normalized * knockBackPower;
             if(hurtTime == 0){
-                if(other.gameObject.GetComponent<EntityBase>())other.gameObject.GetComponent<EntityBase>().Hurt(damage,gameObject.tag,knockBack,magicAttribute);
+                if(other.gameObject.GetComponent<EntityBase>())other.gameObject.GetComponent<EntityBase>().Hurt(damage,gameObject.tag,knockBack,magicAttribute,hitStop);
             }
             hurtTime += Time.deltaTime;
             if(hurtCoolTime <= hurtTime){

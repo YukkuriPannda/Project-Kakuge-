@@ -27,7 +27,7 @@ public class HPBarController : MonoBehaviour
             if(subBarRectTrf.sizeDelta.x > 0&&mainBarRectTrf.sizeDelta.x < subBarRectTrf.sizeDelta.x)subBarRectTrf.sizeDelta -= new Vector2(5f*Time.deltaTime,0);
             my_rect_trf.position = RectTransformUtility.WorldToScreenPoint(main_camera,entityBase.transform.position);
             if(oldHP > entityBase.Health){
-                GameObject DMGTexObject = Instantiate(DMGTexPrefab,transform.position + new Vector3(20,0,0),Quaternion.identity,transform);
+                GameObject DMGTexObject = Instantiate(DMGTexPrefab,transform.position + new Vector3(Random.Range(-10,10),0,0),Quaternion.identity,transform);
                 TextMeshProUGUI DMGTex = DMGTexObject.GetComponent<TextMeshProUGUI>();
                 DMGTex.text = (oldHP-entityBase.Health).ToString();
                 DMGTex.color = MagicColorManager.GetColorFromMagicArticle(entityBase.hurtMagicAtttribute);

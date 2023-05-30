@@ -9710,10 +9710,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4783b916a6d73e740b19263d0dd0155f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
-  magicAttribute: 1
+  damage: 50
+  magicAttribute: 4
   hurtCoolTime: 0
-  knockBack: {x: 0, y: 0}
+  hitStop: 0
+  hitStopTime: 5
+  knockBack: {x: 100, y: 0}
+  onlyFirstHurt: 1
+  radicalHurt: 1
   hurtTime: 0
 --- !u!1 &8967667329266874140
 GameObject:

@@ -4932,7 +4932,11 @@ MonoBehaviour:
   damage: 15
   magicAttribute: 1
   hurtCoolTime: 0.2
+  hitStop: 1
+  hitStopTime: 1
   knockBack: {x: 100, y: 100}
+  onlyFirstHurt: 0
+  radicalHurt: 0
   hurtTime: 0
 --- !u!58 &6901044020136619979
 CircleCollider2D:

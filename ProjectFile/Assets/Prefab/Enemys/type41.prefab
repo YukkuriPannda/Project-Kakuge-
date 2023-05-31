@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalMovementSpeed: 1
-  spotMovementSpeed: 4
+  spotMovementSpeed: 0
   detecitrRadius: 6
   attackRadius: 0.75
   attackCollider: {fileID: 7114548282539418036, guid: 4ae002a3738754e4b99468d5ce01c405, type: 3}
@@ -241,6 +241,7 @@ MonoBehaviour:
   Invulnerable: 0
   NoGravity: 0
   OnGround: 0
+  hurtMagicAtttribute: 0
 --- !u!212 &6261079412085386577
 SpriteRenderer:
   m_ObjectHideFlags: 0

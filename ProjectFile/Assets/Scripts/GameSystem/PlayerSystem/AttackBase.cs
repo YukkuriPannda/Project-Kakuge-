@@ -15,6 +15,16 @@ public class AttackBase : MonoBehaviour
     [Header("Infos")]
     [ReadOnly,SerializeField] private float hurtTime = 0;
     private float knockBackPower;
+    [System.Serializable]
+    class HurtObjectInfo{
+        public EntityBase eBase;
+        public float time = 0;
+        public HurtObjectInfo(EntityBase eBase,float time = 0){
+            this.eBase = eBase;
+            this.time = time;
+        }
+    }
+    [ReadOnly,SerializeField] private List<HurtObjectInfo> hurtObjectInfos = new List<HurtObjectInfo>();
     private void OnEnable() {
         if(radicalHurt){
             knockBackPower = knockBack.magnitude;
@@ -23,23 +33,24 @@ public class AttackBase : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.GetComponent<EntityBase>()){
-            hurtTime = Time.deltaTime;
-            Vector2 resKnockBack = knockBack;
-            if(radicalHurt)resKnockBack = (other.transform.position - transform.position).normalized * knockBackPower;
-            other.gameObject.GetComponent<EntityBase>().Hurt(damage,gameObject.tag,resKnockBack,magicAttribute);
-            Debug.Log("Hit FirstAttack");
+            hurtObjectInfos.Add(new HurtObjectInfo(other.gameObject.GetComponent<EntityBase>()));
         }
     }
     void OnTriggerStay2D(Collider2D other)
     {
-        if(!onlyFirstHurt){
-            if(radicalHurt)knockBack = (other.transform.position - transform.position).normalized * knockBackPower;
-            if(hurtTime == 0){
-                if(other.gameObject.GetComponent<EntityBase>())other.gameObject.GetComponent<EntityBase>().Hurt(damage,gameObject.tag,knockBack,magicAttribute,hitStop);
+        foreach(HurtObjectInfo hurtObjectInfo in hurtObjectInfos){
+            if(hurtObjectInfo.time == 0){
+                hurtObjectInfo.eBase.Hurt(damage,gameObject.tag,knockBack,magicAttribute,hitStop);
             }
-            hurtTime += Time.deltaTime;
-            if(hurtCoolTime <= hurtTime){
-                hurtTime = 0;
+            hurtObjectInfo.time += Time.deltaTime;
+            if(hurtObjectInfo.time >= hurtCoolTime)hurtObjectInfo.time = 0;
+        }
+    }
+    void OnTriggerExit2D(Collider2D other) {
+        EntityBase eBase = other.gameObject.GetComponent<EntityBase>();
+        if(eBase){
+            for(int i = 0;i < hurtObjectInfos.Count;i++){
+                if(hurtObjectInfos[i].eBase == eBase)hurtObjectInfos.Remove(hurtObjectInfos[i]);
             }
         }
     }

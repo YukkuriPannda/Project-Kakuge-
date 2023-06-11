@@ -280,20 +280,20 @@ public class PlayerController : MonoBehaviour
                             PlayerMagicFactory playerMagicFactory = new PlayerMagicFactory();
                             switch(drawMagicSymbols[0].magicSymbol){
                                 case "RegularTriangle":{
-                                    PlayerMagicBase zakoEnemySkillBase = playerMagicFactory.Create(magicHolder.flameMagic);
-                                    StartCoroutine(zakoEnemySkillBase.ActivationFlameMagic(this));
+                                    PlayerMagicBase plMagicBase = playerMagicFactory.Create(magicHolder.flameMagic);
+                                    StartCoroutine(plMagicBase.ActivationFlameMagic(this));
                                 }break;
                                 case "InvertedTriangle":{
-                                    PlayerMagicBase zakoEnemySkillBase = playerMagicFactory.Create(magicHolder.aquaMagic);
-                                    StartCoroutine(zakoEnemySkillBase.ActivationAquaMagic(this));
+                                    PlayerMagicBase plMagicBase = playerMagicFactory.Create(magicHolder.aquaMagic);
+                                    StartCoroutine(plMagicBase.ActivationAquaMagic(this));
                                 }break;
                                 case "Thunder":{
-                                    PlayerMagicBase zakoEnemySkillBase = playerMagicFactory.Create(magicHolder.electroMagic);
-                                    StartCoroutine(zakoEnemySkillBase.ActivationElectroMagic(this));
+                                    PlayerMagicBase plMagicBase = playerMagicFactory.Create(magicHolder.electroMagic);
+                                    StartCoroutine(plMagicBase.ActivationElectroMagic(this));
                                 }break;
                                 case "Grass":{
-                                    PlayerMagicBase zakoEnemySkillBase = playerMagicFactory.Create(magicHolder.terraMagic);
-                                    StartCoroutine(zakoEnemySkillBase.ActivationTerraMagic(this));
+                                    PlayerMagicBase plMagicBase = playerMagicFactory.Create(magicHolder.terraMagic);
+                                    StartCoroutine(plMagicBase.ActivationTerraMagic(this));
                                 }break;
                             }
                             magicStones --;

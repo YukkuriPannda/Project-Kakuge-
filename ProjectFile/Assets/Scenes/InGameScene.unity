@@ -35026,7 +35026,7 @@ MonoBehaviour:
   magicHolder:
     flameMagic: 0
     aquaMagic: 0
-    electroMagic: 0
+    electroMagic: 2
     terraMagic: 0
   attackColliders:
     UpSlash: {fileID: 7114548282539418036, guid: ab1dd93e7b415554cac0754d2800b7b3, type: 3}
@@ -35056,8 +35056,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 988327572}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.8, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.094760016, y: 0.69025385, z: 0.07550517}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -35108,7 +35108,7 @@ MonoBehaviour:
   specialMagicMotions:
     flame: {fileID: 7400000, guid: 1f419d07867fac24a94fa7ebf5241b64, type: 2}
     aqua: {fileID: 7400000, guid: 1f419d07867fac24a94fa7ebf5241b64, type: 2}
-    electro: {fileID: 7400000, guid: 1f419d07867fac24a94fa7ebf5241b64, type: 2}
+    electro: {fileID: 7400000, guid: ae1907376604dc545ba2e842eb06f690, type: 2}
     terra: {fileID: 7400000, guid: 1f419d07867fac24a94fa7ebf5241b64, type: 2}
 --- !u!114 &988327584
 MonoBehaviour:
@@ -73029,10 +73029,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: type41
       objectReference: {fileID: 0}
-    - target: {fileID: 6261079412085386576, guid: c392273d95a56624d918a2f22f5ce823, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6261079412085386579, guid: c392273d95a56624d918a2f22f5ce823, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -73075,10 +73071,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6261079412085386579, guid: c392273d95a56624d918a2f22f5ce823, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6261079412085386582, guid: c392273d95a56624d918a2f22f5ce823, type: 3}
-      propertyPath: spotMovementSpeed
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

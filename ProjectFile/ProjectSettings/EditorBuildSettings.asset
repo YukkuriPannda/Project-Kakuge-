@@ -6,9 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+<<<<<<< Updated upstream
     path: Assets/Scenes/Launching.unity
     guid: d7d81a857186619469b45a64d1ca3138
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+=======
+    path: Assets/Scenes/InGameScene.unity
+    guid: 94bac30949f84e04984f8fa10a7e4b7b
+>>>>>>> Stashed changes
   m_configObjects: {}

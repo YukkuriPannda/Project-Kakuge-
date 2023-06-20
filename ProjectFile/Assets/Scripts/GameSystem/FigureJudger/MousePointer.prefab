@@ -47,6 +47,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c393221f5783a44439ff0966f52f1f5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetEntityBase: {fileID: 0}
+  core: {fileID: 0}
+  shell: {fileID: 0}
+  symbol: {fileID: 0}
+  coreColors:
+    flame: {r: 0, g: 0, b: 0, a: 0}
+    aqua: {r: 0, g: 0, b: 0, a: 0}
+    electro: {r: 0, g: 0, b: 0, a: 0}
+    terra: {r: 0, g: 0, b: 0, a: 0}
+  coreSymbols:
+    flame: {fileID: 0}
+    aqua: {fileID: 0}
+    electro: {fileID: 0}
+    terra: {fileID: 0}
 --- !u!212 &2214709298433032540
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -67,7 +81,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -116,8 +130,11 @@ MonoBehaviour:
   mousePointer: {fileID: 2214709298433032538}
   plc: {fileID: 0}
   result: 
+  IsGard: 0
+  gardVector: {x: 0, y: 0}
   writingTime: 0
   accuracy: 0
+  OutPutLog: 0
   clicking: 0
   inputPoints: []
   sortPoints: []

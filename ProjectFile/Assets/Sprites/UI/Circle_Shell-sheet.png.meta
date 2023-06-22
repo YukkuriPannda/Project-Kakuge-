@@ -133,10 +133,10 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 37
+        height: 37
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -149,57 +149,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Circle_Shell-sheet_1
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 83a6d6ac995b2b84e9c9372378343369
-      internalID: -1787978192
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Circle_Shell-sheet_2
       rect:
         serializedVersion: 2
-        x: 64
+        x: 74
         y: 0
-        width: 32
-        height: 32
+        width: 37
+        height: 37
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 38d94bd7d50172143af3ef72c3eafbdd
-      internalID: 2050402529
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Circle_Shell-sheet_3
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -212,36 +170,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Circle_Shell-sheet_4
+      name: Circle_Shell-sheet_1
       rect:
         serializedVersion: 2
-        x: 128
+        x: 37
         y: 0
-        width: 32
-        height: 32
+        width: 37
+        height: 37
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 74bdc04c2d9b9794da620797be283bdf
-      internalID: 1856601299
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Circle_Shell-sheet_5
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -249,6 +186,27 @@ TextureImporter:
       bones: []
       spriteID: 1f27bffe34b5b134ab12f478f1b1ae6d
       internalID: -792002125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Circle_Shell-sheet_3
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 0
+        width: 37
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f9ce6bfb58baa648ab8f540b0a11fcf
+      internalID: 1912279109
       vertices: []
       indices: 
       edges: []
@@ -265,10 +223,8 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       Circle_Shell-sheet_0: -695841812
-      Circle_Shell-sheet_3: -1787978192
-      Circle_Shell-sheet_5: 2050402529
+      Circle_Shell-sheet_3: 1912279109
       Circle_Shell-sheet_2: 150464779
-      Circle_Shell-sheet_4: 1856601299
       Circle_Shell-sheet_1: -792002125
   spritePackingTag: 
   pSDRemoveMatte: 0

@@ -7,7 +7,8 @@ public class ShapeJudger : MonoBehaviour
     [Header("Input")]
     public float detectionFrequency;
     public float sinceLastAddedPoint = 0;
-    [SerializeField] Transform mousePointer;
+    [SerializeField]MousePointer mousePointer;
+    Transform mousePointerTrf;
     [SerializeField] PlayerController plc;
     [Space(5)]
 
@@ -36,18 +37,19 @@ public class ShapeJudger : MonoBehaviour
     void Start()
     {
         lineRenderer = gameObject.GetComponent<LineRenderer>();
+        mousePointerTrf = mousePointer.transform;
     }
     void Update()
     {
-        if(Input.GetMouseButtonDown(0)){//初期化
+        if(Input.GetMouseButtonDown(0) && mousePointer.inGameWindow){//初期化
             inputPoints = new List<Vector2>();
             CircleAccuracyValue = 0;
             RegularTriangleAccuracyValue = 0;
             InvertedTriangleAccuracyValue = 0;
             thunderAccuracyValue = 0;
             grassAccuracyValue = 0;
-            accuracy =0;
-            if(Vector2.Distance(mousePointer.localPosition,new Vector2(0,0)) < 1f)result = "Gard";
+            accuracy = 0;
+            if(Vector2.Distance(mousePointerTrf.localPosition,new Vector2(0,0)) < 1f)result = "Gard";
             
             lineRenderer.startWidth = 0.1f;
             lineRenderer.endWidth = 0.1f;
@@ -58,14 +60,14 @@ public class ShapeJudger : MonoBehaviour
                 if(detectionFrequency >= sinceLastAddedPoint){
                     sinceLastAddedPoint = 0;
                     if(inputPoints.Count > 0){
-                        if(Vector2.Distance(inputPoints[inputPoints.Count-1],mousePointer.localPosition)>=0.3f)inputPoints.Add(mousePointer.localPosition);
-                    }else inputPoints.Add(mousePointer.localPosition);
+                        if(Vector2.Distance(inputPoints[inputPoints.Count-1],mousePointerTrf.localPosition)>=0.1f)inputPoints.Add(mousePointerTrf.localPosition);
+                    }else inputPoints.Add(mousePointerTrf.localPosition);
                 }else{
                     writingTime += Time.deltaTime;
                     sinceLastAddedPoint += Time.deltaTime;
                 }
             }else{
-                gardVector = mousePointer.position.normalized;
+                gardVector = mousePointerTrf.position.normalized;
                 plc.drawShapeName = result;
                 plc.drawShapePos = center;
             }
@@ -101,7 +103,7 @@ public class ShapeJudger : MonoBehaviour
                         result = "Grass";
                         accuracy = grassAccuracyValue;
                     }
-                    if(result == null){
+                    if(result == null || accuracy < 0.67f){
                         result = "Circle";
                         accuracy = CircleAccuracyValue;
                     }

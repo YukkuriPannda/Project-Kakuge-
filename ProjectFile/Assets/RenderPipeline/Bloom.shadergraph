@@ -49,20 +49,6 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
-                    "m_Id": "37fe303e9a8d4538b756f895fe174949"
-                },
-                "m_SlotId": 2
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "d87b90880d304f38a6697d26410f78bd"
-                },
-                "m_SlotId": 0
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
                     "m_Id": "d87b90880d304f38a6697d26410f78bd"
                 },
                 "m_SlotId": 4
@@ -70,6 +56,20 @@
             "m_InputSlot": {
                 "m_Node": {
                     "m_Id": "235b892ec6c544739c604fcf037e23a1"
+                },
+                "m_SlotId": 0
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "e39780c2b4bc4deebe012f8ead46579e"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "d87b90880d304f38a6697d26410f78bd"
                 },
                 "m_SlotId": 0
             }
@@ -308,31 +308,6 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
-    "m_ObjectId": "32867acbde5b4e2eb1ab20aa7338465b",
-    "m_Id": 0,
-    "m_DisplayName": "In",
-    "m_SlotType": 0,
-    "m_Hidden": false,
-    "m_ShaderOutputName": "In",
-    "m_StageCapability": 3,
-    "m_Value": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "w": 0.0
-    },
-    "m_DefaultValue": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "w": 0.0
-    },
-    "m_Labels": []
-}
-
-{
-    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector2MaterialSlot",
     "m_ObjectId": "366f2561b1984927ac03ad6b71a8068a",
     "m_Id": 1,
@@ -388,6 +363,24 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Texture2DInputMaterialSlot",
+    "m_ObjectId": "4145030706e042a3973dfaef1af062d2",
+    "m_Id": 0,
+    "m_DisplayName": "Tex",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Tex",
+    "m_StageCapability": 3,
+    "m_BareResource": false,
+    "m_Texture": {
+        "m_SerializedTexture": "{\"texture\":{\"instanceID\":0}}",
+        "m_Guid": ""
+    },
+    "m_DefaultType": 0
 }
 
 {
@@ -753,15 +746,15 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 200.0,
-            "y": 462.6667175292969,
-            "width": 209.33334350585938,
-            "height": 351.9999694824219
+            "x": -251.99996948242188,
+            "y": 135.0,
+            "width": 208.0,
+            "height": 349.9999694824219
         }
     },
     "m_Slots": [
         {
-            "m_Id": "32867acbde5b4e2eb1ab20aa7338465b"
+            "m_Id": "4145030706e042a3973dfaef1af062d2"
         },
         {
             "m_Id": "366f2561b1984927ac03ad6b71a8068a"
@@ -789,7 +782,7 @@
     "m_SourceType": 1,
     "m_FunctionName": "bulur",
     "m_FunctionSource": "",
-    "m_FunctionBody": "const int BLUR_SAMPLE_COUNT = 4;\r\nTexture2D Tex;\nTex.SetPixel(0,0,In);\nTex.Apply();\nfloat2 BLUR_KERNEL[BLUR_SAMPLE_COUNT] = {\r\n                float2(-1.0, -1.0),\r\n                float2(-1.0, 1.0),\r\n                float2(1.0, -1.0),\r\n                float2(1.0, 1.0),\r\n            };\r\n\r\ncolor = 0;\r\nfor (int j = 0; j < BLUR_SAMPLE_COUNT; j++) \r\n{\r\n          color +=  SAMPLE_TEXTURE2D(Tex,sam, uv+ BLUR_KERNEL[j] * Scale );\r\n}\r\n  \r\ncolor.rgb /= BLUR_SAMPLE_COUNT;\r\ncolor.a = 1;"
+    "m_FunctionBody": "const int BLUR_SAMPLE_COUNT = 4;\r\nfloat2 BLUR_KERNEL[BLUR_SAMPLE_COUNT] = {\r\n                float2(-1.0, -1.0),\r\n                float2(-1.0, 1.0),\r\n                float2(1.0, -1.0),\r\n                float2(1.0, 1.0),\r\n            };\r\n\r\ncolor = 0;\r\nfor (int j = 0; j < BLUR_SAMPLE_COUNT; j++) \r\n{\r\n          color +=  SAMPLE_TEXTURE2D(Tex,sam, uv+ BLUR_KERNEL[j] * Scale );\r\n}\r\n  \r\ncolor.rgb /= BLUR_SAMPLE_COUNT;\r\ncolor.a = 1;"
 }
 
 {
@@ -981,10 +974,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -288.0000305175781,
-            "y": 200.0,
-            "width": 208.0,
-            "height": 435.0
+            "x": -409.9999694824219,
+            "y": 442.9999694824219,
+            "width": 207.99996948242188,
+            "height": 435.0000305175781
         }
     },
     "m_Slots": [

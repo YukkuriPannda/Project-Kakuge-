@@ -58743,6 +58743,7 @@ GameObject:
   - component: {fileID: 1297420961}
   - component: {fileID: 1297420963}
   - component: {fileID: 1297420962}
+  - component: {fileID: 1297420964}
   m_Layer: 5
   m_Name: Renderer
   m_TagString: Untagged
@@ -58782,7 +58783,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 4fb3c25f4702e2c458375db55c90cba8, type: 2}
+  m_Material: {fileID: 2100000, guid: 8ee77a586cd2b524ea9a46db2805e0bb, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -58805,6 +58806,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1297420960}
   m_CullTransparentMesh: 1
+--- !u!114 &1297420964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1297420960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5844a9e95bb93340ba26349d4b074a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shaderName: Hidden/Bloom
+  strength: 0.3
+  samplerCnt: 6
+  blur: 20
+  threshold: 0.3
+  ratio: 1
 --- !u!1 &1303551251
 GameObject:
   m_ObjectHideFlags: 0

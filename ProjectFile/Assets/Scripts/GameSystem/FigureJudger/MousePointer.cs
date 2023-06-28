@@ -5,6 +5,7 @@ public class MousePointer : MonoBehaviour {
     Transform mytrf;
     Camera maincamera;
     public bool inGameWindow;
+    
     void Start(){
         mytrf = transform;
         maincamera = Camera.main;

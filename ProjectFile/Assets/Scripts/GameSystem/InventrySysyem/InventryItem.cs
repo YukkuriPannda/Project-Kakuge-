@@ -1,17 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventryItem : MonoBehaviour
 {
-    void Start()
+    public ItemBase item;
+    private Image icon;
+    void OnEnable()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        icon.sprite = Resources.Load<Sprite>(item.spritePath);
         
     }
 }

@@ -4,10 +4,25 @@ using UnityEngine;
 
 public class InventrySystem : MonoBehaviour
 {
-    public ItemDatas itemDatas;
-    [SerializeField] public List<WeaponItem> itemBases = new List<WeaponItem>();
+    [SerializeField] Transform ItemSlots;
+    [SerializeField] GameObject ItemPrefab;
+    public List<WeaponItem> itemBases = new List<WeaponItem>();
+    void Start()
+    {
+        SetInventryItem();
+    }
     public void LoadItem(){
 
+    }
+    public void SetInventryItem(){
+        foreach(ItemBase itemBase in itemBases){
+            if(itemBase.count > 0){
+                Debug.Log(ItemPrefab.name);
+                Debug.Log(ItemSlots.name);
+                GameObject inventryItem = Instantiate(ItemPrefab,ItemSlots) as GameObject;
+                inventryItem.GetComponent<InventryItem>().item = itemBase;
+            }
+        }
     }
 }
 [System.Serializable]
@@ -15,52 +30,64 @@ public class ItemDatas{
     public List<WeaponItem> weaponItems = new List<WeaponItem>();
     public List<FoodItem> foodItems = new List<FoodItem>();
     public List<MagicBook> magicBooks = new List<MagicBook>();
-}[System.Serializable]
+}
+public enum ItemCategory{
+    Weapon,
+    Food,
+    MagicBook
+}
+[System.Serializable]
 public class UniqueParameter{
     public string name;
     public float value;
+    public UniqueParameter(string name,float value){
+        this.name = name;
+        this.value = value;
+    }
 }
 [System.Serializable]
 public class ItemBase{
-    public int id;
+    [ReadOnly]public int id;
     public string name;
+    public string explanation;
     public string spritePath;
     public int count;
-    public string category;
+    public ItemCategory category;
     public UniqueParameter[] uniqueParameters = null;
-    public ItemBase(int id,string name,string spritePath,int count,string category){
-        this.id = id;
+    public ItemBase(string name,string spritePath,int count,ItemCategory category){
         this.name = name;
         this.spritePath = spritePath;
         this.count = count;
         this.category = category;
     }
+    
 }
 [System.Serializable]
 public class WeaponItem : ItemBase{
-    public float damage;
-    public float exp;
-    public WeaponItem(int id,string name,string spritePath,int count,string category,float damage,float exp)
-        :base(id,name,spritePath,count,"Weapon"){
-        this.damage = damage;
-        this.exp = exp;
+    public WeaponItem(string name,string spritePath,int count,string category,float damage,float exp)
+        :base(name,spritePath,count,ItemCategory.Weapon){
+        uniqueParameters = new UniqueParameter[2]{
+            new UniqueParameter("damage",damage),
+            new UniqueParameter("exp",exp)
+        };
     }
 }
 [System.Serializable]
 public class FoodItem : ItemBase{
-    public float healPower;
-    public FoodItem(int id,string name,string spritePath,int count,string category,float healPower,float exp)
-        :base(id,name,spritePath,count,"Food"){
-        this.healPower = healPower;
+    public FoodItem(string name,string spritePath,int count,string category,float healPower)
+        :base(name,spritePath,count,ItemCategory.Food){
+        uniqueParameters = new UniqueParameter[1]{
+            new UniqueParameter("healPower",healPower)
+        };
     }
 }
 [System.Serializable]
 public class  MagicBook: ItemBase{
-    public string magicName;
     public float exp;
-    public MagicBook(int id,string name,string spritePath,int count,string magicName,float exp)
-        :base(id,name,spritePath,count,"MagicBook"){
-        this.magicName = magicName;
-        this.exp = exp;
+    public MagicBook(string name,string spritePath,int count,float exp)
+        :base(name,spritePath,count,ItemCategory.MagicBook){
+        uniqueParameters = new UniqueParameter[1]{
+            new UniqueParameter("exp",exp)
+        };
     }
 }

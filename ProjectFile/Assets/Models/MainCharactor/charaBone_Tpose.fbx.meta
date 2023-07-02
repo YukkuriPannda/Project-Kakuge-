@@ -18,11 +18,6 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Band
-    second: {fileID: -1756283593641338864, guid: edb93afd73622844a9d86615aa250de8, type: 3}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
       name: Belt
     second: {fileID: 2100000, guid: 82a37e5388e65b94d91de419d8f5fefa, type: 2}
   - first:
@@ -44,7 +39,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Hair
-    second: {fileID: 2100000, guid: 5e3ce558808cedd408d6bd584356bb78, type: 2}
+    second: {fileID: 2100000, guid: d69140d4168276b48a48046aa0f0c490, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -58,13 +53,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Rapisrazle
-    second: {fileID: 2100000, guid: 8669189d79af3d246bc0099dd176240d, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
       name: Shirts
-    second: {fileID: 2100000, guid: 5e3ce558808cedd408d6bd584356bb78, type: 2}
+    second: {fileID: 2100000, guid: d69140d4168276b48a48046aa0f0c490, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

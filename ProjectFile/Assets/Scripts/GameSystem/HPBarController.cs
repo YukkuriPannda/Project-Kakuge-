@@ -22,7 +22,8 @@ public class HPBarController : MonoBehaviour
     {
         if(!entityBase)Destroy(gameObject);
         else{
-            mainBarRectTrf.sizeDelta = new Vector2(Mathf.Clamp(entityBase.Health/entityBase.MaxHealth*50,0,50),5);
+            if(entityBase.Health >= 0)mainBarRectTrf.sizeDelta = new Vector2(entityBase.Health/entityBase.MaxHealth*20,2);
+            else mainBarRectTrf.sizeDelta = new Vector2(0,2);
             if(subBarRectTrf.sizeDelta.x > 0&&mainBarRectTrf.sizeDelta.x < subBarRectTrf.sizeDelta.x)subBarRectTrf.sizeDelta -= new Vector2(5f*Time.deltaTime,0);
             my_rect_trf.position = RectTransformUtility.WorldToScreenPoint(main_camera,entityBase.transform.position);
             if(oldHP > entityBase.Health){

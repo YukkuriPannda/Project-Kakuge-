@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3153156494144953319}
   - component: {fileID: 2048461310101214274}
   - component: {fileID: 4290083251368108168}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: IAIGIRI_SpiralElectro
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 3153156495267672123}
   - component: {fileID: 2048461309009870750}
   - component: {fileID: 4290083252359318356}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: IAIGIRI_SpiralElectro (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 3191075613610094482}
   - component: {fileID: 3191075613610094484}
   - component: {fileID: 3191075613610094483}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: IAIGIRI_SpiralElectro (0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -262,7 +262,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3191075613941063021}
   - component: {fileID: 3191075613941063020}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Thunder 1_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -347,7 +347,7 @@ GameObject:
   - component: {fileID: 3191075613973503369}
   - component: {fileID: 3191075613973503371}
   - component: {fileID: 3191075613973503370}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: IAIGIRI_SpiralElectro (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -431,7 +431,7 @@ GameObject:
   - component: {fileID: 3191075615152615693}
   - component: {fileID: 3191075615152615695}
   - component: {fileID: 3191075615152615694}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: IAIGIRI_SpiralElectro (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -515,7 +515,7 @@ GameObject:
   - component: {fileID: 3191075615240928843}
   - component: {fileID: 3191075615240928845}
   - component: {fileID: 3191075615240928844}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: IAIGIRI_SpiralElectro (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -597,7 +597,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3191075615283660002}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Winds
   m_TagString: Untagged
   m_Icon: {fileID: 0}

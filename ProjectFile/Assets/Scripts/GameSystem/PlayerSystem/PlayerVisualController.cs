@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor.Animations;
+
 
 public class PlayerVisualController : MonoBehaviour
 {
@@ -11,6 +13,14 @@ public class PlayerVisualController : MonoBehaviour
     public Transform rightHand;
     public Transform leftHand;
     public Transform back;
+    [System.Serializable]
+    class SpecialMagicMotions{
+        public AnimationClip flame;
+        public AnimationClip aqua;
+        public AnimationClip electro;
+        public AnimationClip terra;
+    }
+    [SerializeField]SpecialMagicMotions specialMagicMotions;
     enum AnimMotions :int {
         Stay,
         Walk,
@@ -27,6 +37,7 @@ public class PlayerVisualController : MonoBehaviour
     private int oldDire;
     void Start()
     {
+        SetSpecialMagicAnimClip();
         plEC = gameObject.GetComponent<PlayerEffectController>();
     }
 
@@ -121,6 +132,14 @@ public class PlayerVisualController : MonoBehaviour
             }break;
         }
     }
+    void SetSpecialMagicAnimClip(){
+        Debug.Log(plAnim.runtimeAnimatorController.animationClips[0]);
+        AnimatorController animController = plAnim.runtimeAnimatorController as UnityEditor.Animations.AnimatorController;
+        animController.layers[0].stateMachine.states[GetStateFromName("Special_Flame",animController.layers[0].stateMachine.states)].state.motion = specialMagicMotions.flame;
+        animController.layers[0].stateMachine.states[GetStateFromName("Special_Aqua",animController.layers[0].stateMachine.states)].state.motion = specialMagicMotions.aqua;
+        animController.layers[0].stateMachine.states[GetStateFromName("Special_Electro",animController.layers[0].stateMachine.states)].state.motion = specialMagicMotions.electro;
+        animController.layers[0].stateMachine.states[GetStateFromName("Special_Terra",animController.layers[0].stateMachine.states)].state.motion = specialMagicMotions.terra;
+    }
     void PlayAttackAnim(string playAnimName){
         plAnim.Play(playAnimName,0,0);
         plc.weapon.transform.parent = rightHand.transform;
@@ -153,6 +172,16 @@ public class PlayerVisualController : MonoBehaviour
             }break;
         }
         return res;
+    }
+    int GetStateFromName(string name,ChildAnimatorState[] states){
+        int result = 0;
+        for(; states[result].state.name != name;result ++){
+            if(result >= states.Length){
+                Debug.LogError("Not Found AnimationState "+name);
+                return -1;
+            }
+        }
+        return result;
     }
     public void OnSpecialMotionExit(){
         Debug.Log("Exit");

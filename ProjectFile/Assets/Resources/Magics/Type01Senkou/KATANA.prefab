@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6360656395759088599}
   - component: {fileID: 3380561059822151420}
   - component: {fileID: 2391943527880004442}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 2010727100907319278}
   - component: {fileID: 5184641549291031390}
   - component: {fileID: 5184641549291031389}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Blade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -233,7 +233,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2891241357923945070}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: KATANA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 4636564889326175369}
   - component: {fileID: 2491340789439741072}
   - component: {fileID: 2961151762732977605}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SAYA
   m_TagString: Untagged
   m_Icon: {fileID: 0}

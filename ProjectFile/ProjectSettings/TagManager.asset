@@ -17,8 +17,8 @@ TagManager:
   - Trigger
   - bloom
   - 'PostProcessing '
-  - 
-  - 
+  - ToPixel
+  - BackGround
   - 
   - 
   - 
@@ -43,6 +43,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Ground
+    uniqueID: 55109987
     locked: 0
   - name: UI
     uniqueID: 1212558381

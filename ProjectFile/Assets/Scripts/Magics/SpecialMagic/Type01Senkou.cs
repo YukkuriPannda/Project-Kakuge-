@@ -30,6 +30,8 @@ public class Type01Senkou: PlayerMagicBase
         GameObject.Destroy(unit.gameObject,3f);
         GameObject.Destroy(Katana,3f);
         plc.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0.05f;
+
+        ZoomOut(5);
         yield return new WaitForSeconds(1.1f);
         plvcl.model.localScale = Vector3.zero;
         yield return new WaitForSeconds(0.1f);
@@ -40,10 +42,20 @@ public class Type01Senkou: PlayerMagicBase
         GameObject.Destroy(thunderCollider,0.25f);
         yield return new WaitForSeconds(0.5f);
         plc.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1f;
+        ZoomOut(3);
         yield break;
     }
     public override IEnumerator ActivationTerraMagic(PlayerController plc)
     {
+        yield break;
+    }
+    IEnumerator ZoomOut(float size){
+        Camera mainCamera = Camera.main;
+        for(float t = 0;t <= 0.5f;t+=Time.deltaTime){
+            mainCamera.orthographicSize = (size - mainCamera.orthographicSize) * t *2 + mainCamera.orthographicSize;
+            Debug.Log(mainCamera.orthographicSize + 'a');
+        }
+        mainCamera.orthographicSize = size;
         yield break;
     }
 }

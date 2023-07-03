@@ -154,9 +154,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e78bb3958e8e82b4fad64cb00b7d2231, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainBar: {fileID: 8023468366988668457}
-  subBar: {fileID: 8023468367547748173}
   entityBase: {fileID: 0}
+  mainBarRectTrf: {fileID: 0}
+  subBarRectTrf: {fileID: 0}
+  DMGTexPrefab: {fileID: 0}
 --- !u!1 &8023468367547748173
 GameObject:
   m_ObjectHideFlags: 0

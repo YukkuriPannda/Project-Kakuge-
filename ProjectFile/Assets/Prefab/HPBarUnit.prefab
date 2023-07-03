@@ -52,7 +52,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -136,7 +136,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -215,9 +215,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e78bb3958e8e82b4fad64cb00b7d2231, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainBar: {fileID: 8023468366988668457}
-  subBar: {fileID: 8023468367547748173}
   entityBase: {fileID: 0}
+  mainBarRectTrf: {fileID: 0}
+  subBarRectTrf: {fileID: 0}
+  DMGTexPrefab: {fileID: 0}
 --- !u!1 &8023468367547748173
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,7 +271,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

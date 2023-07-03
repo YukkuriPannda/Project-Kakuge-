@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InventrySystem : MonoBehaviour
 {
-    [SerializeField] Transform ItemSlots;
+    [SerializeField] RectTransform ItemSlots;
     [SerializeField] GameObject ItemPrefab;
     public List<WeaponItem> itemBases = new List<WeaponItem>();
     void Start()
@@ -19,7 +19,7 @@ public class InventrySystem : MonoBehaviour
             if(itemBase.count > 0){
                 Debug.Log(ItemPrefab.name);
                 Debug.Log(ItemSlots.name);
-                GameObject inventryItem = Instantiate(ItemPrefab,ItemSlots) as GameObject;
+                GameObject inventryItem = Instantiate(ItemPrefab,ItemSlots);
                 inventryItem.GetComponent<InventryItem>().item = itemBase;
             }
         }

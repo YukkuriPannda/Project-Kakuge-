@@ -97,10 +97,7 @@ MonoBehaviour:
     spritePath: 
     count: 0
     category: 0
-    uniqueParameters:
-    - name: 
-      value: 0
-      maxValue: 0
+    uniqueParameters: []
   SimpleStatusPanelPrefab: {fileID: 2287272124053522656, guid: ee480c7d1c888834bb1e7f4cb273f24c, type: 3}
 --- !u!114 &7427622672882099855
 MonoBehaviour:

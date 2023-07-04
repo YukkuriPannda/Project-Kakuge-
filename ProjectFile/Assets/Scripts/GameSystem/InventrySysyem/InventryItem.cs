@@ -13,7 +13,6 @@ public class InventryItem : MonoBehaviour
     private GameObject simpleStatusPanel;
     private RectTransform simpleStatusPanelRectTrf;
 
-    private Transform mousePointer;
     private Vector2 mousePos;
     private Image icon;
     private bool oldIsPointerOverGameObject =false;
@@ -23,19 +22,13 @@ public class InventryItem : MonoBehaviour
         icon = gameObject.GetComponent<Image>();
         Sprite sprite = Resources.Load<Sprite>(item.spritePath);
         icon.sprite = sprite;
-        mousePointer = GameObject.Find("MousePointer").transform;
     }
     void Update()
     {
-        bool nowIsPointerOverGameObject = EventSystem.current.IsPointerOverGameObject();
-        //if (nowIsPointerOverGameObject && !oldIsPointerOverGameObject) OnPointerEnter();
-        //if (!nowIsPointerOverGameObject && oldIsPointerOverGameObject) OnPointerExit();
-        
-        if(nowIsPointerOverGameObject){
+        if(simpleStatusPanel){
             mousePos = Input.mousePosition;
+            simpleStatusPanelRectTrf.position = mousePos;
         }
-        oldIsPointerOverGameObject = nowIsPointerOverGameObject;
-        if(simpleStatusPanel)simpleStatusPanelRectTrf.position = mousePos;
     }
     public void OnPointerEnter(){
         simpleStatusPanel = Instantiate(SimpleStatusPanelPrefab,mousePos,Quaternion.identity,transform);
@@ -52,10 +45,12 @@ public class InventryItem : MonoBehaviour
         foreach(UniqueParameter uniqueParameter in item.uniqueParameters){
             uniqueParamsValueText += uniqueParameter.value + "\n";
         }
+        simpleStatusPanelRectTrf.sizeDelta = new Vector2(256,40+10*item.uniqueParameters.Length);
         simpleStatusPanel.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = uniqueParamsValueText;
     }
     public void OnPointerExit(){
         Destroy(simpleStatusPanel);
+        simpleStatusPanel = null;
         simpleStatusPanelRectTrf = null;
     }
 }

@@ -85066,8 +85066,24 @@ PrefabInstance:
       value: exp
       objectReference: {fileID: 0}
     - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
+      propertyPath: itemBases.Array.data[0].uniqueParameters.Array.data[2].name
+      value: exp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
       propertyPath: itemBases.Array.data[0].uniqueParameters.Array.data[1].value
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
+      propertyPath: itemBases.Array.data[0].uniqueParameters.Array.data[2].value
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
+      propertyPath: itemBases.Array.data[0].uniqueParameters.Array.data[0].maxValue
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
+      propertyPath: itemBases.Array.data[0].uniqueParameters.Array.data[1].maxValue
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1907818289850761823, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
       propertyPath: m_Pivot.x

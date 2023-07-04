@@ -13,6 +13,8 @@ public class InventryItem : MonoBehaviour
     private GameObject simpleStatusPanel;
     private RectTransform simpleStatusPanelRectTrf;
 
+    public GameObject BarPrefab;
+
     private Vector2 mousePos;
     private Image icon;
     private bool oldIsPointerOverGameObject =false;
@@ -31,7 +33,7 @@ public class InventryItem : MonoBehaviour
         }
     }
     public void OnPointerEnter(){
-        simpleStatusPanel = Instantiate(SimpleStatusPanelPrefab,mousePos,Quaternion.identity,transform);
+        simpleStatusPanel = Instantiate(SimpleStatusPanelPrefab,mousePos,Quaternion.identity,transform.parent.parent);
         simpleStatusPanelRectTrf = simpleStatusPanel.GetComponent<RectTransform>();
         simpleStatusPanel.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = item.name;
 
@@ -45,8 +47,15 @@ public class InventryItem : MonoBehaviour
         foreach(UniqueParameter uniqueParameter in item.uniqueParameters){
             uniqueParamsValueText += uniqueParameter.value + "\n";
         }
-        simpleStatusPanelRectTrf.sizeDelta = new Vector2(256,40+10*item.uniqueParameters.Length);
+        simpleStatusPanelRectTrf.sizeDelta = new Vector2(256,40+15*item.uniqueParameters.Length);
         simpleStatusPanel.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = uniqueParamsValueText;
+        
+        for(int i = 0;i < item.uniqueParameters.Length;i++){
+            GameObject bar = Instantiate(BarPrefab,simpleStatusPanel.transform);
+            bar.GetComponent<RectTransform>().sizeDelta = new Vector2((item.uniqueParameters[i].value/item.uniqueParameters[i].maxValue) * (150/100) * 100,1);
+            bar.GetComponent<RectTransform>().localPosition = new Vector2(80,-35-15*i);
+        }
+        Debug.Log("Enter");
     }
     public void OnPointerExit(){
         Destroy(simpleStatusPanel);

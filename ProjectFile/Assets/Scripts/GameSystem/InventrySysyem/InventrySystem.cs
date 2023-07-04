@@ -40,9 +40,15 @@ public enum ItemCategory{
 public class UniqueParameter{
     public string name;
     public float value;
+    public float maxValue = 100;
     public UniqueParameter(string name,float value){
         this.name = name;
         this.value = value;
+    }
+    public UniqueParameter(string name,float value,float maxValue){
+        this.name = name;
+        this.value = value;
+        this.maxValue = maxValue;
     }
 }
 [System.Serializable]

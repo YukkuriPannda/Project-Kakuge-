@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2153667812934794558}
   - component: {fileID: 7715472254505993332}
   - component: {fileID: 1997815242704041572}
-  - component: {fileID: 7427622672882099855}
   m_Layer: 5
   m_Name: Item
   m_TagString: Untagged
@@ -100,48 +99,3 @@ MonoBehaviour:
     uniqueParameters: []
   SimpleStatusPanelPrefab: {fileID: 2287272124053522656, guid: ee480c7d1c888834bb1e7f4cb273f24c, type: 3}
   BarPrefab: {fileID: 2736767661312104702, guid: 40bd717f840cab54d95285ca5aa45374, type: 3}
---- !u!114 &7427622672882099855
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5809387916827161673}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1997815242704041572}
-          m_TargetAssemblyTypeName: InventryItem, Assembly-CSharp
-          m_MethodName: OnPointerEnter
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1997815242704041572}
-          m_TargetAssemblyTypeName: InventryItem, Assembly-CSharp
-          m_MethodName: OnPointerExit
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2

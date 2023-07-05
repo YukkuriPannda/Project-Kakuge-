@@ -18,19 +18,37 @@ public class InventryItem : MonoBehaviour
     private Vector2 mousePos;
     private Image icon;
     private bool oldIsPointerOverGameObject =false;
+    private RectTransform myRectTrf;
     
     void Start()
     {
         icon = gameObject.GetComponent<Image>();
         Sprite sprite = Resources.Load<Sprite>(item.spritePath);
         icon.sprite = sprite;
+        myRectTrf = gameObject.GetComponent<RectTransform>();
     }
     void Update()
     {
+        mousePos = Input.mousePosition;
         if(simpleStatusPanel){
-            mousePos = Input.mousePosition;
-            simpleStatusPanelRectTrf.position = mousePos;
+            simpleStatusPanelRectTrf.position = mousePos; 
+            if(myRectTrf.sizeDelta.x < mousePos.x - myRectTrf.position.x
+            || -myRectTrf.sizeDelta.x > mousePos.x - myRectTrf.position.x
+            || myRectTrf.sizeDelta.y < mousePos.y - myRectTrf.position.y
+            || -myRectTrf.sizeDelta.y > mousePos.y - myRectTrf.position.y
+            ){
+                OnPointerExit();
+            }
+        }else {
+            if (!(myRectTrf.sizeDelta.x < mousePos.x - myRectTrf.position.x
+            || -myRectTrf.sizeDelta.x > mousePos.x - myRectTrf.position.x
+            || myRectTrf.sizeDelta.y < mousePos.y - myRectTrf.position.y
+            || -myRectTrf.sizeDelta.y > mousePos.y - myRectTrf.position.y
+            )){
+                OnPointerEnter();
+            }
         }
+       
     }
     public void OnPointerEnter(){
         simpleStatusPanel = Instantiate(SimpleStatusPanelPrefab,mousePos,Quaternion.identity,transform.parent.parent);
@@ -61,5 +79,6 @@ public class InventryItem : MonoBehaviour
         Destroy(simpleStatusPanel);
         simpleStatusPanel = null;
         simpleStatusPanelRectTrf = null;
+        Debug.Log("Exit");
     }
 }

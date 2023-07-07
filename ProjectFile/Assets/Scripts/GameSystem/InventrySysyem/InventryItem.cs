@@ -74,11 +74,35 @@ public class InventryItem : MonoBehaviour
             bar.GetComponent<RectTransform>().localPosition = new Vector2(80,-35-15*i);
         }
         Debug.Log("Enter");
+        StartCoroutine(ExpansionItemIcon());
     }
     public void OnPointerExit(){
+        StartCoroutine(ShrinkItemIcon());
         Destroy(simpleStatusPanel);
         simpleStatusPanel = null;
         simpleStatusPanelRectTrf = null;
         Debug.Log("Exit");
+    }
+    IEnumerator ExpansionItemIcon()
+    {
+        Vector2 startScale = myRectTrf.localScale;
+        float sizeOnHover = 1.2f;
+        for(float t = 0;t <= 0.1f;t += Time.deltaTime){
+            myRectTrf.localScale = new Vector3(10 * (sizeOnHover - startScale.x)* t +startScale.x
+            ,10* (sizeOnHover - startScale.y) * t+startScale.y,1);
+            yield return null;
+        }
+        yield break;
+    }
+    IEnumerator ShrinkItemIcon()
+    {
+        Vector2 startScale = myRectTrf.localScale;
+        float sizeOnHover = 1f;
+        for(float t = 0;t <= 0.1f;t += Time.deltaTime){
+            myRectTrf.localScale = new Vector3(10 * (sizeOnHover - startScale.x)* t +startScale.x
+            ,10* (sizeOnHover - startScale.y) * t+startScale.y,1);
+            yield return null;
+        }
+        yield break;
     }
 }

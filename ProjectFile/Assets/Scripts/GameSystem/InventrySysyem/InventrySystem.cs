@@ -4,37 +4,53 @@ using UnityEngine;
 
 public class InventrySystem : MonoBehaviour
 {
-    [SerializeField] RectTransform ItemSlots;
+    [SerializeField] RectTransform MainInventryItemSlots;
+    [SerializeField] RectTransform MagicBookSlots;
     [SerializeField] GameObject ItemPrefab;
-    public List<WeaponItem> itemBases = new List<WeaponItem>();
+    public List<ItemBase> mainInventry = new List<ItemBase>();
+    public List<ItemBase> magicBookSlots = new List<ItemBase>();
     void Start()
     {
         SetInventryItem();
+        SetMagicBookSlots(); 
     }
     public void LoadItem(){
 
     }
     public void SetInventryItem(){
-        foreach(ItemBase itemBase in itemBases){
-            if(itemBase.count > 0){
-                Debug.Log(ItemPrefab.name);
-                Debug.Log(ItemSlots.name);
-                GameObject inventryItem = Instantiate(ItemPrefab,ItemSlots);
-                inventryItem.GetComponent<InventryItem>().item = itemBase;
+        for(int i = 0;i < MainInventryItemSlots.childCount;i++){
+            Destroy(MainInventryItemSlots.GetChild(i).gameObject);
+        }
+        
+        for(int i = 0;i < mainInventry.Count;i ++){
+            if(mainInventry[i].count > 0){
+                GameObject inventryItem = Instantiate(ItemPrefab,MainInventryItemSlots);
+                inventryItem.GetComponent<InventryItem>().item = mainInventry[i];
+                inventryItem.GetComponent<InventryItem>().item.id = i;
+            }
+        }
+    }
+    public void SetMagicBookSlots(){
+        for(int i = 0;i < MagicBookSlots.childCount;i++){
+            Destroy(MagicBookSlots.GetChild(i).gameObject);
+        }
+        for(int i = 0;i < magicBookSlots.Count;i ++){
+            if(magicBookSlots[i].count > 0){
+                GameObject inventryItem = Instantiate(ItemPrefab,MagicBookSlots);
+                inventryItem.GetComponent<InventryItem>().item = magicBookSlots[i];
+                inventryItem.GetComponent<InventryItem>().item.id = i;
             }
         }
     }
 }
 [System.Serializable]
-public class ItemDatas{
-    public List<WeaponItem> weaponItems = new List<WeaponItem>();
-    public List<FoodItem> foodItems = new List<FoodItem>();
-    public List<MagicBook> magicBooks = new List<MagicBook>();
-}
 public enum ItemCategory{
     Weapon,
     Food,
-    MagicBook
+    MagicBookFlame,
+    MagicBookAqua,
+    MagicBookElectro,
+    MagicBookTerra
 }
 [System.Serializable]
 public class UniqueParameter{
@@ -90,10 +106,11 @@ public class FoodItem : ItemBase{
 [System.Serializable]
 public class  MagicBook: ItemBase{
     public float exp;
-    public MagicBook(string name,string spritePath,int count,float exp)
-        :base(name,spritePath,count,ItemCategory.MagicBook){
-        uniqueParameters = new UniqueParameter[1]{
-            new UniqueParameter("exp",exp)
+    public MagicBook(string name,string spritePath,int count,float exp,PlayerMagicFactory.MagicKind magicName,ItemCategory itemCategory)
+        :base(name,spritePath,count,itemCategory){
+        uniqueParameters = new UniqueParameter[2]{
+            new UniqueParameter("exp",exp),
+            new UniqueParameter("MagicName",(int)magicName)
         };
     }
 }

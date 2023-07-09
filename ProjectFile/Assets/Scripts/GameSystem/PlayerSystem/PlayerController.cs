@@ -18,10 +18,10 @@ public class PlayerController : MonoBehaviour
     private float playerHeight;
     [System.Serializable]
     public class MagicHolder{
-        public PlayerMagicFactory.PlayerFlameMagicKind flameMagic;
-        public PlayerMagicFactory.PlayerFlameMagicKind aquaMagic;
-        public PlayerMagicFactory.PlayerFlameMagicKind electroMagic;
-        public PlayerMagicFactory.PlayerFlameMagicKind terraMagic;
+        public PlayerMagicFactory.MagicKind flameMagic;
+        public PlayerMagicFactory.MagicKind aquaMagic;
+        public PlayerMagicFactory.MagicKind electroMagic;
+        public PlayerMagicFactory.MagicKind terraMagic;
     }
     [SerializeField]public MagicHolder magicHolder;
     [System.Serializable]

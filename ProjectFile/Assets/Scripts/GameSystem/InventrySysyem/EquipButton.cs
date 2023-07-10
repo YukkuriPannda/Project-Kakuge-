@@ -11,7 +11,9 @@ public class EquipButton : MenuButton
         ItemBase tempItem = inventrySystem.magicBookSlots[(int)((int)inventrySystem.mainInventry[id].category - (int)ItemCategory.MagicBookFlame)];
         inventrySystem.magicBookSlots[(int)((int)inventrySystem.mainInventry[id].category - (int)ItemCategory.MagicBookFlame)] = inventrySystem.mainInventry[id];
         inventrySystem.SetMagicBookSlots();
-        inventrySystem.mainInventry[id] = tempItem;
+        if(tempItem.category != ItemCategory.Blank){
+            inventrySystem.mainInventry[id] = tempItem;
+        }else inventrySystem.mainInventry.RemoveAt(id);
         inventrySystem.SetInventryItem();
         
         base.OnClickDown();

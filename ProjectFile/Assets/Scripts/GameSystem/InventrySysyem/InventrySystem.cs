@@ -54,7 +54,8 @@ public enum ItemCategory{
     MagicBookFlame,
     MagicBookAqua,
     MagicBookElectro,
-    MagicBookTerra
+    MagicBookTerra,
+    Blank
 }
 [System.Serializable]
 public class UniqueParameter{

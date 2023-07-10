@@ -8,10 +8,10 @@ public class Unequipe : MenuButton
     public override void OnClickDown()
     {
         InventrySystem inventrySystem = transform.parent.parent.parent.gameObject.GetComponent<InventrySystem>();
-        ItemBase tempItem = inventrySystem.magicBookSlots[(int)((int)inventrySystem.mainInventry[id].category - (int)ItemCategory.MagicBookFlame)];
-        inventrySystem.magicBookSlots[(int)((int)inventrySystem.mainInventry[id].category - (int)ItemCategory.MagicBookFlame)] = inventrySystem.mainInventry[id];
+        ItemBase tempItem = inventrySystem.magicBookSlots[id];
+        inventrySystem.magicBookSlots[id] = new ItemBase("Blank","None",1,ItemCategory.Blank);
         inventrySystem.SetMagicBookSlots();
-        inventrySystem.mainInventry[id] = tempItem;
+        inventrySystem.mainInventry.Add(tempItem);
         inventrySystem.SetInventryItem();
         
         base.OnClickDown();

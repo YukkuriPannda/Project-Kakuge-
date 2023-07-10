@@ -9,6 +9,8 @@ public class InventrySystem : MonoBehaviour
     [SerializeField] GameObject ItemPrefab;
     public List<ItemBase> mainInventry = new List<ItemBase>();
     public List<ItemBase> magicBookSlots = new List<ItemBase>();
+    public GameObject mainInventrySlotMenuPrefab;
+    public GameObject magicBookSlotMenuPrefab;
     void Start()
     {
         SetInventryItem();
@@ -27,6 +29,7 @@ public class InventrySystem : MonoBehaviour
                 GameObject inventryItem = Instantiate(ItemPrefab,MainInventryItemSlots);
                 inventryItem.GetComponent<InventryItem>().item = mainInventry[i];
                 inventryItem.GetComponent<InventryItem>().item.id = i;
+                inventryItem.GetComponent<InventryItem>().menuPrefab = mainInventrySlotMenuPrefab;
             }
         }
     }
@@ -39,6 +42,7 @@ public class InventrySystem : MonoBehaviour
                 GameObject inventryItem = Instantiate(ItemPrefab,MagicBookSlots);
                 inventryItem.GetComponent<InventryItem>().item = magicBookSlots[i];
                 inventryItem.GetComponent<InventryItem>().item.id = i;
+                inventryItem.GetComponent<InventryItem>().menuPrefab = magicBookSlotMenuPrefab;
             }
         }
     }

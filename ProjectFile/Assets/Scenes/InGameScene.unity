@@ -85132,6 +85132,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 985859202}
     - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
+      propertyPath: magicBookSlotMenuPrefab
+      value: 
+      objectReference: {fileID: 6180383945532167528, guid: c2ae8d5a409755042bcd7d72f723bdd7, type: 3}
+    - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
       propertyPath: mainInventry.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -85139,6 +85143,10 @@ PrefabInstance:
       propertyPath: magicBookSlots.Array.size
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
+      propertyPath: mainInventrySlotMenuPrefab
+      value: 
+      objectReference: {fileID: 6180383945532167528, guid: 05720f4409550ec4db1e33f9a816abc5, type: 3}
     - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
       propertyPath: mainInventry.Array.data[0].name
       value: "\u6B6F\u8ECA\u306E\u5263"
@@ -85529,7 +85537,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3170586058222017920, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3374536888948715844, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
       propertyPath: m_AnchorMax.y

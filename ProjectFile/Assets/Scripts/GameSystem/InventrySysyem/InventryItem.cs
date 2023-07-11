@@ -63,13 +63,15 @@ public class InventryItem : ButtonBaseEX
         if(simpleStatusPanel)simpleStatusPanelRectTrf.position = mousePos;
     }
     public override void OnClickDown(){
-        if(!menu && item.category != ItemCategory.Blank){
-            Destroy(simpleStatusPanel);
-            menu = Instantiate(menuPrefab,mousePos,Quaternion.identity,transform.parent.parent);
-            menu.GetComponentInChildren<DetailButton>().item = item;
-            if(menu.GetComponentInChildren<EquipButton>())menu.GetComponentInChildren<EquipButton>().id = item.id;
-            if(menu.GetComponentInChildren<Unequipe>())menu.GetComponentInChildren<Unequipe>().id = item.id;
-        }
+        if(!menu){
+            if(item.category != ItemCategory.Blank){
+                Destroy(simpleStatusPanel);
+                menu = Instantiate(menuPrefab,mousePos,Quaternion.identity,transform.parent.parent);
+                menu.GetComponentInChildren<DetailButton>().item = item;
+                if(menu.GetComponentInChildren<EquipButton>())menu.GetComponentInChildren<EquipButton>().id = item.id;
+                if(menu.GetComponentInChildren<Unequipe>())menu.GetComponentInChildren<Unequipe>().id = item.id;
+            }
+        }else Destroy(menu);
     }
     public override void OnPointerExit(){
         StartCoroutine(ShrinkItemIcon());

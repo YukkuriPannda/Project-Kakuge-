@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class InventrySystem : MonoBehaviour
 {
-    [SerializeField] RectTransform MainInventryItemSlots;
-    [SerializeField] RectTransform MagicBookSlots;
+    [SerializeField] RectTransform MainInventryItemSlotsTrf;
+    [SerializeField] RectTransform MagicBookSlotsTrf;
     [SerializeField] GameObject ItemPrefab;
+    [SerializeField] PlayerController playerController;
     public List<ItemBase> mainInventry = new List<ItemBase>();
     public List<ItemBase> magicBookSlots = new List<ItemBase>();
     public GameObject mainInventrySlotMenuPrefab;
@@ -20,13 +21,13 @@ public class InventrySystem : MonoBehaviour
 
     }
     public void SetInventryItem(){
-        for(int i = 0;i < MainInventryItemSlots.childCount;i++){
-            Destroy(MainInventryItemSlots.GetChild(i).gameObject);
+        for(int i = 0;i < MainInventryItemSlotsTrf.childCount;i++){
+            Destroy(MainInventryItemSlotsTrf.GetChild(i).gameObject);
         }
         
         for(int i = 0;i < mainInventry.Count;i ++){
             if(mainInventry[i].count > 0){
-                GameObject inventryItem = Instantiate(ItemPrefab,MainInventryItemSlots);
+                GameObject inventryItem = Instantiate(ItemPrefab,MainInventryItemSlotsTrf);
                 inventryItem.GetComponent<InventryItem>().item = mainInventry[i];
                 inventryItem.GetComponent<InventryItem>().item.id = i;
                 inventryItem.GetComponent<InventryItem>().menuPrefab = mainInventrySlotMenuPrefab;
@@ -34,17 +35,22 @@ public class InventrySystem : MonoBehaviour
         }
     }
     public void SetMagicBookSlots(){
-        for(int i = 0;i < MagicBookSlots.childCount;i++){
-            Destroy(MagicBookSlots.GetChild(i).gameObject);
+        for(int i = 0;i < MagicBookSlotsTrf.childCount;i++){
+            Destroy(MagicBookSlotsTrf.GetChild(i).gameObject);
         }
         for(int i = 0;i < magicBookSlots.Count;i ++){
             if(magicBookSlots[i].count > 0){
-                GameObject inventryItem = Instantiate(ItemPrefab,MagicBookSlots);
+                GameObject inventryItem = Instantiate(ItemPrefab,MagicBookSlotsTrf);
                 inventryItem.GetComponent<InventryItem>().item = magicBookSlots[i];
                 inventryItem.GetComponent<InventryItem>().item.id = i;
                 inventryItem.GetComponent<InventryItem>().menuPrefab = magicBookSlotMenuPrefab;
             }
         }
+        playerController.magicHolder.flameMagic = (PlayerMagicFactory.MagicKind)magicBookSlots[0].GetUniqueParameter("MagicName");
+        playerController.magicHolder.aquaMagic = (PlayerMagicFactory.MagicKind)magicBookSlots[1].GetUniqueParameter("MagicName");
+        playerController.magicHolder.electroMagic = (PlayerMagicFactory.MagicKind)magicBookSlots[1].GetUniqueParameter("MagicName");
+        playerController.magicHolder.terraMagic = (PlayerMagicFactory.MagicKind)magicBookSlots[1].GetUniqueParameter("MagicName");
+
     }
 }
 [System.Serializable]
@@ -86,6 +92,11 @@ public class ItemBase{
         this.spritePath = spritePath;
         this.count = count;
         this.category = category;
+    }
+    public float GetUniqueParameter(string name){
+        int i = 0;
+        for(;i < uniqueParameters.Length && uniqueParameters[i].name != name;i++){}
+        return uniqueParameters[i].value;
     }
     
 }

@@ -30,6 +30,10 @@ public class KeyInputer : MonoBehaviour
         if(Input.GetKey(KeyCode.LeftShift)){
             InputValueForMove *= new Vector2(0.5f,1);
         }
+        if(Input.GetKeyDown(KeyCode.Tab)){
+            if(plc.InventryObj.activeSelf)plc.CloseInventry();
+            else plc.OpenInventry();
+        }
         plc.InputValueForMove = InputValueForMove;
     }
 }

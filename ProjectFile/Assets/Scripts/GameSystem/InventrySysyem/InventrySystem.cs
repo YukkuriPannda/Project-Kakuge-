@@ -6,12 +6,15 @@ public class InventrySystem : MonoBehaviour
 {
     [SerializeField] RectTransform MainInventryItemSlotsTrf;
     [SerializeField] RectTransform MagicBookSlotsTrf;
+    [SerializeField] RectTransform WeaponSlotTrf;
     [SerializeField] GameObject ItemPrefab;
-    [SerializeField] PlayerController playerController;
+    [SerializeField] PlayerController plc;
     public List<ItemBase> mainInventry = new List<ItemBase>();
     public List<ItemBase> magicBookSlots = new List<ItemBase>();
+    public ItemBase weaponSlot;
     public GameObject mainInventrySlotMenuPrefab;
     public GameObject magicBookSlotMenuPrefab;
+    public GameObject weaponMenuPrefab;
     void Start()
     {
         SetInventryItem();
@@ -46,11 +49,17 @@ public class InventrySystem : MonoBehaviour
                 inventryItem.GetComponent<InventryItem>().menuPrefab = magicBookSlotMenuPrefab;
             }
         }
-        playerController.magicHolder.flameMagic = (PlayerMagicFactory.MagicKind)magicBookSlots[0].GetUniqueParameter("MagicName");
-        playerController.magicHolder.aquaMagic = (PlayerMagicFactory.MagicKind)magicBookSlots[1].GetUniqueParameter("MagicName");
-        playerController.magicHolder.electroMagic = (PlayerMagicFactory.MagicKind)magicBookSlots[1].GetUniqueParameter("MagicName");
-        playerController.magicHolder.terraMagic = (PlayerMagicFactory.MagicKind)magicBookSlots[1].GetUniqueParameter("MagicName");
+        plc.magicHolder.flameMagic = (PlayerMagicFactory.MagicKind)magicBookSlots[0].GetUniqueParameter("MagicName");
+        plc.magicHolder.aquaMagic = (PlayerMagicFactory.MagicKind)magicBookSlots[1].GetUniqueParameter("MagicName");
+        plc.magicHolder.electroMagic = (PlayerMagicFactory.MagicKind)magicBookSlots[2].GetUniqueParameter("MagicName");
+        plc.magicHolder.terraMagic = (PlayerMagicFactory.MagicKind)magicBookSlots[3].GetUniqueParameter("MagicName");
 
+    }
+    public void SetWeaponSlot(){
+        GameObject inventryItem = Instantiate(ItemPrefab,WeaponSlotTrf);
+        inventryItem.GetComponent<InventryItem>().item = weaponSlot;
+        inventryItem.GetComponent<InventryItem>().item.id = 0;
+        inventryItem.GetComponent<InventryItem>().menuPrefab = weaponMenuPrefab;
     }
 }
 [System.Serializable]

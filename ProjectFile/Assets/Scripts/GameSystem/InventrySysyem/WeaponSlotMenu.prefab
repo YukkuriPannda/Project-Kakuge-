@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6180383945532167534}
   - component: {fileID: 6180383945532167532}
   m_Layer: 5
-  m_Name: ItemMenu
+  m_Name: WeaponSlotMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u88C5\u5099"
+  m_text: "\u306F\u305A\u3059"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 31980300f83dc62499b169ec0c64bbea, type: 2}
   m_sharedMaterial: {fileID: 1056712163036256301, guid: 31980300f83dc62499b169ec0c64bbea, type: 2}
@@ -249,9 +249,9 @@ GameObject:
   - component: {fileID: 6180383947114451563}
   - component: {fileID: 6180383947114451566}
   - component: {fileID: 6180383947114451561}
-  - component: {fileID: 5423653848628157789}
+  - component: {fileID: 4305931810597498856}
   m_Layer: 5
-  m_Name: soubi
+  m_Name: Unquip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -316,7 +316,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5423653848628157789
+--- !u!114 &4305931810597498856
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -325,7 +325,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6180383947114451562}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73829c18501d15f419f15db96973cdd4, type: 3}
+  m_Script: {fileID: 11500000, guid: 85eb24514d6086c45b440e043f36145f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mousePos: {x: 0, y: 0}

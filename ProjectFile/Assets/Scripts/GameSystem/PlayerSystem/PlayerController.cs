@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public float MaxMagicStones = 6;
     public GameObject weapon;
     private float playerHeight;
+    private GameObject GameManeger;
     [System.Serializable]
     public class MagicHolder{
         public PlayerMagicFactory.MagicKind flameMagic;
@@ -83,6 +84,7 @@ public class PlayerController : MonoBehaviour
         eBase = this.gameObject.GetComponent<EntityBase>();
         playerHeight = gameObject.GetComponent<BoxCollider2D>().size.y + gameObject.GetComponent<BoxCollider2D>().edgeRadius*2;
         InventryObj.SetActive(false);
+        GameManeger = GameObject.Find("GameManager");
     }
     void FixedUpdate(){
         Move(InputValueForMove.x);

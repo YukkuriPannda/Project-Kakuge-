@@ -249,9 +249,9 @@ GameObject:
   - component: {fileID: 6180383947114451563}
   - component: {fileID: 6180383947114451566}
   - component: {fileID: 6180383947114451561}
-  - component: {fileID: 6769577755886082302}
+  - component: {fileID: 5166215105342825626}
   m_Layer: 5
-  m_Name: Unquip
+  m_Name: Unequip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -316,7 +316,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6769577755886082302
+--- !u!114 &5166215105342825626
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -325,14 +325,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6180383947114451562}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5605b9536811cb42b08ca6fcafc7b9d, type: 3}
+  m_Script: {fileID: 11500000, guid: 78d8e655a1f8f624f858956aea0e9bae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mousePos: {x: 0, y: 0}
   myRectTrf: {fileID: 0}
   pointerStay: 0
   clicking: 0
-  onHoverColor: {r: 0.1, g: 0.1, b: 0.1, a: 0.9019608}
+  onHoverColor: {r: 0.2, g: 0.2, b: 0.2, a: 0.5019608}
   id: 0
 --- !u!1 &8317648535529251004
 GameObject:

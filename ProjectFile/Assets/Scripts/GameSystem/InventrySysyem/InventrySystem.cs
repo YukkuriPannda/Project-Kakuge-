@@ -12,13 +12,15 @@ public class InventrySystem : MonoBehaviour
     public List<ItemBase> mainInventry = new List<ItemBase>();
     public List<ItemBase> magicBookSlots = new List<ItemBase>();
     public ItemBase weaponSlot;
-    public GameObject mainInventrySlotMenuPrefab;
-    public GameObject magicBookSlotMenuPrefab;
+    public GameObject magicBookMenuPrefab;
     public GameObject weaponMenuPrefab;
+    public GameObject magicBookSlotMenuPrefab;
+    public GameObject weaponSlotMenuPrefab;
     void Start()
     {
         SetInventryItem();
         SetMagicBookSlots(); 
+        SetWeaponSlot();
     }
     public void LoadItem(){
 
@@ -33,7 +35,15 @@ public class InventrySystem : MonoBehaviour
                 GameObject inventryItem = Instantiate(ItemPrefab,MainInventryItemSlotsTrf);
                 inventryItem.GetComponent<InventryItem>().item = mainInventry[i];
                 inventryItem.GetComponent<InventryItem>().item.id = i;
-                inventryItem.GetComponent<InventryItem>().menuPrefab = mainInventrySlotMenuPrefab;
+                switch(mainInventry[i].category){
+                    case ItemCategory.Weapon:
+                        inventryItem.GetComponent<InventryItem>().menuPrefab = weaponMenuPrefab;
+                    break;
+                    case ItemCategory.MagicBookAqua :case ItemCategory.MagicBookElectro:case ItemCategory.MagicBookFlame:case ItemCategory.MagicBookTerra:
+                        inventryItem.GetComponent<InventryItem>().menuPrefab = magicBookMenuPrefab;
+                    break;
+                }
+                
             }
         }
     }
@@ -56,10 +66,15 @@ public class InventrySystem : MonoBehaviour
 
     }
     public void SetWeaponSlot(){
+        if(WeaponSlotTrf.childCount > 0)Destroy(WeaponSlotTrf.GetChild(0).gameObject);
         GameObject inventryItem = Instantiate(ItemPrefab,WeaponSlotTrf);
         inventryItem.GetComponent<InventryItem>().item = weaponSlot;
         inventryItem.GetComponent<InventryItem>().item.id = 0;
-        inventryItem.GetComponent<InventryItem>().menuPrefab = weaponMenuPrefab;
+        inventryItem.GetComponent<InventryItem>().menuPrefab = weaponSlotMenuPrefab;
+        if(weaponSlot.category == ItemCategory.Weapon){
+            GameObject weapon = Instantiate(GameObject.Find("GameManager").GetComponent<ItemPrefabManager>().GetItemPrefab((int)weaponSlot.GetUniqueParameter("Modelid")));
+            plc.weapon = weapon;
+        }else plc.weapon = null;
     }
 }
 [System.Serializable]
@@ -103,9 +118,10 @@ public class ItemBase{
         this.category = category;
     }
     public float GetUniqueParameter(string name){
-        int i = 0;
-        for(;i < uniqueParameters.Length && uniqueParameters[i].name != name;i++){}
-        return uniqueParameters[i].value;
+        for(int i = 0;i < uniqueParameters.Length;i++){
+            if(uniqueParameters[i].name == name)return uniqueParameters[i].value;
+        }
+        return 0;
     }
     
 }

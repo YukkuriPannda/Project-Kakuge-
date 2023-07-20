@@ -7,12 +7,12 @@ public class ItemPrefabManager : MonoBehaviour
     [SerializeField]private List<ItemPrefabData> itemPrefabDatas = new List<ItemPrefabData>();
     [System.Serializable]
     private class ItemPrefabData{
-        public string  Name;
+        public int  ID;
         public string Path;
     }
-    public GameObject GetItemPrefab(string name){
+    public GameObject GetItemPrefab(int id){
         foreach(ItemPrefabData itemPrefabData in itemPrefabDatas){
-            if(itemPrefabData.Name == name)return Resources.Load<GameObject>(itemPrefabData.Path);
+            if(itemPrefabData.ID == id)return Resources.Load<GameObject>(itemPrefabData.Path);
         }
         return null;
     }

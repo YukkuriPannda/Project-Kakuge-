@@ -68,8 +68,10 @@ public class InventryItem : ButtonBaseEX
                 Destroy(simpleStatusPanel);
                 menu = Instantiate(menuPrefab,mousePos,Quaternion.identity,transform.parent.parent);
                 menu.GetComponentInChildren<DetailButton>().item = item;
-                if(menu.GetComponentInChildren<EquipButton>())menu.GetComponentInChildren<EquipButton>().id = item.id;
+                if(menu.GetComponentInChildren<EquipMagicBookButton>())menu.GetComponentInChildren<EquipMagicBookButton>().id = item.id;
+                if(menu.GetComponentInChildren<EquipWeaponButton>())menu.GetComponentInChildren<EquipWeaponButton>().id = item.id;
                 if(menu.GetComponentInChildren<UnequipMagicBook>())menu.GetComponentInChildren<UnequipMagicBook>().id = item.id;
+                if(menu.GetComponentInChildren<UnequipWeapon>())menu.GetComponentInChildren<UnequipWeapon>().id = item.id;
             }
         }else Destroy(menu);
     }

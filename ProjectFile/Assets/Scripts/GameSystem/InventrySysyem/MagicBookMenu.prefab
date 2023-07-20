@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6180383945532167534}
   - component: {fileID: 6180383945532167532}
   m_Layer: 5
-  m_Name: ItemMenu
+  m_Name: MagicBookMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -325,14 +325,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6180383947114451562}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73829c18501d15f419f15db96973cdd4, type: 3}
+  m_Script: {fileID: 11500000, guid: 206a83b68efc43a409b3782c92c451a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mousePos: {x: 0, y: 0}
   myRectTrf: {fileID: 0}
   pointerStay: 0
   clicking: 0
-  onHoverColor: {r: 0.2, g: 0.2, b: 0.2, a: 0.5019608}
+  onHoverColor: {r: 0.1, g: 0.1, b: 0.1, a: 0.5019608}
   id: 0
 --- !u!1 &8317648535529251004
 GameObject:

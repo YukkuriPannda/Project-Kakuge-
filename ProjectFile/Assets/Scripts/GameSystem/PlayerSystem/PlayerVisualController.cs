@@ -7,6 +7,7 @@ public class PlayerVisualController : MonoBehaviour
     public PlayerController plc;
     public Animator plAnim;
     private PlayerEffectController plEC;
+    public WeaponEffectSystem weaponEffectSystem;
     public Transform model;
     public Transform rightHand;
     public Transform leftHand;
@@ -27,7 +28,8 @@ public class PlayerVisualController : MonoBehaviour
     private int oldDire;
     void Start()
     {
-        plEC = gameObject.GetComponent<PlayerEffectController>();
+        //plEC = gameObject.GetComponent<PlayerEffectController>();
+        weaponEffectSystem = plc.weapon.GetComponent<WeaponEffectSystem>();
     }
 
     void Update()
@@ -94,7 +96,9 @@ public class PlayerVisualController : MonoBehaviour
             }break;
             case PlayerController.PlayerStates.EnchantMySelf:{
                 plAnim.Play(GetDirectionAnimationName("Enchant"),0,0);
-                plEC.StartCoroutine(plEC.ActivationNormalParticle(plc.eBase.myMagicAttribute,plc.enchantDuraction));
+                //plEC.StartCoroutine(plEC.ActivationNormalParticle(plc.eBase.myMagicAttribute,plc.enchantDuraction));
+                weaponEffectSystem.EnableNormalParticle(plc.eBase.myMagicAttribute);
+                StartCoroutine(UnEnableEffectTime());
             }break;
             case PlayerController.PlayerStates.ActivateSpecialMagic:{
                 if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);
@@ -128,7 +132,7 @@ public class PlayerVisualController : MonoBehaviour
         plc.weapon.transform.localEulerAngles = new Vector3(0,0,0);
         if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);
         else model.transform.localEulerAngles = new Vector3(0,180,0);
-        plEC.StartCoroutine(plEC.ActivationAttackParticle(plc.eBase.myMagicAttribute));
+        weaponEffectSystem.PlayAttackParticle(plc.eBase.myMagicAttribute);
     }
     string GetDirectionAnimationName(string name){
         string res = name;
@@ -158,5 +162,9 @@ public class PlayerVisualController : MonoBehaviour
         Debug.Log("Exit");
         PlayAnim();
         plAnim.SetInteger("Direction",plc.direction);
+    }
+    IEnumerator UnEnableEffectTime(){
+        yield return new WaitForSeconds(plc.enchantDuraction);
+        plc.weapon.GetComponent<WeaponEffectSystem>().UnEnableNormalParticle();
     }
 }

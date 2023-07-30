@@ -73,7 +73,9 @@ public class InventrySystem : MonoBehaviour
         inventryItem.GetComponent<InventryItem>().menuPrefab = weaponSlotMenuPrefab;
         if(weaponSlot.category == ItemCategory.Weapon){
             GameObject weapon = Instantiate(GameObject.Find("GameManager").GetComponent<ItemPrefabManager>().GetItemPrefab((int)weaponSlot.GetUniqueParameter("Modelid")));
+            Destroy(plc.weapon);
             plc.weapon = weapon;
+            plc.gameObject.GetComponent<PlayerVisualController>().weaponEffectSystem = plc.weapon.GetComponent<WeaponEffectSystem>();
         }else plc.weapon = null;
     }
 }

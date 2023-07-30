@@ -48,16 +48,14 @@ public class EntityBase : MonoBehaviour
                 break;
             }
             if(hitStop)StartCoroutine(HitStop());
-            Debug.Log($"Hurt  DMG:{DMG} margicAttribute:{magicAttribute} knockBack:{knockBack}");
+            Debug.Log($"[DamageLog]Hurt DMG:{DMG} margicAttribute:{magicAttribute} knockBack:{knockBack}");
         }
     }
     IEnumerator HitStop(){
-        Debug.Log("HitStop Start");
         Time.timeScale = 0.05f;
         if(Health != 0) yield return chachedHitStop;
         else yield return new WaitForSecondsRealtime(0.2f);
         Time.timeScale = 1f;
-        Debug.Log("HitStop End");
         yield break;
     }
 }

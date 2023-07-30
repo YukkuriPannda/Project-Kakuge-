@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerEffectController : MonoBehaviour
-{    public MeshRenderer blade;
+{   
     Material bladeMaterial;
     [System.Serializable]
     public class BladeParticles{
@@ -17,7 +17,7 @@ public class PlayerEffectController : MonoBehaviour
 
     void Start()
     {
-        bladeMaterial = blade.material;
+        bladeMaterial = gameObject.GetComponent<PlayerController>().weapon.transform.Find("blade").GetComponent<MeshRenderer>().materials[0];
     }
     public IEnumerator ActivationNormalParticle(MagicAttribute magicAttribute,float t){
         switch(magicAttribute){

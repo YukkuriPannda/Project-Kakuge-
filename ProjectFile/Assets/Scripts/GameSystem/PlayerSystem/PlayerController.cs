@@ -367,9 +367,12 @@ public class PlayerController : MonoBehaviour
                 }break;
             }
             
-        }else if(oldDrawShapeName == "Gard"){
+        }else {
+            if(oldDrawShapeName == "Gard"){
             lockOperation = false;
             eBase.gard = false;
+            }
+            drawShapeName = "None";
         }
     }
     public void UnLockOperation(){

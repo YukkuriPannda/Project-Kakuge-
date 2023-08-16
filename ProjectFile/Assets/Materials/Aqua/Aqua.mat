@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 5
+  version: 7
 --- !u!114 &-4464190494778108920
 MonoBehaviour:
   m_ObjectHideFlags: 11
@@ -35,6 +35,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Aqua
   m_Shader: {fileID: -6465566751694194690, guid: 35ee36631c8b7574db5452a83058205e, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _BUILTIN_ALPHATEST_ON
   - _BUILTIN_AlphaClip
@@ -46,6 +48,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -57,11 +60,23 @@ Material:
         m_Texture: {fileID: 2800000, guid: 06c0d43440d6d5b4a86c560e612d05d2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_126dc075e8604fa2accb57a09ac2d1ca_Out_0_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 06c0d43440d6d5b4a86c560e612d05d2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Texture2DAsset_403642681cde44f6a8e7b0c4719ee240_Out_0:
         m_Texture: {fileID: 2800000, guid: b9d7f95b52d668b44884ba60f2f2e17e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_403642681cde44f6a8e7b0c4719ee240_Out_0_Texture2D:
+        m_Texture: {fileID: 2800000, guid: b9d7f95b52d668b44884ba60f2f2e17e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Texture2DAsset_db74cdf175ff4ef6845184d46cad6fee_Out_0:
+        m_Texture: {fileID: 2800000, guid: f45a3551ed6866541abdef4f97ad6b1f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_db74cdf175ff4ef6845184d46cad6fee_Out_0_Texture2D:
         m_Texture: {fileID: 2800000, guid: f45a3551ed6866541abdef4f97ad6b1f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}

@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class Interactive : MonoBehaviour
 {
-    [SerializeField] GameObject player;
-
-void OnTriggerStay2D(Collider2D collision)
-{
-    if (collision.gameObject == player)
+    [ReadOnly]private bool touchng;
+    public KeyCode key;
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        if (Input.GetKey(KeyCode.E))
+        if (collision.gameObject.CompareTag("Player"))touchng = true;
+    }
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))touchng = false;
+    }
+    void Update(){
+        if (Input.GetKeyDown(key) && touchng)
         {
-            Debug.Log("ドアが開いた！！");
+            Debug.Log("Action!!");
         }
     }
-}
 }

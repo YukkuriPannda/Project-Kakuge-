@@ -25,9 +25,11 @@ public class InteractiveBase : MonoBehaviour
         {
             Debug.Log("Intaractive Action!!");
             Action();
+            StartCoroutine(Action_IE());
         }
     }
     public virtual void Action(){}
+    public virtual IEnumerator Action_IE(){yield break;}
     public virtual void OnEnterPlayer(PlayerController plc){}
     public virtual void OnExitPlayer(PlayerController plc){}
 }

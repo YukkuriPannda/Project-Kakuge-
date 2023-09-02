@@ -28,7 +28,9 @@ public class ButtonBaseEX : MonoBehaviour
                 pointerStay = false;
             }
             if(Input.GetMouseButtonDown(0)){
+                
                 clicking = true;
+                Debug.Log(gameObject.name + " Click");
                 OnClickDown();
             }
             if(Input.GetMouseButtonUp(0)){
@@ -49,7 +51,7 @@ public class ButtonBaseEX : MonoBehaviour
     }
     public virtual void OnPointerEnter(){}
     public virtual  void OnPointerExit(){}
-    public virtual  void OnClickDown(){}
+    public virtual  void OnClickDown(){Debug.Log("ButtonBaseClick(Method)");}
     public virtual  void OnClickUp(){}
     public virtual void OnStart(){}
     public virtual void OnUpdate(){}

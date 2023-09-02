@@ -145,9 +145,11 @@ public class PlayerController : MonoBehaviour
     public void OpenInventry(){
 
         InventryObj.SetActive(true);
+        lockOperation = true;
     }
     public void CloseInventry(){
         InventryObj.SetActive(false);
+        lockOperation = false;
     }
     public IEnumerator onChangeDrawShapeName(){
         if(oldDrawShapeName == "None" && !lockOperation){

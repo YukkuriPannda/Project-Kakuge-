@@ -7,6 +7,7 @@ public class EquipWeaponButton : MenuButton
     public int id;
     public override void OnClickDown()
     {
+        Debug.Log("On Click Equip Button");
         InventrySystem inventrySystem = transform.parent.parent.parent.gameObject.GetComponent<InventrySystem>();
         ItemBase tempItem = inventrySystem.weaponSlot;
         inventrySystem.weaponSlot = inventrySystem.mainInventry[id];
@@ -16,8 +17,6 @@ public class EquipWeaponButton : MenuButton
             inventrySystem.mainInventry[id] = tempItem;
         }else inventrySystem.mainInventry.RemoveAt(id);
         inventrySystem.SetInventryItem();
-        
         base.OnClickDown();
-        Debug.Log("On Click Equip Button");
     }
 }

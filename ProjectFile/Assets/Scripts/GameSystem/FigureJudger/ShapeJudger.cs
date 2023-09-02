@@ -147,7 +147,7 @@ public class ShapeJudger : MonoBehaviour
             sumPos += point;
         }
         center = sumPos/points.Count;
-        Debug.Log(center);
+        if(OutPutLog) Debug.Log(center);
         float sumDis = 0;
         float MaxDis = 0;
         float MinDis = Vector2.Distance(center,points[0]);

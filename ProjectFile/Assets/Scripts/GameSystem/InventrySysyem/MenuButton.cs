@@ -22,6 +22,8 @@ public class MenuButton : ButtonBaseEX
     }
     public override void OnClickDown()
     {
+        Debug.Log("MenuButtonClick");
+        base.OnClickDown();
         CloseMenuPanel();
     }
     public void CloseMenuPanel(){

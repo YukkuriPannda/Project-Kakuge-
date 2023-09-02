@@ -7,8 +7,8 @@ using TMPro;
 public class InventryItem : ButtonBaseEX
 {
     public ItemBase item;
+    public InventrySystem inventrySystem;
     public GameObject menuPrefab;
-    private GameObject menu;
 
     public GameObject SimpleStatusPanelPrefab;
     private GameObject simpleStatusPanel;
@@ -53,7 +53,6 @@ public class InventryItem : ButtonBaseEX
                     bar.GetComponent<RectTransform>().localPosition = new Vector2(125,-35-15*i);
                 }
             }
-            Debug.Log("Enter");
             StartCoroutine(ExpansionItemIcon());
 
         }
@@ -63,24 +62,32 @@ public class InventryItem : ButtonBaseEX
         if(simpleStatusPanel)simpleStatusPanelRectTrf.position = mousePos;
     }
     public override void OnClickDown(){
-        if(!menu){
+        if(!inventrySystem.menu){
             if(item.category != ItemCategory.Blank){
                 Destroy(simpleStatusPanel);
-                menu = Instantiate(menuPrefab,mousePos,Quaternion.identity,transform.parent.parent);
-                menu.GetComponentInChildren<DetailButton>().item = item;
-                if(menu.GetComponentInChildren<EquipMagicBookButton>())menu.GetComponentInChildren<EquipMagicBookButton>().id = item.id;
-                if(menu.GetComponentInChildren<EquipWeaponButton>())menu.GetComponentInChildren<EquipWeaponButton>().id = item.id;
-                if(menu.GetComponentInChildren<UnequipMagicBook>())menu.GetComponentInChildren<UnequipMagicBook>().id = item.id;
-                if(menu.GetComponentInChildren<UnequipWeapon>())menu.GetComponentInChildren<UnequipWeapon>().id = item.id;
+                inventrySystem.menu = Instantiate(menuPrefab,mousePos,Quaternion.identity,transform.parent.parent);
+                inventrySystem.menu.GetComponentInChildren<DetailButton>().item = item;
+                if(inventrySystem.menu.GetComponentInChildren<EquipMagicBookButton>())inventrySystem.menu.GetComponentInChildren<EquipMagicBookButton>().id = item.id;
+                if(inventrySystem.menu.GetComponentInChildren<EquipWeaponButton>())inventrySystem.menu.GetComponentInChildren<EquipWeaponButton>().id = item.id;
+                if(inventrySystem.menu.GetComponentInChildren<UnequipMagicBook>())inventrySystem.menu.GetComponentInChildren<UnequipMagicBook>().id = item.id;
+                if(inventrySystem.menu.GetComponentInChildren<UnequipWeapon>())inventrySystem.menu.GetComponentInChildren<UnequipWeapon>().id = item.id;
             }
-        }else Destroy(menu);
+        }else {
+            ButtonBaseEX[] buttonBaseExes = inventrySystem.menu.GetComponentsInChildren<ButtonBaseEX>();
+            int i = 0;
+            for(;i < buttonBaseExes.Length; i ++){
+                if(buttonBaseExes[i].pointerStay){
+                    break;
+                }
+            }
+            if(i == buttonBaseExes.Length) Destroy(inventrySystem.menu);
+        }
     }
     public override void OnPointerExit(){
         StartCoroutine(ShrinkItemIcon());
         Destroy(simpleStatusPanel);
         simpleStatusPanel = null;
         simpleStatusPanelRectTrf = null;
-        Debug.Log("Exit");
     }
     IEnumerator ExpansionItemIcon()
     {

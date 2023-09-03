@@ -54,11 +54,12 @@ public class PlayerController : MonoBehaviour
     public Vector2 InputValueForMove;
     Vector2 oldInputValueForMove;
 
-    [Header("Info")]
+    [Header("Infos")]
     [SerializeField,ReadOnly] Text devconsole;
     [SerializeField,ReadOnly] bool onGround = false;
     [SerializeField,ReadOnly] public bool lockOperation = false;
     [ReadOnly]public int direction = 1;
+    [ReadOnly]public bool openingInventry;
     [HideInInspector]public Rigidbody2D rb2D;
     [HideInInspector]public EntityBase eBase;
     [HideInInspector]public float oldHealth;
@@ -143,13 +144,14 @@ public class PlayerController : MonoBehaviour
         }
     }
     public void OpenInventry(){
-
         InventryObj.SetActive(true);
         lockOperation = true;
+        openingInventry =true;
     }
     public void CloseInventry(){
         InventryObj.SetActive(false);
         lockOperation = false;
+        openingInventry =false;
     }
     public IEnumerator onChangeDrawShapeName(){
         if(oldDrawShapeName == "None" && !lockOperation){

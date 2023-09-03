@@ -8,7 +8,7 @@ public class InventrySystem : MonoBehaviour
     [SerializeField] RectTransform MagicBookSlotsTrf;
     [SerializeField] RectTransform WeaponSlotTrf;
     [SerializeField] GameObject ItemPrefab;
-    [SerializeField] PlayerController plc;
+    [SerializeField] public PlayerController plc;
     public List<ItemBase> mainInventry = new List<ItemBase>();
     public List<ItemBase> magicBookSlots = new List<ItemBase>();
     public ItemBase weaponSlot;

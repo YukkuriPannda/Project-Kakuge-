@@ -54,8 +54,9 @@ public class CoreUIController : MonoBehaviour
             }break;
         }
         symbol.enabled = (targetEntityBase.myMagicAttribute != MagicAttribute.none);
+
         if(oldMagicStone !=plc.magicStones){
-            shell.Play("main",0,(4-plc.magicStones)/5);
+            shell.Play("main",0,(4-plc.magicStones)/4);
         }
         oldMagicStone = plc.magicStones;
     } 

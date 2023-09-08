@@ -11,21 +11,22 @@ public class PlayerMagicFactory
     };
 
     /// スキルのenum
-    public enum PlayerFlameMagicKind
+    public enum MagicKind
     {
+        none,
         Beaaaaaaaaaaam,
         ShotTrackingBullet,
         Type01Senkou
     }
-
+    
     // SkillKindを引数に、それに応じたスキルを返す
-    public PlayerMagicBase Create(PlayerFlameMagicKind skillKind) 
+    public PlayerMagicBase Create(MagicKind skillKind) 
     {
         return skills.SingleOrDefault(skill => skill.SkillKind == skillKind);
     }
 }
 abstract public class PlayerMagicBase{
-    public abstract PlayerMagicFactory.PlayerFlameMagicKind SkillKind { get; }
+    public abstract PlayerMagicFactory.MagicKind SkillKind { get; }
     public abstract IEnumerator ActivationFlameMagic(PlayerController plc);
     public abstract IEnumerator ActivationAquaMagic(PlayerController plc);
     public abstract IEnumerator ActivationElectroMagic(PlayerController plc);

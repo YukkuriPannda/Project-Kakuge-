@@ -3,9 +3,9 @@ using UnityEngine;
 public class Beaaaaaaaam: PlayerMagicBase
 {
     // スキル種別
-    public override PlayerMagicFactory.PlayerFlameMagicKind SkillKind
+    public override PlayerMagicFactory.MagicKind SkillKind
     { 
-        get {return PlayerMagicFactory.PlayerFlameMagicKind.Beaaaaaaaaaaam;}
+        get {return PlayerMagicFactory.MagicKind.Beaaaaaaaaaaam;}
     }
     public override IEnumerator ActivationFlameMagic(PlayerController plc)
     {   

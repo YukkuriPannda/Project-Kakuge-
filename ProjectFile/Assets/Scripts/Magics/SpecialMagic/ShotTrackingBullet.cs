@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ShotTrackingBullet : PlayerMagicBase
 {
-    public override PlayerMagicFactory.PlayerFlameMagicKind SkillKind
+    public override PlayerMagicFactory.MagicKind SkillKind
     { 
-        get {return PlayerMagicFactory.PlayerFlameMagicKind.ShotTrackingBullet;}
+        get {return PlayerMagicFactory.MagicKind.ShotTrackingBullet;}
     }
     public override IEnumerator ActivationFlameMagic(PlayerController plc)
     {

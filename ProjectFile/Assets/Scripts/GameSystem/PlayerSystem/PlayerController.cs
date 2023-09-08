@@ -11,17 +11,17 @@ public class PlayerController : MonoBehaviour
     public float jumpInputArrowableTime = 0.5f;
     public float enchantDuraction = 5;
     public float enchantDetectionRadius = 2;
-    [ReadOnly]public float timeFromEnchanted = 0;
     public float magicStones = 6;
     public float MaxMagicStones = 6;
     public GameObject weapon;
     private float playerHeight;
+    private GameObject GameManeger;
     [System.Serializable]
     public class MagicHolder{
-        public PlayerMagicFactory.PlayerFlameMagicKind flameMagic;
-        public PlayerMagicFactory.PlayerFlameMagicKind aquaMagic;
-        public PlayerMagicFactory.PlayerFlameMagicKind electroMagic;
-        public PlayerMagicFactory.PlayerFlameMagicKind terraMagic;
+        public PlayerMagicFactory.MagicKind flameMagic;
+        public PlayerMagicFactory.MagicKind aquaMagic;
+        public PlayerMagicFactory.MagicKind electroMagic;
+        public PlayerMagicFactory.MagicKind terraMagic;
     }
     [SerializeField]public MagicHolder magicHolder;
     [System.Serializable]
@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
         public GameObject Gard;
     }
     public AttackColliderPrefabs attackColliders;
+    public GameObject InventryObj;
 
     [System.Serializable]
     public class DrawMagicSymbol{
@@ -53,16 +54,18 @@ public class PlayerController : MonoBehaviour
     public Vector2 InputValueForMove;
     Vector2 oldInputValueForMove;
 
-    [Header("Info")]
+    [Header("Infos")]
     [SerializeField,ReadOnly] Text devconsole;
     [SerializeField,ReadOnly] bool onGround = false;
     [SerializeField,ReadOnly] public bool lockOperation = false;
     [ReadOnly]public int direction = 1;
+    [ReadOnly]public bool openingInventry;
     [HideInInspector]public Rigidbody2D rb2D;
-    public EntityBase eBase;
+    [HideInInspector]public EntityBase eBase;
     [HideInInspector]public float oldHealth;
     [ReadOnly]public PlayerStates nowPlayerState = PlayerStates.Stay;
     private AttackBase gardObject;
+    [ReadOnly]public float timeFromEnchanted = 0;
     public enum PlayerStates{
         Stay,
         Walking,
@@ -81,6 +84,8 @@ public class PlayerController : MonoBehaviour
         rb2D = this.gameObject.GetComponent<Rigidbody2D>();
         eBase = this.gameObject.GetComponent<EntityBase>();
         playerHeight = gameObject.GetComponent<BoxCollider2D>().size.y + gameObject.GetComponent<BoxCollider2D>().edgeRadius*2;
+        InventryObj.SetActive(false);
+        GameManeger = GameObject.Find("GameManager");
     }
     void FixedUpdate(){
         Move(InputValueForMove.x);
@@ -137,7 +142,16 @@ public class PlayerController : MonoBehaviour
         if(addingforceInJumping > 0 && addingforceInJumping <= jumpInputArrowableTime){
             rb2D.AddForce(new Vector2(0,JumpForce * input * (-addingforceInJumping *addingforceInJumping + jumpInputArrowableTime)/jumpInputArrowableTime));
         }
-
+    }
+    public void OpenInventry(){
+        InventryObj.SetActive(true);
+        lockOperation = true;
+        openingInventry =true;
+    }
+    public void CloseInventry(){
+        InventryObj.SetActive(false);
+        lockOperation = false;
+        openingInventry =false;
     }
     public IEnumerator onChangeDrawShapeName(){
         if(oldDrawShapeName == "None" && !lockOperation){
@@ -357,9 +371,12 @@ public class PlayerController : MonoBehaviour
                 }break;
             }
             
-        }else if(oldDrawShapeName == "Gard"){
+        }else {
+            if(oldDrawShapeName == "Gard"){
             lockOperation = false;
             eBase.gard = false;
+            }
+            drawShapeName = "None";
         }
     }
     public void UnLockOperation(){

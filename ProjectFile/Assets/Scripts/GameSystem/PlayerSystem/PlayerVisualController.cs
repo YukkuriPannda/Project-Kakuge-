@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerVisualController : MonoBehaviour
@@ -7,6 +8,7 @@ public class PlayerVisualController : MonoBehaviour
     public PlayerController plc;
     public Animator plAnim;
     private PlayerEffectController plEC;
+    public WeaponEffectSystem weaponEffectSystem;
     public Transform model;
     public Transform rightHand;
     public Transform leftHand;
@@ -23,11 +25,16 @@ public class PlayerVisualController : MonoBehaviour
         Gard,
         Doyaa = 100
     }
+    [SerializeField]private bool OutPutLog = false;
+
+    //olds
     private PlayerController.PlayerStates oldPlcState;
     private int oldDire;
+    private bool oldOpeningInventry;
+
     void Start()
     {
-        plEC = gameObject.GetComponent<PlayerEffectController>();
+        weaponEffectSystem = plc.weapon.GetComponent<WeaponEffectSystem>();
     }
 
     void Update()
@@ -42,8 +49,19 @@ public class PlayerVisualController : MonoBehaviour
             PlayAnim();
             plAnim.SetInteger("Direction",plc.direction);
         }
+        if(oldOpeningInventry !=plc.openingInventry){
+            if(plc.openingInventry){
+                plAnim.Play("StayUp");
+                PickUpWeaponInRightHand();
+            }
+            else {
+                plAnim.Play("StayR");
+                SheatheWeaponInBack();
+            }
+        }
         oldPlcState = plc.nowPlayerState;
         oldDire = plc.direction;
+        oldOpeningInventry = plc.openingInventry;
     }
     void PlayAnim(){
         switch (plc.nowPlayerState){
@@ -51,19 +69,15 @@ public class PlayerVisualController : MonoBehaviour
                 plAnim.SetInteger("AnimNum",(int)AnimMotions.Stay);
                 if(plAnim.GetCurrentAnimatorStateInfo(0).IsName("StayR") || plAnim.GetCurrentAnimatorStateInfo(0).IsName("StayL") 
                     || oldPlcState == PlayerController.PlayerStates.Runing){
-                    Debug.Log("Stay");
-                    plc.weapon.transform.parent = back.transform;
-                    plc.weapon.transform.localPosition = new Vector3(0,0,0);
-                    plc.weapon.transform.localEulerAngles = new Vector3(0,0,0);
+                    if(OutPutLog)Debug.Log("Stay");
+                    SheatheWeaponInBack();
                     model.transform.localEulerAngles = new Vector3(0,0,0);
                 }
             }break;
             case PlayerController.PlayerStates.Runing:{
                 plAnim.SetInteger("AnimNum",(int)AnimMotions.Run);
                 plAnim.Play("Run",0,0);
-                plc.weapon.transform.parent = back.transform;
-                plc.weapon.transform.localPosition = new Vector3(0,0,0);
-                plc.weapon.transform.localEulerAngles = new Vector3(0,0,0);
+                SheatheWeaponInBack();
                 if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);
                 else model.transform.localEulerAngles = new Vector3(0,180,0);
             }break;
@@ -87,14 +101,15 @@ public class PlayerVisualController : MonoBehaviour
             case PlayerController.PlayerStates.Garding:{
                 plAnim.SetInteger("AnimNum",(int)AnimMotions.Gard);
                 plAnim.Play(GetDirectionAnimationName("Gard"),0,0);
-                plc.weapon.transform.parent = back.transform;
-                plc.weapon.transform.localPosition = new Vector3(0,0,0);
-                plc.weapon.transform.localEulerAngles = new Vector3(0,0,0);
+                SheatheWeaponInBack();
                 model.transform.localEulerAngles = new Vector3(0,0,0);
             }break;
             case PlayerController.PlayerStates.EnchantMySelf:{
                 plAnim.Play(GetDirectionAnimationName("Enchant"),0,0);
-                plEC.StartCoroutine(plEC.ActivationNormalParticle(plc.eBase.myMagicAttribute,plc.enchantDuraction));
+                //plEC.StartCoroutine(plEC.ActivationNormalParticle(plc.eBase.myMagicAttribute,plc.enchantDuraction));
+                weaponEffectSystem.EnableNormalParticle(plc.eBase.myMagicAttribute);
+                PickUpWeaponInRightHand();
+                StartCoroutine(UnEnableEffectTime());
             }break;
             case PlayerController.PlayerStates.ActivateSpecialMagic:{
                 if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);
@@ -123,18 +138,26 @@ public class PlayerVisualController : MonoBehaviour
     }
     void PlayAttackAnim(string playAnimName){
         plAnim.Play(playAnimName,0,0);
-        plc.weapon.transform.parent = rightHand.transform;
-        plc.weapon.transform.localPosition = new Vector3(0,0,0);
-        plc.weapon.transform.localEulerAngles = new Vector3(0,0,0);
+        PickUpWeaponInRightHand();
         if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);
         else model.transform.localEulerAngles = new Vector3(0,180,0);
-        plEC.StartCoroutine(plEC.ActivationAttackParticle(plc.eBase.myMagicAttribute));
+        weaponEffectSystem.PlayAttackParticle(plc.eBase.myMagicAttribute);
     }
     string GetDirectionAnimationName(string name){
         string res = name;
         if(plc.direction > 0)res += "_R";
         else res +="_L";
         return res;
+    }
+    public void PickUpWeaponInRightHand(){
+        plc.weapon.transform.parent = rightHand.transform;
+        plc.weapon.transform.localPosition = new Vector3(0,0,0);
+        plc.weapon.transform.localEulerAngles = new Vector3(0,0,0);
+    }
+    public void SheatheWeaponInBack(){
+        plc.weapon.transform.parent = back.transform;
+        plc.weapon.transform.localPosition = new Vector3(0,0,0);
+        plc.weapon.transform.localEulerAngles = new Vector3(0,0,0);
     }
     Color EffectColor(MagicAttribute magicAttribute){
         Color res =Color.white;
@@ -158,5 +181,9 @@ public class PlayerVisualController : MonoBehaviour
         Debug.Log("Exit");
         PlayAnim();
         plAnim.SetInteger("Direction",plc.direction);
+    }
+    IEnumerator UnEnableEffectTime(){
+        yield return new WaitForSeconds(plc.enchantDuraction);
+        plc.weapon.GetComponent<WeaponEffectSystem>().UnEnableNormalParticle();
     }
 }

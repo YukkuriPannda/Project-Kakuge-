@@ -3,9 +3,9 @@ using UnityEngine;
 public class Type01Senkou: PlayerMagicBase
 {
     // スキル種別
-    public override PlayerMagicFactory.PlayerFlameMagicKind SkillKind
+    public override PlayerMagicFactory.MagicKind SkillKind
     { 
-        get {return PlayerMagicFactory.PlayerFlameMagicKind.Type01Senkou;}
+        get {return PlayerMagicFactory.MagicKind.Type01Senkou;}
     }
     public override IEnumerator ActivationFlameMagic(PlayerController plc)
     {

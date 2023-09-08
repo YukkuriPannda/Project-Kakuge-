@@ -20,8 +20,7 @@ public class FireBall : MonoBehaviour
         }
     }
     void OnTriggerEnter2D(Collider2D other){
-        Debug.Log(other.gameObject.CompareTag(this.gameObject.tag));
-        if(!other.gameObject.CompareTag(this.gameObject.tag)){
+        if(!other.gameObject.CompareTag(this.gameObject.tag) && !other.gameObject.CompareTag("NPC")){
             Bakuhatu();
         }
     }

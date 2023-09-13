@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bf41a61c60dbed45a632c8a195b3b7b, type: 3}
+  m_Name: InisialInventryData
+  m_EditorClassIdentifier: 
+  mains:
+  - id: 0
+    name: "\u6B6F\u8ECA\u306E\u5263"
+    explanation: "\u59CB\u307E\u308A\u306E\u5263\u3002\u305D\u3053\u3089\u8FBA\u306E\u5EC3\u6750\u3067\u3064\u304F\u3063\u305F\u3002"
+    spritePath: ItemIcons/GearSword
+    count: 0
+    category: 0
+    uniqueParameters: []
+  magicBooks:
+  - id: 0
+    name: "\u3073\u30FC\u30FC\u30FC\u3080"
+    explanation: 
+    spritePath: ItemIcons/MagicBooks/FlameMagicBook_Silver
+    count: 1
+    category: 2
+    uniqueParameters:
+    - name: MagicName
+      value: 1
+      maxValue: 0
+  - id: 0
+    name: "\u4E8C\u5F0F\u3000\u5927\u6CE2"
+    explanation: 
+    spritePath: ItemIcons/MagicBooks/AquaMagicBook
+    count: 1
+    category: 3
+    uniqueParameters:
+    - name: exp
+      value: 60
+      maxValue: 100
+    - name: MagicName
+      value: 60
+      maxValue: 0
+  - id: 0
+    name: "\u4E94\u5F0F\u3000\u96F7"
+    explanation: 
+    spritePath: ItemIcons/MagicBooks/ElectroMagicBook
+    count: 1
+    category: 4
+    uniqueParameters:
+    - name: exp
+      value: 60
+      maxValue: 100
+    - name: exp
+      value: 60
+      maxValue: 100
+  - id: 0
+    name: "\u30B0\u30E9\u30C6\u30A3\u30A2"
+    explanation: 
+    spritePath: ItemIcons/MagicBooks/TerraMagicBook_Gold
+    count: 1
+    category: 5
+    uniqueParameters:
+    - name: exp
+      value: 40
+      maxValue: 100
+  weapon:
+    id: 0
+    name: 
+    explanation: 
+    spritePath: 
+    count: 0
+    category: 0
+    uniqueParameters: []

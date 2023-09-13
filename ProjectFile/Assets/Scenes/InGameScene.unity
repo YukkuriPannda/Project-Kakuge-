@@ -5376,6 +5376,20 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1907818289850761823, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
   m_PrefabInstance: {fileID: 1993800252}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &142446716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 142446713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 261b76861f6b4b849920a2045397d2e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveDataPath: /
+  initialStateItemDataBase: {fileID: 11400000, guid: d79bbcbdb7fa5f64eadae5afb2631db0, type: 2}
 --- !u!1 &184976654
 GameObject:
   m_ObjectHideFlags: 0
@@ -22630,7 +22644,7 @@ GameObject:
   - component: {fileID: 1286295792}
   - component: {fileID: 1286295791}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: RenderCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25746,6 +25760,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 988327579}
     - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
+      propertyPath: saveDataManager
+      value: 
+      objectReference: {fileID: 142446716}
+    - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
       propertyPath: weaponSlot.spritePath
       value: ItemIcons/Weapons/GearSword
       objectReference: {fileID: 0}
@@ -25884,7 +25902,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3170586058222017920, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 142446716}
   m_SourcePrefab: {fileID: 100100000, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
 --- !u!1 &1994173691
 GameObject:

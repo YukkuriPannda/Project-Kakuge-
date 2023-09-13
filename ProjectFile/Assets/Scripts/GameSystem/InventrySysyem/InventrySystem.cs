@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public class InventrySystem : MonoBehaviour
@@ -16,16 +18,22 @@ public class InventrySystem : MonoBehaviour
     public GameObject weaponMenuPrefab;
     public GameObject magicBookSlotMenuPrefab;
     public GameObject weaponSlotMenuPrefab;
+    public SaveDataManager saveDataManager;
 
     [ReadOnly]public GameObject menu;
     void Start()
-    {
+    {   
+        LoadItem();
         SetInventryItem();
         SetMagicBookSlots(); 
         SetWeaponSlot();
     }
     public void LoadItem(){
-
+        if(!saveDataManager.ExistSaveData())saveDataManager.CreateNewSaveData();
+        InventryData inventryData = saveDataManager.LoadPlayerInventryData();
+        mainInventry = new List<ItemBase>(inventryData.mains);
+        magicBookSlots = new List<ItemBase>(inventryData.magicBooks);
+        weaponSlot = inventryData.weapon;
     }
     public void SetInventryItem(){
         for(int i = 0;i < MainInventryItemSlotsTrf.childCount;i++){
@@ -46,7 +54,6 @@ public class InventrySystem : MonoBehaviour
                         inventryItem.GetComponent<InventryItem>().menuPrefab = magicBookMenuPrefab;
                     break;
                 }
-                
             }
         }
     }
@@ -111,18 +118,33 @@ public class UniqueParameter{
 }
 [System.Serializable]
 public class ItemBase{
-    [ReadOnly]public int id;
     public string name;
+    [ReadOnly]public int id =1;
     public string explanation;
     public string spritePath;
     public int count;
     public ItemCategory category;
     public UniqueParameter[] uniqueParameters = null;
+    public ItemBase(string name){
+        if(name == "blank"){
+            this.name = name;
+            spritePath = "none";
+            count = 1;
+            category = ItemCategory.Blank;
+        }
+    }
     public ItemBase(string name,string spritePath,int count,ItemCategory category){
         this.name = name;
         this.spritePath = spritePath;
         this.count = count;
         this.category = category;
+    }
+    public ItemBase(string name,string spritePath,int count,ItemCategory category,UniqueParameter[] uniqueParameters){
+        this.name = name;
+        this.spritePath = spritePath;
+        this.count = count;
+        this.category = category;
+        this.uniqueParameters = uniqueParameters;
     }
     public float GetUniqueParameter(string name){
         for(int i = 0;i < uniqueParameters.Length;i++){

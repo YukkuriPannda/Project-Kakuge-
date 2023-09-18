@@ -29,7 +29,7 @@ public class ItemDataBaseEditor : Editor {
                 items.GetArrayElementAtIndex(items.arraySize-1).FindPropertyRelative("uniqueParameters").ClearArray();
 
                 switch(category){
-                    case ItemCategory.Weapon:
+                    case ItemCategory.Sword:
                         AddUniquePrams("Modelid",0,0);
                         AddUniquePrams("damage",0,100);
                         AddUniquePrams("Magic efficiency",0,100);

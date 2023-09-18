@@ -16,13 +16,15 @@ public class SetSpecialMagicMotion : MonoBehaviour
     [SerializeField]SpecialMagicMotions specialMagicMotions;
     void Start()
     {
+        /*Debug.Log("Start");
         RuntimeAnimatorController runtimeAnimatorCtl = AssetDatabase.LoadAssetAtPath<RuntimeAnimatorController>("Assets/Models/MainCharactor/PlayerAnimatorBase.controller");
         Debug.Log(runtimeAnimatorCtl.animationClips[0]);
-        AnimatorController animController = runtimeAnimatorCtl as UnityEditor.Animations.AnimatorController;
+        AnimatorController animController = runtimeAnimatorCtl as AnimatorController;
         animController.layers[0].stateMachine.states[GetStateFromName("Special_Flame",animController.layers[0].stateMachine.states)].state.motion = specialMagicMotions.flame;
         animController.layers[0].stateMachine.states[GetStateFromName("Special_Aqua",animController.layers[0].stateMachine.states)].state.motion = specialMagicMotions.aqua;
         animController.layers[0].stateMachine.states[GetStateFromName("Special_Electro",animController.layers[0].stateMachine.states)].state.motion = specialMagicMotions.electro;
         animController.layers[0].stateMachine.states[GetStateFromName("Special_Terra",animController.layers[0].stateMachine.states)].state.motion = specialMagicMotions.terra;
+        Debug.Log("aaa" + gameObject.name);*/
     }
     int GetStateFromName(string name,ChildAnimatorState[] states){
         int result = 0;

@@ -20,7 +20,6 @@ public class HPBarController : MonoBehaviour
         my_rect_trf = gameObject.GetComponent<RectTransform>();
         myParentRectTrf = transform.parent.gameObject.GetComponent<RectTransform>();
         main_camera = Camera.main;
-        Debug.Log(main_camera.name);
         offsetPos = new Vector2(main_camera.pixelWidth/2,main_camera.pixelHeight/2);
     }
     void Update()

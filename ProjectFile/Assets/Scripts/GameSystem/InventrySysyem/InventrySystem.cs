@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class InventrySystem : MonoBehaviour
@@ -11,6 +12,7 @@ public class InventrySystem : MonoBehaviour
     [SerializeField] RectTransform WeaponSlotTrf;
     [SerializeField] GameObject ItemPrefab;
     [SerializeField] public PlayerController plc;
+    [SerializeField] public PlayerEffectController plEC;
     public List<ItemBase> mainInventry = new List<ItemBase>();
     public List<ItemBase> magicBookSlots = new List<ItemBase>();
     public ItemBase weaponSlot;
@@ -19,6 +21,12 @@ public class InventrySystem : MonoBehaviour
     public GameObject magicBookSlotMenuPrefab;
     public GameObject weaponSlotMenuPrefab;
     public SaveDataManager saveDataManager;
+    [Space(10)]
+    [Header("WeaponAnimations")]
+    public PlayerVisualController.NormalAttackMotions swordAnimMotions;
+    public PlayerVisualController.NormalAttackMotions kobushiAnimMotions;
+    
+    
 
     [ReadOnly]public GameObject menu;
     void Start()
@@ -47,7 +55,7 @@ public class InventrySystem : MonoBehaviour
                 inventryItem.GetComponent<InventryItem>().item.id = i;
                 inventryItem.GetComponent<InventryItem>().inventrySystem = this;
                 switch(mainInventry[i].category){
-                    case ItemCategory.Weapon:
+                    case ItemCategory.Sword:
                         inventryItem.GetComponent<InventryItem>().menuPrefab = weaponMenuPrefab;
                     break;
                     case ItemCategory.MagicBookAqua :case ItemCategory.MagicBookElectro:case ItemCategory.MagicBookFlame:case ItemCategory.MagicBookTerra:
@@ -70,6 +78,7 @@ public class InventrySystem : MonoBehaviour
                 inventryItem.GetComponent<InventryItem>().menuPrefab = magicBookSlotMenuPrefab;
             }
         }
+        
         plc.magicHolder.flameMagic = (PlayerMagicFactory.MagicKind)magicBookSlots[0].GetUniqueParameter("MagicName");
         plc.magicHolder.aquaMagic = (PlayerMagicFactory.MagicKind)magicBookSlots[1].GetUniqueParameter("MagicName");
         plc.magicHolder.electroMagic = (PlayerMagicFactory.MagicKind)magicBookSlots[2].GetUniqueParameter("MagicName");
@@ -83,17 +92,33 @@ public class InventrySystem : MonoBehaviour
         inventryItem.GetComponent<InventryItem>().item.id = 0;
         inventryItem.GetComponent<InventryItem>().inventrySystem = this;
         inventryItem.GetComponent<InventryItem>().menuPrefab = weaponSlotMenuPrefab;
-        if(weaponSlot.category == ItemCategory.Weapon){
-            GameObject weapon = Instantiate(GameObject.Find("GameManager").GetComponent<ItemPrefabManager>().GetItemPrefab((int)weaponSlot.GetUniqueParameter("Modelid")));
-            Destroy(plc.weapon);
-            plc.weapon = weapon;
-            plc.gameObject.GetComponent<PlayerVisualController>().weaponEffectSystem = plc.weapon.GetComponent<WeaponEffectSystem>();
-        }else plc.weapon = null;
+
+        GameObject weapon = Instantiate(Resources.Load<GameObject>("ItemPrefabs/Kobushi"));
+        if(weaponSlot.category == ItemCategory.Sword){
+            weapon = Instantiate(GameObject.Find("GameManager").GetComponent<ItemPrefabManager>().GetItemPrefab((int)weaponSlot.GetUniqueParameter("Modelid")));
+        }
+        Destroy(plc.weapon);
+        plc.weapon = weapon;
+        PlayerVisualController plvc = plc.gameObject.GetComponent<PlayerVisualController>();
+
+        plvc.weaponEffectSystem = plc.weapon.GetComponent<WeaponEffectSystem>();
+        switch(weaponSlot.category){
+            case ItemCategory.Sword:{
+                plvc.normalAttackMotions = swordAnimMotions; 
+            }break;
+            case ItemCategory.Blank:{
+                plvc.normalAttackMotions = kobushiAnimMotions;
+            }break;
+        }
+        plc.gameObject.GetComponent<PlayerVisualController>().UpdateAnimStateMachines();
+        plc.upForwardDistance = plvc.normalAttackMotions.upDistance;
+        plc.thrustForwardDistance = plvc.normalAttackMotions.thrustDistance;
+        plc.downForwardDistance = plvc.normalAttackMotions.downDistance;
     }
 }
 [System.Serializable]
 public enum ItemCategory{
-    Weapon,
+    Sword,
     Food,
     MagicBookFlame,
     MagicBookAqua,
@@ -157,7 +182,7 @@ public class ItemBase{
 [System.Serializable]
 public class WeaponItem : ItemBase{
     public WeaponItem(string name,string spritePath,int count,string category,float damage,float exp)
-        :base(name,spritePath,count,ItemCategory.Weapon){
+        :base(name,spritePath,count,ItemCategory.Sword){
         uniqueParameters = new UniqueParameter[2]{
             new UniqueParameter("damage",damage),
             new UniqueParameter("exp",exp)

@@ -66,13 +66,17 @@ public class PlayerController : MonoBehaviour
     [ReadOnly]public PlayerStates nowPlayerState = PlayerStates.Stay;
     private AttackBase gardObject;
     [ReadOnly]public float timeFromEnchanted = 0;
+
+    [ReadOnly]public float upForwardDistance;
+    [ReadOnly]public float thrustForwardDistance;
+    [ReadOnly]public float downForwardDistance;
     public enum PlayerStates{
         Stay,
         Walking,
         Runing,
-        UpSlash,
+        Up,
         Thrust,
-        DownSlash,
+        Down,
         ShotMagicBullet,
         Garding,
         EnchantMySelf,
@@ -169,7 +173,7 @@ public class PlayerController : MonoBehaviour
                     Destroy(DMGObject.GetComponent<AttackBase>(),0.2f);
                     Destroy(DMGObject,1);
                     for(int i = 0;i < 5;i++){
-                        transform.Translate(0.4f,0,0);
+                        transform.Translate(thrustForwardDistance*0.2f,0,0);
                         yield return new WaitForEndOfFrame();
                     }
                 }break;
@@ -187,17 +191,17 @@ public class PlayerController : MonoBehaviour
                     Destroy(DMGObject.GetComponent<AttackBase>(),0.2f);
                     Destroy(DMGObject,1);
                     for(int i = 0;i < 5;i++){
-                        transform.Translate(-0.4f,0,0);
+                        transform.Translate(-thrustForwardDistance*0.2f,0,0);
                         yield return new WaitForEndOfFrame();
                     }
                 }break;
                 case  "StraightToUp":{
                     if(drawShapePos.x > 0) direction =1;
                     else direction = -1;
-                    nowPlayerState = PlayerStates.UpSlash;
+                    nowPlayerState = PlayerStates.Up;
                     yield return new WaitForSeconds(0.1f);
 
-                    GameObject DMGObject = Instantiate(attackColliders.UpSlash,new Vector2(transform.position.x + 1.5f * direction,transform.position.y),transform.rotation);
+                    GameObject DMGObject = Instantiate(attackColliders.UpSlash,new Vector2(transform.position.x + 0.75f * direction,transform.position.y),transform.rotation);
                     if(direction < 0)DMGObject.transform.GetChild(0).eulerAngles = new Vector3(30,180,0);
                     AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
                     attackBase.damage *= 1;
@@ -207,19 +211,19 @@ public class PlayerController : MonoBehaviour
                     drawMagicSymbols = new List<DrawMagicSymbol>();
                     Destroy(DMGObject.GetComponent<AttackBase>(),0.2f);
                     Destroy(DMGObject,1);
-                    DMGObject.GetComponentInChildren<SpriteRenderer>().material.SetColor("_Color",EffectColor(eBase.myMagicAttribute));
                     for(int i = 0;i < 10;i++){
-                        transform.Translate(0.08f*direction,0,0);
+                        transform.Translate(upForwardDistance*0.1f*direction,0,0);
                         yield return new WaitForEndOfFrame();
                     }
+                    DMGObject.GetComponentInChildren<SpriteRenderer>().material.SetColor("_Color",EffectColor(eBase.myMagicAttribute));
                 }break;
                 case  "StraightToDown":{
                     if(drawShapePos.x > 0) direction =1;
                     else direction = -1;
-                    nowPlayerState = PlayerStates.DownSlash;
+                    nowPlayerState = PlayerStates.Down;
                     yield return new WaitForSeconds(0.1f);
 
-                    GameObject DMGObject = Instantiate(attackColliders.DownSlash,new Vector2(transform.position.x + 1.3f * direction,transform.position.y),Quaternion.identity);
+                    GameObject DMGObject = Instantiate(attackColliders.DownSlash,new Vector2(transform.position.x + 0.75f * direction,transform.position.y),Quaternion.identity);
                     if(direction < 0)DMGObject.transform.GetChild(0).eulerAngles = new Vector3(0,180,0);
                     AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
                     attackBase.damage *= 1;
@@ -229,18 +233,17 @@ public class PlayerController : MonoBehaviour
                     drawMagicSymbols = new List<DrawMagicSymbol>();
                     Destroy(DMGObject.GetComponent<AttackBase>(),0.2f);
                     Destroy(DMGObject,1);
-                    DMGObject.GetComponentInChildren<SpriteRenderer>().material.SetColor("_Color",EffectColor(eBase.myMagicAttribute));
                     for(int i = 0;i < 10;i++){
-                        transform.Translate(0.08f*direction,0,0);
+                        transform.Translate(downForwardDistance*0.1f*direction,0,0);
                         yield return new WaitForEndOfFrame();
                     }
+                    DMGObject.GetComponentInChildren<SpriteRenderer>().material.SetColor("_Color",EffectColor(eBase.myMagicAttribute));
                 }break;
                 case "RegularTriangle": case"InvertedTriangle": case "Thunder":case "Grass":{
                     drawMagicSymbols.Add(new DrawMagicSymbol(drawShapeName,1));
                     drawShapeName = "None";
                     oldDrawShapeName ="None";
                     lockOperation = false;
-
                 }break;
                 case "tap":{
                     if(drawMagicSymbols.Count > 0 && magicStones>0){
@@ -294,23 +297,32 @@ public class PlayerController : MonoBehaviour
                             PlayerMagicFactory playerMagicFactory = new PlayerMagicFactory();
                             switch(drawMagicSymbols[0].magicSymbol){
                                 case "RegularTriangle":{
-                                    PlayerMagicBase plMagicBase = playerMagicFactory.Create(magicHolder.flameMagic);
-                                    StartCoroutine(plMagicBase.ActivationFlameMagic(this));
+                                    if(magicHolder.flameMagic != PlayerMagicFactory.MagicKind.none){
+                                        PlayerMagicBase plMagicBase = playerMagicFactory.Create(magicHolder.flameMagic);
+                                        StartCoroutine(plMagicBase.ActivationFlameMagic(this));
+                                    }
                                 }break;
                                 case "InvertedTriangle":{
-                                    PlayerMagicBase plMagicBase = playerMagicFactory.Create(magicHolder.aquaMagic);
-                                    StartCoroutine(plMagicBase.ActivationAquaMagic(this));
+                                    if(magicHolder.aquaMagic != PlayerMagicFactory.MagicKind.none){
+                                        PlayerMagicBase plMagicBase = playerMagicFactory.Create(magicHolder.aquaMagic);
+                                        StartCoroutine(plMagicBase.ActivationAquaMagic(this));
+                                    }
                                 }break;
                                 case "Thunder":{
-                                    PlayerMagicBase plMagicBase = playerMagicFactory.Create(magicHolder.electroMagic);
-                                    StartCoroutine(plMagicBase.ActivationElectroMagic(this));
+                                    if(magicHolder.electroMagic != PlayerMagicFactory.MagicKind.none){
+                                        PlayerMagicBase plMagicBase = playerMagicFactory.Create(magicHolder.electroMagic);
+                                        StartCoroutine(plMagicBase.ActivationElectroMagic(this));
+                                    }
                                 }break;
                                 case "Grass":{
-                                    PlayerMagicBase plMagicBase = playerMagicFactory.Create(magicHolder.terraMagic);
-                                    StartCoroutine(plMagicBase.ActivationTerraMagic(this));
+                                    if(magicHolder.terraMagic != PlayerMagicFactory.MagicKind.none){
+                                        PlayerMagicBase plMagicBase = playerMagicFactory.Create(magicHolder.terraMagic);
+                                        StartCoroutine(plMagicBase.ActivationTerraMagic(this));
+                                    }
                                 }break;
                             }
                             magicStones --;
+                            lockOperation = false;
                         }
                     }else {     
                         drawShapeName = "None";

@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditorInternal;
 using UnityEngine;
+using UnityEditor.Animations;
+using JetBrains.Annotations;
 
 public class PlayerVisualController : MonoBehaviour
 {
@@ -19,7 +22,7 @@ public class PlayerVisualController : MonoBehaviour
         Run,
         Jump,
         Damage = 10,
-        SwordAttack=50,
+        NormalAttack=50,
         MagicAttack=70,
         Enchant,
         Gard,
@@ -31,10 +34,34 @@ public class PlayerVisualController : MonoBehaviour
     private PlayerController.PlayerStates oldPlcState;
     private int oldDire;
     private bool oldOpeningInventry;
+    [System.Serializable]
+    public class SpecialAttackMotions{
+        public AnimationClip flame;
+        public AnimationClip aqua;
+        public AnimationClip electro;
+        public AnimationClip terra;
+    }
+    public SpecialAttackMotions specialAttackMotions;
+    [System.Serializable]
+    public class NormalAttackMotions{
+        public AnimationClip up;
+        public float upDistance;
+        public AnimationClip thrust;
+        public float thrustDistance;
+        public AnimationClip down;
+        public float downDistance;
+        public NormalAttackMotions(AnimationClip up,AnimationClip thrust,AnimationClip down){
+            this.up = up;
+            this.thrust = thrust;
+            this.down = down;
+        }
+    }
+    public NormalAttackMotions normalAttackMotions;
 
     void Start()
     {
-        weaponEffectSystem = plc.weapon.GetComponent<WeaponEffectSystem>();
+        UpdateAnimStateMachines();
+        if(plc.weapon)weaponEffectSystem = plc.weapon.GetComponent<WeaponEffectSystem>();
     }
 
     void Update()
@@ -81,17 +108,17 @@ public class PlayerVisualController : MonoBehaviour
                 if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);
                 else model.transform.localEulerAngles = new Vector3(0,180,0);
             }break;
-            case PlayerController.PlayerStates.UpSlash:{
-                plAnim.SetInteger("AnimNum",(int)AnimMotions.SwordAttack);
-                PlayAttackAnim("UpSlash");
+            case PlayerController.PlayerStates.Up:{
+                plAnim.SetInteger("AnimNum",(int)AnimMotions.NormalAttack);
+                PlayAttackAnim("Up");
             }break;
             case PlayerController.PlayerStates.Thrust:{
-                plAnim.SetInteger("AnimNum",(int)AnimMotions.SwordAttack);
+                plAnim.SetInteger("AnimNum",(int)AnimMotions.NormalAttack);
                 PlayAttackAnim("Thrust");
             }break;
-            case PlayerController.PlayerStates.DownSlash:{
-                plAnim.SetInteger("AnimNum",(int)AnimMotions.SwordAttack);
-                PlayAttackAnim("DownSlash");
+            case PlayerController.PlayerStates.Down:{
+                plAnim.SetInteger("AnimNum",(int)AnimMotions.NormalAttack);
+                PlayAttackAnim("Down");
             }break;
             case PlayerController.PlayerStates.ShotMagicBullet:{
                 plAnim.Play("ShotMagic",0,0);
@@ -106,7 +133,6 @@ public class PlayerVisualController : MonoBehaviour
             }break;
             case PlayerController.PlayerStates.EnchantMySelf:{
                 plAnim.Play(GetDirectionAnimationName("Enchant"),0,0);
-                //plEC.StartCoroutine(plEC.ActivationNormalParticle(plc.eBase.myMagicAttribute,plc.enchantDuraction));
                 weaponEffectSystem.EnableNormalParticle(plc.eBase.myMagicAttribute);
                 PickUpWeaponInRightHand();
                 StartCoroutine(UnEnableEffectTime());
@@ -141,7 +167,7 @@ public class PlayerVisualController : MonoBehaviour
         PickUpWeaponInRightHand();
         if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);
         else model.transform.localEulerAngles = new Vector3(0,180,0);
-        weaponEffectSystem.PlayAttackParticle(plc.eBase.myMagicAttribute);
+        if(plc.weapon)weaponEffectSystem.PlayAttackParticle(plc.eBase.myMagicAttribute);
     }
     string GetDirectionAnimationName(string name){
         string res = name;
@@ -150,14 +176,32 @@ public class PlayerVisualController : MonoBehaviour
         return res;
     }
     public void PickUpWeaponInRightHand(){
-        plc.weapon.transform.parent = rightHand.transform;
-        plc.weapon.transform.localPosition = new Vector3(0,0,0);
-        plc.weapon.transform.localEulerAngles = new Vector3(0,0,0);
+        if(plc.weapon){
+            plc.weapon.transform.parent = rightHand.transform;
+            plc.weapon.transform.localPosition = new Vector3(0,0,0);
+            plc.weapon.transform.localEulerAngles = new Vector3(0,0,0);
+        }
     }
     public void SheatheWeaponInBack(){
-        plc.weapon.transform.parent = back.transform;
-        plc.weapon.transform.localPosition = new Vector3(0,0,0);
-        plc.weapon.transform.localEulerAngles = new Vector3(0,0,0);
+        if(plc.weapon){
+            plc.weapon.transform.parent = back.transform;
+            plc.weapon.transform.localPosition = new Vector3(0,0,0);
+            plc.weapon.transform.localEulerAngles = new Vector3(0,0,0);
+        }
+    }
+    public void UpdateAnimStateMachines(){
+        UnityEditor.Animations.AnimatorController animatorController = plAnim.runtimeAnimatorController as UnityEditor.Animations.AnimatorController;
+        animatorController.layers[0].stateMachine.states[GetStateFromName("Special_Flame",animatorController.layers[0].stateMachine.states)].state.motion = specialAttackMotions.flame;
+        animatorController.layers[0].stateMachine.states[GetStateFromName("Special_Aqua",animatorController.layers[0].stateMachine.states)].state.motion = specialAttackMotions.aqua;
+        animatorController.layers[0].stateMachine.states[GetStateFromName("Special_Electro",animatorController.layers[0].stateMachine.states)].state.motion = specialAttackMotions.electro;
+        animatorController.layers[0].stateMachine.states[GetStateFromName("Special_Terra",animatorController.layers[0].stateMachine.states)].state.motion = specialAttackMotions.terra;
+        
+        ChildAnimatorState[] NormalStates
+         = animatorController.layers[0].stateMachine.stateMachines[GetSubStateFromName("NormalAttack",animatorController.layers[0].stateMachine.stateMachines)].stateMachine.states;
+        Debug.Log(NormalStates[GetStateFromName("Up",NormalStates)].state.name);
+        NormalStates[GetStateFromName("Up",NormalStates)].state.motion = normalAttackMotions.up;
+        NormalStates[GetStateFromName("Thrust",NormalStates)].state.motion = normalAttackMotions.thrust;
+        NormalStates[GetStateFromName("Down",NormalStates)].state.motion = normalAttackMotions.down;
     }
     Color EffectColor(MagicAttribute magicAttribute){
         Color res =Color.white;
@@ -185,5 +229,24 @@ public class PlayerVisualController : MonoBehaviour
     IEnumerator UnEnableEffectTime(){
         yield return new WaitForSeconds(plc.enchantDuraction);
         plc.weapon.GetComponent<WeaponEffectSystem>().UnEnableNormalParticle();
+    }
+    int GetStateFromName(string name,ChildAnimatorState[] states){
+        int result = 0;
+        for(; states[result].state.name != name;result ++){
+            if(result >= states.Length-1){
+                Debug.LogError("Not Found AnimationState "+name);
+                return -1;
+            }
+        }
+        return result;
+    }int GetSubStateFromName(string name,ChildAnimatorStateMachine[] states){
+        int result = 0;
+        for(; states[result].stateMachine.name != name;result ++){
+            if(result >= states.Length-1){
+                Debug.LogError("Not Found AnimationStateMachine "+name);
+                return -1;
+            }
+        }
+        return result;
     }
 }

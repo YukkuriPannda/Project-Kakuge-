@@ -18,7 +18,8 @@ public class SaveDataManager : MonoBehaviour
         return true;
     }
     public void CreateNewSaveData(){
-        SavePlayerInventryData(new InventryData(initialStateItemDataBase.items,new ItemBase[0],new ItemBase("blank")));
+        ItemBase[] magicBooks = {new ItemBase("blank"),new ItemBase("blank"),new ItemBase("blank"),new ItemBase("blank")};
+        SavePlayerInventryData(new InventryData(initialStateItemDataBase.items,magicBooks,new ItemBase("blank")));
     }
     public InventryData LoadPlayerInventryData(){
         StreamReader streamReader = new StreamReader(Application.persistentDataPath + saveDataPath +"/inventry.json");

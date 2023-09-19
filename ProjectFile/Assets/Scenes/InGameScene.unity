@@ -12511,9 +12511,9 @@ MonoBehaviour:
     electroMagic: 1
     terraMagic: 0
   attackColliders:
-    UpSlash: {fileID: 7114548282539418036, guid: 85c8710dbc50afd469c4a314bfe5b9c6, type: 3}
+    Up: {fileID: 0}
     Thrust: {fileID: 7114548282539418036, guid: 2b783d3f79cc63a4884d1e9c656cb6ff, type: 3}
-    DownSlash: {fileID: 7114548282539418036, guid: 85c8710dbc50afd469c4a314bfe5b9c6, type: 3}
+    Down: {fileID: 0}
     Enchant: {fileID: 4634353251714883583, guid: 069b82b7a77909649b8843ae817d824c, type: 3}
     Gard: {fileID: 4246732901243451201, guid: 2c4a56ffd585fde469613f1dae73d817, type: 3}
   InventryObj: {fileID: 142446713}
@@ -12604,12 +12604,15 @@ MonoBehaviour:
     electro: {fileID: 0}
     terra: {fileID: 0}
   normalAttackMotions:
-    up: {fileID: 0}
+    upMotion: {fileID: 0}
     upDistance: 0
-    thrust: {fileID: 0}
+    upPrefab: {fileID: 0}
+    thrustMotion: {fileID: 0}
     thrustDistance: 0
-    down: {fileID: 0}
+    thrustPrefab: {fileID: 0}
+    downMotion: {fileID: 0}
     downDistance: 0
+    downPrefab: {fileID: 0}
 --- !u!114 &988327584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25811,9 +25814,41 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
+      propertyPath: swordAnimMotions.upMotion
+      value: 
+      objectReference: {fileID: 7400000, guid: 6da11217730392e419a369159ebc0469, type: 2}
+    - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
+      propertyPath: swordAnimMotions.upPrefab
+      value: 
+      objectReference: {fileID: 7114548282539418036, guid: ab1dd93e7b415554cac0754d2800b7b3, type: 3}
+    - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
+      propertyPath: kobushiAnimMotions.upMotion
+      value: 
+      objectReference: {fileID: 7400000, guid: 5a454b586db7e0c4cb5d31ac0299c777, type: 2}
+    - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
+      propertyPath: kobushiAnimMotions.upPrefab
+      value: 
+      objectReference: {fileID: 7114548282539418036, guid: 20dbb04ae07933144a443059dd4b2fb3, type: 3}
+    - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
+      propertyPath: swordAnimMotions.downMotion
+      value: 
+      objectReference: {fileID: 7400000, guid: fbe37f83b72066e4cb48e031b9fc17e8, type: 2}
+    - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
+      propertyPath: swordAnimMotions.downPrefab
+      value: 
+      objectReference: {fileID: 7114548282539418036, guid: 4ae002a3738754e4b99468d5ce01c405, type: 3}
+    - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
       propertyPath: swordAnimMotions.upDistance
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
+      propertyPath: kobushiAnimMotions.downMotion
+      value: 
+      objectReference: {fileID: 7400000, guid: aea046c811e02a14eaef65dd6512ff9e, type: 2}
+    - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
+      propertyPath: kobushiAnimMotions.downPrefab
+      value: 
+      objectReference: {fileID: 7114548282539418036, guid: 85c8710dbc50afd469c4a314bfe5b9c6, type: 3}
     - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
       propertyPath: kobushiAnimMotions.upDistance
       value: 0.2
@@ -25823,9 +25858,25 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
+      propertyPath: swordAnimMotions.thrustMotion
+      value: 
+      objectReference: {fileID: 7400000, guid: 1e6712e8ac244ed4baccc106729dbbcb, type: 2}
+    - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
+      propertyPath: swordAnimMotions.thrustPrefab
+      value: 
+      objectReference: {fileID: 7114548282539418036, guid: 5abef4804e51cdc4ca5125260820ee57, type: 3}
+    - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
       propertyPath: kobushiAnimMotions.downDistance
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
+      propertyPath: kobushiAnimMotions.thrustMotion
+      value: 
+      objectReference: {fileID: 7400000, guid: fa0843990c46d9746bfbcfa0fb3caebb, type: 2}
+    - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
+      propertyPath: kobushiAnimMotions.thrustPrefab
+      value: 
+      objectReference: {fileID: 7114548282539418036, guid: 2b783d3f79cc63a4884d1e9c656cb6ff, type: 3}
     - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
       propertyPath: swordAnimMotions.thrustDistance
       value: 0.75

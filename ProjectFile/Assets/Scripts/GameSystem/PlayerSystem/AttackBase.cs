@@ -40,7 +40,7 @@ public class AttackBase : MonoBehaviour
     {
         foreach(HurtObjectInfo hurtObjectInfo in hurtObjectInfos){
             if(hurtObjectInfo.time == 0){
-                hurtObjectInfo.eBase.Hurt(damage,gameObject.tag,knockBack,magicAttribute,hitStop);
+                hurtObjectInfo.eBase.Hurt(damage,gameObject.tag,knockBack,hitStopTime,magicAttribute);
             }
             hurtObjectInfo.time += Time.deltaTime;
             if(hurtObjectInfo.time >= hurtCoolTime)hurtObjectInfo.time = 0;
@@ -56,6 +56,6 @@ public class AttackBase : MonoBehaviour
     }
     void OnDrawGizmos()
     {
-        Gizmos.DrawCube(transform.position,transform.localScale);
+        Gizmos.DrawCube(transform.position+(Vector3)(gameObject.GetComponent<BoxCollider2D>().offset*transform.localScale),transform.localScale*gameObject.GetComponent<BoxCollider2D>().size);
     }
 }

@@ -26,9 +26,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]public MagicHolder magicHolder;
     [System.Serializable]
     public class AttackColliderPrefabs{
-        public GameObject UpSlash;
+        public GameObject Up;
         public GameObject Thrust;
-        public GameObject DownSlash;
+        public GameObject Down;
         public GameObject Enchant;
         public GameObject Gard;
     }
@@ -164,7 +164,7 @@ public class PlayerController : MonoBehaviour
                 case "StraightToRight":{
                     nowPlayerState = PlayerStates.Thrust;
                     direction = 1;
-                    GameObject DMGObject = Instantiate(attackColliders.Thrust,new Vector2(transform.position.x + 2f,transform.position.y),transform.rotation);
+                    GameObject DMGObject = Instantiate(attackColliders.Thrust,transform.position,transform.rotation);
                     DMGObject.transform.GetChild(0).eulerAngles = new Vector3(0,0,0);
                     AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
                     attackBase.damage *= 1;
@@ -180,8 +180,11 @@ public class PlayerController : MonoBehaviour
                 case "StraightToLeft":{
                     nowPlayerState = PlayerStates.Thrust;
                     direction = -1;
-                    GameObject DMGObject = Instantiate(attackColliders.Thrust,new Vector2(transform.position.x - 2f,transform.position.y),transform.rotation);
+                    GameObject DMGObject = Instantiate(attackColliders.Thrust,transform.position,transform.rotation);
                     DMGObject.transform.GetChild(0).eulerAngles = new Vector3(0,180,0);
+                    DMGObject.GetComponent<BoxCollider2D>().offset *= new Vector2(-1,1);
+                    DMGObject.transform.GetChild(0).localPosition = Vector3.Scale(new Vector3(-1,1,1),DMGObject.transform.GetChild(0).localPosition);
+
                     AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
                     attackBase.damage *= 1;
                     DMGObject.tag = "Player";
@@ -201,8 +204,13 @@ public class PlayerController : MonoBehaviour
                     nowPlayerState = PlayerStates.Up;
                     yield return new WaitForSeconds(0.1f);
 
-                    GameObject DMGObject = Instantiate(attackColliders.UpSlash,new Vector2(transform.position.x + 0.75f * direction,transform.position.y),transform.rotation);
-                    if(direction < 0)DMGObject.transform.GetChild(0).eulerAngles = new Vector3(30,180,0);
+                    GameObject DMGObject = Instantiate(attackColliders.Up,new Vector2(transform.position.x + 0.75f * direction,transform.position.y),transform.rotation);
+                    if(direction < 0){
+                        DMGObject.transform.GetChild(0).eulerAngles = new Vector3(30,180,0);
+                        DMGObject.transform.GetChild(0).localPosition = Vector3.Scale(new Vector3(-1,1,1),DMGObject.transform.GetChild(0).localPosition);
+                    }
+                    DMGObject.GetComponent<BoxCollider2D>().offset *= new Vector2(direction,1);
+
                     AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
                     attackBase.damage *= 1;
                     DMGObject.tag = "Player";
@@ -215,7 +223,7 @@ public class PlayerController : MonoBehaviour
                         transform.Translate(upForwardDistance*0.1f*direction,0,0);
                         yield return new WaitForEndOfFrame();
                     }
-                    DMGObject.GetComponentInChildren<SpriteRenderer>().material.SetColor("_Color",EffectColor(eBase.myMagicAttribute));
+                    if(DMGObject.GetComponentInChildren<SpriteRenderer>())DMGObject.GetComponentInChildren<SpriteRenderer>().material.SetColor("_Color",EffectColor(eBase.myMagicAttribute));
                 }break;
                 case  "StraightToDown":{
                     if(drawShapePos.x > 0) direction =1;
@@ -223,8 +231,13 @@ public class PlayerController : MonoBehaviour
                     nowPlayerState = PlayerStates.Down;
                     yield return new WaitForSeconds(0.1f);
 
-                    GameObject DMGObject = Instantiate(attackColliders.DownSlash,new Vector2(transform.position.x + 0.75f * direction,transform.position.y),Quaternion.identity);
-                    if(direction < 0)DMGObject.transform.GetChild(0).eulerAngles = new Vector3(0,180,0);
+                    GameObject DMGObject = Instantiate(attackColliders.Down,new Vector2(transform.position.x + 0.75f * direction,transform.position.y),Quaternion.identity);
+                    if(direction < 0){
+                        DMGObject.transform.GetChild(0).eulerAngles = new Vector3(0,180,0);
+                        DMGObject.transform.GetChild(0).localPosition = Vector3.Scale(new Vector3(-1,1,1),DMGObject.transform.GetChild(0).localPosition);
+                    }
+                    DMGObject.GetComponent<BoxCollider2D>().offset *= new Vector2(direction,1);
+
                     AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
                     attackBase.damage *= 1;
                     DMGObject.tag = "Player";
@@ -237,7 +250,7 @@ public class PlayerController : MonoBehaviour
                         transform.Translate(downForwardDistance*0.1f*direction,0,0);
                         yield return new WaitForEndOfFrame();
                     }
-                    DMGObject.GetComponentInChildren<SpriteRenderer>().material.SetColor("_Color",EffectColor(eBase.myMagicAttribute));
+                    if(DMGObject.GetComponentInChildren<SpriteRenderer>())DMGObject.GetComponentInChildren<SpriteRenderer>().material.SetColor("_Color",EffectColor(eBase.myMagicAttribute));
                 }break;
                 case "RegularTriangle": case"InvertedTriangle": case "Thunder":case "Grass":{
                     drawMagicSymbols.Add(new DrawMagicSymbol(drawShapeName,1));

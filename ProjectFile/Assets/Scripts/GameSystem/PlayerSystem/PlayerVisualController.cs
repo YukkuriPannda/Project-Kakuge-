@@ -43,20 +43,20 @@ public class PlayerVisualController : MonoBehaviour
     }
     public SpecialAttackMotions specialAttackMotions;
     [System.Serializable]
-    public class NormalAttackMotions{
-        public AnimationClip up;
+    public class NormalAttackDatas{
+        public AnimationClip upMotion;
         public float upDistance;
-        public AnimationClip thrust;
+        public GameObject upPrefab;
+        [Space(5)]
+        public AnimationClip thrustMotion;
         public float thrustDistance;
-        public AnimationClip down;
+        public GameObject thrustPrefab;
+        [Space(5)]
+        public AnimationClip downMotion;
         public float downDistance;
-        public NormalAttackMotions(AnimationClip up,AnimationClip thrust,AnimationClip down){
-            this.up = up;
-            this.thrust = thrust;
-            this.down = down;
-        }
+        public GameObject downPrefab;
     }
-    public NormalAttackMotions normalAttackMotions;
+    public NormalAttackDatas normalAttackMotions;
 
     void Start()
     {
@@ -199,9 +199,9 @@ public class PlayerVisualController : MonoBehaviour
         ChildAnimatorState[] NormalStates
          = animatorController.layers[0].stateMachine.stateMachines[GetSubStateFromName("NormalAttack",animatorController.layers[0].stateMachine.stateMachines)].stateMachine.states;
         Debug.Log(NormalStates[GetStateFromName("Up",NormalStates)].state.name);
-        NormalStates[GetStateFromName("Up",NormalStates)].state.motion = normalAttackMotions.up;
-        NormalStates[GetStateFromName("Thrust",NormalStates)].state.motion = normalAttackMotions.thrust;
-        NormalStates[GetStateFromName("Down",NormalStates)].state.motion = normalAttackMotions.down;
+        NormalStates[GetStateFromName("Up",NormalStates)].state.motion = normalAttackMotions.upMotion;
+        NormalStates[GetStateFromName("Thrust",NormalStates)].state.motion = normalAttackMotions.thrustMotion;
+        NormalStates[GetStateFromName("Down",NormalStates)].state.motion = normalAttackMotions.downMotion;
     }
     Color EffectColor(MagicAttribute magicAttribute){
         Color res =Color.white;

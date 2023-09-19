@@ -12512,7 +12512,7 @@ MonoBehaviour:
     terraMagic: 0
   attackColliders:
     UpSlash: {fileID: 7114548282539418036, guid: 85c8710dbc50afd469c4a314bfe5b9c6, type: 3}
-    Thrust: {fileID: 7114548282539418036, guid: 5abef4804e51cdc4ca5125260820ee57, type: 3}
+    Thrust: {fileID: 7114548282539418036, guid: 2b783d3f79cc63a4884d1e9c656cb6ff, type: 3}
     DownSlash: {fileID: 7114548282539418036, guid: 85c8710dbc50afd469c4a314bfe5b9c6, type: 3}
     Enchant: {fileID: 4634353251714883583, guid: 069b82b7a77909649b8843ae817d824c, type: 3}
     Gard: {fileID: 4246732901243451201, guid: 2c4a56ffd585fde469613f1dae73d817, type: 3}
@@ -25811,12 +25811,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
+      propertyPath: swordAnimMotions.upDistance
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
       propertyPath: kobushiAnimMotions.upDistance
       value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
+      propertyPath: swordAnimMotions.downDistance
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
       propertyPath: kobushiAnimMotions.downDistance
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
+      propertyPath: swordAnimMotions.thrustDistance
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
       propertyPath: kobushiAnimMotions.thrustDistance

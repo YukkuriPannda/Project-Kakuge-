@@ -23,8 +23,8 @@ public class InventrySystem : MonoBehaviour
     public SaveDataManager saveDataManager;
     [Space(10)]
     [Header("WeaponAnimations")]
-    public PlayerVisualController.NormalAttackMotions swordAnimMotions;
-    public PlayerVisualController.NormalAttackMotions kobushiAnimMotions;
+    public PlayerVisualController.NormalAttackDatas swordAnimMotions;
+    public PlayerVisualController.NormalAttackDatas kobushiAnimMotions;
     
     
 
@@ -111,9 +111,14 @@ public class InventrySystem : MonoBehaviour
             }break;
         }
         plc.gameObject.GetComponent<PlayerVisualController>().UpdateAnimStateMachines();
+
         plc.upForwardDistance = plvc.normalAttackMotions.upDistance;
         plc.thrustForwardDistance = plvc.normalAttackMotions.thrustDistance;
         plc.downForwardDistance = plvc.normalAttackMotions.downDistance;
+
+        plc.attackColliders.Up = plvc.normalAttackMotions.upPrefab;
+        plc.attackColliders.Thrust = plvc.normalAttackMotions.thrustPrefab;
+        plc.attackColliders.Down = plvc.normalAttackMotions.downPrefab;
     }
 }
 [System.Serializable]

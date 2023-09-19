@@ -47,11 +47,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4783b916a6d73e740b19263d0dd0155f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 15
+  damage: 7
   magicAttribute: 0
   hurtCoolTime: 1
   hitStop: 1
-  hitStopTime: 0.5
+  hitStopTime: 0.1
   knockBack: {x: 50, y: -100}
   onlyFirstHurt: 0
   radicalHurt: 0

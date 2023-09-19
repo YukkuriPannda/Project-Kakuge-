@@ -19,7 +19,7 @@ public class EntityBase : MonoBehaviour
     {
         chachedHitStop = new WaitForSecondsRealtime(0.1f);
     }
-    public void Hurt(float DMG,string AttackBelongedTeam,Vector2 knockBack,MagicAttribute magicAttribute = MagicAttribute.none,bool hitStop = true){
+    public void Hurt(float DMG,string AttackBelongedTeam,Vector2 knockBack,float hitStopTime,MagicAttribute magicAttribute = MagicAttribute.none){
         if(!gameObject.CompareTag(AttackBelongedTeam) && Health >= 0){
             gameObject.GetComponent<Rigidbody2D>().AddForce(knockBack,ForceMode2D.Impulse);
             hurtMagicAtttribute = magicAttribute;
@@ -47,14 +47,14 @@ public class EntityBase : MonoBehaviour
                     else Health -= DMG;
                 break;
             }
-            if(hitStop)StartCoroutine(HitStop());
-            Debug.Log($"[DamageLog]Hurt DMG:{DMG} margicAttribute:{magicAttribute} knockBack:{knockBack}");
+            StartCoroutine(HitStop(hitStopTime));
+            Debug.Log($"[DamageLog]Hurt DMG:{DMG} margicAttribute:{magicAttribute} knockBack:{knockBack} HitStop:{hitStopTime}");
         }
     }
-    IEnumerator HitStop(){
+    IEnumerator HitStop(float time){
         Time.timeScale = 0.05f;
-        if(Health != 0) yield return chachedHitStop;
-        else yield return new WaitForSecondsRealtime(0.2f);
+        if(Health != 0)  yield return new WaitForSecondsRealtime(time);
+        else yield return new WaitForSecondsRealtime(0.5f);
         Time.timeScale = 1f;
         yield break;
     }

@@ -37,11 +37,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _FresnelEffectPower: 3.6
+    - _FresnelEffectPower: 0.57
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _Color: {r: 30.915825, g: 13.577152, b: 4.8123693, a: 1}
+    - _Color: {r: 2.4335723, g: 1.06874, b: 0.3788108, a: 1}
     - _HDR: {r: 3.5849056, g: 1.9409292, b: 0.82858676, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &1342654945725023580

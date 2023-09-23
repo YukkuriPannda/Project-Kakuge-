@@ -84,6 +84,12 @@ public class InventrySystem : MonoBehaviour
         plc.magicHolder.electroMagic = (PlayerMagicFactory.MagicKind)magicBookSlots[2].GetUniqueParameter("MagicName");
         plc.magicHolder.terraMagic = (PlayerMagicFactory.MagicKind)magicBookSlots[3].GetUniqueParameter("MagicName");
 
+        PlayerVisualController plvc = plc.gameObject.GetComponent<PlayerVisualController>();
+        plvc.specialAttackMotions.flame   = saveDataManager.initialStateItemDataBase.GetSpecialMagicMotion((PlayerMagicFactory.MagicKind)magicBookSlots[0].GetUniqueParameter("MagicName"));
+        plvc.specialAttackMotions.aqua    = saveDataManager.initialStateItemDataBase.GetSpecialMagicMotion((PlayerMagicFactory.MagicKind)magicBookSlots[1].GetUniqueParameter("MagicName"));
+        plvc.specialAttackMotions.electro = saveDataManager.initialStateItemDataBase.GetSpecialMagicMotion((PlayerMagicFactory.MagicKind)magicBookSlots[2].GetUniqueParameter("MagicName"));
+        plvc.specialAttackMotions.terra   = saveDataManager.initialStateItemDataBase.GetSpecialMagicMotion((PlayerMagicFactory.MagicKind)magicBookSlots[3].GetUniqueParameter("MagicName"));
+        plvc.UpdateAnimStateMachines();
     }
     public void SetWeaponSlot(){
         if(WeaponSlotTrf.childCount > 0)Destroy(WeaponSlotTrf.GetChild(0).gameObject);
@@ -95,7 +101,7 @@ public class InventrySystem : MonoBehaviour
 
         GameObject weapon = Instantiate(Resources.Load<GameObject>("ItemPrefabs/Kobushi"));
         if(weaponSlot.category == ItemCategory.Sword){
-            weapon = Instantiate(GameObject.Find("GameManager").GetComponent<ItemPrefabManager>().GetItemPrefab((int)weaponSlot.GetUniqueParameter("Modelid")));
+            weapon = Instantiate(saveDataManager.initialStateItemDataBase.GetItemPrefab((int)weaponSlot.GetUniqueParameter("Modelid")));
         }
         Destroy(plc.weapon);
         plc.weapon = weapon;

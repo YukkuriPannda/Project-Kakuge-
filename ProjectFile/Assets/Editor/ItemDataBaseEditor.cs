@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEditor;
 using System;
-using System.Diagnostics;
 
 [CustomEditor(typeof(ItemDataBase))]
 public class ItemDataBaseEditor : Editor {
@@ -9,7 +8,7 @@ public class ItemDataBaseEditor : Editor {
     ItemCategory category;
     public override void OnInspectorGUI() {
         serializedObject.Update();
-        ItemDataBase itemBase = target as ItemDataBase;
+        ItemDataBase itemDataBase = target as ItemDataBase;
 
         SerializedProperty items = serializedObject.FindProperty("items");
         EditorGUILayout.BeginVertical(GUI.skin.box);
@@ -17,7 +16,7 @@ public class ItemDataBaseEditor : Editor {
             for(int i = 0;i < items.arraySize;i ++){
                 EditorGUILayout.PropertyField(items.GetArrayElementAtIndex(i));
             }
-        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.EndVertical();
 
         EditorGUILayout.BeginHorizontal();
         {
@@ -27,7 +26,6 @@ public class ItemDataBaseEditor : Editor {
                 items.GetArrayElementAtIndex(items.arraySize-1).FindPropertyRelative("id").intValue = items.arraySize-1;
                 items.GetArrayElementAtIndex(items.arraySize-1).FindPropertyRelative("category").intValue = (int)category;
                 items.GetArrayElementAtIndex(items.arraySize-1).FindPropertyRelative("uniqueParameters").ClearArray();
-
                 switch(category){
                     case ItemCategory.Sword:
                         AddUniquePrams("Modelid",0,0);
@@ -66,7 +64,59 @@ public class ItemDataBaseEditor : Editor {
             }
         }
         EditorGUILayout.EndHorizontal();
+
+        GUILayout.Space(10);
+        SerializedProperty itemPrefabDatas = serializedObject.FindProperty("itemPrefabDatas");
+        EditorGUILayout.BeginVertical(GUI.skin.box);{
+            
+            EditorGUI.indentLevel =1;
+            for(int i = 0;i < itemPrefabDatas.arraySize;i ++){
+                EditorGUILayout.PropertyField(itemPrefabDatas.GetArrayElementAtIndex(i));
+            }
+            EditorGUILayout.BeginHorizontal();
+            {
+                GUILayout.FlexibleSpace();
+                if(GUILayout.Button("Add",GUILayout.Width(64))){
+                    Debug.Log(itemPrefabDatas.arraySize);
+                    itemPrefabDatas.InsertArrayElementAtIndex(itemPrefabDatas.arraySize!=0?itemPrefabDatas.arraySize-1:0);
+                    itemPrefabDatas.GetArrayElementAtIndex(itemPrefabDatas.arraySize-1).FindPropertyRelative("ID").intValue = itemPrefabDatas.arraySize-1;
+                }
+                GUILayout.Space(10);
+                
+                if(GUILayout.Button("Remove",GUILayout.Width(64))){
+                    itemPrefabDatas.DeleteArrayElementAtIndex(itemPrefabDatas.arraySize-1);
+                }
+            }
+            EditorGUILayout.EndHorizontal();
+        }EditorGUILayout.EndVertical();
+        
+        GUILayout.Space(10);
+        SerializedProperty specialMagicMotions = serializedObject.FindProperty("specialMagicMotions");
+        EditorGUILayout.BeginVertical(GUI.skin.box);{
+            
+            EditorGUI.indentLevel =1;
+            for(int i = 0;i < specialMagicMotions.arraySize;i ++){
+                EditorGUILayout.PropertyField(specialMagicMotions.GetArrayElementAtIndex(i));
+            }
+            EditorGUILayout.BeginHorizontal();
+            {
+                GUILayout.FlexibleSpace();
+                if(GUILayout.Button("Add",GUILayout.Width(64))){
+                    Debug.Log(specialMagicMotions.arraySize);
+                    specialMagicMotions.InsertArrayElementAtIndex(specialMagicMotions.arraySize!=0?specialMagicMotions.arraySize-1:0);
+                    specialMagicMotions.GetArrayElementAtIndex(specialMagicMotions.arraySize-1).FindPropertyRelative("magicKind").enumValueIndex = specialMagicMotions.arraySize-1;
+                }
+                GUILayout.Space(10);
+                
+                if(GUILayout.Button("Remove",GUILayout.Width(64))){
+                    specialMagicMotions.DeleteArrayElementAtIndex(specialMagicMotions.arraySize-1);
+                }
+            }
+            EditorGUILayout.EndHorizontal();
+        }EditorGUILayout.EndVertical();
+
         serializedObject.ApplyModifiedProperties();
+
         void AddUniquePrams(string name,float value,float max){
             items.GetArrayElementAtIndex(items.arraySize-1).FindPropertyRelative("uniqueParameters").InsertArrayElementAtIndex(0);
             items.GetArrayElementAtIndex(items.arraySize-1).FindPropertyRelative("uniqueParameters").GetArrayElementAtIndex(0).FindPropertyRelative("name").stringValue = name;

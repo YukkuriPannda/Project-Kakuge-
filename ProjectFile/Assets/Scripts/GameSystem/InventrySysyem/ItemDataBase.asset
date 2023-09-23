@@ -16,8 +16,8 @@ MonoBehaviour:
   - name: "\u6B6F\u8ECA\u306E\u5263"
     id: 0
     explanation: 
-    spritePath: ItemIcons/Weapons
-    count: 0
+    spritePath: ItemIcons/Weapons/GearSword
+    count: 1
     category: 0
     uniqueParameters:
     - name: exp
@@ -61,9 +61,9 @@ MonoBehaviour:
   - name: "\u3073\u30FC\u30FC\u3080"
     id: 3
     explanation: 
-    spritePath: ItemIcons/MagicBooks/ElectroMagicBook
-    count: 0
-    category: 4
+    spritePath: ItemIcons/MagicBooks/FlameMagicBook
+    count: 1
+    category: 2
     uniqueParameters:
     - name: exp
       value: 0
@@ -74,8 +74,8 @@ MonoBehaviour:
   - name: "\u4E00\u5F0F\u300C\u9583\u5149\u300D"
     id: 4
     explanation: 
-    spritePath: ItemIcons/MagicBooks/TerraMagicBook
-    count: 0
+    spritePath: ItemIcons/MagicBooks/ElectroMagicBook
+    count: 1
     category: 4
     uniqueParameters:
     - name: exp
@@ -84,3 +84,30 @@ MonoBehaviour:
     - name: MagicName
       value: 3
       maxValue: 0
+  - name: "\u8FFD\u5C3E\u5F3E"
+    id: 5
+    explanation: 
+    spritePath: ItemIcons/MagicBooks/FlameMagicBook
+    count: 1
+    category: 2
+    uniqueParameters:
+    - name: exp
+      value: 0
+      maxValue: 100
+    - name: MagicName
+      value: 2
+      maxValue: 0
+  itemPrefabDatas:
+  - ID: 0
+    Prefab: {fileID: 965833927148874346, guid: a8d4feba97d07324d994af224b11faad, type: 3}
+  - ID: 1
+    Prefab: {fileID: 7612591228787640585, guid: 5c3f94fe0289a094f89806852f2d7c40, type: 3}
+  specialMagicMotions:
+  - magicKind: 0
+    animationClip: {fileID: 0}
+  - magicKind: 1
+    animationClip: {fileID: 7400000, guid: 1f419d07867fac24a94fa7ebf5241b64, type: 2}
+  - magicKind: 2
+    animationClip: {fileID: 7400000, guid: 7dbbfeac60b7e0c40bc19c35a2a4af6e, type: 2}
+  - magicKind: 3
+    animationClip: {fileID: 7400000, guid: ae1907376604dc545ba2e842eb06f690, type: 2}

@@ -12,6 +12,7 @@ public class AttackBase : MonoBehaviour
     public Vector2 knockBack;
     public bool onlyFirstHurt = false;
     public bool radicalHurt = false;
+    public bool gizmo;
     [Header("Infos")]
     [ReadOnly,SerializeField] private float hurtTime = 0;
     private float knockBackPower;
@@ -56,6 +57,6 @@ public class AttackBase : MonoBehaviour
     }
     void OnDrawGizmos()
     {
-        Gizmos.DrawCube(transform.position+(Vector3)(gameObject.GetComponent<BoxCollider2D>().offset*transform.localScale),transform.localScale*gameObject.GetComponent<BoxCollider2D>().size);
+       if(gizmo) Gizmos.DrawCube(transform.position+(Vector3)(gameObject.GetComponent<BoxCollider2D>().offset*transform.localScale),transform.localScale*gameObject.GetComponent<BoxCollider2D>().size);
     }
 }

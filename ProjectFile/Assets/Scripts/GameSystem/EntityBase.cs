@@ -19,7 +19,7 @@ public class EntityBase : MonoBehaviour
     public bool Invulnerable = false;
     public bool NoGravity = false;
     public bool OnGround = false;
-    [ReadOnly]private  bool overHeating;
+    [ReadOnly,SerializeField]private  bool overHeating;
     private WaitForSecondsRealtime chachedHitStop;
     [ReadOnly]public MagicAttribute hurtMagicAtttribute = MagicAttribute.none;
     void Start()
@@ -59,21 +59,21 @@ public class EntityBase : MonoBehaviour
             Debug.Log($"[DamageLog]Hurt DMG:{DMG} margicAttribute:{magicAttribute} knockBack:{knockBack} HitStop:{hitStopTime}");
 
 
-       if (gameObject.GetComponent<ZakoEnemyController>())
-{
-    if (!overHeating)
-    {
-        Heat += DMG; // lockOperationじゃなかったらHeatにDMGを追加します
-        Heat = Mathf.Clamp(Heat, 0.0f, HeatCapacity); // 0.0fは下限、HeatCapacityが上限。Heatは0以上HeatCapacity以下
-
-        if (Heat == HeatCapacity)
+        if (gameObject.GetComponent<ZakoEnemyController>())
         {
-            overHeating = true; // HeatがHeatCapacity超えたらlockOperationがtrueになるんだ
-            
-        }
-    }
+            if (!overHeating)
+            {
+                Heat += DMG; // lockOperationじゃなかったらHeatにDMGを追加します
+                Heat = Mathf.Clamp(Heat, 0.0f, HeatCapacity); // 0.0fは下限、HeatCapacityが上限。Heatは0以上HeatCapacity以下
 
-}
+                if (Heat >= HeatCapacity)
+                {
+                    overHeating = true; // HeatがHeatCapacity超えたらlockOperationがtrueになるんだ
+                    gameObject.GetComponent<ZakoEnemyController>().lockOperation = true;
+                }
+            }
+
+        }
         }
     }
     IEnumerator HitStop(float time){

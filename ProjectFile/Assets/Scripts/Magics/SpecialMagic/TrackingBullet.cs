@@ -55,8 +55,7 @@ public class TrackingBullet : MonoBehaviour
         StartCoroutine(Onenable());
     }
     void OnTriggerEnter2D(Collider2D other){
-        if(!other.gameObject.CompareTag(this.gameObject.tag) &&!other.gameObject.CompareTag("NPC")){
-            Debug.Log("Exprosion!! " + other.gameObject.name + gameObject.tag);
+        if(!other.gameObject.CompareTag(this.gameObject.tag) && !other.gameObject.CompareTag("NPC")){
             Destroy(Instantiate(hitParticlePrefab,transform.position,transform.rotation),2);
             Destroy(this.gameObject);
         }

@@ -11,7 +11,7 @@ public class TrackingBullet : MonoBehaviour
     private Rigidbody2D rb2D;
     public GameObject hitParticlePrefab;
     private Vector2 startpos;
-    [ReadOnly]Vector3 targpos;
+    [ReadOnly,SerializeField]Vector3 targpos;
     [ReadOnly]bool LockOn = false;
     IEnumerator Onenable()
     {

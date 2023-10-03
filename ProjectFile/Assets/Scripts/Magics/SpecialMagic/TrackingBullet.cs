@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TrackingBullet : MonoBehaviour
 {
-    public Transform targetTrf;
+    public GameObject target;
     public float rotateSpeed;
     public float speed;
     public float t;
@@ -22,7 +22,7 @@ public class TrackingBullet : MonoBehaviour
         Vector2 sp = rb2D.velocity;
         GameObject[] targets = GameObject.FindGameObjectsWithTag("Enemy");
         if(targets.Length > 0){
-            GameObject target = targets[0];//仮で代入
+            target = targets[0];//仮で代入
             foreach(GameObject candidateTarget in targets){
                 if(Vector2.Distance(candidateTarget.transform.position,transform.position) < Vector2.Distance(target.transform.position,transform.position))target = candidateTarget;
             }
@@ -41,6 +41,8 @@ public class TrackingBullet : MonoBehaviour
         rb2D.bodyType = RigidbodyType2D.Static;
         
         while(true){
+            targpos = target.transform.position;
+
             float myRad = (transform.localEulerAngles.z + 180) * Mathf.Deg2Rad;
             Vector3 mypos = transform.position;
             transform.Rotate(0, 0, Mathf.Clamp(Vector2.SignedAngle(new Vector2((float)Mathf.Cos(myRad), (float)Mathf.Sin(myRad)), (mypos - targpos).normalized),-1,1) * rotateSpeed * Time.deltaTime);

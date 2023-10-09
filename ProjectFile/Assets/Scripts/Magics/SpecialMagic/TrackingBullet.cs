@@ -8,6 +8,8 @@ public class TrackingBullet : MonoBehaviour
     public float rotateSpeed;
     public float speed;
     public float t;
+    public float force = 50;
+    public float delay = 0.5f;
     private Rigidbody2D rb2D;
     public GameObject hitParticlePrefab;
     private Vector2 startpos;
@@ -16,11 +18,11 @@ public class TrackingBullet : MonoBehaviour
     IEnumerator Onenable()
     {
         rb2D = gameObject.GetComponent<Rigidbody2D>();
-        rb2D.AddForce(transform.right*50);
+        rb2D.AddForce(transform.right*force);
         startpos = transform.position;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(delay);
         Vector2 sp = rb2D.velocity;
-        GameObject[] targets = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] targets = gameObject.CompareTag("Enemy") ? GameObject.FindGameObjectsWithTag("Player"):GameObject.FindGameObjectsWithTag("Enemy");
         if(targets.Length > 0){
             target = targets[0];//仮で代入
             foreach(GameObject candidateTarget in targets){
@@ -58,7 +60,10 @@ public class TrackingBullet : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other){
         if(!other.gameObject.CompareTag(this.gameObject.tag) && !other.gameObject.CompareTag("NPC")){
-            Destroy(Instantiate(hitParticlePrefab,transform.position,transform.rotation),2);
+            GameObject exprosion = Instantiate(hitParticlePrefab,transform.position,transform.rotation);
+            exprosion.tag = gameObject.CompareTag("Enemy") ?  "Enemy":"Player";
+            Destroy(exprosion,2);
+            Destroy(exprosion.GetComponent<AttackBase>(),0.1f);
             Destroy(this.gameObject);
         }
     }

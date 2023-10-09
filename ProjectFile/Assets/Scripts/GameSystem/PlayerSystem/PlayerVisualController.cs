@@ -1,10 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditorInternal;
 using UnityEngine;
 using UnityEditor.Animations;
-using JetBrains.Annotations;
 
 public class PlayerVisualController : MonoBehaviour
 {
@@ -76,7 +72,7 @@ public class PlayerVisualController : MonoBehaviour
             PlayAnim();
             plAnim.SetInteger("Direction",plc.direction);
         }
-        if(oldOpeningInventry !=plc.openingInventry){
+        if(oldOpeningInventry != plc.openingInventry){
             if(plc.openingInventry){
                 plAnim.Play("StayUp");
                 PickUpWeaponInRightHand();
@@ -198,7 +194,6 @@ public class PlayerVisualController : MonoBehaviour
         
         ChildAnimatorState[] NormalStates
          = animatorController.layers[0].stateMachine.stateMachines[GetSubStateFromName("NormalAttack",animatorController.layers[0].stateMachine.stateMachines)].stateMachine.states;
-        Debug.Log(NormalStates[GetStateFromName("Up",NormalStates)].state.name);
         NormalStates[GetStateFromName("Up",NormalStates)].state.motion = normalAttackMotions.upMotion;
         NormalStates[GetStateFromName("Thrust",NormalStates)].state.motion = normalAttackMotions.thrustMotion;
         NormalStates[GetStateFromName("Down",NormalStates)].state.motion = normalAttackMotions.downMotion;
@@ -222,7 +217,6 @@ public class PlayerVisualController : MonoBehaviour
         return res;
     }
     public void OnSpecialMotionExit(){
-        Debug.Log("Exit");
         PlayAnim();
         plAnim.SetInteger("Direction",plc.direction);
     }

@@ -33,7 +33,6 @@ public class HPBarController : MonoBehaviour
             if(subBarRectTrf.sizeDelta.x > 0&&mainBarRectTrf.sizeDelta.x < subBarRectTrf.sizeDelta.x)subBarRectTrf.sizeDelta -= new Vector2(5f*Time.deltaTime,0);
             my_rect_trf.position =  GetHealthBarPostion();
             if(oldHP > entityBase.Health){
-                Debug.Log("a"+mainBarRectTrf.sizeDelta.x);
                 GameObject DMGTexObject = Instantiate(DMGTexPrefab,transform.position + new Vector3(Random.Range(-50,50),0,0),Quaternion.identity,transform);
                 TextMeshProUGUI DMGTex = DMGTexObject.GetComponent<TextMeshProUGUI>();
                 DMGTex.text = (oldHP-entityBase.Health).ToString();

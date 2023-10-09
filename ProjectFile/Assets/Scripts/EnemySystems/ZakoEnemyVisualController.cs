@@ -34,13 +34,14 @@ public class ZakoEnemyVisualController : MonoBehaviour
             }break;
         }
         if(nowState != oldState){//onchange state
+            Debug.Log($"{zakoEnemyController.name} changes state from {oldState} to {zakoEnemyController.nowState}");
             switch(nowState){
                 case "attacking":{
-                    if(zakoEnemyController.direction == 1) animator.Play("Attack_R",0,0);
-                    else animator.Play("Attack_L",0,0);
+                    if(zakoEnemyController.direction == 1) animator.Play(zakoEnemyController.DoingSkillKind.ToString()+"_R",0,0);
+                    else animator.Play(zakoEnemyController.DoingSkillKind.ToString()+"_L",0,0);
                 }break;
                 case "deathing":{
-                    Debug.Log(zakoEnemyController.nowState + "Death");
+                    Debug.Log(zakoEnemyController.nowState + " Death");
                     if(zakoEnemyController.direction == 1) animator.Play("Death_R",0,0);
                     else animator.Play("Death_L",0,0);
                 }break;
@@ -60,7 +61,8 @@ public class ZakoEnemyVisualController : MonoBehaviour
         }
         oldHealth = zakoEnemyController.entityBase.Health;
         oldState = nowState;
-    }    enum AnimState{
+    }    
+    enum AnimState{
         staying,
         walking,
         running,

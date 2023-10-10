@@ -103,12 +103,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  rotateSpeed: 180
+  rotateSpeed: 150
   speed: 5
   t: 0
   force: 100
   delay: 0.3
   hitParticlePrefab: {fileID: 7998920042566930391, guid: 41afdc89b4bf52242a67971133dc24aa, type: 3}
+  offsetPos: {x: 0, y: -0.5}
   targpos: {x: 0, y: 0, z: 0}
 --- !u!50 &6136934609522936811
 Rigidbody2D:

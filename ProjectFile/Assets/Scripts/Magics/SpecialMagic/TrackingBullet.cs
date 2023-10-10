@@ -12,6 +12,7 @@ public class TrackingBullet : MonoBehaviour
     public float delay = 0.5f;
     private Rigidbody2D rb2D;
     public GameObject hitParticlePrefab;
+    public Vector2 offsetPos;
     private Vector2 startpos;
     [ReadOnly,SerializeField]Vector3 targpos;
     [ReadOnly]bool LockOn = false;
@@ -43,7 +44,7 @@ public class TrackingBullet : MonoBehaviour
         rb2D.bodyType = RigidbodyType2D.Static;
         
         while(true){
-            targpos = target.transform.position;
+            targpos = target.transform.position + (Vector3)offsetPos;
 
             float myRad = (transform.localEulerAngles.z + 180) * Mathf.Deg2Rad;
             Vector3 mypos = transform.position;

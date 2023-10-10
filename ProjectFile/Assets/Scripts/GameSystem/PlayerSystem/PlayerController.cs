@@ -352,7 +352,7 @@ public class PlayerController : MonoBehaviour
                     lockOperation = false;
                 }
                 break;
-                case "Gard":{
+                case "ButtonDown":{
                     if(drawMagicSymbols.Count > 0){
                         if(drawMagicSymbols[drawMagicSymbols.Count -1].magicSymbol != "Circle"){
                             //Enchant
@@ -394,12 +394,16 @@ public class PlayerController : MonoBehaviour
                     }
 
                 }break;
+                case "ButtonUp":{
+                    lockOperation = false;
+                    eBase.gard = false;
+                }break;
             }
             
         }else {
-            if(oldDrawShapeName == "Gard"){
-            lockOperation = false;
-            eBase.gard = false;
+            if(drawShapeName == "ButtonUp"){
+                lockOperation = false;
+                eBase.gard = false;
             }
             drawShapeName = "None";
         }

@@ -41,6 +41,7 @@ public class ShapeJudger : MonoBehaviour
     }
     void Update()
     {
+        if(result == "ButtonUp")result = "none";
         if(Input.GetMouseButtonDown(0) && mousePointer.inGameWindow){//初期化
             inputPoints = new List<Vector2>();
             CircleAccuracyValue = 0;
@@ -49,14 +50,14 @@ public class ShapeJudger : MonoBehaviour
             thunderAccuracyValue = 0;
             grassAccuracyValue = 0;
             accuracy = 0;
-            if(Vector2.Distance(mousePointerTrf.localPosition,new Vector2(0,0)) < 1f)result = "Gard";
+            if(Vector2.Distance(mousePointerTrf.localPosition,new Vector2(0,0)) < 1f)result = "ButtonDown";
             
             lineRenderer.startWidth = 0.1f;
             lineRenderer.endWidth = 0.1f;
-            if(fadeOutLine != null && result != "Gard")StopCoroutine(fadeOutLine);
+            if(fadeOutLine != null && result != "ButtonDown")StopCoroutine(fadeOutLine);
         }
         if(Input.GetMouseButton(0)){
-            if(result != "Gard"){
+            if(result != "ButtonDown"){
                 if(detectionFrequency >= sinceLastAddedPoint){
                     sinceLastAddedPoint = 0;
                     if(inputPoints.Count > 0){
@@ -76,8 +77,8 @@ public class ShapeJudger : MonoBehaviour
             fadeOutLine = null;
             fadeOutLine = FadeOutLine();
             StartCoroutine(fadeOutLine);
-            if(result == "Gard"){
-                result = "None";
+            if(result == "ButtonDown"){
+                result = "ButtonUp";
                 plc.drawShapeName = result;
             }else{
                 CircleAccuracyValue = CheckCircle(inputPoints);

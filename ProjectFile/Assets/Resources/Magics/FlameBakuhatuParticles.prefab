@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4785991503849621106}
   - component: {fileID: 1654302388149114685}
   - component: {fileID: 5496986740259089085}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AttackParticle (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4839,7 +4839,7 @@ GameObject:
   - component: {fileID: 2523103853125677641}
   - component: {fileID: 195091462535561437}
   - component: {fileID: 8536110485369570367}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AttackParticle (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9667,7 +9667,7 @@ GameObject:
   - component: {fileID: 7359141345650568164}
   - component: {fileID: 237888210807397606}
   - component: {fileID: 6686920996826110977}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AttackParticle (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14554,7 +14554,7 @@ GameObject:
   - component: {fileID: 1779296330436085859}
   - component: {fileID: 8050402317454981474}
   - component: {fileID: 2160855685527966653}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FlameBakuhatuParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}

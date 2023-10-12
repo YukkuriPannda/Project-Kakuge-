@@ -105,6 +105,7 @@ MonoBehaviour:
   target: {fileID: 0}
   rotateSpeed: 150
   speed: 5
+  lifeTime: 2.5
   t: 0
   force: 100
   delay: 0.3

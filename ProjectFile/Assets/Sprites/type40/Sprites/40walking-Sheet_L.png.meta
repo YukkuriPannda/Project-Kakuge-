@@ -3,7 +3,7 @@ guid: f022033009c717140a72a1cf20028847
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -122,6 +129,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -474,25 +482,24 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      40walking-Sheet_L_3: -559898021
-      40walking-Sheet_L_13: 1730795560
       40walking-Sheet_L_0: 2099908029
-      40walking-Sheet_L_6: -417633283
-      40walking-Sheet_L_11: 1298384949
       40walking-Sheet_L_1: -1275745910
-      40walking-Sheet_L_8: 1968764296
-      40walking-Sheet_L_2: -955457514
       40walking-Sheet_L_10: -751198243
-      40walking-Sheet_L_15: -1226827018
-      40walking-Sheet_L_4: -172523896
-      40walking-Sheet_L_7: 1224557145
-      40walking-Sheet_L_9: 1230036437
+      40walking-Sheet_L_11: 1298384949
       40walking-Sheet_L_12: -1673415681
-      40walking-Sheet_L_5: 638359892
+      40walking-Sheet_L_13: 1730795560
       40walking-Sheet_L_14: -1047915673
-  spritePackingTag: 
+      40walking-Sheet_L_15: -1226827018
+      40walking-Sheet_L_2: -955457514
+      40walking-Sheet_L_3: -559898021
+      40walking-Sheet_L_4: -172523896
+      40walking-Sheet_L_5: 638359892
+      40walking-Sheet_L_6: -417633283
+      40walking-Sheet_L_7: 1224557145
+      40walking-Sheet_L_8: 1968764296
+      40walking-Sheet_L_9: 1230036437
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

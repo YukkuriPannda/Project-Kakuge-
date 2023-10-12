@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-guid: ec0cd50c241f6284ba41ef09d74ab652
+guid: 559f66b9679af90448e34ff046d61809
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,37 +103,14 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: type40Attack-sheet_L_0
+      name: Type40Died-Sheet_R_0
       rect:
         serializedVersion: 2
         x: 0
@@ -142,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cb3ae3bb4ef32484e969d70216291b20
-      internalID: 1852820927
+      spriteID: f6a9c168e63ff5c4491ee80bed8addd9
+      internalID: 669285767
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: type40Attack-sheet_L_1
+      name: Type40Died-Sheet_R_1
       rect:
         serializedVersion: 2
         x: 64
@@ -163,14 +145,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a1daba60cfdda9b40bfb8d7479990cd7
-      internalID: 777455033
+      spriteID: 3fb6d42d253d9f143b551f44ca04b6f4
+      internalID: -367643930
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: type40Attack-sheet_L_2
+      name: Type40Died-Sheet_R_2
       rect:
         serializedVersion: 2
         x: 128
@@ -184,14 +166,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: df8ab004178866641bdfe58cc07a9e7c
-      internalID: -644379927
+      spriteID: a341e2eff3eb0084ba6380f2745c6c3e
+      internalID: -1996098275
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: type40Attack-sheet_L_3
+      name: Type40Died-Sheet_R_3
       rect:
         serializedVersion: 2
         x: 192
@@ -205,14 +187,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 83f1867f75ccd17408e38f868fe70051
-      internalID: -1949591265
+      spriteID: 63868a114a3e7014aa732f782bcefd3a
+      internalID: 1693181738
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: type40Attack-sheet_L_4
+      name: Type40Died-Sheet_R_4
       rect:
         serializedVersion: 2
         x: 256
@@ -226,14 +208,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a915242017e6a124e96cf65f10abf851
-      internalID: -1031892220
+      spriteID: 7be667726e9cee642ad3007c6a05cf30
+      internalID: 1478153545
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: type40Attack-sheet_L_5
+      name: Type40Died-Sheet_R_5
       rect:
         serializedVersion: 2
         x: 320
@@ -247,14 +229,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8b86b6badd566c54d94485971ba00c8f
-      internalID: -2119279203
+      spriteID: dfec13659975b484ca81a05ec817c886
+      internalID: -1041046288
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: type40Attack-sheet_L_6
+      name: Type40Died-Sheet_R_6
       rect:
         serializedVersion: 2
         x: 384
@@ -268,14 +250,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fd3ebc50e4516144da375a34dd6ebaaa
-      internalID: 572134681
+      spriteID: b89a37055ff6f544d819909effdf0e0e
+      internalID: -648911668
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: type40Attack-sheet_L_7
+      name: Type40Died-Sheet_R_7
       rect:
         serializedVersion: 2
         x: 448
@@ -289,14 +271,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 73181b58ed5bbe446b37037c00ca10fb
-      internalID: -398883845
+      spriteID: 9fbc93bddcb4c2846b4739149aeb703c
+      internalID: 906760911
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: type40Attack-sheet_L_8
+      name: Type40Died-Sheet_R_8
       rect:
         serializedVersion: 2
         x: 512
@@ -310,8 +292,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b03027453b5d50c48854408ca6c111a1
-      internalID: -76888226
+      spriteID: bfa9f3090c46d914ebb404f2049c4679
+      internalID: 441211817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Type40Died-Sheet_R_9
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca354feaeef7a18438ca1ad0711caacf
+      internalID: -302073342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Type40Died-Sheet_R_10
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5c0c1e0177703f4a9d8c77933928753
+      internalID: -168741714
       vertices: []
       indices: 
       edges: []
@@ -327,18 +351,19 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      type40Attack-sheet_L_6: 572134681
-      type40Attack-sheet_L_0: 1852820927
-      type40Attack-sheet_L_3: -1949591265
-      type40Attack-sheet_L_4: -1031892220
-      type40Attack-sheet_L_7: -398883845
-      type40Attack-sheet_L_5: -2119279203
-      type40Attack-sheet_L_1: 777455033
-      type40Attack-sheet_L_2: -644379927
-      type40Attack-sheet_L_8: -76888226
-  spritePackingTag: 
+      Type40Died-Sheet_R_0: 669285767
+      Type40Died-Sheet_R_1: -367643930
+      Type40Died-Sheet_R_10: -168741714
+      Type40Died-Sheet_R_2: -1996098275
+      Type40Died-Sheet_R_3: 1693181738
+      Type40Died-Sheet_R_4: 1478153545
+      Type40Died-Sheet_R_5: -1041046288
+      Type40Died-Sheet_R_6: -648911668
+      Type40Died-Sheet_R_7: 906760911
+      Type40Died-Sheet_R_8: 441211817
+      Type40Died-Sheet_R_9: -302073342
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

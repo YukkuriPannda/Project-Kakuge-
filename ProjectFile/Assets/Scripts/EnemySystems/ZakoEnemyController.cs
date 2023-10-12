@@ -20,7 +20,16 @@ public class ZakoEnemyController : MonoBehaviour
     }
 
     [ReadOnly]public GameObject target;
-    [ReadOnly]public string nowState = "finding";
+    [ReadOnly]public State nowState = State.Finding;
+    public enum State{
+        Finding,
+        Following,
+        Attacking,
+        Stopping,
+        Deathing,
+        Damaging,
+        OverHeating
+    }
     [HideInInspector]public string oldState;
     [HideInInspector]public Rigidbody2D rb2D;
     Vector2 StartPos;
@@ -61,23 +70,23 @@ public class ZakoEnemyController : MonoBehaviour
     void FixedUpdate()
     {
         if(!lockOperation){
-            if(nowState == "following"){
+            if(nowState == State.Following){
                 Following();
             }
-            if(nowState == "finding"){
+            if(nowState ==  State.Finding){
                 Finding();
             }
         }
     }
     void Update(){
         if(!lockOperation){
-            for(int i = 0;i < attackDatas.Length && nowState != "attacking"&& !attackCooling;i++){
+            for(int i = 0;i < attackDatas.Length && nowState != State.Attacking&& !attackCooling;i++){
                 if(Mathf.Abs(target.transform.position.x - transform.position.x)<=attackDatas[i].distance)
                 {
                     if (target.transform.position.x > transform.position.x)direction = 1;
                     else direction = -1;
                     rb2D.velocity = new Vector2(0,rb2D.velocity.y);
-                    nowState = "attacking";
+                    nowState = State.Attacking;
 
                     //攻撃
                     ZakoEnemySkillFactory zakoEnemySkillFactory = new ZakoEnemySkillFactory();
@@ -90,22 +99,24 @@ public class ZakoEnemyController : MonoBehaviour
                 }
             }
             //If Out of attack distance
-            if(nowState != "attacking"){
+            if(nowState != State.Attacking){
                 if(Mathf.Abs(target.transform.position.x - transform.position.x) < detecitrRadius)
                 {
-                    nowState = "following";
+                    nowState = State.Following;
                 }else{
-                    if(LotteryStayAnim()==0) nowState = "finding";
-                    else nowState = "stopping";
+                    if(LotteryStayAnim()==0) nowState = State.Finding;
+                    else nowState = State.Stopping;
                 }
             }
         }
         if(entityBase.Health < oldHealth){
             lockOperation = true;
             Debug.Log(entityBase.Health);
-            if(entityBase.Health <= 0)nowState = "deathing";
-            else nowState = "damaging";
+            if(entityBase.Health <= 0)nowState = State.Deathing;
+            else if(nowState != State.OverHeating)nowState = State.Damaging;
         }
+        if(entityBase.Heat >= entityBase.HeatCapacity && nowState != State.OverHeating && nowState != State.Deathing)OverHeat();
+        if(entityBase.Heat < entityBase.HeatCapacity && nowState == State.OverHeating && nowState != State.Deathing)CoolDown();
         if(attackCooling)attackCoolingTime += Time.deltaTime;
         if(attackCoolingTime >= attackCoolTime && attackCooling)
         {
@@ -132,17 +143,28 @@ public class ZakoEnemyController : MonoBehaviour
         else direction = -1;
         
         int i = 0;
-        for(;i < attackDatas.Length;i++){
+        for(;i < attackDatas.Length-1;i++){
             if(Mathf.Abs(target.transform.position.x - transform.position.x) < attackDatas[i].distance) break;
         }
-        if(Mathf.Abs(target.transform.position.x - transform.position.x) < attackDatas[1].distance)direction *= -1;
-        if(Mathf.Abs(target.transform.position.x - transform.position.x) < attackDatas[1].distance
-        && Mathf.Abs(target.transform.position.x - transform.position.x) > attackDatas[1].distance-0.5f)nowState = "stopping";
+        Debug.Log($"activision attack data {i}");
+        if(Mathf.Abs(target.transform.position.x - transform.position.x) < attackDatas[i].distance)direction *= -1;
+
+        if(Mathf.Abs(target.transform.position.x - transform.position.x) < attackDatas[i].distance
+        && Mathf.Abs(target.transform.position.x - transform.position.x) > attackDatas[i].distance-0.5f)nowState = State.Stopping;
         else if(onGround)rb2D.AddForce(new Vector2(rb2D.mass * (direction * spotMovementSpeed - rb2D.velocity.x)/0.05f , 0));        
     }
+    public void OverHeat(){
+        rb2D.velocity = Vector2.zero;
+        nowState = State.OverHeating;
+        lockOperation = true;
+    }
+    public void CoolDown(){
+        nowState = State.Following;
+        lockOperation = false;
+    }
     public void OnFinishAttack(){
-        if(nowState == "deathing")Destroy(gameObject);
-        nowState = "following";
+        if(nowState == State.Deathing)Destroy(gameObject);
+        nowState = State.Following;
         Debug.Log("UnlockOp " + gameObject.name);
         attackCooling = true;
         lockOperation = false;

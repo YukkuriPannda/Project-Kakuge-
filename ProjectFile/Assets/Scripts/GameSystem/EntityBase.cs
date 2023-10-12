@@ -19,7 +19,7 @@ public class EntityBase : MonoBehaviour
     public bool Invulnerable = false;
     public bool NoGravity = false;
     public bool OnGround = false;
-    [ReadOnly,SerializeField]private  bool overHeating;
+    [ReadOnly,SerializeField]public  bool overHeating;
     private WaitForSecondsRealtime chachedHitStop;
     [ReadOnly]public MagicAttribute hurtMagicAtttribute = MagicAttribute.none;
     void Start()
@@ -68,8 +68,7 @@ public class EntityBase : MonoBehaviour
 
                 if (Heat >= HeatCapacity)
                 {
-                    overHeating = true; // HeatがHeatCapacity超えたらlockOperationがtrueになるんだ
-                    gameObject.GetComponent<ZakoEnemyController>().lockOperation = true;
+                    overHeating = true; // HeatがHeatCapacity超えたらlockOperationがtrue
                 }
             }
 

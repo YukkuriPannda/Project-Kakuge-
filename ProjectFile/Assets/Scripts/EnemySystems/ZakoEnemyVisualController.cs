@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ZakoEnemyVisualController : MonoBehaviour
@@ -9,7 +10,7 @@ public class ZakoEnemyVisualController : MonoBehaviour
     private Animator animator;
     private Material material;
     public  GameObject HitMark;
-    private string oldState;
+    private ZakoEnemyController.State oldState;
     private float oldHealth;  
     void Start()
     {
@@ -19,48 +20,45 @@ public class ZakoEnemyVisualController : MonoBehaviour
     }
     void Update()
     {
-        nowState = zakoEnemyController.nowState;
         if(zakoEnemyController.direction == 1 && animator.GetInteger("Direction") != 0)animator.SetInteger("Direction",0);
         if(zakoEnemyController.direction == -1 && animator.GetInteger("Direction") != 1)animator.SetInteger("Direction",1);
-        switch(nowState){
-            case "stopping":{
+        switch(zakoEnemyController.nowState){
+            case ZakoEnemyController.State.Stopping:{
                 animator.SetInteger("AnimNumber",(int)AnimState.staying);
             }break;
-            case "finding":{
+            case ZakoEnemyController.State.Finding:{
                 animator.SetInteger("AnimNumber",(int)AnimState.walking);
             }break;
-            case "following":{
+            case ZakoEnemyController.State.Following:{
                 animator.SetInteger("AnimNumber",(int)AnimState.running);
             }break;
         }
-        if(nowState != oldState){//onchange state
+        if(zakoEnemyController.nowState != oldState){//onchange state
             Debug.Log($"{zakoEnemyController.name} changes state from {oldState} to {zakoEnemyController.nowState}");
-            switch(nowState){
-                case "attacking":{
+            switch(zakoEnemyController.nowState){
+                case ZakoEnemyController.State.Attacking:{
                     if(zakoEnemyController.direction == 1) animator.Play(zakoEnemyController.DoingSkillKind.ToString()+"_R",0,0);
                     else animator.Play(zakoEnemyController.DoingSkillKind.ToString()+"_L",0,0);
                 }break;
-                case "deathing":{
+                case ZakoEnemyController.State.Deathing:{
                     Debug.Log(zakoEnemyController.nowState + " Death");
                     if(zakoEnemyController.direction == 1) animator.Play("Death_R",0,0);
                     else animator.Play("Death_L",0,0);
                 }break;
-            }
-        }
-        if(zakoEnemyController.entityBase.Health < oldHealth){
-            if(zakoEnemyController.nowState != "deathing"){
-                if(zakoEnemyController.direction == 1) animator.Play("Damage_R",0,0);
-                else animator.Play("Damage_L",0,0);
-                Debug.Log(zakoEnemyController.nowState);
-                StartCoroutine(HurtEffect());
-            }else{
-                Debug.Log(zakoEnemyController.nowState + "Death");
-                if(zakoEnemyController.direction == 1) animator.Play("Death_R",0,0);
-                else animator.Play("Death_L",0,0);
+                case ZakoEnemyController.State.OverHeating:{
+                    if(zakoEnemyController.direction == 1) animator.Play("OverHeat_R",0,0);
+                    else animator.Play("OverHeat_L",0,0);
+                }break;
+                case ZakoEnemyController.State.Damaging:{
+                    if(zakoEnemyController.direction == 1) animator.Play("Damage_R",0,0);
+                    else animator.Play("Damage_L",0,0);
+                    Debug.Log(zakoEnemyController.nowState);
+                    StartCoroutine(HurtEffect());
+                }break;
             }
         }
         oldHealth = zakoEnemyController.entityBase.Health;
-        oldState = nowState;
+        oldState = zakoEnemyController.nowState;
     }    
     enum AnimState{
         staying,

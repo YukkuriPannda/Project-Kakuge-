@@ -7,6 +7,7 @@ public class TrackingBullet : MonoBehaviour
     public GameObject target;
     public float rotateSpeed;
     public float speed;
+    public float lifeTime;
     public float t;
     public float force = 50;
     public float delay = 0.5f;
@@ -43,7 +44,7 @@ public class TrackingBullet : MonoBehaviour
         }
         rb2D.bodyType = RigidbodyType2D.Static;
         
-        while(true){
+        while(t<lifeTime){
             targpos = target.transform.position + (Vector3)offsetPos;
 
             float myRad = (transform.localEulerAngles.z + 180) * Mathf.Deg2Rad;
@@ -55,17 +56,21 @@ public class TrackingBullet : MonoBehaviour
             t += Time.deltaTime;
             yield return null;
         }
+        Exprosion();
     }
     private void OnEnable() {
         StartCoroutine(Onenable());
     }
     void OnTriggerEnter2D(Collider2D other){
         if(!other.gameObject.CompareTag(this.gameObject.tag) && !other.gameObject.CompareTag("NPC")){
-            GameObject exprosion = Instantiate(hitParticlePrefab,transform.position,transform.rotation);
-            exprosion.tag = gameObject.CompareTag("Enemy") ?  "Enemy":"Player";
-            Destroy(exprosion,2);
-            Destroy(exprosion.GetComponent<AttackBase>(),0.1f);
-            Destroy(this.gameObject);
+            Exprosion();
         }
+    }
+    void Exprosion(){
+        GameObject exprosion = Instantiate(hitParticlePrefab,transform.position,transform.rotation);
+        exprosion.tag = gameObject.CompareTag("Enemy") ?  "Enemy":"Player";
+        Destroy(exprosion,2);
+        Destroy(exprosion.GetComponent<AttackBase>(),0.1f);
+        Destroy(this.gameObject);
     }
 }

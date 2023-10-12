@@ -120,10 +120,10 @@ public class PlayerController : MonoBehaviour
             if(onGround) {
                 rb2D.AddForce(new Vector2(rb2D.mass * (input * movementSpeed - rb2D.velocity.x)/0.02f ,0));//f=maの応用
             }else{
-                rb2D.AddForce(new Vector2(rb2D.mass * (input * movementSpeed - rb2D.velocity.x)/0.5f,0));
+                rb2D.AddForce(new Vector2(rb2D.mass * (input * movementSpeed - rb2D.velocity.x)/0.04f ,0));//f=maの応用
             }
         }else{
-            if(drawShapeName == "Gard")rb2D.AddForce(new Vector2(rb2D.mass * (input * 0 - rb2D.velocity.x)/0.1f ,0));
+            if(drawShapeName == "ButtonDown")rb2D.AddForce(new Vector2(rb2D.mass * (input * 0 - rb2D.velocity.x)/0.1f ,0));
         }
         if(timeFromEnchanted > 0){
             timeFromEnchanted += Time.deltaTime;
@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour
     public void Jump(float input) { // 最大値1,
         if (onGround && oldInputValueForMove.y == 0 && input !=0) {//接地していてかつ押した瞬間
             jumping = true;
-            rb2D.AddForce(new Vector2(0,JumpForce * input * 5));
+            rb2D.AddForce(new Vector2(rb2D.velocity.x * rb2D.velocity.x * rb2D.mass,JumpForce * input * 5));
             addingforceInJumping = 0;
         }
         if(jumping)addingforceInJumping += 0.02f;

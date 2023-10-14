@@ -218,13 +218,21 @@ MonoBehaviour:
   detecitrRadius: 6
   attackRadius: 0.75
   attackCollider: {fileID: 7114548282539418036, guid: 4ae002a3738754e4b99468d5ce01c405, type: 3}
-  skillKind: 0
+  DoingSkillKind: 0
+  attackCoolTime: 1
+  attackDatas:
+  - skillKind: 0
+    distance: 0.75
   target: {fileID: 0}
-  nowState: finding
+  nowState: 0
+  oldState: 
+  rb2D: {fileID: 0}
   staycount: 0
   direction: 1
   onGround: 0
   lockOperation: 0
+  attackCooling: 0
+  attackCoolingTime: 0
   entityBase: {fileID: 0}
   oldHealth: 0
 --- !u!114 &2728796686871873065
@@ -401,7 +409,7 @@ Animator:
   m_GameObject: {fileID: 6261079412085386576}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: dfe70e0aeb24c4a409423c10cd59eb41, type: 2}
+  m_Controller: {fileID: 9100000, guid: f892d2abf48eff74a8a56a9820b4a5e8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

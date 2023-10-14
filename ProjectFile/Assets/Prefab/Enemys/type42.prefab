@@ -65,7 +65,7 @@ MonoBehaviour:
   - skillKind: 1
     distance: 4
   target: {fileID: 0}
-  nowState: finding
+  nowState: 0
   oldState: 
   rb2D: {fileID: 0}
   staycount: 0
@@ -250,7 +250,7 @@ Animator:
   m_GameObject: {fileID: 1209089591497641434}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: dfe70e0aeb24c4a409423c10cd59eb41, type: 2}
+  m_Controller: {fileID: 9100000, guid: 8244363a5a8899843909be57180a2628, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

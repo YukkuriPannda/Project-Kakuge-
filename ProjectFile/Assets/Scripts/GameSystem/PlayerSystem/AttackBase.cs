@@ -44,7 +44,7 @@ public class AttackBase : MonoBehaviour
                 hurtObjectInfo.eBase.Hurt(damage,gameObject.tag,knockBack,hitStopTime,magicAttribute);
             }
             hurtObjectInfo.time += Time.deltaTime;
-            if(hurtObjectInfo.time >= hurtCoolTime)hurtObjectInfo.time = 0;
+            if(hurtObjectInfo.time >= hurtCoolTime && !onlyFirstHurt)hurtObjectInfo.time = 0;
         }
     }
     void OnTriggerExit2D(Collider2D other) {

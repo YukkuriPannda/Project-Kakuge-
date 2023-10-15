@@ -8,6 +8,7 @@ public class FireBall : MonoBehaviour
     public float lifeTime;
     public GameObject hitParticlePrefab;
     [ReadOnly]public float age;
+    private bool exprosed = false;
     void Start(){
         if(speed < 0)gameObject.GetComponent<AttackBase>().knockBack *= new Vector2(-1,1);
     }
@@ -16,18 +17,19 @@ public class FireBall : MonoBehaviour
         transform.Translate(speed *Time.deltaTime,0,0);
         age += Time.deltaTime;
         if(age > lifeTime){
-            Bakuhatu();
+            if(!exprosed)Bakuhatu();
         }
     }
     void OnTriggerEnter2D(Collider2D other){
         if(!other.gameObject.CompareTag(this.gameObject.tag) && !other.gameObject.CompareTag("NPC")){
-            Bakuhatu();
+            if(!exprosed)Bakuhatu();
+            exprosed = true;
         }
     }
     void Bakuhatu(){
         GameObject hitParticle = Instantiate(hitParticlePrefab,transform.position,transform.rotation);
         Destroy(hitParticle,2);
         Destroy(hitParticle.GetComponent<AttackBase>(),0.2f);
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 }

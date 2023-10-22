@@ -68,6 +68,7 @@ public class PlayerController : MonoBehaviour
     [ReadOnly]public PlayerStates nowPlayerState = PlayerStates.Stay;
     private GameObject gardObject;
     [ReadOnly]public float timeFromEnchanted = 0;
+    [ReadOnly]public bool CounterReception = false;
 
     [ReadOnly]public float upForwardDistance;
     [ReadOnly]public float thrustForwardDistance;
@@ -107,7 +108,8 @@ public class PlayerController : MonoBehaviour
         }
         oldDrawShapeName = drawShapeName;
         if(oldHealth > eBase.Health){
-            if(!eBase.CounterReception){
+            if(!eBase.ParryReception && nowPlayerState != PlayerStates.CounterAttack && CounterReception){
+                Debug.Log("HUrt!!");
                 lockOperation = true;
                 if(drawShapeName != "Gard") drawShapeName = "None";
                 nowPlayerState = PlayerStates.Hurt;
@@ -118,7 +120,7 @@ public class PlayerController : MonoBehaviour
     }
     
     public void Move(float input) { // 移動方向/強さ -1~1 として
-        if(!lockOperation){
+        if(!lockOperation && !CounterReception && nowPlayerState != PlayerStates.CounterAttack ){
             if(InputValueForMove.x != 0) nowPlayerState = PlayerStates.Runing;
             else nowPlayerState = PlayerStates.Stay;
             if(InputValueForMove.x > 0)direction = 1;
@@ -164,7 +166,7 @@ public class PlayerController : MonoBehaviour
         openingInventry =false;
     }
     public IEnumerator onChangeDrawShapeName(){
-        if(oldDrawShapeName == "None" && !lockOperation){
+        if(oldDrawShapeName == "None" && !lockOperation && !(nowPlayerState == PlayerStates.CounterAttack || CounterReception)){
             lockOperation = true;
             switch(drawShapeName){
                 case "StraightToRight":{
@@ -205,6 +207,7 @@ public class PlayerController : MonoBehaviour
                     }
                 }break;
                 case  "StraightToUp":{
+                    Debug.Log("Up");
                     if(drawShapePos.x > 0) direction =1;
                     else direction = -1;
                     nowPlayerState = PlayerStates.Up;
@@ -416,15 +419,17 @@ public class PlayerController : MonoBehaviour
                         //Gard
                         nowPlayerState = PlayerStates.Garding;
                         eBase.gard = true;
+                        eBase.ParryReception = true;
+                        eBase.acceptDamage = false;
                         gardObject = Instantiate(attackColliders.Gard,transform.position,Quaternion.identity,transform);
                         gardObject.tag = gameObject.tag;
                         gardObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().material.SetColor("_Color",MagicColorManager.GetColorFromMagicArticle(eBase.myMagicAttribute));
-                        eBase.CounterReception = true;
                         drawMagicSymbols = new List<DrawMagicSymbol>();
                         drawShapeName = "None";
                         oldDrawShapeName ="None";
                         yield return new WaitForSeconds(0.2f);
-                        eBase.CounterReception = false;
+                        eBase.ParryReception = false;
+                        eBase.acceptDamage = true;
 
                     }
 
@@ -436,36 +441,38 @@ public class PlayerController : MonoBehaviour
             }
             
         }else {
-            if(drawShapeName == "ButtonUp"){
+            if(drawShapeName == "ButtonUp" && !CounterReception){
                 lockOperation = false;
                 eBase.gard = false;
+                drawShapeName = "None";
             }
-            drawShapeName = "None";
         }
     }
     public IEnumerator Parry(int DMG){
-        Time.timeScale =0.2f;
+        Debug.Log("Parry!!");
         bool counterAttack = false;
-        for(float t = 0;t < 1.0;t += Time.deltaTime*5){
-            if(drawShapeName != "None"){
+        eBase.ParryReception = false;
+        CounterReception = true;
+        Time.timeScale = 0.1f;
+        for(float t = 0;t < 1.0f;t += Time.deltaTime){
+            if(drawShapeName != "None" && drawShapeName != "ButtonDown" && drawShapeName != "ButtonUp"){
                 counterAttack = true;
+                nowPlayerState = PlayerStates.CounterAttack;
+                Debug.Log("Counter!!");
                 break;
             }
             yield return null;
         }
-        if(eBase.CounterReception){
-            StopAllCoroutines();
-            eBase.CounterReception = false;
+        CounterReception = false;
+        Time.timeScale = 1f;
+        if(counterAttack){
             //counter
-            lockOperation=true;
             if(drawShapePos.x > 0) direction =1;
             else direction = -1;
-            nowPlayerState = PlayerStates.CounterAttack;
-            yield return new WaitForSeconds(0.1f);
-
+            yield return new WaitForSeconds(0.2f);
             GameObject DMGObject = Instantiate(attackColliders.counterAttack,new Vector2(transform.position.x + 0.75f * direction,transform.position.y),Quaternion.identity);
             if(direction < 0){
-                DMGObject.transform.GetChild(0).eulerAngles = new Vector3(0,180,0);
+                DMGObject.transform.GetChild(0).eulerAngles = new Vector3(-120,180,0);
                 DMGObject.transform.GetChild(0).localPosition = Vector3.Scale(new Vector3(-1,1,1),DMGObject.transform.GetChild(0).localPosition);
             }
             DMGObject.GetComponent<BoxCollider2D>().offset *= new Vector2(direction,1);
@@ -483,10 +490,10 @@ public class PlayerController : MonoBehaviour
                 yield return new WaitForEndOfFrame();
             }
             if(DMGObject.GetComponentInChildren<SpriteRenderer>())DMGObject.GetComponentInChildren<SpriteRenderer>().material.SetColor("_Color",EffectColor(eBase.myMagicAttribute));
-        }
-        Time.timeScale =1f;
-        if(counterAttack){
-            nowPlayerState = PlayerStates.CounterAttack;
+        }else{
+            nowPlayerState = PlayerStates.Stay;
+            lockOperation = false;
+            eBase.acceptDamage = true;
         }
         yield break;
     }
@@ -496,6 +503,8 @@ public class PlayerController : MonoBehaviour
         lockOperation = false;
         Debug.Log("UnLocked operation");
         Time.timeScale =1f;
+        nowPlayerState = PlayerStates.Stay;
+        eBase.acceptDamage = true;
     }
     Color EffectColor(MagicAttribute magicAttribute){
         Color res =Color.white;
@@ -527,4 +536,10 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawWireSphere(new Vector2(transform.position.x,transform.position.y-playerHeight/2),0.1f);
         Gizmos.DrawWireSphere(transform.position,enchantDetectionRadius);
     }
+
+    public void SlowMotionStart(float mulutiply){
+        Time.timeScale = mulutiply;
+        Debug.Log("Slow!");
+    }
+    public void SlowMotionEnd(){Time.timeScale = 1;}
 }

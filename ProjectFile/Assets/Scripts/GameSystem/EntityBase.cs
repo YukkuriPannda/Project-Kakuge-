@@ -16,7 +16,8 @@ public class EntityBase : MonoBehaviour
     public float Heating = 5.0f;
 
     public bool gard = false; //Gard
-    [SerializeField,ReadOnly] public bool CounterReception = false;
+    [SerializeField,ReadOnly] public bool ParryReception = false;
+    [SerializeField,ReadOnly] public bool acceptDamage = true;
     public bool Invulnerable = false;
     public bool NoGravity = false;
     public bool OnGround = false;
@@ -29,7 +30,7 @@ public class EntityBase : MonoBehaviour
     }
     public void Hurt(float DMG,string AttackBelongedTeam,Vector2 knockBack,float hitStopTime,MagicAttribute magicAttribute = MagicAttribute.none){
         int resutDMG = DMGCalucation(DMG,magicAttribute);
-        if(!gameObject.CompareTag(AttackBelongedTeam) && Health >= 0 && !CounterReception){
+        if(!gameObject.CompareTag(AttackBelongedTeam) && Health >= 0 && acceptDamage){
 
             gameObject.GetComponent<Rigidbody2D>().AddForce(knockBack,ForceMode2D.Impulse);
             if(hitStopTime > 0)StartCoroutine(HitStop(hitStopTime));
@@ -50,7 +51,7 @@ public class EntityBase : MonoBehaviour
 
             }
         }
-        if(CounterReception){
+        if(ParryReception){
             if(gameObject.GetComponent<PlayerController>())StartCoroutine(gameObject.GetComponent<PlayerController>().Parry(resutDMG));
         }
     }

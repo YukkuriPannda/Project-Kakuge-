@@ -44,6 +44,7 @@ public class ShapeJudger : MonoBehaviour
         if(result == "ButtonUp")result = "none";
         if(Input.GetMouseButtonDown(0) && mousePointer.inGameWindow){//初期化
             inputPoints = new List<Vector2>();
+            sortPoints = new List<Vector2>();
             CircleAccuracyValue = 0;
             RegularTriangleAccuracyValue = 0;
             InvertedTriangleAccuracyValue = 0;

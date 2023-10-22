@@ -146,7 +146,7 @@ public class ZakoEnemyController : MonoBehaviour
         for(;i < attackDatas.Length-1;i++){
             if(Mathf.Abs(target.transform.position.x - transform.position.x) < attackDatas[i].distance) break;
         }
-        Debug.Log($"activision attack data {i}");
+        //Debug.Log($"activision attack data {i}");
         if(Mathf.Abs(target.transform.position.x - transform.position.x) < attackDatas[i].distance)direction *= -1;
 
         if(Mathf.Abs(target.transform.position.x - transform.position.x) < attackDatas[i].distance

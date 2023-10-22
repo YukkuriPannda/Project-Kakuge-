@@ -34,7 +34,7 @@ public class ZakoEnemyVisualController : MonoBehaviour
             }break;
         }
         if(zakoEnemyController.nowState != oldState){//onchange state
-            Debug.Log($"{zakoEnemyController.name} changes state from {oldState} to {zakoEnemyController.nowState}");
+//            Debug.Log($"{zakoEnemyController.name} changes state from {oldState} to {zakoEnemyController.nowState}");
             switch(zakoEnemyController.nowState){
                 case ZakoEnemyController.State.Attacking:{
                     if(zakoEnemyController.direction == 1) animator.Play(zakoEnemyController.DoingSkillKind.ToString()+"_R",0,0);

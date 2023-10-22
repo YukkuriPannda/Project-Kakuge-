@@ -162,7 +162,10 @@ public class PlayerVisualController : MonoBehaviour
                 plAnim.Play("Damage",0,0);
             }break;
             case PlayerController.PlayerStates.CounterAttack:{
+                if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);
+                else model.transform.localEulerAngles = new Vector3(0,180,0);
                 plAnim.Play("Counter",0,0);
+                PickUpWeapon();
             }break;
         }
     }

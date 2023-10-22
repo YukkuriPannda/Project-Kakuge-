@@ -309,7 +309,7 @@ Material:
     - _ZWrite: 1
     - _ZWriteMode: 1
     - _luster: 1
-    - _outineWidth: 0
+    - _outineWidth: 0.545
     - _simpleUI: 0
     - _utsTechnique: 0
     - _utsVersionX: 2
@@ -339,7 +339,7 @@ Material:
     - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
     - _ViewShift: {r: 0, g: 0, b: 0, a: 1}
     - _main: {r: 0.9433962, g: 0.8922688, b: 0.743147, a: 1}
-    - _outline: {r: 0, g: 0, b: 0, a: 0}
+    - _outline: {r: 1, g: 0.22193432, b: 0, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &5328428731674371901
 MonoBehaviour:

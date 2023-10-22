@@ -718,7 +718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4783b916a6d73e740b19263d0dd0155f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 50
+  damage: 20
   magicAttribute: 3
   hurtCoolTime: 0.1
   hitStop: 1
@@ -726,6 +726,7 @@ MonoBehaviour:
   knockBack: {x: 0, y: 0}
   onlyFirstHurt: 0
   radicalHurt: 0
+  gizmo: 0
   hurtTime: 0
   hurtObjectInfos: []
 --- !u!95 &2138536972980092760

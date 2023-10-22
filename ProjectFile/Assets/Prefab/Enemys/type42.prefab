@@ -53,7 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalMovementSpeed: 1
-  spotMovementSpeed: 3
+  spotMovementSpeed: 2
   detecitrRadius: 6
   attackRadius: 0.75
   attackCollider: {fileID: 7114548282539418036, guid: 4ae002a3738754e4b99468d5ce01c405, type: 3}
@@ -63,7 +63,7 @@ MonoBehaviour:
   - skillKind: 0
     distance: 2
   - skillKind: 1
-    distance: 4
+    distance: 5
   target: {fileID: 0}
   nowState: 0
   oldState: 

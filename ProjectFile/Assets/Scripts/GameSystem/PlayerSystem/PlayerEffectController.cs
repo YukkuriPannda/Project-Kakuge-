@@ -4,68 +4,44 @@ using UnityEngine;
 
 public class PlayerEffectController : MonoBehaviour
 {   
-    Material bladeMaterial;
     [System.Serializable]
-    public class BladeParticles{
-        public ParticleSystem flame;
-        public ParticleSystem aqua;
-        public ParticleSystem electro;
-        public ParticleSystem terra;
+    public class MagicColors{
+        [ColorUsage(true, true)]public Color flame;
+        [ColorUsage(true, true)]public Color aqua;
+        [ColorUsage(true, true)]public Color electro;
+        [ColorUsage(true, true)]public Color terra;
     }
-    public BladeParticles normalParticle;
-    public BladeParticles attackParticle;
+    public MagicColors magicColors;
+    public Material auraMat;
+    public List<ParticleSystem> auraParSyss  = new List<ParticleSystem>();
+    public ParticleSystem auraParSys_particle;
+    public ParticleSystem auraParSys_smoke;
 
     void Start()
     {
-        bladeMaterial = gameObject.GetComponent<PlayerController>().weapon.transform.Find("blade").GetComponent<MeshRenderer>().materials[0];
     }
-    public IEnumerator ActivationNormalParticle(MagicAttribute magicAttribute,float t){
+    public IEnumerator EnableNormalParticle(MagicAttribute magicAttribute){
+        auraParSys_particle.Play();
+        auraParSys_smoke.Play();
+        Debug.Log("AAA");
         switch(magicAttribute){
             case MagicAttribute.flame:{
-                normalParticle.flame.Play(true);
-                bladeMaterial.SetColor("_Color",MagicColorManager.flame);
+                auraMat.SetColor("_EmissionColor",magicColors.flame);
             }break;
             case MagicAttribute.aqua:{
-                normalParticle.aqua.Play(true);
-                bladeMaterial.SetColor("_Color",MagicColorManager.aqua);
+                auraMat.SetColor("_EmissionColor",magicColors.aqua);
             }break;
             case MagicAttribute.electro:{
-                normalParticle.electro.Play(true);
-                bladeMaterial.SetColor("_Color",MagicColorManager.electro);
+                auraMat.SetColor("_EmissionColor",magicColors.electro);
             }break;
             case MagicAttribute.terra:{
-                normalParticle.terra.Play(true);
-                
-                bladeMaterial.SetColor("_Color",MagicColorManager.terra);
-            }break;
-        }
-        yield return new WaitForSeconds(t);
-        normalParticle.flame.Stop();
-        normalParticle.aqua.Stop();
-        normalParticle.electro.Stop();
-        normalParticle.terra.Stop();
-        bladeMaterial.SetColor("_Color",Color.white * 0.5f);
-        yield break;
-    }
-    public IEnumerator ActivationAttackParticle(MagicAttribute magicAttribute){
-        switch(magicAttribute){
-            case MagicAttribute.flame:{
-                attackParticle.flame.Play(true);
-                bladeMaterial.SetColor("_Color",MagicColorManager.flame);
-            }break;
-            case MagicAttribute.aqua:{
-                attackParticle.aqua.Play(true);
-                bladeMaterial.SetColor("_Color",MagicColorManager.aqua);
-            }break;
-            case MagicAttribute.electro:{
-                attackParticle.electro.Play(true);
-                bladeMaterial.SetColor("_Color",MagicColorManager.electro);
-            }break;
-            case MagicAttribute.terra:{
-                attackParticle.terra.Play(true);
-                bladeMaterial.SetColor("_Color",MagicColorManager.terra);
+                auraMat.SetColor("_EmissionColor",magicColors.terra);
             }break;
         }
         yield break;
+    }
+    public void DisableNormalParticle(){
+        auraParSys_particle.Stop(); 
+        auraParSys_smoke.Stop();
     }
 }

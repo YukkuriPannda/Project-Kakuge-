@@ -125,6 +125,7 @@ public class InventrySystem : MonoBehaviour
         plc.attackColliders.Up = plvc.normalAttackMotions.upPrefab;
         plc.attackColliders.Thrust = plvc.normalAttackMotions.thrustPrefab;
         plc.attackColliders.Down = plvc.normalAttackMotions.downPrefab;
+        plc.attackColliders.counterAttack = plvc.normalAttackMotions.counterPrefab;
     }
 }
 [System.Serializable]

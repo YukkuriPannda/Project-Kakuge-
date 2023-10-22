@@ -4860,9 +4860,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 494060034653124516}
   - {fileID: 1286894144394392829}
   - {fileID: 8120952319072223430}
+  - {fileID: 494060034653124516}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &5404849622493068012
@@ -4939,11 +4939,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4783b916a6d73e740b19263d0dd0155f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 45
+  damage: 25
   magicAttribute: 3
-  hurtCoolTime: 0.1
+  hurtCoolTime: 0.2
   hitStop: 1
-  hitStopTime: 0.1
+  hitStopTime: 0.2
   knockBack: {x: 20, y: 0}
   onlyFirstHurt: 1
   radicalHurt: 1

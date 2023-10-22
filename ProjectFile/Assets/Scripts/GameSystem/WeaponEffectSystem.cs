@@ -13,16 +13,7 @@ public class WeaponEffectSystem : MonoBehaviour
     }
     public Particles attackParticles;
     public Particles normalParticles;
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public ItemCategory category;
     public void EnableNormalParticle(MagicAttribute magicAttribute){
         Debug.Log(gameObject.name);
         List<ParticleSystem> particleSystems = new List<ParticleSystem>();

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 560965421398279166}
   - component: {fileID: 3812929613357302899}
   - component: {fileID: 6136934609522936811}
-  - component: {fileID: 6313803209110846797}
+  - component: {fileID: 567044705893177277}
   m_Layer: 9
   m_Name: NormalMissile
   m_TagString: Untagged
@@ -109,7 +109,7 @@ MonoBehaviour:
   t: 0
   force: 100
   delay: 0.3
-  hitParticlePrefab: {fileID: 7998920042566930391, guid: 41afdc89b4bf52242a67971133dc24aa, type: 3}
+  hitParticlePrefab: {fileID: 7998920042566930391, guid: d4272f5797176fb4d82ace73ab4bb981, type: 3}
   offsetPos: {x: 0, y: -0.7}
   targpos: {x: 0, y: 0, z: 0}
 --- !u!50 &6136934609522936811
@@ -139,8 +139,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &6313803209110846797
-BoxCollider2D:
+--- !u!58 &567044705893177277
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -172,18 +172,8 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.3809524, y: 0.3809524}
-    newSize: {x: 0.16, y: 0.16}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.3809524, y: 0.3809524}
-  m_EdgeRadius: 0
+  m_Radius: 0.1
 --- !u!1 &1675379244946231451
 GameObject:
   m_ObjectHideFlags: 0

@@ -215,7 +215,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalMovementSpeed: 1
   spotMovementSpeed: 4
-  detecitrRadius: 4
+  detecitrRadius: 6
   attackRadius: 0.75
   attackCollider: {fileID: 7114548282539418036, guid: 4ae002a3738754e4b99468d5ce01c405, type: 3}
   DoingSkillKind: 0
@@ -261,11 +261,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adfa0d2d5a07ef9409b928c12da3e886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 100
-  Health: 100
+  MaxHealth: 50
+  Health: 50
   myMagicAttribute: 0
   Heat: 0
-  HeatCapacity: 50
+  HeatCapacity: 25
   OverHeatTime: 10
   CoolingSpeed: 5
   Heating: 5

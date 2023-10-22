@@ -10,7 +10,7 @@ public class ShotTrackingBullet : PlayerMagicBase
     }
     public override IEnumerator ActivationFlameMagic(PlayerController plc)
     {
-        GameObject module = GameObject.Instantiate((GameObject)Resources.Load("Magics/TrackingBullet/TrackingBulletModule"),plc.transform.position + new Vector3(0.45f,0.45f,0),Quaternion.identity);
+        GameObject module = GameObject.Instantiate((GameObject)Resources.Load("Magics/TrackingBullet/TrackingBulletModule"),plc.transform.position + new Vector3(0.45f * plc.direction,0.45f,0),Quaternion.identity);
         module.tag = "Player";
         yield break;
     }

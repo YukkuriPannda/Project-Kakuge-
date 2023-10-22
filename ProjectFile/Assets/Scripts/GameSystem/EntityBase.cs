@@ -16,6 +16,7 @@ public class EntityBase : MonoBehaviour
     public float Heating = 5.0f;
 
     public bool gard = false; //Gard
+    [SerializeField,ReadOnly] public bool CounterReception = false;
     public bool Invulnerable = false;
     public bool NoGravity = false;
     public bool OnGround = false;
@@ -27,53 +28,60 @@ public class EntityBase : MonoBehaviour
         chachedHitStop = new WaitForSecondsRealtime(0.1f); //0.1f後まで次の処理をしない
     }
     public void Hurt(float DMG,string AttackBelongedTeam,Vector2 knockBack,float hitStopTime,MagicAttribute magicAttribute = MagicAttribute.none){
-        if(!gameObject.CompareTag(AttackBelongedTeam) && Health >= 0){
+        int resutDMG = DMGCalucation(DMG,magicAttribute);
+        if(!gameObject.CompareTag(AttackBelongedTeam) && Health >= 0 && !CounterReception){
 
             gameObject.GetComponent<Rigidbody2D>().AddForce(knockBack,ForceMode2D.Impulse);
-            hurtMagicAtttribute = magicAttribute;
-            switch(magicAttribute){
-                case MagicAttribute m when(
-                    (m == MagicAttribute.aqua && myMagicAttribute == MagicAttribute.flame)
-                    || (m == MagicAttribute.flame && myMagicAttribute == MagicAttribute.terra)
-                    || (m == MagicAttribute.terra && myMagicAttribute == MagicAttribute.electro)
-                    || (m == MagicAttribute.electro && myMagicAttribute == MagicAttribute.aqua)
-                ):
-                    if(gard)Health -= DMG; //gardの時はHealthからDMGを引く
-                    else Health-= DMG*2f; //gardでない時はDMGの二倍をHealthから引く
-                break;
-                
-                case MagicAttribute m when(
-                    (m == MagicAttribute.flame && myMagicAttribute == MagicAttribute.aqua)
-                    || (m == MagicAttribute.terra && myMagicAttribute == MagicAttribute.flame)
-                    || (m == MagicAttribute.electro && myMagicAttribute == MagicAttribute.terra)
-                    || (m == MagicAttribute.aqua && myMagicAttribute == MagicAttribute.electro)
-                ):
-                    if(!gard)Health -= DMG*0.5f; //gardでないときはDMGの0.5倍をHealthから引く
-                break;
-                default:
-                    if(gard)Health -= DMG*0.5f; 
-                    else Health -= DMG;
-                break;
-            }
             if(hitStopTime > 0)StartCoroutine(HitStop(hitStopTime));
             Debug.Log($"[DamageLog]Hurt DMG:{DMG} margicAttribute:{magicAttribute} knockBack:{knockBack} HitStop:{hitStopTime}");
-
-
-        if (gameObject.GetComponent<ZakoEnemyController>())
-        {
-            if (!overHeating)
+            Health -= resutDMG;
+            if (gameObject.GetComponent<ZakoEnemyController>())
             {
-                Heat += DMG; // lockOperationじゃなかったらHeatにDMGを追加します
-                Heat = Mathf.Clamp(Heat, 0.0f, HeatCapacity); // 0.0fは下限、HeatCapacityが上限。Heatは0以上HeatCapacity以下
-
-                if (Heat >= HeatCapacity)
+                if (!overHeating)
                 {
-                    overHeating = true; // HeatがHeatCapacity超えたらlockOperationがtrue
-                }
-            }
+                    Heat += DMG; // lockOperationじゃなかったらHeatにDMGを追加します
+                    Heat = Mathf.Clamp(Heat, 0.0f, HeatCapacity); // 0.0fは下限、HeatCapacityが上限。Heatは0以上HeatCapacity以下
 
+                    if (Heat >= HeatCapacity)
+                    {
+                        overHeating = true; // HeatがHeatCapacity超えたらlockOperationがtrue
+                    }
+                }
+
+            }
         }
+        if(CounterReception){
+            if(gameObject.GetComponent<PlayerController>())StartCoroutine(gameObject.GetComponent<PlayerController>().Parry(resutDMG));
         }
+    }
+    public int DMGCalucation(float DMG ,MagicAttribute magicAttribute){
+        float res = 0;
+        switch(magicAttribute){
+            case MagicAttribute m when(
+                (m == MagicAttribute.aqua && myMagicAttribute == MagicAttribute.flame)
+                || (m == MagicAttribute.flame && myMagicAttribute == MagicAttribute.terra)
+                || (m == MagicAttribute.terra && myMagicAttribute == MagicAttribute.electro)
+                || (m == MagicAttribute.electro && myMagicAttribute == MagicAttribute.aqua)
+            ):
+                if(gard)res = DMG; //gardの時はHealthからDMGを引く
+                else res = DMG*2f; //gardでない時はDMGの二倍をHealthから引く
+            break;
+            
+            case MagicAttribute m when(
+                (m == MagicAttribute.flame && myMagicAttribute == MagicAttribute.aqua)
+                || (m == MagicAttribute.terra && myMagicAttribute == MagicAttribute.flame)
+                || (m == MagicAttribute.electro && myMagicAttribute == MagicAttribute.terra)
+                || (m == MagicAttribute.aqua && myMagicAttribute == MagicAttribute.electro)
+            ):
+                if(!gard)res= DMG*0.5f; //gardでないときはDMGの0.5倍をHealthから引く
+            break;
+            default:
+                if(gard)res= DMG*0.5f; 
+                else res = DMG;
+            break;
+        }
+        
+        return (int)res;
     }
     IEnumerator HitStop(float time){
         Time.timeScale = 0.05f;

@@ -358,5 +358,5 @@ Material:
     - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
     - _ViewShift: {r: 0, g: 0, b: 0, a: 1}
     - _main: {r: 0.517, g: 0.3495211, b: 0.23301409, a: 0}
-    - _outline: {r: 0, g: 0, b: 0, a: 1}
+    - _outline: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

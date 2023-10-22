@@ -18,7 +18,7 @@ public class EquipWeaponButton : MenuButton
         }else inventrySystem.mainInventry.RemoveAt(id);
         inventrySystem.SetInventryItem();
         inventrySystem.plc.gameObject.GetComponent<Animator>().Play("StayUp",0,0);
-        inventrySystem.plc.gameObject.GetComponent<PlayerVisualController>().PickUpWeaponInRightHand();
+        inventrySystem.plc.gameObject.GetComponent<PlayerVisualController>().PickUpWeapon();
         base.OnClickDown();
     }
 }

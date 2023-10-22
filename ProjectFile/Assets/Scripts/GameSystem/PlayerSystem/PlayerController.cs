@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,6 +32,7 @@ public class PlayerController : MonoBehaviour
         public GameObject Down;
         public GameObject Enchant;
         public GameObject Gard;
+        public GameObject counterAttack;
     }
     public AttackColliderPrefabs attackColliders;
     public GameObject InventryObj;
@@ -64,12 +66,13 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]public EntityBase eBase;
     [HideInInspector]public float oldHealth;
     [ReadOnly]public PlayerStates nowPlayerState = PlayerStates.Stay;
-    private AttackBase gardObject;
+    private GameObject gardObject;
     [ReadOnly]public float timeFromEnchanted = 0;
 
     [ReadOnly]public float upForwardDistance;
     [ReadOnly]public float thrustForwardDistance;
     [ReadOnly]public float downForwardDistance;
+    [ReadOnly]public float counterAttackForwardDistance;
     public enum PlayerStates{
         Stay,
         Walking,
@@ -79,6 +82,7 @@ public class PlayerController : MonoBehaviour
         Down,
         ShotMagicBullet,
         Garding,
+        CounterAttack,
         EnchantMySelf,
         ActivateSpecialMagic,
         Hurt
@@ -103,9 +107,11 @@ public class PlayerController : MonoBehaviour
         }
         oldDrawShapeName = drawShapeName;
         if(oldHealth > eBase.Health){
-            lockOperation = true;
-            if(drawShapeName != "Gard") drawShapeName = "None";
-            nowPlayerState = PlayerStates.Hurt;
+            if(!eBase.CounterReception){
+                lockOperation = true;
+                if(drawShapeName != "Gard") drawShapeName = "None";
+                nowPlayerState = PlayerStates.Hurt;
+            }
         }
         oldHealth = eBase.Health;
         if(nowPlayerState!=PlayerStates.Garding && gardObject)Destroy(gardObject.gameObject,0.1f);
@@ -260,8 +266,7 @@ public class PlayerController : MonoBehaviour
                 }break;
                 case "tap":{
                     if(drawMagicSymbols.Count > 0 && magicStones>0){
-                        if(drawShapePos.x > 0) direction =1;
-                        else direction = -1;
+                        direction = (drawShapePos.x > 0) ? 1 : -1;
                         if(drawMagicSymbols[drawMagicSymbols.Count-1].magicSymbol != "Circle"){
                             //NormalMagic
                             MagicAttribute magicAttribute = 0;
@@ -337,7 +342,33 @@ public class PlayerController : MonoBehaviour
                             magicStones --;
                             lockOperation = false;
                         }
-                    }else {     
+                    }else if(eBase.myMagicAttribute != MagicAttribute.none){
+                        
+                        direction = (drawShapePos.x > 0) ? 1 : -1;
+                        //WeakBullet
+                        nowPlayerState = PlayerStates.ShotMagicBullet;
+                        yield return new WaitForSeconds(0.2f);
+                        string path = "";
+                        switch(eBase.myMagicAttribute){
+                            case MagicAttribute.flame:{
+                                path = "Magics/WeakMagicBalls/FlameBall";
+                            }break;
+                            case MagicAttribute.aqua:{
+                                path = "Magics/WeakMagicBalls/AquaBall";
+                            }break;
+                            case MagicAttribute.electro:{
+                                path = "Magics/WeakMagicBalls/ElectroBall";
+                            }break;
+                            case MagicAttribute.terra:{
+                                path = "Magics/WeakMagicBalls/TerraBall";
+                            }break;
+                        }
+                        Debug.Log($"direction:{drawShapePos.x}");
+                        FireBall bullet = Instantiate((GameObject)Resources.Load(path),transform.position + new Vector3(0.3f * direction,0.3f,0),transform.rotation).GetComponent<FireBall>();
+                        bullet.speed *= direction;
+                        bullet.gameObject.tag = "Player";
+                    }
+                    else{     
                         drawShapeName = "None";
                         oldDrawShapeName ="None";
                         lockOperation = false;
@@ -379,18 +410,22 @@ public class PlayerController : MonoBehaviour
                             attackBase.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().material.SetColor("_Color",MagicColorManager.GetColorFromMagicArticle(magicAttribute));
                             magicStones --;
                             timeFromEnchanted += Time.deltaTime;
+                            drawMagicSymbols.Clear();
                         }
                     }else{
                         //Gard
                         nowPlayerState = PlayerStates.Garding;
                         eBase.gard = true;
-                        gardObject = Instantiate(attackColliders.Gard,transform.position,Quaternion.identity,transform).GetComponent<AttackBase>();
-                        gardObject.magicAttribute = eBase.myMagicAttribute;
+                        gardObject = Instantiate(attackColliders.Gard,transform.position,Quaternion.identity,transform);
                         gardObject.tag = gameObject.tag;
                         gardObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().material.SetColor("_Color",MagicColorManager.GetColorFromMagicArticle(eBase.myMagicAttribute));
+                        eBase.CounterReception = true;
                         drawMagicSymbols = new List<DrawMagicSymbol>();
                         drawShapeName = "None";
                         oldDrawShapeName ="None";
+                        yield return new WaitForSeconds(0.2f);
+                        eBase.CounterReception = false;
+
                     }
 
                 }break;
@@ -408,11 +443,59 @@ public class PlayerController : MonoBehaviour
             drawShapeName = "None";
         }
     }
+    public IEnumerator Parry(int DMG){
+        Time.timeScale =0.2f;
+        bool counterAttack = false;
+        for(float t = 0;t < 1.0;t += Time.deltaTime*5){
+            if(drawShapeName != "None"){
+                counterAttack = true;
+                break;
+            }
+            yield return null;
+        }
+        if(eBase.CounterReception){
+            StopAllCoroutines();
+            eBase.CounterReception = false;
+            //counter
+            lockOperation=true;
+            if(drawShapePos.x > 0) direction =1;
+            else direction = -1;
+            nowPlayerState = PlayerStates.CounterAttack;
+            yield return new WaitForSeconds(0.1f);
+
+            GameObject DMGObject = Instantiate(attackColliders.counterAttack,new Vector2(transform.position.x + 0.75f * direction,transform.position.y),Quaternion.identity);
+            if(direction < 0){
+                DMGObject.transform.GetChild(0).eulerAngles = new Vector3(0,180,0);
+                DMGObject.transform.GetChild(0).localPosition = Vector3.Scale(new Vector3(-1,1,1),DMGObject.transform.GetChild(0).localPosition);
+            }
+            DMGObject.GetComponent<BoxCollider2D>().offset *= new Vector2(direction,1);
+
+            AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
+            attackBase.damage = DMG *2;
+            DMGObject.tag = "Player";
+            attackBase.knockBack = new Vector2(attackBase.knockBack.x * direction,attackBase.knockBack.y);
+            attackBase.magicAttribute = eBase.myMagicAttribute;
+            drawMagicSymbols = new List<DrawMagicSymbol>();
+            Destroy(DMGObject.GetComponent<AttackBase>(),0.2f);
+            Destroy(DMGObject,1);
+            for(int i = 0;i < 10;i++){
+                transform.Translate(counterAttackForwardDistance*0.1f*direction,0,0);
+                yield return new WaitForEndOfFrame();
+            }
+            if(DMGObject.GetComponentInChildren<SpriteRenderer>())DMGObject.GetComponentInChildren<SpriteRenderer>().material.SetColor("_Color",EffectColor(eBase.myMagicAttribute));
+        }
+        Time.timeScale =1f;
+        if(counterAttack){
+            nowPlayerState = PlayerStates.CounterAttack;
+        }
+        yield break;
+    }
     public void UnLockOperation(){
         drawShapeName = "None";
         drawMagicSymbols = new List<DrawMagicSymbol>();
         lockOperation = false;
         Debug.Log("UnLocked operation");
+        Time.timeScale =1f;
     }
     Color EffectColor(MagicAttribute magicAttribute){
         Color res =Color.white;

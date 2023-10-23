@@ -23378,6 +23378,7 @@ MonoBehaviour:
   rb2D: {fileID: 0}
   eBase: {fileID: 0}
   oldHealth: 0
+  CounterDMG: 0
   nowPlayerState: 0
   timeFromEnchanted: 0
   CounterReception: 0
@@ -52437,7 +52438,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8171093295545790818}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071069, y: -0, z: -0, w: 0.70710677}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -52987,8 +52988,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4361875927784752859}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.50000113, y: -0.5000007, z: -0.4999972, w: 0.5000009}
-  m_LocalPosition: {x: 0.0000029516232, y: -0.0013285056, z: -0.05282025}
+  m_LocalRotation: {x: 0.50000113, y: -0.5000008, z: -0.49999717, w: 0.5000009}
+  m_LocalPosition: {x: 0.000002955756, y: -0.0013285056, z: -0.05282025}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -53388,8 +53389,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6978484667513785653}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.004099421, y: 0.56099164, z: 0.0029079928, w: -0.8278063}
-  m_LocalPosition: {x: 0.41220918, y: -0.054024976, z: 0.057286043}
+  m_LocalRotation: {x: 0.0048999516, y: 0.20150094, z: 0.001119773, w: -0.9794755}
+  m_LocalPosition: {x: 0.33159184, y: -0.054025866, z: -0.2519071}
   m_LocalScale: {x: 1, y: 0.99999994, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

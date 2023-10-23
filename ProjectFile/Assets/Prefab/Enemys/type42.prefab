@@ -106,11 +106,13 @@ MonoBehaviour:
   Health: 150
   myMagicAttribute: 0
   Heat: 0
-  HeatCapacity: 50
+  HeatCapacity: 30
   OverHeatTime: 10
-  CoolingSpeed: 5
+  CoolingSpeed: 10
   Heating: 5
   gard: 0
+  ParryReception: 0
+  acceptDamage: 1
   Invulnerable: 0
   NoGravity: 0
   OnGround: 0

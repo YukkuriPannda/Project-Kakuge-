@@ -117,6 +117,8 @@ public class EntityBase : MonoBehaviour
             Debug.Log("Heat");
             }
             
+        }else {
+            if(Heat > 0)Heat -= CoolingSpeed * Time.deltaTime;
         }
         
     }

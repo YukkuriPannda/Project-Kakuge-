@@ -65,6 +65,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]public Rigidbody2D rb2D;
     [HideInInspector]public EntityBase eBase;
     [HideInInspector]public float oldHealth;
+    [HideInInspector]public float CounterDMG;
     [ReadOnly]public PlayerStates nowPlayerState = PlayerStates.Stay;
     private GameObject gardObject;
     [ReadOnly]public float timeFromEnchanted = 0;
@@ -170,96 +171,19 @@ public class PlayerController : MonoBehaviour
             lockOperation = true;
             switch(drawShapeName){
                 case "StraightToRight":{
-                    nowPlayerState = PlayerStates.Thrust;
                     direction = 1;
-                    GameObject DMGObject = Instantiate(attackColliders.Thrust,transform.position,transform.rotation);
-                    DMGObject.transform.GetChild(0).eulerAngles = new Vector3(0,0,0);
-                    AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
-                    attackBase.damage *= 1;
-                    DMGObject.tag = "Player";
-                    attackBase.knockBack = new Vector2(attackBase.knockBack.x,attackBase.knockBack.y);
-                    Destroy(DMGObject.GetComponent<AttackBase>(),0.2f);
-                    Destroy(DMGObject,1);
-                    for(int i = 0;i < 5;i++){
-                        transform.Translate(thrustForwardDistance*0.2f,0,0);
-                        yield return new WaitForEndOfFrame();
-                    }
+                    nowPlayerState = PlayerStates.Thrust;
                 }break;
                 case "StraightToLeft":{
-                    nowPlayerState = PlayerStates.Thrust;
                     direction = -1;
-                    GameObject DMGObject = Instantiate(attackColliders.Thrust,transform.position,transform.rotation);
-                    DMGObject.transform.GetChild(0).eulerAngles = new Vector3(0,180,0);
-                    DMGObject.GetComponent<BoxCollider2D>().offset *= new Vector2(-1,1);
-                    DMGObject.transform.GetChild(0).localPosition = Vector3.Scale(new Vector3(-1,1,1),DMGObject.transform.GetChild(0).localPosition);
-
-                    AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
-                    attackBase.damage *= 1;
-                    DMGObject.tag = "Player";
-                    attackBase.knockBack = new Vector2(-attackBase.knockBack.x,attackBase.knockBack.y);
-                    attackBase.magicAttribute = eBase.myMagicAttribute;
-                    drawMagicSymbols = new List<DrawMagicSymbol>();
-                    Destroy(DMGObject.GetComponent<AttackBase>(),0.2f);
-                    Destroy(DMGObject,1);
-                    for(int i = 0;i < 5;i++){
-                        transform.Translate(-thrustForwardDistance*0.2f,0,0);
-                        yield return new WaitForEndOfFrame();
-                    }
+                    nowPlayerState = PlayerStates.Thrust;
                 }break;
                 case  "StraightToUp":{
-                    Debug.Log("Up");
-                    if(drawShapePos.x > 0) direction =1;
-                    else direction = -1;
                     nowPlayerState = PlayerStates.Up;
-                    yield return new WaitForSeconds(0.1f);
 
-                    GameObject DMGObject = Instantiate(attackColliders.Up,new Vector2(transform.position.x + 0.75f * direction,transform.position.y),transform.rotation);
-                    if(direction < 0){
-                        DMGObject.transform.GetChild(0).eulerAngles = new Vector3(30,180,0);
-                        DMGObject.transform.GetChild(0).localPosition = Vector3.Scale(new Vector3(-1,1,1),DMGObject.transform.GetChild(0).localPosition);
-                    }
-                    DMGObject.GetComponent<BoxCollider2D>().offset *= new Vector2(direction,1);
-
-                    AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
-                    attackBase.damage *= 1;
-                    DMGObject.tag = "Player";
-                    attackBase.knockBack = new Vector2(attackBase.knockBack.x * direction,attackBase.knockBack.y);
-                    attackBase.magicAttribute = eBase.myMagicAttribute;
-                    drawMagicSymbols = new List<DrawMagicSymbol>();
-                    Destroy(DMGObject.GetComponent<AttackBase>(),0.2f);
-                    Destroy(DMGObject,1);
-                    for(int i = 0;i < 10;i++){
-                        transform.Translate(upForwardDistance*0.1f*direction,0,0);
-                        yield return new WaitForEndOfFrame();
-                    }
-                    if(DMGObject.GetComponentInChildren<SpriteRenderer>())DMGObject.GetComponentInChildren<SpriteRenderer>().material.SetColor("_Color",EffectColor(eBase.myMagicAttribute));
                 }break;
                 case  "StraightToDown":{
-                    if(drawShapePos.x > 0) direction =1;
-                    else direction = -1;
                     nowPlayerState = PlayerStates.Down;
-                    yield return new WaitForSeconds(0.1f);
-
-                    GameObject DMGObject = Instantiate(attackColliders.Down,new Vector2(transform.position.x + 0.75f * direction,transform.position.y),Quaternion.identity);
-                    if(direction < 0){
-                        DMGObject.transform.GetChild(0).eulerAngles = new Vector3(0,180,0);
-                        DMGObject.transform.GetChild(0).localPosition = Vector3.Scale(new Vector3(-1,1,1),DMGObject.transform.GetChild(0).localPosition);
-                    }
-                    DMGObject.GetComponent<BoxCollider2D>().offset *= new Vector2(direction,1);
-
-                    AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
-                    attackBase.damage *= 1;
-                    DMGObject.tag = "Player";
-                    attackBase.knockBack = new Vector2(attackBase.knockBack.x * direction,attackBase.knockBack.y);
-                    attackBase.magicAttribute = eBase.myMagicAttribute;
-                    drawMagicSymbols = new List<DrawMagicSymbol>();
-                    Destroy(DMGObject.GetComponent<AttackBase>(),0.2f);
-                    Destroy(DMGObject,1);
-                    for(int i = 0;i < 10;i++){
-                        transform.Translate(downForwardDistance*0.1f*direction,0,0);
-                        yield return new WaitForEndOfFrame();
-                    }
-                    if(DMGObject.GetComponentInChildren<SpriteRenderer>())DMGObject.GetComponentInChildren<SpriteRenderer>().material.SetColor("_Color",EffectColor(eBase.myMagicAttribute));
                 }break;
                 case "RegularTriangle": case"InvertedTriangle": case "Thunder":case "Grass":{
                     drawMagicSymbols.Add(new DrawMagicSymbol(drawShapeName,1));
@@ -467,29 +391,7 @@ public class PlayerController : MonoBehaviour
         Time.timeScale = 1f;
         if(counterAttack){
             //counter
-            if(drawShapePos.x > 0) direction =1;
-            else direction = -1;
-            yield return new WaitForSeconds(0.2f);
-            GameObject DMGObject = Instantiate(attackColliders.counterAttack,new Vector2(transform.position.x + 0.75f * direction,transform.position.y),Quaternion.identity);
-            if(direction < 0){
-                DMGObject.transform.GetChild(0).eulerAngles = new Vector3(-120,180,0);
-                DMGObject.transform.GetChild(0).localPosition = Vector3.Scale(new Vector3(-1,1,1),DMGObject.transform.GetChild(0).localPosition);
-            }
-            DMGObject.GetComponent<BoxCollider2D>().offset *= new Vector2(direction,1);
-
-            AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
-            attackBase.damage = DMG *2;
-            DMGObject.tag = "Player";
-            attackBase.knockBack = new Vector2(attackBase.knockBack.x * direction,attackBase.knockBack.y);
-            attackBase.magicAttribute = eBase.myMagicAttribute;
-            drawMagicSymbols = new List<DrawMagicSymbol>();
-            Destroy(DMGObject.GetComponent<AttackBase>(),0.2f);
-            Destroy(DMGObject,1);
-            for(int i = 0;i < 10;i++){
-                transform.Translate(counterAttackForwardDistance*0.1f*direction,0,0);
-                yield return new WaitForEndOfFrame();
-            }
-            if(DMGObject.GetComponentInChildren<SpriteRenderer>())DMGObject.GetComponentInChildren<SpriteRenderer>().material.SetColor("_Color",EffectColor(eBase.myMagicAttribute));
+            CounterDMG = DMG;
         }else{
             nowPlayerState = PlayerStates.Stay;
             lockOperation = false;
@@ -542,4 +444,121 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Slow!");
     }
     public void SlowMotionEnd(){Time.timeScale = 1;}
+    public void GenerateAttackCollier(){StartCoroutine(IEGenerateAttackCollier());}
+    private IEnumerator IEGenerateAttackCollier(){
+        switch(nowPlayerState){
+            case PlayerStates.Up:{
+                if(drawShapePos.x > 0) direction =1;
+                else direction = -1;
+
+                GameObject DMGObject = Instantiate(attackColliders.Up,new Vector2(transform.position.x + 0.75f * direction,transform.position.y),transform.rotation);
+                if(direction < 0){
+                    DMGObject.transform.GetChild(0).eulerAngles = new Vector3(30,180,0);
+                    DMGObject.transform.GetChild(0).localPosition = Vector3.Scale(new Vector3(-1,1,1),DMGObject.transform.GetChild(0).localPosition);
+                }
+                DMGObject.GetComponent<BoxCollider2D>().offset *= new Vector2(direction,1);
+
+                AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
+                attackBase.damage *= 1;
+                DMGObject.tag = "Player";
+                attackBase.knockBack = new Vector2(attackBase.knockBack.x * direction,attackBase.knockBack.y);
+                attackBase.magicAttribute = eBase.myMagicAttribute;
+                drawMagicSymbols = new List<DrawMagicSymbol>();
+                Destroy(DMGObject.GetComponent<AttackBase>(),0.2f);
+                Destroy(DMGObject,1);
+                for(int i = 0;i < 10;i++){
+                    transform.Translate(upForwardDistance*0.1f*direction,0,0);
+                    yield return new WaitForEndOfFrame();
+                }
+                if(DMGObject.GetComponentInChildren<SpriteRenderer>())DMGObject.GetComponentInChildren<SpriteRenderer>().material.SetColor("_Color",EffectColor(eBase.myMagicAttribute));
+
+            }break;
+            case PlayerStates.Thrust:{
+                if(direction > 0){
+                    GameObject DMGObject = Instantiate(attackColliders.Thrust,transform.position,transform.rotation);
+                    DMGObject.transform.GetChild(0).eulerAngles = new Vector3(0,0,0);
+                    AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
+                    attackBase.damage *= 1;
+                    DMGObject.tag = "Player";
+                    attackBase.knockBack = new Vector2(attackBase.knockBack.x,attackBase.knockBack.y);
+                    Destroy(DMGObject.GetComponent<AttackBase>(),0.2f);
+                    Destroy(DMGObject,1);
+                    for(int i = 0;i < 5;i++){
+                        transform.Translate(thrustForwardDistance*0.2f,0,0);
+                        yield return new WaitForEndOfFrame();
+                    }
+                }else{
+                    GameObject DMGObject = Instantiate(attackColliders.Thrust,transform.position,transform.rotation);
+                    DMGObject.transform.GetChild(0).eulerAngles = new Vector3(0,180,0);
+                    DMGObject.GetComponent<BoxCollider2D>().offset *= new Vector2(-1,1);
+                    DMGObject.transform.GetChild(0).localPosition = Vector3.Scale(new Vector3(-1,1,1),DMGObject.transform.GetChild(0).localPosition);
+
+                    AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
+                    attackBase.damage *= 1;
+                    DMGObject.tag = "Player";
+                    attackBase.knockBack = new Vector2(-attackBase.knockBack.x,attackBase.knockBack.y);
+                    attackBase.magicAttribute = eBase.myMagicAttribute;
+                    drawMagicSymbols = new List<DrawMagicSymbol>();
+                    Destroy(DMGObject.GetComponent<AttackBase>(),0.2f);
+                    Destroy(DMGObject,1);
+                    for(int i = 0;i < 5;i++){
+                        transform.Translate(-thrustForwardDistance*0.2f,0,0);
+                        yield return new WaitForEndOfFrame();
+                    }
+                }
+
+            }break;
+            case PlayerStates.Down:{
+                    
+                if(drawShapePos.x > 0) direction =1;
+                else direction = -1;
+
+                GameObject DMGObject = Instantiate(attackColliders.Down,new Vector2(transform.position.x + 0.75f * direction,transform.position.y),Quaternion.identity);
+                if(direction < 0){
+                    DMGObject.transform.GetChild(0).eulerAngles = new Vector3(0,180,0);
+                    DMGObject.transform.GetChild(0).localPosition = Vector3.Scale(new Vector3(-1,1,1),DMGObject.transform.GetChild(0).localPosition);
+                }
+                DMGObject.GetComponent<BoxCollider2D>().offset *= new Vector2(direction,1);
+
+                AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
+                attackBase.damage *= 1;
+                DMGObject.tag = "Player";
+                attackBase.knockBack = new Vector2(attackBase.knockBack.x * direction,attackBase.knockBack.y);
+                attackBase.magicAttribute = eBase.myMagicAttribute;
+                drawMagicSymbols = new List<DrawMagicSymbol>();
+                Destroy(DMGObject.GetComponent<AttackBase>(),0.2f);
+                Destroy(DMGObject,1);
+                for(int i = 0;i < 10;i++){
+                    transform.Translate(downForwardDistance*0.1f*direction,0,0);
+                    yield return new WaitForEndOfFrame();
+                }
+                if(DMGObject.GetComponentInChildren<SpriteRenderer>())DMGObject.GetComponentInChildren<SpriteRenderer>().material.SetColor("_Color",EffectColor(eBase.myMagicAttribute));
+            }break;
+            case PlayerStates.CounterAttack:{
+                if(drawShapePos.x > 0) direction =1;
+                else direction = -1;
+                GameObject DMGObject = Instantiate(attackColliders.counterAttack,new Vector2(transform.position.x + 0.75f * direction,transform.position.y),Quaternion.identity);
+                if(direction < 0){
+                    DMGObject.transform.GetChild(0).eulerAngles = new Vector3(-120,180,0);
+                    DMGObject.transform.GetChild(0).localPosition = Vector3.Scale(new Vector3(-1,1,1),DMGObject.transform.GetChild(0).localPosition);
+                }
+                DMGObject.GetComponent<BoxCollider2D>().offset *= new Vector2(direction,1);
+
+                AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
+                attackBase.damage = CounterDMG *2;
+                DMGObject.tag = "Player";
+                attackBase.knockBack = new Vector2(attackBase.knockBack.x * direction,attackBase.knockBack.y);
+                attackBase.magicAttribute = eBase.myMagicAttribute;
+                drawMagicSymbols = new List<DrawMagicSymbol>();
+                Destroy(DMGObject.GetComponent<AttackBase>(),0.2f);
+                Destroy(DMGObject,1);
+                for(int i = 0;i < 10;i++){
+                    transform.Translate(counterAttackForwardDistance*0.1f*direction,0,0);
+                    yield return new WaitForEndOfFrame();
+                }
+                if(DMGObject.GetComponentInChildren<SpriteRenderer>())DMGObject.GetComponentInChildren<SpriteRenderer>().material.SetColor("_Color",EffectColor(eBase.myMagicAttribute));
+            }break;
+        }
+        yield break;
+    }
 }

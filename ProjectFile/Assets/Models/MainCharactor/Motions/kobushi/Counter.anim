@@ -16919,7 +16919,7 @@ AnimationClip:
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
     m_StopTime: 0.9666667
-    m_OrientationOffsetY: 180
+    m_OrientationOffsetY: 270
     m_Level: 0
     m_CycleOffset: 0
     m_HasAdditiveReferencePose: 0
@@ -32655,21 +32655,21 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.26666668
+  - time: 0.23333333
     functionName: SlowMotionStart
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0.1
     intParameter: 0
     messageOptions: 0
-  - time: 0.46666667
-    functionName: 
+  - time: 0.26666668
+    functionName: GenerateAttackCollier
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 1
     messageOptions: 0
-  - time: 0.93333334
+  - time: 0.5
     functionName: UnLockOperation
     data: 
     objectReferenceParameter: {fileID: 0}

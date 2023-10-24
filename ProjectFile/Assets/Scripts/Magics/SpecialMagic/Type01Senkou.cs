@@ -7,6 +7,7 @@ public class Type01Senkou: PlayerMagicBase
     { 
         get {return PlayerMagicFactory.MagicKind.Type01Senkou;}
     }
+
     public override IEnumerator ActivationFlameMagic(PlayerController plc)
     {
         yield break;

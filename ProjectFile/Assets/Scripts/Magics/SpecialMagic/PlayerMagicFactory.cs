@@ -7,7 +7,8 @@ public class PlayerMagicFactory
     static readonly PlayerMagicBase[] skills = {
         new Beaaaaaaaam(),
         new ShotTrackingBullet(),
-        new Type01Senkou()
+        new Type01Senkou(),
+        new EarthWall()
     };
 
     /// スキルのenum
@@ -16,7 +17,8 @@ public class PlayerMagicFactory
         none,
         Beaaaaaaaaaaam,
         ShotTrackingBullet,
-        Type01Senkou
+        Type01Senkou,
+        EarthWall
     }
     
     // SkillKindを引数に、それに応じたスキルを返す

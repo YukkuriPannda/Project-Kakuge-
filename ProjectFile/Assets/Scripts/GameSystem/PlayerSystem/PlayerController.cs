@@ -112,7 +112,6 @@ public class PlayerController : MonoBehaviour
             if(!eBase.ParryReception && nowPlayerState != PlayerStates.CounterAttack && CounterReception){
                 Debug.Log("HUrt!!");
                 lockOperation = true;
-                if(drawShapeName != "Gard") drawShapeName = "None";
                 nowPlayerState = PlayerStates.Hurt;
             }
         }

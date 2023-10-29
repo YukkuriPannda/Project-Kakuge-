@@ -164,6 +164,7 @@ public class PlayerController : MonoBehaviour
         InventryObj.SetActive(false);
         lockOperation = false;
         openingInventry =false;
+        drawShapeName = "None";
     }
     public IEnumerator onChangeDrawShapeName(){
         if(oldDrawShapeName == "None" && !lockOperation && !(nowPlayerState == PlayerStates.CounterAttack || CounterReception)){

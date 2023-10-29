@@ -111,3 +111,5 @@ MonoBehaviour:
     animationClip: {fileID: 7400000, guid: 7dbbfeac60b7e0c40bc19c35a2a4af6e, type: 2}
   - magicKind: 3
     animationClip: {fileID: 7400000, guid: ae1907376604dc545ba2e842eb06f690, type: 2}
+  - magicKind: 4
+    animationClip: {fileID: 7400000, guid: 930b1a80fde95b94984468182993e23f, type: 2}

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4728413812545841025}
   - component: {fileID: 8178403897505142064}
   m_Layer: 3
-  m_Name: EarthWall
+  m_Name: EarthWallPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

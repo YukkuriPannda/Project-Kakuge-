@@ -14,6 +14,7 @@ public class Type43Contoller : MonoBehaviour
         Stopping,
         StartUping,
         BeamCombo,
+        VolleyBeam,
         Deathing,
         Damaging,
         OverHeating
@@ -46,9 +47,13 @@ public class Type43Contoller : MonoBehaviour
             case States.StartUping:{
                 StartCoroutine(BeamCombo());
             }break;
+            case States.BeamCombo:{
+                StartCoroutine(VolleyBeam());
+            }break;
         }
     }
     IEnumerator BeamCombo(){
+        nowState = States.BeamCombo;
         StartCoroutine(Shot4Beams());
         yield break;
     }
@@ -58,9 +63,10 @@ public class Type43Contoller : MonoBehaviour
             for(int j = 0;j < 2;j++){
                 beams.Add(Instantiate(gearBit,transform.position,Quaternion.identity));
                 beams[i].GetComponent<GearBitController>().target = target;
+                beams[i].GetComponent<GearBitController>().attackMode = GearBitController.AttackMode.Follow;
                 beams[i].GetComponent<GearBitController>().returnObj = gameObject;
-                beams[i].GetComponent<GearBitController>().distance = j + 2;
-                beams[i].GetComponent<GearBitController>().height = (i+1)/3+1;
+                beams[i].GetComponent<GearBitController>().distance = j + 1;
+                beams[i].GetComponent<GearBitController>().height = (i+1)/3+2;
                 i++;
                 yield return new WaitForSeconds(0.2f);
             }
@@ -109,6 +115,43 @@ public class Type43Contoller : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         transform.position = target.transform.position + new Vector3(2f*direction,0);
         yield return new WaitForSeconds(2f);
+        yield break;
+    }
+    IEnumerator VolleyBeam(){
+        nowState = States.VolleyBeam;
+        animator.Play("Volley_" + ((direction == 1)?  "R":"L"),0,0);
+        List<GameObject> beams = new List<GameObject>();
+        for(int i  = 0;i < 4; i++){
+            beams.Add(Instantiate(gearBit,transform.position,Quaternion.Euler(0,0,direction == 1?0:180)));
+            beams[i].GetComponent<GearBitController>().target = target;
+            beams[i].GetComponent<GearBitController>().attackMode = GearBitController.AttackMode.Volley;
+            beams[i].GetComponent<GearBitController>().rotate = 90 * i;
+            beams[i].GetComponent<GearBitController>().returnObj = gameObject;
+            beams[i].GetComponent<GearBitController>().nowState = GearBitController.States.Following;
+            beams[i].GetComponent<GearBitController>().ShotPos = transform.position + new Vector3(0.67f*direction,0.05f);
+            yield return new WaitForSeconds(0.25f);
+        }
+
+        bool allBitTargLock = false;
+        while(allBitTargLock){
+            foreach(GameObject beam in beams){
+                if(beam.GetComponent<GearBitController>().nowState == GearBitController.States.TargetLock)allBitTargLock  = true;
+                else{
+                    allBitTargLock = false;
+                    break;
+                }
+            }
+            yield return null;
+        }
+        beams[0].GetComponent<GearBitController>().ShootBeamLong();
+        beams[1].GetComponent<GearBitController>().ShootBeamLong();
+        beams[2].GetComponent<GearBitController>().ShootBeamLong();
+        beams[3].GetComponent<GearBitController>().ShootBeamLong();
+        yield return new WaitForSeconds(2f);
+        
+        foreach(GameObject beam in beams){
+            beam.GetComponent<GearBitController>().nowState = GearBitController.States.Returning;
+        }
         yield break;
     }
 }

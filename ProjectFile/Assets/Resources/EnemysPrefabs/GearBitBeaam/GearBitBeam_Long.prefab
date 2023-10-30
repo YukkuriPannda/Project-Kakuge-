@@ -293,7 +293,7 @@ GameObject:
   - component: {fileID: 5855483040833611411}
   - component: {fileID: 5052441123654385671}
   m_Layer: 9
-  m_Name: GearBitBeaam 1
+  m_Name: GearBitBeam_Long
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

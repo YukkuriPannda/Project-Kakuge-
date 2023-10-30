@@ -687,6 +687,7 @@ MonoBehaviour:
   height: 1
   moveSpeed: 5
   rotSpeed: 360
+  attackMode: 0
   nowState: 0
   moveVec: {x: 0, y: 0}
 --- !u!1 &7234828748233748572

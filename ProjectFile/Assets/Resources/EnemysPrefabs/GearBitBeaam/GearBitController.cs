@@ -48,7 +48,7 @@ public class GearBitController : MonoBehaviour
     {
         switch(nowState){
             case States.Following:{
-                if(Vector2.Distance(ShotPos,transform.position)< 0.5f){
+                if(Vector2.Distance(ShotPos,transform.position)< 0.2f){
                     nowState = States.TargetLock;
                     break;
                 }
@@ -67,7 +67,7 @@ public class GearBitController : MonoBehaviour
                     * rotSpeed * Time.deltaTime
                 );
                 if(attackMode == AttackMode.Volley){
-                    transform.localPosition = new Vector3(0,Mathf.Sin(rotate/180*Mathf.PI)*0.3f,Mathf.Cos(rotate/180*Mathf.PI)*0.3f);
+                    transform.localPosition = new Vector3(0,Mathf.Sin(rotate/180*Mathf.PI)*0.3f,Mathf.Cos(rotate/180*Mathf.PI)*0.3f) + (Vector3)ShotPos;
                     rotate += Time.deltaTime*180;
                 }
             }break;
@@ -78,9 +78,10 @@ public class GearBitController : MonoBehaviour
                 }
 
                 float myRad = (transform.localEulerAngles.z + 180) * Mathf.Deg2Rad;
-                transform.Translate(moveSpeed * Time.deltaTime * Vector2.right*2);
+                float signedAngle =Vector2.SignedAngle(new Vector2((float)Mathf.Cos(myRad), (float)Mathf.Sin(myRad)), (transform.position - returnObj.transform.position).normalized);
+                if(signedAngle < Mathf.PI/3)transform.Translate(moveSpeed * Time.deltaTime * Vector2.right*2);
                 transform.Rotate(0, 0, 
-                    Mathf.Clamp(Vector2.SignedAngle(new Vector2((float)Mathf.Cos(myRad), (float)Mathf.Sin(myRad)), (transform.position - returnObj.transform.position).normalized),-1,1) 
+                    Mathf.Clamp(signedAngle,-1,1) 
                     * rotSpeed * Time.deltaTime
                 );
             }break;

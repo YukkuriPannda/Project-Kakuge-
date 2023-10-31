@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -13,6 +12,7 @@ public class Type43Contoller : MonoBehaviour
     public enum States{
         Stopping,
         StartUping,
+        Waiting,
         BeamCombo,
         VolleyBeam,
         Deathing,
@@ -26,6 +26,7 @@ public class Type43Contoller : MonoBehaviour
     private Rigidbody2D rb2D;
     private EntityBase eBase;
     float oldHealth = 0;
+    public List<GameObject> beams = new List<GameObject>();
     void Start()
     {
         nowState = States.Stopping;
@@ -54,13 +55,6 @@ public class Type43Contoller : MonoBehaviour
                 }
             }break;
         }
-        if(oldState != nowState){
-        switch(nowState){
-            case States.Damaging :{
-            }break;
-        }
-            
-        }
         oldHealth = eBase.Health;
         oldState = nowState;
     }
@@ -69,10 +63,26 @@ public class Type43Contoller : MonoBehaviour
             case States.StartUping:{
                 StartCoroutine(BeamCombo());
             }break;
-            case States.BeamCombo:{
+            case States.BeamCombo:case States.Damaging:case States.VolleyBeam:{
+                StartCoroutine(RelotteryBehavior());
+            }break;
+        }
+    }
+    IEnumerator RelotteryBehavior(){
+        nowState = States.Waiting;
+        while(beams.Count <= 0)yield return null;
+        yield return new WaitForSeconds(Random.Range(0,5));
+        int ram = Random.Range(0,3);
+        Debug.Log($"Behavior is {ram}");
+        switch(ram){
+            case 0:{
+                StartCoroutine(BeamCombo());
+            }break;
+            case 1:{
                 StartCoroutine(VolleyBeam());
             }break;
         }
+        yield break;
     }
     IEnumerator BeamCombo(){
         nowState = States.BeamCombo;
@@ -80,7 +90,7 @@ public class Type43Contoller : MonoBehaviour
         yield break;
     }
     IEnumerator Shot4Beams(){
-        List<GameObject> beams = new List<GameObject>();
+        animator.Play("BoostStart_" + ((direction == 1)?  "R":"L"),0,0);
         for(int i  = 0;i < 4;){
             for(int j = 0;j < 2;j++){
                 beams.Add(Instantiate(gearBit,transform.position,Quaternion.identity));
@@ -118,14 +128,12 @@ public class Type43Contoller : MonoBehaviour
         beams[3].GetComponent<GearBitController>().ShotBeam();
         StartCoroutine(IAIGIRI());
         yield return new WaitForSeconds(2f);
-        
         foreach(GameObject beam in beams){
             beam.GetComponent<GearBitController>().nowState = GearBitController.States.Returning;
         }
         yield break;
     }
     IEnumerator IAIGIRI(){
-        animator.Play("BoostStart_" + ((direction == 1)?  "R":"L"),0,0);
         yield return new WaitForSeconds(0.6f);
         while(target.transform.position.x - transform.position.x > 1f){
             int StartDir = direction;
@@ -143,7 +151,6 @@ public class Type43Contoller : MonoBehaviour
     IEnumerator VolleyBeam(){
         nowState = States.VolleyBeam;
         animator.Play("VolleyStartUp_" + ((direction == 1)?  "R":"L"),0,0);
-        List<GameObject> beams = new List<GameObject>();
         for(int i  = 0;i < 4; i++){
             beams.Add(Instantiate(gearBit,transform.position,Quaternion.Euler(0,0,direction == 1?0:180)));
             beams[i].GetComponent<GearBitController>().target = target;

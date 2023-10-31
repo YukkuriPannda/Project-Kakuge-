@@ -9,12 +9,20 @@ public class Type43Contoller : MonoBehaviour
     public GameObject gearBit;
     public float detecitrRadius= 5.0f;
     public float boostSpeed;
+    [System.Serializable]
+    public class AttackCollider{
+        public GameObject Collider;
+        public Vector2 offset; 
+    }
+    public AttackCollider tuzigiriColli;
     public enum States{
         Stopping,
         StartUping,
         Waiting,
+
         BeamCombo,
         VolleyBeam,
+        TUZIGIRI,
         Deathing,
         Damaging,
         OverHeating
@@ -44,6 +52,9 @@ public class Type43Contoller : MonoBehaviour
             else{
                 nowState = States.Damaging;
                 animator.Play("Hurt_" + ((direction == 1)?  "R":"L"),0,0);
+                foreach(GameObject beam in beams){
+                    beam.GetComponent<GearBitController>().nowState = GearBitController.States.Returning;
+                }
             } 
                 
         }
@@ -59,6 +70,7 @@ public class Type43Contoller : MonoBehaviour
         oldState = nowState;
     }
     public void EndAction(){
+        Debug.Log($"End Action{nowState}");
         switch(nowState){
             case States.StartUping:{
                 StartCoroutine(BeamCombo());
@@ -70,16 +82,19 @@ public class Type43Contoller : MonoBehaviour
     }
     IEnumerator RelotteryBehavior(){
         nowState = States.Waiting;
-        while(beams.Count <= 0)yield return null;
-        yield return new WaitForSeconds(Random.Range(0,5));
         int ram = Random.Range(0,3);
-        Debug.Log($"Behavior is {ram}");
+        while(beams.Count > 0)yield return null;
+        Debug.Log($"Behavior is {ram} count is {beams.Count}");
+        yield return new WaitForSeconds(Random.Range(0,3));
         switch(ram){
             case 0:{
                 StartCoroutine(BeamCombo());
             }break;
             case 1:{
                 StartCoroutine(VolleyBeam());
+            }break;
+            case 2:{
+                StartCoroutine(TUZIGIRI());
             }break;
         }
         yield break;
@@ -98,7 +113,8 @@ public class Type43Contoller : MonoBehaviour
                 beams[i].GetComponent<GearBitController>().attackMode = GearBitController.AttackMode.Follow;
                 beams[i].GetComponent<GearBitController>().returnObj = gameObject;
                 beams[i].GetComponent<GearBitController>().distance = j + 1;
-                beams[i].GetComponent<GearBitController>().height = (i+1)/3+2;
+                beams[i].GetComponent<GearBitController>().height = (i+1)/3*1.5f+1;
+                beams[i].GetComponent<GearBitController>().beamsIndex = i;
                 i++;
                 yield return new WaitForSeconds(0.2f);
             }
@@ -118,7 +134,7 @@ public class Type43Contoller : MonoBehaviour
             }
             yield return null;
         }
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
         beams[0].GetComponent<GearBitController>().ShotBeam();
         beams[1].GetComponent<GearBitController>().ShotBeam();
 
@@ -126,16 +142,18 @@ public class Type43Contoller : MonoBehaviour
         
         beams[2].GetComponent<GearBitController>().ShotBeam();
         beams[3].GetComponent<GearBitController>().ShotBeam();
-        StartCoroutine(IAIGIRI());
+        StartCoroutine(TUZIGIRI());
         yield return new WaitForSeconds(2f);
         foreach(GameObject beam in beams){
             beam.GetComponent<GearBitController>().nowState = GearBitController.States.Returning;
         }
         yield break;
     }
-    IEnumerator IAIGIRI(){
+    IEnumerator TUZIGIRI(){
+        if(nowState != States.BeamCombo)nowState = States.TUZIGIRI;
         yield return new WaitForSeconds(0.6f);
-        while(target.transform.position.x - transform.position.x > 1f){
+        float t = Time.deltaTime;
+        while(target.transform.position.x - transform.position.x > 0.5f && t < 1.5f){
             int StartDir = direction;
             if(StartDir == direction)rb2D.AddForce(new Vector2(rb2D.mass * (StartDir * boostSpeed - rb2D.velocity.x)/0.05f , 0));
             else yield break;
@@ -144,6 +162,7 @@ public class Type43Contoller : MonoBehaviour
         rb2D.velocity = Vector2.zero;
         animator.Play("BoostSlash_" + ((direction == 1)?  "R":"L"),0,0);
         yield return new WaitForSeconds(0.2f);
+        Destroy(Instantiate(tuzigiriColli.Collider,transform.position + (Vector3)tuzigiriColli.offset,Quaternion.identity),0.1f);
         transform.position = target.transform.position + new Vector3(2f*direction,0);
         yield return new WaitForSeconds(2f);
         yield break;
@@ -158,6 +177,7 @@ public class Type43Contoller : MonoBehaviour
             beams[i].GetComponent<GearBitController>().rotate = 90 * i;
             beams[i].GetComponent<GearBitController>().returnObj = gameObject;
             beams[i].GetComponent<GearBitController>().ShotPos = transform.position + new Vector3(0.67f*direction,0.05f);
+            beams[i].GetComponent<GearBitController>().beamsIndex = i;
             yield return new WaitForSeconds(0.25f);
             beams[i].GetComponent<GearBitController>().nowState = GearBitController.States.Following;
         }

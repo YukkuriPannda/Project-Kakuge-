@@ -12,9 +12,10 @@ public class GearBitController : MonoBehaviour
     public float distance;
     public float height;
     public float moveSpeed;
-    public float rotate;
     float sp;
+    public float rotate;
     public float rotSpeed;
+    [HideInInspector]public int beamsIndex;
     private Vector2 startTrgPos;
     [HideInInspector]public Vector2 ShotPos;
     public enum AttackMode{
@@ -73,6 +74,7 @@ public class GearBitController : MonoBehaviour
             }break;
             case States.Returning:{
                 if(Vector2.Distance(returnObj.transform.position,transform.position)< 0.5f){
+                    returnObj.GetComponent<Type43Contoller>().beams.Remove(gameObject);
                     Destroy(gameObject);
                     break;
                 }

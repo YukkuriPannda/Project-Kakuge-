@@ -5540,9 +5540,17 @@ PrefabInstance:
       propertyPath: boostSpeed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 4882725783017900522, guid: f49757569c5512747b1e7864f3987a25, type: 3}
+      propertyPath: tuzigiriColli.Collider
+      value: 
+      objectReference: {fileID: 4902071629611297783, guid: cb334321c92329248bc31aae729f1663, type: 3}
+    - target: {fileID: 4882725783017900522, guid: f49757569c5512747b1e7864f3987a25, type: 3}
+      propertyPath: tuzigiriColli.offset.x
+      value: 1.25
+      objectReference: {fileID: 0}
     - target: {fileID: 6334110582000784001, guid: f49757569c5512747b1e7864f3987a25, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 2.2857144
+      value: 1.5238096
       objectReference: {fileID: 0}
     - target: {fileID: 6334110582000784001, guid: f49757569c5512747b1e7864f3987a25, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y

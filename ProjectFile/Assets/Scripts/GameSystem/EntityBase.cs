@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -14,10 +15,12 @@ public class EntityBase : MonoBehaviour
     public float OverHeatTime = 10.0f; //OverHeatしてる時間
     public float CoolingSpeed = 5.0f; //冷えろ
     public float Heating = 5.0f;
+    public float parryCooltime;
 
     public bool gard = false; //Gard
     [SerializeField,ReadOnly] public bool ParryReception = false;
     [SerializeField,ReadOnly] public bool acceptDamage = true;
+    [SerializeField,ReadOnly] public float timeLastHurt = 0;
     public bool Invulnerable = false;
     public bool NoGravity = false;
     public bool OnGround = false;
@@ -51,9 +54,10 @@ public class EntityBase : MonoBehaviour
 
             }
         }
-        if(ParryReception){
+        if(ParryReception && timeLastHurt > 1.0f){
             if(gameObject.GetComponent<PlayerController>())StartCoroutine(gameObject.GetComponent<PlayerController>().Parry(resutDMG));
         }
+        timeLastHurt = 0;
     }
     public int DMGCalucation(float DMG ,MagicAttribute magicAttribute){
         float res = 0;
@@ -120,6 +124,7 @@ public class EntityBase : MonoBehaviour
         }else {
             if(Heat > 0)Heat -= CoolingSpeed * Time.deltaTime;
         }
+        timeLastHurt += Time.deltaTime;
         
     }
             

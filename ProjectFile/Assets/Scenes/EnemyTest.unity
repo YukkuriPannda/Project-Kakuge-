@@ -5527,7 +5527,7 @@ PrefabInstance:
     - target: {fileID: 2510623180638401381, guid: f49757569c5512747b1e7864f3987a25, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: dbdfee78d38149749a3d3b77196d4c0f, type: 3}
+      objectReference: {fileID: 1902030636, guid: d839e48f21f78e246a71f5d00c89c185, type: 3}
     - target: {fileID: 4882725783017900522, guid: f49757569c5512747b1e7864f3987a25, type: 3}
       propertyPath: target
       value: 
@@ -5539,6 +5539,18 @@ PrefabInstance:
     - target: {fileID: 4882725783017900522, guid: f49757569c5512747b1e7864f3987a25, type: 3}
       propertyPath: boostSpeed
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4882725783017900522, guid: f49757569c5512747b1e7864f3987a25, type: 3}
+      propertyPath: upSlashColli.Collider
+      value: 
+      objectReference: {fileID: 194252929482391776, guid: d2cecf9748860444cbac04d885eeaffb, type: 3}
+    - target: {fileID: 4882725783017900522, guid: f49757569c5512747b1e7864f3987a25, type: 3}
+      propertyPath: upSlashColli.offset.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4882725783017900522, guid: f49757569c5512747b1e7864f3987a25, type: 3}
+      propertyPath: upSlashColli.offset.y
+      value: -0.27
       objectReference: {fileID: 0}
     - target: {fileID: 4882725783017900522, guid: f49757569c5512747b1e7864f3987a25, type: 3}
       propertyPath: tuzigiriColli.Collider
@@ -70564,9 +70576,11 @@ MonoBehaviour:
   OverHeatTime: 10
   CoolingSpeed: 5
   Heating: 5
+  parryCooltime: 0
   gard: 0
   ParryReception: 0
   acceptDamage: 1
+  timeLastHurt: 0
   Invulnerable: 0
   NoGravity: 0
   OnGround: 0

@@ -15,11 +15,13 @@ public class Type43Contoller : MonoBehaviour
         public Vector2 offset; 
     }
     public AttackCollider tuzigiriColli;
+    public AttackCollider upSlashColli;
+
     public enum States{
         Stopping,
         StartUping,
         Waiting,
-
+        Upslash,
         BeamCombo,
         VolleyBeam,
         TUZIGIRI,
@@ -75,7 +77,9 @@ public class Type43Contoller : MonoBehaviour
             case States.StartUping:{
                 StartCoroutine(BeamCombo());
             }break;
-            case States.BeamCombo:case States.Damaging:case States.VolleyBeam:{
+            case States.BeamCombo:case States.Damaging:
+            case States.VolleyBeam:case States.TUZIGIRI:
+            case States.Upslash:{
                 StartCoroutine(RelotteryBehavior());
             }break;
         }
@@ -85,6 +89,10 @@ public class Type43Contoller : MonoBehaviour
         int ram = Random.Range(0,3);
         while(beams.Count > 0)yield return null;
         Debug.Log($"Behavior is {ram} count is {beams.Count}");
+        if(Mathf.Abs(target.transform.position.x - transform.position.x) < 2 && Random.value > 0.5f/*50%の確率*/){
+            StartCoroutine(Upslash());
+            yield break;
+        }
         yield return new WaitForSeconds(Random.Range(0,3));
         switch(ram){
             case 0:{
@@ -102,6 +110,13 @@ public class Type43Contoller : MonoBehaviour
     IEnumerator BeamCombo(){
         nowState = States.BeamCombo;
         StartCoroutine(Shot4Beams());
+        yield break;
+    }
+    IEnumerator Upslash(){
+        animator.Play("Upslash_" + ((direction == 1)?  "R":"L"),0,0);
+        nowState = States.Upslash;
+        Vector3 pos = transform.position + new Vector3(upSlashColli.offset.x * direction,upSlashColli.offset.y,0);
+        Destroy(Instantiate(upSlashColli.Collider,pos,Quaternion.identity),0.1f);
         yield break;
     }
     IEnumerator Shot4Beams(){

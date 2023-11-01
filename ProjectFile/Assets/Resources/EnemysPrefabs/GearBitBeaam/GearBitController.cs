@@ -81,7 +81,7 @@ public class GearBitController : MonoBehaviour
 
                 float myRad = (transform.localEulerAngles.z + 180) * Mathf.Deg2Rad;
                 float signedAngle =Vector2.SignedAngle(new Vector2((float)Mathf.Cos(myRad), (float)Mathf.Sin(myRad)), (transform.position - returnObj.transform.position).normalized);
-                if(signedAngle < Mathf.PI/3)transform.Translate(moveSpeed * Time.deltaTime * Vector2.right*2);
+                if(Mathf.Abs(signedAngle) < 60)transform.Translate(moveSpeed * Time.deltaTime * Vector2.right*2);
                 transform.Rotate(0, 0, 
                     Mathf.Clamp(signedAngle,-1,1) 
                     * rotSpeed * Time.deltaTime

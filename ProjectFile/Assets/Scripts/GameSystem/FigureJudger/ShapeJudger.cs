@@ -11,6 +11,11 @@ public class ShapeJudger : MonoBehaviour
     Transform mousePointerTrf;
     [SerializeField] PlayerController plc;
     [Space(5)]
+    public float TriangleLowerValue = 0.67f;
+    public float ReverseTriangleLowerValue = 0.67f;
+    public float ThunderLowerValue = 0.67f;
+    public float GrassLowerValue = 0.67f;
+    [Space(5)]
 
     [Header("Output")]
     public string result ="None";
@@ -105,7 +110,12 @@ public class ShapeJudger : MonoBehaviour
                         result = "Grass";
                         accuracy = grassAccuracyValue;
                     }
-                    if(result == null || accuracy < 0.67f){
+                    if(result == null 
+                    || (result=="RegularTriangle"&& accuracy < TriangleLowerValue)
+                    || (result=="InvertedTriangle"&& accuracy < ReverseTriangleLowerValue)
+                    || (result=="Thunder"&& accuracy < ThunderLowerValue)
+                    || (result=="Grass"&& accuracy < GrassLowerValue)
+                    ){
                         result = "Circle";
                         accuracy = CircleAccuracyValue;
                     }

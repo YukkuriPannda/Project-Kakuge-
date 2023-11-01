@@ -15,6 +15,7 @@ public class EntityBase : MonoBehaviour
     public float OverHeatTime = 10.0f; //OverHeatしてる時間
     public float CoolingSpeed = 5.0f; //冷えろ
     public float Heating = 5.0f;
+    public float normalDiffence = 1.0f;
     public float parryCooltime;
 
     public bool gard = false; //Gard
@@ -81,7 +82,7 @@ public class EntityBase : MonoBehaviour
                 else res = DMG;
             break;
         }
-        
+        res *= normalDiffence;
         return (int)res;
     }
     IEnumerator HitStop(float time){

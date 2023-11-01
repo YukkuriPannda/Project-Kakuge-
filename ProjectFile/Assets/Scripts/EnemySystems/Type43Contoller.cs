@@ -140,7 +140,7 @@ public class Type43Contoller : MonoBehaviour
         animator.Play("Upslash_" + ((direction == 1)?  "R":"L"),0,0);
         nowState = States.Upslash;
         Vector3 pos = transform.position + new Vector3(upSlashColli.offset.x * direction,upSlashColli.offset.y,0);
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.3f);
         GameObject obj = Instantiate(upSlashColli.Collider,pos,Quaternion.identity);
         obj.GetComponent<AttackBase>().knockBack *= new Vector2(direction,1);
         Destroy(obj,0.5f);

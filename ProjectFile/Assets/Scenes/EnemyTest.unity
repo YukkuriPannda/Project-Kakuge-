@@ -370,6 +370,10 @@ MonoBehaviour:
   sinceLastAddedPoint: 0
   mousePointer: {fileID: 1313999567}
   plc: {fileID: 988327579}
+  TriangleLowerValue: 0.67
+  ReverseTriangleLowerValue: 0.65
+  ThunderLowerValue: 0.67
+  GrassLowerValue: 0.5
   result: 
   IsGard: 0
   gardVector: {x: 0, y: 0}
@@ -5527,7 +5531,7 @@ PrefabInstance:
     - target: {fileID: 2510623180638401381, guid: f49757569c5512747b1e7864f3987a25, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1902030636, guid: d839e48f21f78e246a71f5d00c89c185, type: 3}
+      objectReference: {fileID: -613931427, guid: 689f10db0dec4bb46a0adde08f47b4ea, type: 3}
     - target: {fileID: 4882725783017900522, guid: f49757569c5512747b1e7864f3987a25, type: 3}
       propertyPath: target
       value: 
@@ -5560,9 +5564,13 @@ PrefabInstance:
       propertyPath: tuzigiriColli.offset.x
       value: 1.25
       objectReference: {fileID: 0}
+    - target: {fileID: 5870025697650017244, guid: f49757569c5512747b1e7864f3987a25, type: 3}
+      propertyPath: normalDiffence
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 6334110582000784001, guid: f49757569c5512747b1e7864f3987a25, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.5238096
+      value: 2.2857144
       objectReference: {fileID: 0}
     - target: {fileID: 6334110582000784001, guid: f49757569c5512747b1e7864f3987a25, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
@@ -70962,6 +70970,7 @@ MonoBehaviour:
   OverHeatTime: 10
   CoolingSpeed: 5
   Heating: 5
+  normalDiffence: 1
   parryCooltime: 0
   gard: 0
   ParryReception: 0

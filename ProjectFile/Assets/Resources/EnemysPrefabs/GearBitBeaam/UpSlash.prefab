@@ -65,7 +65,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1, y: -0.27}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -90,12 +90,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4783b916a6d73e740b19263d0dd0155f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 30
+  damage: 50
   magicAttribute: 0
   hurtCoolTime: 0.5
   hitStop: 1
   hitStopTime: 0.2
-  knockBack: {x: 100, y: 50}
+  knockBack: {x: 1000, y: 100}
   onlyFirstHurt: 1
   radicalHurt: 0
   gizmo: 0

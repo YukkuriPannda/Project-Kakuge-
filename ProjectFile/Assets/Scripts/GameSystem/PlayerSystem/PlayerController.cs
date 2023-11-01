@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -237,37 +238,7 @@ public class PlayerController : MonoBehaviour
                                 magicStones --;
                             }
                         }else{
-                            //SpecialMagic
-                            nowPlayerState = PlayerStates.ActivateSpecialMagic;
-                            PlayerMagicFactory playerMagicFactory = new PlayerMagicFactory();
-                            switch(drawMagicSymbols[0].magicSymbol){
-                                case "RegularTriangle":{
-                                    if(magicHolder.flameMagic != PlayerMagicFactory.MagicKind.none){
-                                        PlayerMagicBase plMagicBase = playerMagicFactory.Create(magicHolder.flameMagic);
-                                        StartCoroutine(plMagicBase.ActivationFlameMagic(this));
-                                    }
-                                }break;
-                                case "InvertedTriangle":{
-                                    if(magicHolder.aquaMagic != PlayerMagicFactory.MagicKind.none){
-                                        PlayerMagicBase plMagicBase = playerMagicFactory.Create(magicHolder.aquaMagic);
-                                        StartCoroutine(plMagicBase.ActivationAquaMagic(this));
-                                    }
-                                }break;
-                                case "Thunder":{
-                                    if(magicHolder.electroMagic != PlayerMagicFactory.MagicKind.none){
-                                        PlayerMagicBase plMagicBase = playerMagicFactory.Create(magicHolder.electroMagic);
-                                        StartCoroutine(plMagicBase.ActivationElectroMagic(this));
-                                    }
-                                }break;
-                                case "Grass":{
-                                    if(magicHolder.terraMagic != PlayerMagicFactory.MagicKind.none){
-                                        PlayerMagicBase plMagicBase = playerMagicFactory.Create(magicHolder.terraMagic);
-                                        StartCoroutine(plMagicBase.ActivationTerraMagic(this));
-                                    }
-                                }break;
-                            }
-                            magicStones --;
-                            lockOperation = false;
+                            ActivisionSpecialMagic();
                         }
                     }else if(eBase.myMagicAttribute != MagicAttribute.none){
                         
@@ -304,41 +275,43 @@ public class PlayerController : MonoBehaviour
                 case "Circle":{
                     if(drawMagicSymbols.Count >0){
                         drawMagicSymbols.Add(new DrawMagicSymbol("Circle",1));
-                    }
+                    }else  drawMagicSymbols.Clear();
                     drawShapeName = "None";
                     oldDrawShapeName ="None";
                     lockOperation = false;
                 }
                 break;
                 case "ButtonDown":{
+                    if(drawMagicSymbols.Count > 1)if(drawMagicSymbols[drawMagicSymbols.Count -1].magicSymbol == "Circle"){
+                        ActivisionSpecialMagic();
+                        break;
+                    }
                     if(drawMagicSymbols.Count > 0){
-                        if(drawMagicSymbols[drawMagicSymbols.Count -1].magicSymbol != "Circle"){
-                            //Enchant
-                            nowPlayerState = PlayerStates.EnchantMySelf;
-                            MagicAttribute magicAttribute = 0;
-                            switch(drawMagicSymbols[0].magicSymbol){
-                                case "RegularTriangle":{
-                                    magicAttribute = MagicAttribute.flame;
-                                }break;
-                                case "InvertedTriangle":{
-                                    magicAttribute = MagicAttribute.aqua;
-                                }break;
-                                case "Thunder":{
-                                    magicAttribute = MagicAttribute.electro;
-                                }break;
-                                case "Grass":{
-                                    magicAttribute = MagicAttribute.terra;
-                                }break;
-                            }
-                            gameObject.GetComponent<EntityBase>().myMagicAttribute = magicAttribute;
-                            AttackBase attackBase = Instantiate(attackColliders.Enchant,transform.position,Quaternion.identity).GetComponent<AttackBase>();
-                            attackBase.magicAttribute = magicAttribute;
-                            attackBase.tag = gameObject.tag;
-                            attackBase.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().material.SetColor("_Color",MagicColorManager.GetColorFromMagicArticle(magicAttribute));
-                            magicStones --;
-                            timeFromEnchanted += Time.deltaTime;
-                            drawMagicSymbols.Clear();
+                        //Enchant
+                        nowPlayerState = PlayerStates.EnchantMySelf;
+                        MagicAttribute magicAttribute = 0;
+                        switch(drawMagicSymbols[0].magicSymbol){
+                            case "RegularTriangle":{
+                                magicAttribute = MagicAttribute.flame;
+                            }break;
+                            case "InvertedTriangle":{
+                                magicAttribute = MagicAttribute.aqua;
+                            }break;
+                            case "Thunder":{
+                                magicAttribute = MagicAttribute.electro;
+                            }break;
+                            case "Grass":{
+                                magicAttribute = MagicAttribute.terra;
+                            }break;
                         }
+                        gameObject.GetComponent<EntityBase>().myMagicAttribute = magicAttribute;
+                        AttackBase attackBase = Instantiate(attackColliders.Enchant,transform.position,Quaternion.identity).GetComponent<AttackBase>();
+                        attackBase.magicAttribute = magicAttribute;
+                        attackBase.tag = gameObject.tag;
+                        attackBase.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().material.SetColor("_Color",MagicColorManager.GetColorFromMagicArticle(magicAttribute));
+                        magicStones --;
+                        timeFromEnchanted += Time.deltaTime;
+                        drawMagicSymbols.Clear();
                     }else{
                         //Gard
                         nowPlayerState = PlayerStates.Garding;
@@ -354,7 +327,6 @@ public class PlayerController : MonoBehaviour
                         yield return new WaitForSeconds(0.2f);
                         eBase.ParryReception = false;
                         eBase.acceptDamage = true;
-
                     }
 
                 }break;
@@ -365,7 +337,7 @@ public class PlayerController : MonoBehaviour
             }
             
         }else {
-            if(drawShapeName == "ButtonUp" && !CounterReception){
+            if(drawShapeName == "ButtonUp" && !CounterReception && !openingInventry){
                 lockOperation = false;
                 eBase.gard = false;
                 drawShapeName = "None";
@@ -445,6 +417,39 @@ public class PlayerController : MonoBehaviour
     }
     public void SlowMotionEnd(){Time.timeScale = 1;}
     public void GenerateAttackCollier(){StartCoroutine(IEGenerateAttackCollier());}
+    private void ActivisionSpecialMagic(){//SpecialMagic
+        nowPlayerState = PlayerStates.ActivateSpecialMagic;
+        PlayerMagicFactory playerMagicFactory = new PlayerMagicFactory();
+        switch(drawMagicSymbols[0].magicSymbol){
+            case "RegularTriangle":{
+                if(magicHolder.flameMagic != PlayerMagicFactory.MagicKind.none){
+                    PlayerMagicBase plMagicBase = playerMagicFactory.Create(magicHolder.flameMagic);
+                    StartCoroutine(plMagicBase.ActivationFlameMagic(this));
+                }
+            }break;
+            case "InvertedTriangle":{
+                if(magicHolder.aquaMagic != PlayerMagicFactory.MagicKind.none){
+                    PlayerMagicBase plMagicBase = playerMagicFactory.Create(magicHolder.aquaMagic);
+                    StartCoroutine(plMagicBase.ActivationAquaMagic(this));
+                }
+            }break;
+            case "Thunder":{
+                if(magicHolder.electroMagic != PlayerMagicFactory.MagicKind.none){
+                    PlayerMagicBase plMagicBase = playerMagicFactory.Create(magicHolder.electroMagic);
+                    StartCoroutine(plMagicBase.ActivationElectroMagic(this));
+                }
+            }break;
+            case "Grass":{
+                if(magicHolder.terraMagic != PlayerMagicFactory.MagicKind.none){
+                    PlayerMagicBase plMagicBase = playerMagicFactory.Create(magicHolder.terraMagic);
+                    StartCoroutine(plMagicBase.ActivationTerraMagic(this));
+                }
+            }break;
+        }
+        magicStones --;
+        lockOperation = false;
+        
+    }
     private IEnumerator IEGenerateAttackCollier(){
         switch(nowPlayerState){
             case PlayerStates.Up:{

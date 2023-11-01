@@ -50,14 +50,29 @@ public class Type43Contoller : MonoBehaviour
         direction = (target.transform.position.x - transform.position.x > 0)?1:-1;
         if(oldHealth - eBase.Health > 0){
             StopAllCoroutines();
-            if(eBase.Health <= 0)nowState = States.Deathing;
-            else{
+            if(eBase.Health <= 0){
+                nowState = States.Deathing;
+                animator.Play("Death_" + ((direction == 1)?  "R":"L"),0,0);
+                foreach(GameObject beam in beams){
+                    beam.AddComponent<Rigidbody2D>();
+                    beam.AddComponent<BoxCollider2D>();
+                    Destroy(beam,2f);
+                }
+                Destroy(gameObject,2f);
+            }
+            else if(eBase.overHeating){
+                nowState = States.OverHeating;
+                animator.Play("OverHeat_" + ((direction == 1)?  "R":"L"),0,0);
+                foreach(GameObject beam in beams){
+                    beam.GetComponent<GearBitController>().nowState = GearBitController.States.Returning;
+                }
+            }else{
                 nowState = States.Damaging;
                 animator.Play("Hurt_" + ((direction == 1)?  "R":"L"),0,0);
                 foreach(GameObject beam in beams){
                     beam.GetComponent<GearBitController>().nowState = GearBitController.States.Returning;
                 }
-            } 
+            }
                 
         }
         switch(nowState){
@@ -67,6 +82,13 @@ public class Type43Contoller : MonoBehaviour
                     animator.Play("StartUp_" + ((direction ==1)?  "R":"L"),0,0);
                 }
             }break;
+        }
+        if(oldState != nowState){
+            switch(nowState){
+                case States.Waiting:{
+                    animator.Play("Wait_" + ((direction ==1)?  "R":"L"),0,0);
+                }break;
+            }
         }
         oldHealth = eBase.Health;
         oldState = nowState;
@@ -85,14 +107,15 @@ public class Type43Contoller : MonoBehaviour
         }
     }
     IEnumerator RelotteryBehavior(){
+        Debug.Log("RelloyBehavior");
         nowState = States.Waiting;
         int ram = Random.Range(0,3);
-        while(beams.Count > 0)yield return null;
-        Debug.Log($"Behavior is {ram} count is {beams.Count}");
-        if(Mathf.Abs(target.transform.position.x - transform.position.x) < 2 && Random.value > 0.5f/*50%の確率*/){
+        if(Mathf.Abs(target.transform.position.x - transform.position.x) < 2){
             StartCoroutine(Upslash());
             yield break;
         }
+        while(beams.Count > 0)yield return null;
+        Debug.Log($"Behavior is {ram} count is {beams.Count}");
         yield return new WaitForSeconds(Random.Range(0,3));
         switch(ram){
             case 0:{
@@ -113,10 +136,14 @@ public class Type43Contoller : MonoBehaviour
         yield break;
     }
     IEnumerator Upslash(){
+        Debug.Log("UpSlash");
         animator.Play("Upslash_" + ((direction == 1)?  "R":"L"),0,0);
         nowState = States.Upslash;
         Vector3 pos = transform.position + new Vector3(upSlashColli.offset.x * direction,upSlashColli.offset.y,0);
-        Destroy(Instantiate(upSlashColli.Collider,pos,Quaternion.identity),0.1f);
+        yield return new WaitForSeconds(0.2f);
+        GameObject obj = Instantiate(upSlashColli.Collider,pos,Quaternion.identity);
+        obj.GetComponent<AttackBase>().knockBack *= new Vector2(direction,1);
+        Destroy(obj,0.5f);
         yield break;
     }
     IEnumerator Shot4Beams(){

@@ -41,7 +41,7 @@ public class ShapeJudger : MonoBehaviour
     }
     void Update()
     {
-        if(result == "ButtonUp")result = "none";
+        if(result == "ButtonUp")result = "None";
         if(Input.GetMouseButtonDown(0) && mousePointer.inGameWindow){//初期化
             inputPoints = new List<Vector2>();
             sortPoints = new List<Vector2>();

@@ -39,19 +39,15 @@ public class EntityBase : MonoBehaviour
             if(hitStopTime > 0)StartCoroutine(HitStop(hitStopTime));
             Debug.Log($"[DamageLog]Hurt DMG:{DMG} margicAttribute:{magicAttribute} knockBack:{knockBack} HitStop:{hitStopTime}");
             Health -= resutDMG;
-            if (gameObject.GetComponent<ZakoEnemyController>())
+            if (gameObject.CompareTag("Enemy") && !overHeating)
             {
-                if (!overHeating)
+                Heat += DMG; // lockOperationじゃなかったらHeatにDMGを追加します
+                Heat = Mathf.Clamp(Heat, 0.0f, HeatCapacity); // 0.0fは下限、HeatCapacityが上限。Heatは0以上HeatCapacity以下
+
+                if (Heat >= HeatCapacity)
                 {
-                    Heat += DMG; // lockOperationじゃなかったらHeatにDMGを追加します
-                    Heat = Mathf.Clamp(Heat, 0.0f, HeatCapacity); // 0.0fは下限、HeatCapacityが上限。Heatは0以上HeatCapacity以下
-
-                    if (Heat >= HeatCapacity)
-                    {
-                        overHeating = true; // HeatがHeatCapacity超えたらlockOperationがtrue
-                    }
+                    overHeating = true; // HeatがHeatCapacity超えたらlockOperationがtrue
                 }
-
             }
         }
         if(ParryReception && timeLastHurt > 1.0f){
@@ -110,7 +106,7 @@ public class EntityBase : MonoBehaviour
             OverHeatTime -= Time.deltaTime;
             if(OverHeatTime < 0.0f)
             {
-            overHeating = false;
+                overHeating = false;
 
                 if(!overHeating)
                      {
@@ -118,7 +114,7 @@ public class EntityBase : MonoBehaviour
                          OverHeatTime = 10.0f;
                      }
 
-            Debug.Log("Heat");
+                Debug.Log("Heat");
             }
             
         }else {

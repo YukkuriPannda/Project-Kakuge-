@@ -19,10 +19,10 @@ public class ButtonBaseEX : MonoBehaviour
         OnUpdate();
         mousePos = Input.mousePosition;
         if(pointerStay){
-            if(myRectTrf.sizeDelta.x < mousePos.x - myRectTrf.position.x
-            || -myRectTrf.sizeDelta.x > mousePos.x - myRectTrf.position.x
-            || myRectTrf.sizeDelta.y < mousePos.y - myRectTrf.position.y
-            || -myRectTrf.sizeDelta.y > mousePos.y - myRectTrf.position.y
+            if(myRectTrf.sizeDelta.x*myRectTrf.lossyScale.x < mousePos.x - myRectTrf.position.x
+            || -myRectTrf.sizeDelta.x*myRectTrf.lossyScale.x  > mousePos.x - myRectTrf.position.x
+            || myRectTrf.sizeDelta.y*myRectTrf.lossyScale.y  < mousePos.y - myRectTrf.position.y
+            || -myRectTrf.sizeDelta.y*myRectTrf.lossyScale.y  > mousePos.y - myRectTrf.position.y
             ){
                 OnPointerExit();
                 pointerStay = false;
@@ -33,10 +33,6 @@ public class ButtonBaseEX : MonoBehaviour
                 Debug.Log(gameObject.name + " Click");
                 OnClickDown();
             }
-            if(Input.GetMouseButtonUp(0)){
-                clicking = false;     
-                OnClickUp();   
-            }
         }else {
             if (!(myRectTrf.sizeDelta.x < mousePos.x - myRectTrf.position.x
             || -myRectTrf.sizeDelta.x > mousePos.x - myRectTrf.position.x
@@ -46,6 +42,10 @@ public class ButtonBaseEX : MonoBehaviour
                 OnPointerEnter();
                 pointerStay = true;
             }
+        }
+        if(Input.GetMouseButtonUp(0) && clicking){
+            clicking = false;     
+            OnClickUp();   
         }
        
     }

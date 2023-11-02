@@ -450,6 +450,8 @@ public class PlayerController : MonoBehaviour
         lockOperation = false;
         
     }
+    private void EnchantMyself(MagicAttribute magicAttribute){
+    }
     private IEnumerator IEGenerateAttackCollier(){
         switch(nowPlayerState){
             case PlayerStates.Up:{

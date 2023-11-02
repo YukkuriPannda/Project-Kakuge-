@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class ModeSelectMenu : ButtonBaseEX
 {
     Animator animator;
     public string sceneName;
+    public Image fade;
+    public GameObject Loading;
     public override void OnStart()
     {
         base.OnStart();
@@ -25,6 +28,15 @@ public class ModeSelectMenu : ButtonBaseEX
     public override void OnClickDown()
     {
         base.OnClickDown();
+        StartCoroutine(IEOnClickDown());
+    }
+    IEnumerator IEOnClickDown(){
+        for(float t = 0;t <= 0.5f;t +=Time.deltaTime){
+            fade.color+= new Color(0,0,0,Time.deltaTime * 2);
+            yield return null;
+        }
+        Loading.SetActive(true);
         SceneManager.LoadScene(sceneName);
+        yield break;
     }
 }

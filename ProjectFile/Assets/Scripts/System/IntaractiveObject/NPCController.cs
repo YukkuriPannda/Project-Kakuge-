@@ -47,22 +47,52 @@ public class NPCController : InteractiveBase {
         actionName.SetActive(false);
     }
     public IEnumerator Talk(string text){
-        //$mkreq[k[A],d[Upstreight]] sampleTitle
+        //$mkreq{k[A] Push K key,d[Upstreight]} sampleTitle
         if(text[0] == '$'){
             switch(text.Substring(1,6)){
-                case "mkreq[":{
+                case "mkreq{":{
                     int text_i = 7;
-                    int reqLengh = 0;
+                    int goalsLengh = 0;
                     List<GuildManager.Request.Goal> goals = new List<GuildManager.Request.Goal>();
-                    for(;text.Substring(text_i,2) == "]]";text_i++)if(text[text_i] == '[')reqLengh ++;
-                    for(int j = 0;j < reqLengh;j++){
-                        if(text.Substring(7+j,2) == "k["){
-                            goals.Add(new GuildManager.Request.Goal(text,(KeyCode)Enum.Parse(typeof(KeyCode),StringUp("]",7+j,text))));
+                    for(;text[text_i] != '}';text_i++)if(text[text_i] == '[')goalsLengh ++;
+                    Debug.Log($"text_i:{text_i}reqLengh:{goalsLengh}");
+                    for(int goals_i = 7;goals_i < text_i;){
+                        Debug.Log(text.Substring(goals_i,2));
+                        if(text.Substring(goals_i,2) == "k["){
+                            KeyCode keyCode = (KeyCode)Enum.Parse(typeof(KeyCode),StringUp("]",2+goals_i,text));
+                            goals_i += StringUp("]",2+goals_i,text).Length+1+1;//]+次に送る
+                            string goalTitle = StringUp(",",2+goals_i,text);
+                            if(goalTitle == "ERR"){
+                                goalTitle = StringUp("}",2+goals_i,text);
+                                goals_i += goalTitle.Length+1+1;//次に送る
+                            }else {
+                                goals_i += goalTitle.Length+1+1+1;//,+次に送る
+                            }
+                            goals.Add(new GuildManager.Request.Goal(goalTitle,keyCode));
+                            Debug.Log(goals_i);
+                        }else if(text.Substring(goals_i,2) == "d["){
+                            Debug.Log("D");
+                            string drawShapeName = StringUp("]",2+goals_i,text);
+                            goals_i += drawShapeName.Length+1+1;//]+次に送る
+                            string goalTitle = StringUp(",",2+goals_i,text);
+                            if(goalTitle == "ERR"){
+                                goalTitle = StringUp("}",2+goals_i,text); 
+                                goals_i += goalTitle.Length+1+1;//,+次に送る
+                            }else {
+                                goals_i += goalTitle.Length+1+1+1;//,+次に送る
+                            }
+                            goals.Add(new GuildManager.Request.Goal(goalTitle,drawShapeName));
+                        }else {
+                            break;
                         }
-
                     }
+                    text_i += 1+1;//スペース分+次におくる
+                    string title = text.Substring(text_i);
+                    guildManager.MakeRequest(new GuildManager.Request(title,goals.ToArray(),this));
+                    Debug.Log(title);
                 }break;
             }
+            yield break;
         }
         bodyTex.text = text;
         messageBox.GetComponent<RectTransform>().sizeDelta = new Vector2(bodyTex.preferredWidth+10,bodyTex.preferredHeight+10);
@@ -80,9 +110,11 @@ public class NPCController : InteractiveBase {
         yield break;
     }
     public string StringUp(string to ,int startIndex,string text){
-        for(int i = startIndex;i < text.Length;i ++){
-            if(text.Substring(i,to.Length) == to)return text.Substring(startIndex,i);
+        int i = startIndex;
+        for(;i < text.Length;i ++){
+            if(text.Substring(i,to.Length) == to)return text.Substring(startIndex,i - startIndex);
         }
+        Debug.LogError($"Not Found {to} from {i}");
         return "ERR";
     }
     public void  ComplateRequest(){

@@ -13,8 +13,8 @@ public class InventrySystem : MonoBehaviour
     [SerializeField] GameObject ItemPrefab;
     [SerializeField] public PlayerController plc;
     [SerializeField] public PlayerEffectController plEC;
-    public List<ItemBase> mainInventry = new List<ItemBase>();
-    public List<ItemBase> magicBookSlots = new List<ItemBase>();
+    public List<ItemBase> mainInventry;
+    public List<ItemBase> magicBookSlots;
     public ItemBase weaponSlot;
     public GameObject magicBookMenuPrefab;
     public GameObject weaponMenuPrefab;
@@ -29,7 +29,7 @@ public class InventrySystem : MonoBehaviour
     
 
     [ReadOnly]public GameObject menu;
-    void Start()
+    void Awake()
     {   
         LoadItem();
         SetInventryItem();

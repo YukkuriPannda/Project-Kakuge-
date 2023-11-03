@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -169,6 +170,7 @@ public class PlayerController : MonoBehaviour
     }
     public IEnumerator onChangeDrawShapeName(){
         if(oldDrawShapeName == "None" && !lockOperation && !(nowPlayerState == PlayerStates.CounterAttack || CounterReception)){
+            direction = (drawShapePos.x > 0) ? 1 : -1;
             lockOperation = true;
             switch(drawShapeName){
                 case "StraightToRight":{
@@ -194,7 +196,6 @@ public class PlayerController : MonoBehaviour
                 }break;
                 case "tap":{
                     if(drawMagicSymbols.Count > 0 && magicStones>0){
-                        direction = (drawShapePos.x > 0) ? 1 : -1;
                         if(drawMagicSymbols[drawMagicSymbols.Count-1].magicSymbol != "Circle"){
                             //NormalMagic
                             MagicAttribute magicAttribute = 0;
@@ -242,7 +243,6 @@ public class PlayerController : MonoBehaviour
                         }
                     }else if(eBase.myMagicAttribute != MagicAttribute.none){
                         
-                        direction = (drawShapePos.x > 0) ? 1 : -1;
                         //WeakBullet
                         nowPlayerState = PlayerStates.ShotMagicBullet;
                         yield return new WaitForSeconds(0.2f);
@@ -567,5 +567,8 @@ public class PlayerController : MonoBehaviour
             }break;
         }
         yield break;
+    }
+    public int DirectionFromDrawShapePos(){
+        return (drawShapePos.x > 0) ? 1 : -1;
     }
 }

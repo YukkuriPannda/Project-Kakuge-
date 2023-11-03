@@ -1,21 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class GuildManager : MonoBehaviour
 {
     public PlayerController plc;
-    public List<Request> requests;
+    public List<Request> requests = new List<Request>();
+    public GameObject boxPrefab;
+    public Transform BoxParent;
+    private int ControllGoal_i = 0;
+    [System.Serializable]
     public class Request{
         public string title;
         public List<Goal> goals = new List<Goal>();
         public NPCController requester;
         
+        [System.Serializable]
         public class Goal{
             public string goalTitle;
             public KeyCode keyCode = KeyCode.None;
             public string drawShapeName = "None";
+            public GameObject Box;
             public Goal(string goalTitle,KeyCode keyCode){
                 this.goalTitle = goalTitle;
                 this.keyCode = keyCode;
@@ -38,15 +45,27 @@ public class GuildManager : MonoBehaviour
 
     void Update()
     {
-        if(requests[0].goals.Count > 0)if((requests[0].goals[0].keyCode != KeyCode.None &&Input.GetKeyDown(requests[0].goals[0].keyCode))
-        || (requests[0].goals[0].drawShapeName != "None" &&requests[0].goals[0].drawShapeName == plc.drawShapeName)){
-            requests[0].goals.RemoveAt(0);
-            if(requests[0].goals.Count <= 0){
-                requests.RemoveAt(0);
+        if(requests.Count > 0)if(requests[0].goals.Count > 0){
+            if((requests[0].goals[0].keyCode != KeyCode.None &&Input.GetKeyDown(requests[0].goals[0].keyCode))
+                || (requests[0].goals[0].drawShapeName != "None" &&requests[0].goals[0].drawShapeName == plc.drawShapeName)){
+                StartCoroutine(RemoveGoal());
+                if(requests[0].goals.Count <= 0){
+                    requests.RemoveAt(0);
+                }
             }
         }
     }
     public void MakeRequest(Request request){
         requests.Add(request);
+        foreach(Request.Goal goal in request.goals){
+            goal.Box = Instantiate(boxPrefab,BoxParent);
+            goal.Box.transform.GetComponentInChildren<TextMeshProUGUI>().text = goal.goalTitle;
+        }
+    }
+    public IEnumerator RemoveGoal(){
+        requests[0].goals[0].Box.GetComponent<Animator>().Play("Disable");
+        Destroy(requests[0].goals[0].Box);
+        requests[0].goals.RemoveAt(0);
+        yield break;
     }
 }

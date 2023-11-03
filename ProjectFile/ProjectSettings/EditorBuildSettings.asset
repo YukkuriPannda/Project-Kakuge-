@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tutrial.unity
     guid: 6a04856d86f26dd41a4322fbb36a689a
+  - enabled: 1
+    path: Assets/Scenes/Hard.unity
+    guid: 8e5c5abb1e5f5a544a3342491a8ab1d3
   m_configObjects: {}

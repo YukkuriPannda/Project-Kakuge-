@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
 using System;
+using UnityEditor.PackageManager.Requests;
 
 public class NPCController : InteractiveBase {
     public float textInterval;
@@ -50,12 +51,13 @@ public class NPCController : InteractiveBase {
         if(text[0] == '$'){
             switch(text.Substring(1,6)){
                 case "mkreq[":{
-                    int i = 7;
+                    int text_i = 7;
                     int reqLengh = 0;
-                    for(;text.Substring(i,2) == "]]";i++)if(text[i] == '[')reqLengh ++;
+                    List<GuildManager.Request.Goal> goals = new List<GuildManager.Request.Goal>();
+                    for(;text.Substring(text_i,2) == "]]";text_i++)if(text[text_i] == '[')reqLengh ++;
                     for(int j = 0;j < reqLengh;j++){
                         if(text.Substring(7+j,2) == "k["){
-                            KeyCode result = (KeyCode)Enum.Parse(typeof(KeyCode),StringUp("]",7+j,text));
+                            goals.Add(new GuildManager.Request.Goal(text,(KeyCode)Enum.Parse(typeof(KeyCode),StringUp("]",7+j,text))));
                         }
 
                     }

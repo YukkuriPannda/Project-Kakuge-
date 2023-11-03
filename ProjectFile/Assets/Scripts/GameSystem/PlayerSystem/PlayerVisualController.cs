@@ -215,18 +215,25 @@ public class PlayerVisualController : MonoBehaviour
         }
     }
     public void UpdateAnimStateMachines(){
-        UnityEditor.Animations.AnimatorController animatorController = plAnim.runtimeAnimatorController as UnityEditor.Animations.AnimatorController;
-        animatorController.layers[0].stateMachine.states[GetStateFromName("Special_Flame",animatorController.layers[0].stateMachine.states)].state.motion = specialAttackMotions.flame;
-        animatorController.layers[0].stateMachine.states[GetStateFromName("Special_Aqua",animatorController.layers[0].stateMachine.states)].state.motion = specialAttackMotions.aqua;
-        animatorController.layers[0].stateMachine.states[GetStateFromName("Special_Electro",animatorController.layers[0].stateMachine.states)].state.motion = specialAttackMotions.electro;
-        animatorController.layers[0].stateMachine.states[GetStateFromName("Special_Terra",animatorController.layers[0].stateMachine.states)].state.motion = specialAttackMotions.terra;
-        
-        ChildAnimatorState[] NormalStates
-         = animatorController.layers[0].stateMachine.stateMachines[GetSubStateFromName("NormalAttack",animatorController.layers[0].stateMachine.stateMachines)].stateMachine.states;
+        RuntimeAnimatorController animatorCtr = plAnim.runtimeAnimatorController;
+        Debug.Log(plAnim.GetCurrentAnimatorStateInfo(0).shortNameHash);
+        animatorCtr.animationClips[GetStateFromName("Special_Flame",animatorCtr.animationClips)] = specialAttackMotions.flame;
+        animatorCtr.animationClips[GetStateFromName("Special_Aqua",animatorCtr.animationClips)] = specialAttackMotions.aqua;
+        animatorCtr.animationClips[GetStateFromName("Special_Electro",animatorCtr.animationClips)] = specialAttackMotions.electro;
+        animatorCtr.animationClips[GetStateFromName("Special_Terra",animatorCtr.animationClips)] = specialAttackMotions.terra;
+
+        animatorCtr.animationClips[GetStateFromName("Up",animatorCtr.animationClips)] = normalAttackMotions.upMotion;
+        animatorCtr.animationClips[GetStateFromName("Thrust",animatorCtr.animationClips)] = normalAttackMotions.thrustMotion;
+        animatorCtr.animationClips[GetStateFromName("Down",animatorCtr.animationClips)] = normalAttackMotions.downMotion;
+        animatorCtr.animationClips[GetStateFromName("Counter",animatorCtr.animationClips)] = normalAttackMotions.CounterMotion;
+        /*
+        AnimationClip[] NormalStates
+         = animatorCtr.animationClips[GetSubStateIndexFromName("NormalAttack",animatorCtr.animationClips)].an;
         NormalStates[GetStateFromName("Up",NormalStates)].state.motion = normalAttackMotions.upMotion;
         NormalStates[GetStateFromName("Thrust",NormalStates)].state.motion = normalAttackMotions.thrustMotion;
         NormalStates[GetStateFromName("Down",NormalStates)].state.motion = normalAttackMotions.downMotion;
         NormalStates[GetStateFromName("Counter",NormalStates)].state.motion = normalAttackMotions.CounterMotion;
+        */
     }
     Color EffectColor(MagicAttribute magicAttribute){
         Color res =Color.white;
@@ -255,18 +262,16 @@ public class PlayerVisualController : MonoBehaviour
         plc.weapon.GetComponent<WeaponEffectSystem>().UnEnableNormalParticle();
         plc.gameObject.GetComponent<PlayerEffectController>().DisableNormalParticle();
     }
-    int GetStateFromName(string name,ChildAnimatorState[] states){
-        int result = 0;
-        for(; states[result].state.name != name;result ++){
-            if(result >= states.Length-1){
-                Debug.LogError("Not Found AnimationState "+name);
-                return -1;
-            }
+    int GetStateFromName(string name,AnimationClip[] states){
+        for(int result = 0;result < states.Length;result ++){
+            if(states[result].name == name)return result;
+            Debug.Log(states[result].name);
         }
-        return result;
-    }int GetSubStateFromName(string name,ChildAnimatorStateMachine[] states){
+        Debug.LogError("Not Found AnimationClip "+ name);
+        return -1;
+    }int GetSubStateIndexFromName(string name,AnimationClip[] states){
         int result = 0;
-        for(; states[result].stateMachine.name != name;result ++){
+        for(; states[result].name != name;result ++){
             if(result >= states.Length-1){
                 Debug.LogError("Not Found AnimationStateMachine "+name);
                 return -1;

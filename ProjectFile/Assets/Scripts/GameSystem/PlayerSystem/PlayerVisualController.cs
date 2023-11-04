@@ -12,6 +12,7 @@ public class PlayerVisualController : MonoBehaviour
     public Transform rightHand;
     public Transform leftHand;
     public Transform back;
+    public GameObject fade_GameOver;
     enum AnimMotions :int {
         Stay,
         Walk,
@@ -161,6 +162,11 @@ public class PlayerVisualController : MonoBehaviour
             case PlayerController.PlayerStates.Hurt:{
                 plAnim.Play("Damage",0,0);
             }break;
+            case PlayerController.PlayerStates.Deathing:{
+                plAnim.Play("Deathing",0,0);
+                fade_GameOver.SetActive(true);
+
+            }break;
             case PlayerController.PlayerStates.CounterAttack:{
                 if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);
                 else model.transform.localEulerAngles = new Vector3(0,180,0);
@@ -215,25 +221,18 @@ public class PlayerVisualController : MonoBehaviour
         }
     }
     public void UpdateAnimStateMachines(){
-        RuntimeAnimatorController animatorCtr = plAnim.runtimeAnimatorController;
-        Debug.Log(plAnim.GetCurrentAnimatorStateInfo(0).shortNameHash);
-        animatorCtr.animationClips[GetStateFromName("Special_Flame",animatorCtr.animationClips)] = specialAttackMotions.flame;
-        animatorCtr.animationClips[GetStateFromName("Special_Aqua",animatorCtr.animationClips)] = specialAttackMotions.aqua;
-        animatorCtr.animationClips[GetStateFromName("Special_Electro",animatorCtr.animationClips)] = specialAttackMotions.electro;
-        animatorCtr.animationClips[GetStateFromName("Special_Terra",animatorCtr.animationClips)] = specialAttackMotions.terra;
-
-        animatorCtr.animationClips[GetStateFromName("Up",animatorCtr.animationClips)] = normalAttackMotions.upMotion;
-        animatorCtr.animationClips[GetStateFromName("Thrust",animatorCtr.animationClips)] = normalAttackMotions.thrustMotion;
-        animatorCtr.animationClips[GetStateFromName("Down",animatorCtr.animationClips)] = normalAttackMotions.downMotion;
-        animatorCtr.animationClips[GetStateFromName("Counter",animatorCtr.animationClips)] = normalAttackMotions.CounterMotion;
-        /*
-        AnimationClip[] NormalStates
-         = animatorCtr.animationClips[GetSubStateIndexFromName("NormalAttack",animatorCtr.animationClips)].an;
+        UnityEditor.Animations.AnimatorController animatorController = plAnim.runtimeAnimatorController as UnityEditor.Animations.AnimatorController;
+        animatorController.layers[0].stateMachine.states[GetStateFromName("Special_Flame",animatorController.layers[0].stateMachine.states)].state.motion = specialAttackMotions.flame;
+        animatorController.layers[0].stateMachine.states[GetStateFromName("Special_Aqua",animatorController.layers[0].stateMachine.states)].state.motion = specialAttackMotions.aqua;
+        animatorController.layers[0].stateMachine.states[GetStateFromName("Special_Electro",animatorController.layers[0].stateMachine.states)].state.motion = specialAttackMotions.electro;
+        animatorController.layers[0].stateMachine.states[GetStateFromName("Special_Terra",animatorController.layers[0].stateMachine.states)].state.motion = specialAttackMotions.terra;
+        
+        ChildAnimatorState[] NormalStates
+         = animatorController.layers[0].stateMachine.stateMachines[GetSubStateFromName("NormalAttack",animatorController.layers[0].stateMachine.stateMachines)].stateMachine.states;
         NormalStates[GetStateFromName("Up",NormalStates)].state.motion = normalAttackMotions.upMotion;
         NormalStates[GetStateFromName("Thrust",NormalStates)].state.motion = normalAttackMotions.thrustMotion;
         NormalStates[GetStateFromName("Down",NormalStates)].state.motion = normalAttackMotions.downMotion;
         NormalStates[GetStateFromName("Counter",NormalStates)].state.motion = normalAttackMotions.CounterMotion;
-        */
     }
     Color EffectColor(MagicAttribute magicAttribute){
         Color res =Color.white;
@@ -262,16 +261,18 @@ public class PlayerVisualController : MonoBehaviour
         plc.weapon.GetComponent<WeaponEffectSystem>().UnEnableNormalParticle();
         plc.gameObject.GetComponent<PlayerEffectController>().DisableNormalParticle();
     }
-    int GetStateFromName(string name,AnimationClip[] states){
-        for(int result = 0;result < states.Length;result ++){
-            if(states[result].name == name)return result;
-            Debug.Log(states[result].name);
-        }
-        Debug.LogError("Not Found AnimationClip "+ name);
-        return -1;
-    }int GetSubStateIndexFromName(string name,AnimationClip[] states){
+    int GetStateFromName(string name,ChildAnimatorState[] states){
         int result = 0;
-        for(; states[result].name != name;result ++){
+        for(; states[result].state.name != name;result ++){
+            if(result >= states.Length-1){
+                Debug.LogError("Not Found AnimationState "+name);
+                return -1;
+            }
+        }
+        return result;
+    }int GetSubStateFromName(string name,ChildAnimatorStateMachine[] states){
+        int result = 0;
+        for(; states[result].stateMachine.name != name;result ++){
             if(result >= states.Length-1){
                 Debug.LogError("Not Found AnimationStateMachine "+name);
                 return -1;

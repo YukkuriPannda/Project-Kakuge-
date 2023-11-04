@@ -81,7 +81,7 @@ public class EntityBase : MonoBehaviour
                 else res = DMG;
             break;
         }
-        res *= normalDiffence;
+        if(!overHeating)res *= normalDiffence;
         return (int)res;
     }
     IEnumerator HitStop(float time){

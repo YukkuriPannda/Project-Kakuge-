@@ -82,6 +82,9 @@ public class Type43Contoller : MonoBehaviour
                     animator.Play("StartUp_" + ((direction ==1)?  "R":"L"),0,0);
                 }
             }break;
+            case States.OverHeating :{
+                if(!eBase.overHeating)StartCoroutine(RelotteryBehavior());
+            }break;
         }
         if(oldState != nowState){
             switch(nowState){
@@ -110,7 +113,7 @@ public class Type43Contoller : MonoBehaviour
         Debug.Log("RelloyBehavior");
         nowState = States.Waiting;
         int ram = Random.Range(0,3);
-        if(Mathf.Abs(target.transform.position.x - transform.position.x) < 2){
+        if(Mathf.Abs(target.transform.position.x - transform.position.x) < 3){
             StartCoroutine(Upslash());
             yield break;
         }
@@ -142,7 +145,7 @@ public class Type43Contoller : MonoBehaviour
         Vector3 pos = transform.position + new Vector3(upSlashColli.offset.x * direction,upSlashColli.offset.y,0);
         yield return new WaitForSeconds(0.3f);
         GameObject obj = Instantiate(upSlashColli.Collider,pos,Quaternion.identity);
-        obj.GetComponent<AttackBase>().knockBack *= new Vector2(direction,1);
+        obj.GetComponent<AttackBase>().knockBack *= new Vector2(direction,0.1f);
         Destroy(obj,0.5f);
         yield break;
     }
@@ -204,7 +207,8 @@ public class Type43Contoller : MonoBehaviour
         rb2D.velocity = Vector2.zero;
         animator.Play("BoostSlash_" + ((direction == 1)?  "R":"L"),0,0);
         yield return new WaitForSeconds(0.2f);
-        Destroy(Instantiate(tuzigiriColli.Collider,transform.position + (Vector3)tuzigiriColli.offset,Quaternion.identity),0.1f);
+        Vector2 pos = transform.position + new Vector3(tuzigiriColli.offset.x,tuzigiriColli.offset.y);
+        Destroy(Instantiate(tuzigiriColli.Collider,pos,Quaternion.identity),0.1f);
         transform.position = target.transform.position + new Vector3(2f*direction,0);
         yield return new WaitForSeconds(2f);
         yield break;

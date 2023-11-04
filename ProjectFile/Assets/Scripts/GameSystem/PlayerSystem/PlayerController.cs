@@ -89,7 +89,8 @@ public class PlayerController : MonoBehaviour
         CounterAttack,
         EnchantMySelf,
         ActivateSpecialMagic,
-        Hurt
+        Hurt,
+        Deathing
     }
     void Start()
     {
@@ -115,6 +116,12 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("HUrt!!");
                 lockOperation = true;
                 nowPlayerState = PlayerStates.Hurt;
+            }
+            if(eBase.Health <= 0){
+                nowPlayerState = PlayerStates.Deathing;
+                lockOperation = true;
+                Time.timeScale = 0.5f;
+                SceneManager.LoadScene("Launching");
             }
         }
         oldHealth = eBase.Health;
@@ -345,7 +352,7 @@ public class PlayerController : MonoBehaviour
                 eBase.gard = false;
                 drawShapeName = "None";
             }
-            if(lockOperation)drawShapeName = "None";
+            if(lockOperation && nowPlayerState==PlayerStates.Stay)drawShapeName = "None";
         }
     }
     public IEnumerator Parry(int DMG){

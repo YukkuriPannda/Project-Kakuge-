@@ -200,8 +200,8 @@ public class PlayerController : MonoBehaviour
                 }break;
                 case "RegularTriangle": case"InvertedTriangle": case "Thunder":case "Grass":{
                     drawMagicSymbols.Add(new DrawMagicSymbol(drawShapeName,1));
+                    yield return null;
                     drawShapeName = "None";
-                    oldDrawShapeName ="None";
                     lockOperation = false;
                 }break;
                 case "tap":{
@@ -286,8 +286,8 @@ public class PlayerController : MonoBehaviour
                     if(drawMagicSymbols.Count >0){
                         drawMagicSymbols.Add(new DrawMagicSymbol("Circle",1));
                     }else  drawMagicSymbols.Clear();
+                    yield return null;
                     drawShapeName = "None";
-                    oldDrawShapeName ="None";
                     lockOperation = false;
                 }
                 break;

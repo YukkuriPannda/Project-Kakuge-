@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Kobushi
+  m_Controller: {fileID: 9100000, guid: d09a496ae29c4654b980617767ed13e2, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: fbe37f83b72066e4cb48e031b9fc17e8, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: aea046c811e02a14eaef65dd6512ff9e, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 1469615cb6c59ae48a8bac865a03501c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 6298426e294a9004490a381a309497d0, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 3d7bcc9d37cecf3468de8d8f14dcf541, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 5a454b586db7e0c4cb5d31ac0299c777, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 1e6712e8ac244ed4baccc106729dbbcb, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: fa0843990c46d9746bfbcfa0fb3caebb, type: 2}

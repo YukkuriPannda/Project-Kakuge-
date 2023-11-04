@@ -52,9 +52,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  gearBit: {fileID: 0}
+  gearBit: {fileID: 6808411994984215744, guid: 5084214eb0dc56f46a66f51b12eff94c, type: 3}
   detecitrRadius: 5
+  boostSpeed: 5
+  tuzigiriColli:
+    Collider: {fileID: 4902071629611297783, guid: cb334321c92329248bc31aae729f1663, type: 3}
+    offset: {x: 1.25, y: 0}
+  upSlashColli:
+    Collider: {fileID: 194252929482391776, guid: d2cecf9748860444cbac04d885eeaffb, type: 3}
+    offset: {x: 1, y: -0.27}
   nowState: 0
+  direction: 0
+  beams: []
 --- !u!114 &5870025697650017244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,12 +81,15 @@ MonoBehaviour:
   myMagicAttribute: 0
   Heat: 0
   HeatCapacity: 30
-  OverHeatTime: 10
+  OverHeatTime: 5
   CoolingSpeed: 10
   Heating: 5
+  normalDiffence: 0.25
+  parryCooltime: 0
   gard: 0
   ParryReception: 0
   acceptDamage: 1
+  timeLastHurt: 0
   Invulnerable: 0
   NoGravity: 0
   OnGround: 0
@@ -124,7 +136,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 319336369, guid: b7e869a68a60b334780b293769d9df66, type: 3}
+  m_Sprite: {fileID: -613931427, guid: 689f10db0dec4bb46a0adde08f47b4ea, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -198,7 +210,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.6, y: 1.6}
+    oldSize: {x: 2.2857144, y: 1.5238096}
     newSize: {x: 2.4, y: 1.6}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -217,7 +229,7 @@ Animator:
   m_GameObject: {fileID: 1209089591497641434}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 8244363a5a8899843909be57180a2628, type: 2}
+  m_Controller: {fileID: 9100000, guid: ab0f814de5bc4824d8840f1d590d4096, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

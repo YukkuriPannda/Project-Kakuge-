@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEditor.Animations;
 
 public class PlayerVisualController : MonoBehaviour
 {
@@ -144,16 +143,16 @@ public class PlayerVisualController : MonoBehaviour
                 else model.transform.localEulerAngles = new Vector3(0,180,0);
                 switch(plc.drawMagicSymbols[plc.drawMagicSymbols.Count - 2].magicSymbol){
                     case "RegularTriangle":{
-                        plAnim.Play("Special_Flame");
+                        plAnim.Play(plc.magicHolder.flameMagic.ToString());
                     }break;
                     case "InvertedTriangle":{
-                        plAnim.Play("Special_Aqua");
+                        plAnim.Play(plc.magicHolder.aquaMagic.ToString());
                     }break;
                     case "Thunder":{
-                        plAnim.Play("Special_Electro");
+                        plAnim.Play(plc.magicHolder.electroMagic.ToString());
                     }break;
                     case "Grass":{
-                        plAnim.Play("Special_Terra");
+                        plAnim.Play(plc.magicHolder.terraMagic.ToString());
                     }break;
 
                 }
@@ -221,18 +220,11 @@ public class PlayerVisualController : MonoBehaviour
         }
     }
     public void UpdateAnimStateMachines(){
-        UnityEditor.Animations.AnimatorController animatorController = plAnim.runtimeAnimatorController as UnityEditor.Animations.AnimatorController;
-        animatorController.layers[0].stateMachine.states[GetStateFromName("Special_Flame",animatorController.layers[0].stateMachine.states)].state.motion = specialAttackMotions.flame;
-        animatorController.layers[0].stateMachine.states[GetStateFromName("Special_Aqua",animatorController.layers[0].stateMachine.states)].state.motion = specialAttackMotions.aqua;
-        animatorController.layers[0].stateMachine.states[GetStateFromName("Special_Electro",animatorController.layers[0].stateMachine.states)].state.motion = specialAttackMotions.electro;
-        animatorController.layers[0].stateMachine.states[GetStateFromName("Special_Terra",animatorController.layers[0].stateMachine.states)].state.motion = specialAttackMotions.terra;
-        
-        ChildAnimatorState[] NormalStates
-         = animatorController.layers[0].stateMachine.stateMachines[GetSubStateFromName("NormalAttack",animatorController.layers[0].stateMachine.stateMachines)].stateMachine.states;
-        NormalStates[GetStateFromName("Up",NormalStates)].state.motion = normalAttackMotions.upMotion;
-        NormalStates[GetStateFromName("Thrust",NormalStates)].state.motion = normalAttackMotions.thrustMotion;
-        NormalStates[GetStateFromName("Down",NormalStates)].state.motion = normalAttackMotions.downMotion;
-        NormalStates[GetStateFromName("Counter",NormalStates)].state.motion = normalAttackMotions.CounterMotion;
+        AnimatorOverrideController animatorOverrideController = new AnimatorOverrideController(plAnim.runtimeAnimatorController);
+        plAnim.runtimeAnimatorController = animatorOverrideController;
+        animatorOverrideController["Up"] = normalAttackMotions.upMotion;
+        animatorOverrideController["Thrust"] = normalAttackMotions.thrustMotion;
+        animatorOverrideController["Down"] = normalAttackMotions.downMotion;
     }
     Color EffectColor(MagicAttribute magicAttribute){
         Color res =Color.white;
@@ -260,24 +252,5 @@ public class PlayerVisualController : MonoBehaviour
         yield return new WaitForSeconds(plc.enchantDuraction);
         plc.weapon.GetComponent<WeaponEffectSystem>().UnEnableNormalParticle();
         plc.gameObject.GetComponent<PlayerEffectController>().DisableNormalParticle();
-    }
-    int GetStateFromName(string name,ChildAnimatorState[] states){
-        int result = 0;
-        for(; states[result].state.name != name;result ++){
-            if(result >= states.Length-1){
-                Debug.LogError("Not Found AnimationState "+name);
-                return -1;
-            }
-        }
-        return result;
-    }int GetSubStateFromName(string name,ChildAnimatorStateMachine[] states){
-        int result = 0;
-        for(; states[result].stateMachine.name != name;result ++){
-            if(result >= states.Length-1){
-                Debug.LogError("Not Found AnimationStateMachine "+name);
-                return -1;
-            }
-        }
-        return result;
     }
 }

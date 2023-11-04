@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
 using System;
+using UnityEditor.PackageManager.Requests;
 
 public class NPCController : InteractiveBase {
     public float textInterval;
@@ -15,18 +16,15 @@ public class NPCController : InteractiveBase {
     public TextMeshProUGUI bodyTex;
     public Animator animator;
     public GuildManager guildManager;
-    public bool complateRequest= true;
-    public PlayerController plc;
+    private bool complateRequest= false;
     public override IEnumerator Action_IE(){
         if(!openningMessageBox){
             bodyTex.gameObject.SetActive(true);
             animator.Play("Enable",1,0);
             openningMessageBox = true;
             touchingPlc[touchingPlc.Count - 1].lockOperation = true;
-            plc = touchingPlc[touchingPlc.Count - 1];
             for(int i = 0;i < TalkTexts.Length;i ++){
                 yield return StartCoroutine(Talk(TalkTexts[i]));
-                while(!complateRequest)yield return null;
             }
             touchingPlc[touchingPlc.Count - 1].lockOperation = false;
             openningMessageBox = false;
@@ -53,8 +51,6 @@ public class NPCController : InteractiveBase {
         if(text[0] == '$'){
             switch(text.Substring(1,6)){
                 case "mkreq{":{
-                    plc.lockOperation = false;
-                    
                     int text_i = 7;
                     int goalsLengh = 0;
                     List<GuildManager.Request.Goal> goals = new List<GuildManager.Request.Goal>();
@@ -98,7 +94,6 @@ public class NPCController : InteractiveBase {
             }
             yield break;
         }
-        plc.lockOperation = true;
         bodyTex.text = text;
         messageBox.GetComponent<RectTransform>().sizeDelta = new Vector2(bodyTex.preferredWidth+10,bodyTex.preferredHeight+10);
         bodyTex.text = "";

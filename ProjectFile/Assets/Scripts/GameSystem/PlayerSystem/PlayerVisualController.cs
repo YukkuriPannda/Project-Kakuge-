@@ -154,8 +154,8 @@ public class PlayerVisualController : MonoBehaviour
                     case "Grass":{
                         plAnim.Play(plc.magicHolder.terraMagic.ToString());
                     }break;
-
                 }
+                StartCoroutine(BlendAnimToStay(plAnim.GetCurrentAnimatorClipInfo(0).LongLength));
                 Debug.Log("Special");
             }break;
             case PlayerController.PlayerStates.Hurt:{
@@ -207,6 +207,12 @@ public class PlayerVisualController : MonoBehaviour
                 }break;
             }
         }
+    }
+    public IEnumerator BlendAnimToStay(float t){
+        Debug.Log(t);
+        yield return new WaitForSeconds(t);
+        plAnim.CrossFade("Stay"+(plc.direction == 1?"R":"L"), 0.1f, 0, 0);
+        yield break;
     }
     public void SheatheWeapon(){
         if(plc.weapon){

@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour
     [ReadOnly]public float thrustForwardDistance;
     [ReadOnly]public float downForwardDistance;
     [ReadOnly]public float counterAttackForwardDistance;
+    [ReadOnly]public float t_magicStoneHeal;
     public enum PlayerStates{
         Stay,
         Walking,
@@ -121,7 +122,7 @@ public class PlayerController : MonoBehaviour
                 nowPlayerState = PlayerStates.Deathing;
                 lockOperation = true;
                 Time.timeScale = 0.5f;
-                SceneManager.LoadScene("Launching");
+                StartCoroutine(Death());
             }
         }
         oldHealth = eBase.Health;
@@ -129,8 +130,17 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Escape)){
             SceneManager.LoadScene("Launching");
         }
+        if(t_magicStoneHeal > 10 &&magicStones < MaxMagicStones){
+            magicStones++;
+            t_magicStoneHeal = 0;
+        }
+        if(magicStones < MaxMagicStones)t_magicStoneHeal += Time.deltaTime;
     }
-    
+    IEnumerator Death(){
+        yield return new WaitForSecondsRealtime(2f);
+        SceneManager.LoadScene("Launching");
+        yield break;
+    }
     public void Move(float input) { // 移動方向/強さ -1~1 として
         if(!lockOperation && !CounterReception && nowPlayerState != PlayerStates.CounterAttack ){
             if(InputValueForMove.x != 0) nowPlayerState = PlayerStates.Runing;

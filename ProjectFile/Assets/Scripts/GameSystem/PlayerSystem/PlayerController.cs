@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -119,6 +119,9 @@ public class PlayerController : MonoBehaviour
         }
         oldHealth = eBase.Health;
         if(nowPlayerState!=PlayerStates.Garding && gardObject)Destroy(gardObject.gameObject,0.1f);
+        if(Input.GetKeyDown(KeyCode.Escape)){
+            SceneManager.LoadScene("Launching");
+        }
     }
     
     public void Move(float input) { // 移動方向/強さ -1~1 として
@@ -342,6 +345,7 @@ public class PlayerController : MonoBehaviour
                 eBase.gard = false;
                 drawShapeName = "None";
             }
+            if(lockOperation)drawShapeName = "None";
         }
     }
     public IEnumerator Parry(int DMG){
@@ -418,36 +422,58 @@ public class PlayerController : MonoBehaviour
     public void SlowMotionEnd(){Time.timeScale = 1;}
     public void GenerateAttackCollier(){StartCoroutine(IEGenerateAttackCollier());}
     private void ActivisionSpecialMagic(){//SpecialMagic
-        nowPlayerState = PlayerStates.ActivateSpecialMagic;
         PlayerMagicFactory playerMagicFactory = new PlayerMagicFactory();
         switch(drawMagicSymbols[0].magicSymbol){
             case "RegularTriangle":{
                 if(magicHolder.flameMagic != PlayerMagicFactory.MagicKind.none){
                     PlayerMagicBase plMagicBase = playerMagicFactory.Create(magicHolder.flameMagic);
+                    nowPlayerState = PlayerStates.ActivateSpecialMagic;
                     StartCoroutine(plMagicBase.ActivationFlameMagic(this));
+                    lockOperation = true;
+                }else {
+                    lockOperation=false;
+                    drawShapeName = "None";
+                    drawMagicSymbols = new List<DrawMagicSymbol>();
                 }
             }break;
             case "InvertedTriangle":{
                 if(magicHolder.aquaMagic != PlayerMagicFactory.MagicKind.none){
                     PlayerMagicBase plMagicBase = playerMagicFactory.Create(magicHolder.aquaMagic);
+                    nowPlayerState = PlayerStates.ActivateSpecialMagic;
                     StartCoroutine(plMagicBase.ActivationAquaMagic(this));
+                    lockOperation = true;
+                }else {
+                    lockOperation=false;
+                    drawShapeName = "None";
+                    drawMagicSymbols = new List<DrawMagicSymbol>();
                 }
             }break;
             case "Thunder":{
                 if(magicHolder.electroMagic != PlayerMagicFactory.MagicKind.none){
                     PlayerMagicBase plMagicBase = playerMagicFactory.Create(magicHolder.electroMagic);
+                    nowPlayerState = PlayerStates.ActivateSpecialMagic;
                     StartCoroutine(plMagicBase.ActivationElectroMagic(this));
+                    lockOperation = true;
+                }else {
+                    lockOperation=false;
+                    drawShapeName = "None";
+                    drawMagicSymbols = new List<DrawMagicSymbol>();
                 }
             }break;
             case "Grass":{
                 if(magicHolder.terraMagic != PlayerMagicFactory.MagicKind.none){
                     PlayerMagicBase plMagicBase = playerMagicFactory.Create(magicHolder.terraMagic);
+                    nowPlayerState = PlayerStates.ActivateSpecialMagic;
                     StartCoroutine(plMagicBase.ActivationTerraMagic(this));
+                    lockOperation = true;
+                }else {
+                    lockOperation=false;
+                    drawShapeName = "None";
+                    drawMagicSymbols = new List<DrawMagicSymbol>();
                 }
             }break;
         }
         magicStones --;
-        lockOperation = false;
         
     }
     private void EnchantMyself(MagicAttribute magicAttribute){

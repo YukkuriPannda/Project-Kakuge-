@@ -50,12 +50,14 @@ public class GuildManager : MonoBehaviour
                 || (requests[0].goals[0].drawShapeName != "None" &&requests[0].goals[0].drawShapeName == plc.drawShapeName)){
                 StartCoroutine(RemoveGoal());
                 if(requests[0].goals.Count <= 0){
+                    requests[0].requester.ComplateRequest();
                     requests.RemoveAt(0);
                 }
             }
         }
     }
     public void MakeRequest(Request request){
+        request.requester.complateRequest = false;
         requests.Add(request);
         foreach(Request.Goal goal in request.goals){
             goal.Box = Instantiate(boxPrefab,BoxParent);
@@ -63,7 +65,6 @@ public class GuildManager : MonoBehaviour
         }
     }
     public IEnumerator RemoveGoal(){
-        requests[0].goals[0].Box.GetComponent<Animator>().Play("Disable");
         Destroy(requests[0].goals[0].Box);
         requests[0].goals.RemoveAt(0);
         yield break;

@@ -370,6 +370,10 @@ MonoBehaviour:
   sinceLastAddedPoint: 0
   mousePointer: {fileID: 1313999567}
   plc: {fileID: 988327579}
+  TriangleLowerValue: 0.67
+  ReverseTriangleLowerValue: 0.67
+  ThunderLowerValue: 0.67
+  GrassLowerValue: 0.67
   result: 
   IsGard: 0
   gardVector: {x: 0, y: 0}
@@ -23324,9 +23328,12 @@ MonoBehaviour:
   OverHeatTime: 10
   CoolingSpeed: 5
   Heating: 5
+  normalDiffence: 1
+  parryCooltime: 1
   gard: 0
   ParryReception: 0
   acceptDamage: 1
+  timeLastHurt: 0
   Invulnerable: 0
   NoGravity: 0
   OnGround: 0
@@ -37960,6 +37967,9 @@ MonoBehaviour:
   actionName: {fileID: 894992587}
   bodyTex: {fileID: 2003043651}
   animator: {fileID: 1321838371}
+  guildManager: {fileID: 0}
+  complateRequest: 1
+  plc: {fileID: 0}
 --- !u!61 &1748723420
 BoxCollider2D:
   m_ObjectHideFlags: 0

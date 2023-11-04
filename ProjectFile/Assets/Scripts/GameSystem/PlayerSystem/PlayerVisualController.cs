@@ -12,6 +12,7 @@ public class PlayerVisualController : MonoBehaviour
     public Transform rightHand;
     public Transform leftHand;
     public Transform back;
+    public GameObject fade_GameOver;
     enum AnimMotions :int {
         Stay,
         Walk,
@@ -160,6 +161,11 @@ public class PlayerVisualController : MonoBehaviour
             }break;
             case PlayerController.PlayerStates.Hurt:{
                 plAnim.Play("Damage",0,0);
+            }break;
+            case PlayerController.PlayerStates.Deathing:{
+                plAnim.Play("Deathing",0,0);
+                fade_GameOver.SetActive(true);
+
             }break;
             case PlayerController.PlayerStates.CounterAttack:{
                 if(plc.direction > 0) model.transform.localEulerAngles = new Vector3(0,0,0);

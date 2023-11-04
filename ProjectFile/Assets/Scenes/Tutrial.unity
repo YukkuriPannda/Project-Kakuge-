@@ -41008,7 +41008,7 @@ MonoBehaviour:
   CoolingSpeed: 5
   Heating: 5
   normalDiffence: 1
-  parryCooltime: 0
+  parryCooltime: 1
   gard: 0
   ParryReception: 0
   acceptDamage: 1

@@ -155,7 +155,7 @@ public class PlayerVisualController : MonoBehaviour
                         plAnim.Play(plc.magicHolder.terraMagic.ToString());
                     }break;
                 }
-                StartCoroutine(BlendAnimToStay(plAnim.GetCurrentAnimatorClipInfo(0).LongLength));
+                StartCoroutine(BlendAnimToStay(plAnim.GetCurrentAnimatorClipInfo(0)[0].clip.length));
                 Debug.Log("Special");
             }break;
             case PlayerController.PlayerStates.Hurt:{
@@ -210,7 +210,7 @@ public class PlayerVisualController : MonoBehaviour
     }
     public IEnumerator BlendAnimToStay(float t){
         Debug.Log(t);
-        yield return new WaitForSeconds(t);
+        yield return new WaitForSeconds(t+1);
         plAnim.CrossFade("Stay"+(plc.direction == 1?"R":"L"), 0.1f, 0, 0);
         yield break;
     }

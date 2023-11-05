@@ -36,7 +36,7 @@ public class InventrySystem : MonoBehaviour
         SetWeaponSlot();
     }
     public void LoadItem(){
-        if(!saveDataManager.ExistSaveData())saveDataManager.CreateNewSaveData();
+        if(!saveDataManager.ExistSaveData())saveDataManager.CreateNewTutrialSaveData();
         InventryData inventryData = saveDataManager.LoadPlayerInventryData();
         mainInventry = new List<ItemBase>(inventryData.mains);
         magicBookSlots = new List<ItemBase>(inventryData.magicBooks);

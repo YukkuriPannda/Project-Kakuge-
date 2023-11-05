@@ -21,6 +21,15 @@ public class SaveDataManager : MonoBehaviour
         ItemBase[] magicBooks = {new ItemBase("blank"),new ItemBase("blank"),new ItemBase("blank"),new ItemBase("blank")};
         SavePlayerInventryData(new InventryData(initialStateItemDataBase.items,magicBooks,new ItemBase("blank")));
     }
+    public void CreateNewTutrialSaveData(){
+        ItemBase[] magicBooks = {initialStateItemDataBase.items[1],new ItemBase("blank"),new ItemBase("blank"),new ItemBase("blank")};
+        ItemBase weapon = initialStateItemDataBase.items[0];
+        ItemBase[] main = new ItemBase[initialStateItemDataBase.items.Length-2];
+        for(int i =0;i < initialStateItemDataBase.items.Length-2;i ++){
+            main[i] = initialStateItemDataBase.items[i+2];
+        }
+        SavePlayerInventryData(new InventryData(main,magicBooks,weapon));
+    }
     public InventryData LoadPlayerInventryData(){
         StreamReader streamReader = new StreamReader(Application.persistentDataPath + saveDataPath +"/inventry.json");
         string json = streamReader.ReadToEnd();

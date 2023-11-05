@@ -2454,7 +2454,7 @@ PrefabInstance:
     - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
       propertyPath: saveDataManager
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 3222740974558952259}
     - target: {fileID: 2042174747, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
       propertyPath: swordAnimMotions.up
       value: 
@@ -2792,6 +2792,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
+--- !u!114 &3222740974558952259 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6108884211339504960, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}
+  m_PrefabInstance: {fileID: 8682487106423789059}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6088386472479394691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 261b76861f6b4b849920a2045397d2e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6088386472479394691 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3170586058222017920, guid: bf32200d0b2b86f4582b4fae2921aa44, type: 3}

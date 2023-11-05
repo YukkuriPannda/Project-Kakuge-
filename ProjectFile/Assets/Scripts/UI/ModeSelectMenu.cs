@@ -14,6 +14,7 @@ public class ModeSelectMenu : ButtonBaseEX
     {
         base.OnStart();
         animator = gameObject.GetComponent<Animator>();
+        Time.timeScale =1;
     }
     public override void OnPointerEnter()
     {

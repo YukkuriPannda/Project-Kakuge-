@@ -56,7 +56,6 @@ public class TrackingBullet : MonoBehaviour
             t += Time.deltaTime;
             yield return null;
         }
-        Exprosion();
     }
     private void OnEnable() {
         StartCoroutine(Onenable());

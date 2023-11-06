@@ -59,20 +59,20 @@ public class EntityBase : MonoBehaviour
         float res = 0;
         switch(magicAttribute){
             case MagicAttribute m when(
-                (m == MagicAttribute.aqua && myMagicAttribute == MagicAttribute.flame)
-                || (m == MagicAttribute.flame && myMagicAttribute == MagicAttribute.terra)
-                || (m == MagicAttribute.terra && myMagicAttribute == MagicAttribute.electro)
-                || (m == MagicAttribute.electro && myMagicAttribute == MagicAttribute.aqua)
+                (m == MagicAttribute.Aqua && myMagicAttribute == MagicAttribute.Flame)
+                || (m == MagicAttribute.Flame && myMagicAttribute == MagicAttribute.Terra)
+                || (m == MagicAttribute.Terra && myMagicAttribute == MagicAttribute.Electro)
+                || (m == MagicAttribute.Electro && myMagicAttribute == MagicAttribute.Aqua)
             ):
                 if(gard)res = DMG; //gardの時はHealthからDMGを引く
                 else res = DMG*2f; //gardでない時はDMGの二倍をHealthから引く
             break;
             
             case MagicAttribute m when(
-                (m == MagicAttribute.flame && myMagicAttribute == MagicAttribute.aqua)
-                || (m == MagicAttribute.terra && myMagicAttribute == MagicAttribute.flame)
-                || (m == MagicAttribute.electro && myMagicAttribute == MagicAttribute.terra)
-                || (m == MagicAttribute.aqua && myMagicAttribute == MagicAttribute.electro)
+                (m == MagicAttribute.Flame && myMagicAttribute == MagicAttribute.Aqua)
+                || (m == MagicAttribute.Terra && myMagicAttribute == MagicAttribute.Flame)
+                || (m == MagicAttribute.Electro && myMagicAttribute == MagicAttribute.Terra)
+                || (m == MagicAttribute.Aqua && myMagicAttribute == MagicAttribute.Electro)
             ):
                 if(!gard)res= DMG*0.5f; //gardでないときはDMGの0.5倍をHealthから引く
             break;

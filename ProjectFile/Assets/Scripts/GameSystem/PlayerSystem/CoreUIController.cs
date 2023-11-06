@@ -32,19 +32,19 @@ public class CoreUIController : MonoBehaviour
     }
     void Update(){
         switch(targetEntityBase.myMagicAttribute){
-            case(MagicAttribute.flame):{
+            case(MagicAttribute.Flame):{
                 core.color = coreColors.flame;
                 symbol.sprite = coreSymbols.flame;
             }break;
-            case(MagicAttribute.aqua):{
+            case(MagicAttribute.Aqua):{
                 core.color = coreColors.aqua;
                 symbol.sprite = coreSymbols.aqua;
             }break;
-            case(MagicAttribute.electro):{
+            case(MagicAttribute.Electro):{
                 core.color = coreColors.electro;
                 symbol.sprite = coreSymbols.electro;
             }break;
-            case(MagicAttribute.terra):{
+            case(MagicAttribute.Terra):{
                 core.color = coreColors.terra;
                 symbol.sprite = coreSymbols.terra;
             }break;

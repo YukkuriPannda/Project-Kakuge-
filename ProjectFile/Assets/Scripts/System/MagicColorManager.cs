@@ -22,16 +22,16 @@ public class MagicColorManager : MonoBehaviour
     public static Color GetColorFromMagicArticle(MagicAttribute magicAttribute){
         Color res;
         switch(magicAttribute){
-            case MagicAttribute.flame:
+            case MagicAttribute.Flame:
                 res=flame;
             break;
-            case MagicAttribute.aqua:
+            case MagicAttribute.Aqua:
                 res = aqua;
             break;
-            case MagicAttribute.electro:
+            case MagicAttribute.Electro:
                 res = electro;
             break;
-            case MagicAttribute.terra:
+            case MagicAttribute.Terra:
                 res = terra;
             break;
             default:
@@ -43,8 +43,8 @@ public class MagicColorManager : MonoBehaviour
 }
 public enum MagicAttribute{
     none,
-    flame,
-    aqua,
-    electro,
-    terra
+    Flame,
+    Aqua,
+    Electro,
+    Terra
 }

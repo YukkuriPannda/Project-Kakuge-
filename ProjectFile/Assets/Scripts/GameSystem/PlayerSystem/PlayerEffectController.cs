@@ -25,16 +25,16 @@ public class PlayerEffectController : MonoBehaviour
         auraParSys_smoke.Play();
         Debug.Log("AAA");
         switch(magicAttribute){
-            case MagicAttribute.flame:{
+            case MagicAttribute.Flame:{
                 auraMat.SetColor("_EmissionColor",magicColors.flame);
             }break;
-            case MagicAttribute.aqua:{
+            case MagicAttribute.Aqua:{
                 auraMat.SetColor("_EmissionColor",magicColors.aqua);
             }break;
-            case MagicAttribute.electro:{
+            case MagicAttribute.Electro:{
                 auraMat.SetColor("_EmissionColor",magicColors.electro);
             }break;
-            case MagicAttribute.terra:{
+            case MagicAttribute.Terra:{
                 auraMat.SetColor("_EmissionColor",magicColors.terra);
             }break;
         }

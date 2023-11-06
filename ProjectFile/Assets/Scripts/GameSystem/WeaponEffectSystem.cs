@@ -18,16 +18,16 @@ public class WeaponEffectSystem : MonoBehaviour
         Debug.Log(gameObject.name);
         List<ParticleSystem> particleSystems = new List<ParticleSystem>();
         switch(magicAttribute){
-            case MagicAttribute.flame:
+            case MagicAttribute.Flame:
                 particleSystems = normalParticles.flames;
             break;
-            case MagicAttribute.aqua:
+            case MagicAttribute.Aqua:
                 particleSystems = normalParticles.aquas;
             break;
-            case MagicAttribute.electro:
+            case MagicAttribute.Electro:
                 particleSystems = normalParticles.electros;
             break;
-            case MagicAttribute.terra:
+            case MagicAttribute.Terra:
                 particleSystems = normalParticles.terras;
             break;
         }
@@ -52,16 +52,16 @@ public class WeaponEffectSystem : MonoBehaviour
     public void PlayAttackParticle(MagicAttribute magicAttribute){
         List<ParticleSystem> particleSystems = new List<ParticleSystem>();
         switch(magicAttribute){
-            case MagicAttribute.flame:
+            case MagicAttribute.Flame:
                 particleSystems = attackParticles.flames;
             break;
-            case MagicAttribute.aqua:
+            case MagicAttribute.Aqua:
                 particleSystems = attackParticles.aquas;
             break;
-            case MagicAttribute.electro:
+            case MagicAttribute.Electro:
                 particleSystems = attackParticles.electros;
             break;
-            case MagicAttribute.terra:
+            case MagicAttribute.Terra:
                 particleSystems = attackParticles.terras;
             break;
         }

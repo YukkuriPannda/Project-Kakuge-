@@ -235,16 +235,16 @@ public class PlayerVisualController : MonoBehaviour
     Color EffectColor(MagicAttribute magicAttribute){
         Color res =Color.white;
         switch(magicAttribute){
-            case MagicAttribute.flame:{
+            case MagicAttribute.Flame:{
                 res = MagicColorManager.flame;
             }break;
-            case MagicAttribute.aqua:{
+            case MagicAttribute.Aqua:{
                 res = MagicColorManager.aqua;
             }break;
-            case MagicAttribute.electro:{
+            case MagicAttribute.Electro:{
                 res = MagicColorManager.electro;
             }break;
-            case MagicAttribute.terra:{
+            case MagicAttribute.Terra:{
                 res = MagicColorManager.terra;
             }break;
         }

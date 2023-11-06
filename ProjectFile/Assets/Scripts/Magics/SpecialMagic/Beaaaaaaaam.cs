@@ -9,22 +9,22 @@ public class Beaaaaaaaam: PlayerMagicBase
     }
     public override IEnumerator ActivationFlameMagic(PlayerController plc)
     {   
-        plc.StartCoroutine(ActivationBeaaam(plc,MagicAttribute.flame));
+        plc.StartCoroutine(ActivationBeaaam(plc,MagicAttribute.Flame));
         yield break;
     }
     public override IEnumerator ActivationAquaMagic(PlayerController plc)
     {
-        plc.StartCoroutine(ActivationBeaaam(plc,MagicAttribute.aqua));
+        plc.StartCoroutine(ActivationBeaaam(plc,MagicAttribute.Aqua));
         yield break;
     }
     public override IEnumerator ActivationElectroMagic(PlayerController plc)
     {
-        plc.StartCoroutine(ActivationBeaaam(plc,MagicAttribute.electro));
+        plc.StartCoroutine(ActivationBeaaam(plc,MagicAttribute.Electro));
         yield break;
     }
     public override IEnumerator ActivationTerraMagic(PlayerController plc)
     {
-        plc.StartCoroutine(ActivationBeaaam(plc,MagicAttribute.terra));
+        plc.StartCoroutine(ActivationBeaaam(plc,MagicAttribute.Terra));
         yield break;
     }
     IEnumerator ActivationBeaaam(PlayerController plc,MagicAttribute magicAttribute){
@@ -33,7 +33,7 @@ public class Beaaaaaaaam: PlayerMagicBase
             .GetComponent<AttackBase>();
         BoxCollider2D[] boxColliders2D = beaaaam.gameObject.GetComponents<BoxCollider2D>();
         beaaaam.tag = "Player";
-        beaaaam.magicAttribute = MagicAttribute.terra;
+        beaaaam.magicAttribute = MagicAttribute.Terra;
         beaaaam.gameObject.GetComponentInChildren<SpriteRenderer>().material.SetColor("_Color",MagicColorManager.GetColorFromMagicArticle(magicAttribute));
         if(direction == -1){
             beaaaam.gameObject.GetComponentInChildren<SpriteRenderer>().flipX = true;

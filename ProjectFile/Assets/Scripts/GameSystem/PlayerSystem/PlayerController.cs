@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -216,77 +217,29 @@ public class PlayerController : MonoBehaviour
                 }break;
                 case "tap":{
                     if(drawMagicSymbols.Count > 0 && magicStones>0){
-                        if(drawMagicSymbols[drawMagicSymbols.Count-1].magicSymbol != "Circle"){
-                            //NormalMagic
-                            MagicAttribute magicAttribute = 0;
-                            switch(drawMagicSymbols[0].magicSymbol){
-                                case "RegularTriangle":{
-                                    magicAttribute = MagicAttribute.flame;
-                                }break;
-                                case "InvertedTriangle":{
-                                    magicAttribute = MagicAttribute.aqua;
-                                }break;
-                                case "Thunder":{
-                                    magicAttribute = MagicAttribute.electro;
-                                }break;
-                                case "Grass":{
-                                    magicAttribute = MagicAttribute.terra;
-                                }break;
-                                
-                            }
-                            if(Vector2.Distance(drawShapePos,new Vector2(0,0)) > enchantDetectionRadius) {
-                                //Bullet
-                                nowPlayerState = PlayerStates.ShotMagicBullet;
-                                yield return new WaitForSeconds(0.2f);
-                                string path = "";
-                                switch(magicAttribute){
-                                    case MagicAttribute.flame:{
-                                        path = "Magics/FlameBall";
-                                    }break;
-                                    case MagicAttribute.aqua:{
-                                        path = "Magics/AquaBall";
-                                    }break;
-                                    case MagicAttribute.electro:{
-                                        path = "Magics/ElectroBall";
-                                    }break;
-                                    case MagicAttribute.terra:{
-                                        path = "Magics/TerraBall";
-                                    }break;
-                                }
-                                FireBall bullet = Instantiate((GameObject)Resources.Load(path),transform.position + new Vector3(0.3f * direction,0.3f,0),transform.rotation).GetComponent<FireBall>();
-                                bullet.speed *= direction;
-                                bullet.gameObject.tag = "Player";
-                                magicStones --;
-                            }
+                        MagicAttribute magicAttribute = 0;
+                        switch(drawMagicSymbols[0].magicSymbol){
+                            case "RegularTriangle":{
+                                magicAttribute = MagicAttribute.Flame;
+                            }break;
+                            case "InvertedTriangle":{
+                                magicAttribute = MagicAttribute.Aqua;
+                            }break;
+                            case "Thunder":{
+                                magicAttribute = MagicAttribute.Electro;
+                            }break;
+                            case "Grass":{
+                                magicAttribute = MagicAttribute.Terra;
+                            }break;
+                            
+                        }
+                        if(drawMagicSymbols[drawMagicSymbols.Count-1].magicSymbol != "Circle") {
+                            //Bullet
+                            StartCoroutine(ShotNormalMagiBullet(magicAttribute));
                         }else{
-                            ActivisionSpecialMagic();
+                            ActivisionSpecialMagic(eBase.myMagicAttribute);
                         }
-                    }else if(eBase.myMagicAttribute != MagicAttribute.none){
-                        
-                        //WeakBullet
-                        nowPlayerState = PlayerStates.ShotMagicBullet;
-                        yield return new WaitForSeconds(0.2f);
-                        string path = "";
-                        switch(eBase.myMagicAttribute){
-                            case MagicAttribute.flame:{
-                                path = "Magics/WeakMagicBalls/FlameBall";
-                            }break;
-                            case MagicAttribute.aqua:{
-                                path = "Magics/WeakMagicBalls/AquaBall";
-                            }break;
-                            case MagicAttribute.electro:{
-                                path = "Magics/WeakMagicBalls/ElectroBall";
-                            }break;
-                            case MagicAttribute.terra:{
-                                path = "Magics/WeakMagicBalls/TerraBall";
-                            }break;
-                        }
-                        Debug.Log($"direction:{drawShapePos.x}");
-                        FireBall bullet = Instantiate((GameObject)Resources.Load(path),transform.position + new Vector3(0.3f * direction,0.3f,0),transform.rotation).GetComponent<FireBall>();
-                        bullet.speed *= direction;
-                        bullet.gameObject.tag = "Player";
-                    }
-                    else{     
+                    }else{     
                         drawShapeName = "None";
                         oldDrawShapeName ="None";
                         lockOperation = false;
@@ -295,6 +248,7 @@ public class PlayerController : MonoBehaviour
                 case "Circle":{
                     if(drawMagicSymbols.Count >0){
                         drawMagicSymbols.Add(new DrawMagicSymbol("Circle",1));
+                        EnchantMyself(ConvertDrawShapeNameToEnum(drawMagicSymbols[drawMagicSymbols.Count-2].magicSymbol));
                     }else  drawMagicSymbols.Clear();
                     yield return null;
                     drawShapeName = "None";
@@ -303,51 +257,40 @@ public class PlayerController : MonoBehaviour
                 break;
                 case "ButtonDown":{
                     if(drawMagicSymbols.Count > 1)if(drawMagicSymbols[drawMagicSymbols.Count -1].magicSymbol == "Circle"){
-                        ActivisionSpecialMagic();
-                        break;
-                    }
-                    if(drawMagicSymbols.Count > 0){
-                        //Enchant
-                        nowPlayerState = PlayerStates.EnchantMySelf;
                         MagicAttribute magicAttribute = 0;
                         switch(drawMagicSymbols[0].magicSymbol){
                             case "RegularTriangle":{
-                                magicAttribute = MagicAttribute.flame;
+                                magicAttribute = MagicAttribute.Flame;
                             }break;
                             case "InvertedTriangle":{
-                                magicAttribute = MagicAttribute.aqua;
+                                magicAttribute = MagicAttribute.Aqua;
                             }break;
                             case "Thunder":{
-                                magicAttribute = MagicAttribute.electro;
+                                magicAttribute = MagicAttribute.Electro;
                             }break;
                             case "Grass":{
-                                magicAttribute = MagicAttribute.terra;
+                                magicAttribute = MagicAttribute.Terra;
                             }break;
+                            
                         }
-                        gameObject.GetComponent<EntityBase>().myMagicAttribute = magicAttribute;
-                        AttackBase attackBase = Instantiate(attackColliders.Enchant,transform.position,Quaternion.identity).GetComponent<AttackBase>();
-                        attackBase.magicAttribute = magicAttribute;
-                        attackBase.tag = gameObject.tag;
-                        attackBase.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().material.SetColor("_Color",MagicColorManager.GetColorFromMagicArticle(magicAttribute));
-                        magicStones --;
-                        timeFromEnchanted += Time.deltaTime;
-                        drawMagicSymbols.Clear();
-                    }else{
-                        //Gard
-                        nowPlayerState = PlayerStates.Garding;
-                        eBase.gard = true;
-                        eBase.ParryReception = true;
-                        eBase.acceptDamage = false;
-                        gardObject = Instantiate(attackColliders.Gard,transform.position,Quaternion.identity,transform);
-                        gardObject.tag = gameObject.tag;
-                        gardObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().material.SetColor("_Color",MagicColorManager.GetColorFromMagicArticle(eBase.myMagicAttribute));
-                        drawMagicSymbols = new List<DrawMagicSymbol>();
-                        drawShapeName = "None";
-                        oldDrawShapeName ="None";
-                        yield return new WaitForSeconds(0.2f);
-                        eBase.ParryReception = false;
-                        eBase.acceptDamage = true;
+                        ActivisionSpecialMagic(magicAttribute);
+                        break;
                     }
+                    //Gard
+                    nowPlayerState = PlayerStates.Garding;
+                    eBase.gard = true;
+                    eBase.ParryReception = true;
+                    eBase.acceptDamage = false;
+                    gardObject = Instantiate(attackColliders.Gard,transform.position,Quaternion.identity,transform);
+                    gardObject.tag = gameObject.tag;
+                    gardObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().material.SetColor("_Color",MagicColorManager.GetColorFromMagicArticle(eBase.myMagicAttribute));
+                    drawMagicSymbols = new List<DrawMagicSymbol>();
+                    drawShapeName = "None";
+                    oldDrawShapeName ="None";
+                    yield return new WaitForSeconds(0.2f);
+                    eBase.ParryReception = false;
+                    eBase.acceptDamage = true;
+                    
 
                 }break;
                 case "ButtonUp":{
@@ -404,16 +347,16 @@ public class PlayerController : MonoBehaviour
     Color EffectColor(MagicAttribute magicAttribute){
         Color res =Color.white;
         switch(magicAttribute){
-            case MagicAttribute.flame:{
+            case MagicAttribute.Flame:{
                 res = MagicColorManager.flame;
             }break;
-            case MagicAttribute.aqua:{
+            case MagicAttribute.Aqua:{
                 res = MagicColorManager.aqua;
             }break;
-            case MagicAttribute.electro:{
+            case MagicAttribute.Electro:{
                 res = MagicColorManager.electro;
             }break;
-            case MagicAttribute.terra:{
+            case MagicAttribute.Terra:{
                 res = MagicColorManager.terra;
             }break;
         }
@@ -438,10 +381,29 @@ public class PlayerController : MonoBehaviour
     }
     public void SlowMotionEnd(){Time.timeScale = 1;}
     public void GenerateAttackCollier(){StartCoroutine(IEGenerateAttackCollier());}
-    private void ActivisionSpecialMagic(){//SpecialMagic
-        PlayerMagicFactory playerMagicFactory = new PlayerMagicFactory();
-        switch(drawMagicSymbols[0].magicSymbol){
+    public MagicAttribute ConvertDrawShapeNameToEnum(string name){
+        MagicAttribute magicAttribute = 0;
+        switch(name){
             case "RegularTriangle":{
+                magicAttribute = MagicAttribute.Flame;
+            }break;
+            case "InvertedTriangle":{
+                magicAttribute = MagicAttribute.Aqua;
+            }break;
+            case "Thunder":{
+                magicAttribute = MagicAttribute.Electro;
+            }break;
+            case "Grass":{
+                magicAttribute = MagicAttribute.Terra;
+            }break;
+            
+        }
+        return magicAttribute;
+    }
+    private void ActivisionSpecialMagic(MagicAttribute magicAttribute){//SpecialMagic
+        PlayerMagicFactory playerMagicFactory = new PlayerMagicFactory();
+        switch(magicAttribute){
+            case MagicAttribute.Flame:{
                 if(magicHolder.flameMagic != PlayerMagicFactory.MagicKind.none){
                     PlayerMagicBase plMagicBase = playerMagicFactory.Create(magicHolder.flameMagic);
                     nowPlayerState = PlayerStates.ActivateSpecialMagic;
@@ -453,7 +415,7 @@ public class PlayerController : MonoBehaviour
                     drawMagicSymbols = new List<DrawMagicSymbol>();
                 }
             }break;
-            case "InvertedTriangle":{
+            case MagicAttribute.Aqua:{
                 if(magicHolder.aquaMagic != PlayerMagicFactory.MagicKind.none){
                     PlayerMagicBase plMagicBase = playerMagicFactory.Create(magicHolder.aquaMagic);
                     nowPlayerState = PlayerStates.ActivateSpecialMagic;
@@ -465,7 +427,7 @@ public class PlayerController : MonoBehaviour
                     drawMagicSymbols = new List<DrawMagicSymbol>();
                 }
             }break;
-            case "Thunder":{
+            case MagicAttribute.Electro:{
                 if(magicHolder.electroMagic != PlayerMagicFactory.MagicKind.none){
                     PlayerMagicBase plMagicBase = playerMagicFactory.Create(magicHolder.electroMagic);
                     nowPlayerState = PlayerStates.ActivateSpecialMagic;
@@ -477,7 +439,7 @@ public class PlayerController : MonoBehaviour
                     drawMagicSymbols = new List<DrawMagicSymbol>();
                 }
             }break;
-            case "Grass":{
+            case MagicAttribute.Terra:{
                 if(magicHolder.terraMagic != PlayerMagicFactory.MagicKind.none){
                     PlayerMagicBase plMagicBase = playerMagicFactory.Create(magicHolder.terraMagic);
                     nowPlayerState = PlayerStates.ActivateSpecialMagic;
@@ -494,6 +456,32 @@ public class PlayerController : MonoBehaviour
         
     }
     private void EnchantMyself(MagicAttribute magicAttribute){
+        eBase.myMagicAttribute = magicAttribute;
+        magicStones --;
+    }
+    private IEnumerator ShotNormalMagiBullet(MagicAttribute magicAttribute){
+        nowPlayerState = PlayerStates.ShotMagicBullet;
+        yield return new WaitForSeconds(0.2f);
+        string path = $"Magics/{magicAttribute.ToString()}Ball";
+        switch(magicAttribute){
+            case MagicAttribute.Flame:{
+                path = "Magics/FlameBall";
+            }break;
+            case MagicAttribute.Aqua:{
+                path = "Magics/AquaBall";
+            }break;
+            case MagicAttribute.Electro:{
+                path = "Magics/ElectroBall";
+            }break;
+            case MagicAttribute.Terra:{
+                path = "Magics/TerraBall";
+            }break;
+        }
+        FireBall bullet = Instantiate((GameObject)Resources.Load(path),transform.position + new Vector3(0.3f * direction,0.3f,0),transform.rotation).GetComponent<FireBall>();
+        bullet.speed *= direction;
+        bullet.gameObject.tag = "Player";
+        magicStones --;
+        yield break;
     }
     private IEnumerator IEGenerateAttackCollier(){
         switch(nowPlayerState){

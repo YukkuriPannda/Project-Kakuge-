@@ -57,6 +57,7 @@ public class PlayerVisualController : MonoBehaviour
         public GameObject counterPrefab;
     }
     public NormalAttackDatas normalAttackMotions;
+    private MagicAttribute oldMagicAttribute;
 
     void Start()
     {
@@ -80,16 +81,25 @@ public class PlayerVisualController : MonoBehaviour
         if(oldOpeningInventry != plc.openingInventry){
             if(plc.openingInventry){
                 plAnim.Play("StayUp");
-                PickUpWeapon();
+                PickUpWeapon(); 
             }
             else {
                 plAnim.Play("StayR");
                 SheatheWeapon();
             }
         }
+        if(plc.eBase.myMagicAttribute != oldMagicAttribute&& plc.eBase.myMagicAttribute!=MagicAttribute.none){
+            weaponEffectSystem.EnableNormalParticle(plc.eBase.myMagicAttribute);
+            plEC.StartCoroutine(plEC.EnableNormalParticle(plc.eBase.myMagicAttribute));
+        }
+        if(plc.eBase.myMagicAttribute != oldMagicAttribute&& plc.eBase.myMagicAttribute==MagicAttribute.none){
+            weaponEffectSystem.DisableNormalParticle();
+            plEC.DisableNormalParticle();
+        }
         oldPlcState = plc.nowPlayerState;
         oldDire = plc.direction;
         oldOpeningInventry = plc.openingInventry;
+        oldMagicAttribute = plc.eBase.myMagicAttribute;
     }
     void PlayAnim(){
         switch (plc.nowPlayerState){
@@ -256,7 +266,7 @@ public class PlayerVisualController : MonoBehaviour
     }
     IEnumerator UnEnableEffectTime(){
         yield return new WaitForSeconds(plc.enchantDuraction);
-        plc.weapon.GetComponent<WeaponEffectSystem>().UnEnableNormalParticle();
+        plc.weapon.GetComponent<WeaponEffectSystem>().DisableNormalParticle();
         plc.gameObject.GetComponent<PlayerEffectController>().DisableNormalParticle();
     }
 }

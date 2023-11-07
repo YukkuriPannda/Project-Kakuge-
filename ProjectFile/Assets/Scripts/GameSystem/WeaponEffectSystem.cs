@@ -35,7 +35,7 @@ public class WeaponEffectSystem : MonoBehaviour
             particle.Play();
         }
     }
-    public void UnEnableNormalParticle(){
+    public void DisableNormalParticle(){
         foreach(ParticleSystem particle in normalParticles.flames){
             particle.Stop();
         }

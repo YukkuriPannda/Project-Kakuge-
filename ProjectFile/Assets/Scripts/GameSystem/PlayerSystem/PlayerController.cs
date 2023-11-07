@@ -114,8 +114,8 @@ public class PlayerController : MonoBehaviour
         }
         oldDrawShapeName = drawShapeName;
         if(oldHealth > eBase.Health){
-            if(!eBase.ParryReception && nowPlayerState != PlayerStates.CounterAttack && CounterReception){
-                Debug.Log("HUrt!!");
+            if(!eBase.ParryReception && nowPlayerState != PlayerStates.CounterAttack && !CounterReception){
+                Debug.Log("HUrt");
                 lockOperation = true;
                 nowPlayerState = PlayerStates.Hurt;
             }
@@ -162,6 +162,7 @@ public class PlayerController : MonoBehaviour
         if(timeFromEnchanted > enchantDuraction){
             gameObject.GetComponent<EntityBase>().myMagicAttribute = MagicAttribute.none;
             timeFromEnchanted = 0;
+            drawMagicSymbols.Clear();
         }
     }
     [SerializeField]float addingforceInJumping = 0;
@@ -453,11 +454,12 @@ public class PlayerController : MonoBehaviour
             }break;
         }
         magicStones --;
-        
+        eBase.myMagicAttribute = MagicAttribute.none;
     }
     private void EnchantMyself(MagicAttribute magicAttribute){
         eBase.myMagicAttribute = magicAttribute;
         magicStones --;
+        timeFromEnchanted += Time.deltaTime;
     }
     private IEnumerator ShotNormalMagiBullet(MagicAttribute magicAttribute){
         nowPlayerState = PlayerStates.ShotMagicBullet;

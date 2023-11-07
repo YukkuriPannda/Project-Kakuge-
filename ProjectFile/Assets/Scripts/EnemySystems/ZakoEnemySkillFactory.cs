@@ -10,14 +10,16 @@ public class ZakoEnemySkillFactory
     // スキル一覧
     static readonly ZakoEnemySkillBase[] skills = {
         new KnockDown(),
-        new ShotMissile()
+        new ShotMissile(),
+        new Rush()
     };
 
     /// スキルのenum
     public enum ZakoEnemySkillKind
     {
         KnockDown,
-        ShotMissile
+        ShotMissile,
+        Rush
     }
 
     // SkillKindを引数に、それに応じたスキルを返す

@@ -285,7 +285,6 @@ public class PlayerController : MonoBehaviour
                     gardObject = Instantiate(attackColliders.Gard,transform.position,Quaternion.identity,transform);
                     gardObject.tag = gameObject.tag;
                     gardObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().material.SetColor("_Color",MagicColorManager.GetColorFromMagicArticle(eBase.myMagicAttribute));
-                    drawMagicSymbols = new List<DrawMagicSymbol>();
                     drawShapeName = "None";
                     oldDrawShapeName ="None";
                     yield return new WaitForSeconds(0.2f);

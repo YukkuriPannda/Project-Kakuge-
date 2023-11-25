@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ItemDataBase
   m_EditorClassIdentifier: 
   items:
-  - name: "\u6B6F\u8ECA\u306E\u5263"
+  - name: GearSword
     id: 0
     explanation: 
     spritePath: ItemIcons/Weapons/GearSword
@@ -23,7 +23,7 @@ MonoBehaviour:
     - name: exp
       value: 0
       maxValue: 100
-    - name: Magic efficiency
+    - name: MagicEfficiency
       value: 0
       maxValue: 100
     - name: damage
@@ -32,7 +32,7 @@ MonoBehaviour:
     - name: Modelid
       value: 0
       maxValue: 0
-  - name: "\u3073\u30FC\u30FC\u3080"
+  - name: Beam
     id: 1
     explanation: 
     spritePath: ItemIcons/MagicBooks/FlameMagicBook
@@ -45,7 +45,7 @@ MonoBehaviour:
     - name: MagicName
       value: 1
       maxValue: 0
-  - name: "\u3073\u30FC\u30FC\u3080"
+  - name: Beam
     id: 2
     explanation: 
     spritePath: ItemIcons/MagicBooks/AquaMagicBook
@@ -58,7 +58,7 @@ MonoBehaviour:
     - name: MagicName
       value: 1
       maxValue: 0
-  - name: "\u3073\u30FC\u30FC\u3080"
+  - name: Beam
     id: 3
     explanation: 
     spritePath: ItemIcons/MagicBooks/ElectroMagicBook
@@ -71,7 +71,7 @@ MonoBehaviour:
     - name: MagicName
       value: 1
       maxValue: 0
-  - name: "\u4E00\u5F0F\u300C\u9583\u5149\u300D"
+  - name: Type01SENKOU
     id: 4
     explanation: 
     spritePath: ItemIcons/MagicBooks/ElectroMagicBook
@@ -84,7 +84,7 @@ MonoBehaviour:
     - name: MagicName
       value: 3
       maxValue: 0
-  - name: "\u8FFD\u5C3E\u5F3E"
+  - name: TrackingBullet
     id: 5
     explanation: 
     spritePath: ItemIcons/MagicBooks/FlameMagicBook
@@ -97,7 +97,7 @@ MonoBehaviour:
     - name: MagicName
       value: 2
       maxValue: 0
-  - name: "\u571F\u58C1"
+  - name: EarthWall
     id: 6
     explanation: 
     spritePath: ItemIcons/MagicBooks/TerraMagicBook

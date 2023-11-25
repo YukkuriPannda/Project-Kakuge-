@@ -17,6 +17,7 @@ public class InventryItem : ButtonBaseEX
     public GameObject BarPrefab;
 
     private Image icon;
+    private LanguageManager languageManager;
     
     public override void OnStart()
     {
@@ -26,16 +27,17 @@ public class InventryItem : ButtonBaseEX
             icon.sprite = sprite;
         }else icon.enabled = false;
         myRectTrf = gameObject.GetComponent<RectTransform>();
+        languageManager = (LanguageManager)Resources.Load(LanguageManager.textDatabasePath);
     }
     public override void OnPointerEnter(){
         if(item.category != ItemCategory.Blank){
             simpleStatusPanel = Instantiate(SimpleStatusPanelPrefab,mousePos,Quaternion.identity,transform.parent.parent);
             simpleStatusPanelRectTrf = simpleStatusPanel.GetComponent<RectTransform>();
-            simpleStatusPanel.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = item.name;
+            simpleStatusPanel.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = languageManager.GetTextFromText(item.name);
 
             string uniqueParamsNameText = "";
             foreach(UniqueParameter uniqueParameter in item.uniqueParameters){
-                if(uniqueParameter.maxValue > 0)uniqueParamsNameText += uniqueParameter.name + "\n";
+                if(uniqueParameter.maxValue > 0)uniqueParamsNameText += languageManager.GetTextFromText(uniqueParameter.name) + "\n";
             }
             simpleStatusPanel.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = uniqueParamsNameText;
             
@@ -54,7 +56,6 @@ public class InventryItem : ButtonBaseEX
                 }
             }
             StartCoroutine(ExpansionItemIcon());
-
         }
     }
     public override void OnUpdate()

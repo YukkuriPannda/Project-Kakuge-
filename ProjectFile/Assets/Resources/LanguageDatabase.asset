@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0452a0a3b298bad49bdc44a7e32be5c6, type: 3}
+  m_Name: LanguageDatabase
+  m_EditorClassIdentifier: 
+  textDatas:
+  - languageDatas:
+    - language: 1
+      Text: GearSword
+    - language: 0
+      Text: "\u6B6F\u8ECA\u306E\u5263"
+  - languageDatas:
+    - language: 1
+      Text: KnightSword
+    - language: 0
+      Text: "\u9A0E\u58EB\u306E\u5263"
+  - languageDatas:
+    - language: 1
+      Text: Beam
+    - language: 0
+      Text: "\u30D3\u30FC\u30E0"
+  - languageDatas:
+    - language: 1
+      Text: Type01SENKOU
+    - language: 0
+      Text: "\u4E00\u5F0F\u300C\u9583\u5149\u300D"
+  - languageDatas:
+    - language: 1
+      Text: TrackingBullet
+    - language: 0
+      Text: "\u8FFD\u5C3E\u5F3E"
+  - languageDatas:
+    - language: 1
+      Text: EarthWall
+    - language: 0
+      Text: "\u571F\u58C1"
+  - languageDatas:
+    - language: 1
+      Text: exp
+    - language: 0
+      Text: exp
+  - languageDatas:
+    - language: 1
+      Text: MagicEfficiency
+    - language: 0
+      Text: "\u9B54\u529B\u52B9\u7387"
+  - languageDatas:
+    - language: 1
+      Text: damage
+    - language: 0
+      Text: "\u653B\u6483\u529B"
+  nowLanguage: 1

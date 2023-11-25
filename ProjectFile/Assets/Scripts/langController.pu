@@ -1,0 +1,4 @@
+@startuml
+LangManager --> World : req:(id:int,lang:enum)
+LangManager <-- World : res:string
+@enduml

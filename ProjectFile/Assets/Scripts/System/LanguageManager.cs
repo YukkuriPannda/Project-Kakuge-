@@ -30,6 +30,7 @@ public class LanguageManager : ScriptableObject
     public TextData[] textDatas;
     public Language nowLanguage;
     [HideInInspector]public static string textDatabasePath = "LanguageDatabase";
+
     public string GetTextFromID(int id,Language language){  
         string res = textDatas[id].GetTextFromLang(language);
         return res;

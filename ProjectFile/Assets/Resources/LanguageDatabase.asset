@@ -58,4 +58,9 @@ MonoBehaviour:
       Text: damage
     - language: 0
       Text: "\u653B\u6483\u529B"
+  - languageDatas:
+    - language: 1
+      Text: GCGSword
+    - language: 0
+      Text: "GCGEXPO\u306E\u5263"
   nowLanguage: 1

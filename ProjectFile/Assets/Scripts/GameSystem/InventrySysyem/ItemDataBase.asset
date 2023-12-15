@@ -24,10 +24,10 @@ MonoBehaviour:
       value: 0
       maxValue: 100
     - name: MagicEfficiency
-      value: 0
+      value: 50
       maxValue: 100
     - name: damage
-      value: 65
+      value: 50
       maxValue: 100
     - name: Modelid
       value: 0
@@ -110,11 +110,51 @@ MonoBehaviour:
     - name: MagicName
       value: 4
       maxValue: 0
+  - name: KnightSword
+    id: 7
+    explanation: 
+    spritePath: ItemIcons/Weapons/KnightSword
+    count: 1
+    category: 0
+    uniqueParameters:
+    - name: exp
+      value: 0
+      maxValue: 100
+    - name: MagicEfficiency
+      value: 25
+      maxValue: 100
+    - name: damage
+      value: 75
+      maxValue: 100
+    - name: Modelid
+      value: 1
+      maxValue: 0
+  - name: GCGSword
+    id: 7
+    explanation: 
+    spritePath: ItemIcons/Weapons/GCGSword
+    count: 1
+    category: 0
+    uniqueParameters:
+    - name: exp
+      value: 0
+      maxValue: 100
+    - name: MagicEfficiency
+      value: 25
+      maxValue: 100
+    - name: damage
+      value: 75
+      maxValue: 100
+    - name: Modelid
+      value: 2
+      maxValue: 0
   itemPrefabDatas:
   - ID: 0
     Prefab: {fileID: 965833927148874346, guid: a8d4feba97d07324d994af224b11faad, type: 3}
   - ID: 1
     Prefab: {fileID: 7612591228787640585, guid: 5c3f94fe0289a094f89806852f2d7c40, type: 3}
+  - ID: 2
+    Prefab: {fileID: 7612591228787640585, guid: 5d7b8b7a4bacc5345916e16a96af9850, type: 3}
   specialMagicMotions:
   - magicKind: 0
     animationClip: {fileID: 0}

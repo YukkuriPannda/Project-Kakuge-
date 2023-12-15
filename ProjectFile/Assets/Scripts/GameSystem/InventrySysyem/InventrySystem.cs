@@ -109,7 +109,9 @@ public class InventrySystem : MonoBehaviour
         plvc.weaponEffectSystem = plc.weapon.GetComponent<WeaponEffectSystem>();
         switch(weaponSlot.category){
             case ItemCategory.Sword:{
-                plvc.normalAttackMotions = swordAnimMotions; 
+                plvc.normalAttackMotions = swordAnimMotions;
+                plc.damage_Weapon = weaponSlot.GetUniqueParameter("damage");
+                plc.magicEfficiency = weaponSlot.GetUniqueParameter("MagicEfficiency");
             }break;
             case ItemCategory.Blank:{
                 plvc.normalAttackMotions = kobushiAnimMotions;

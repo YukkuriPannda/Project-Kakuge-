@@ -6,6 +6,7 @@ public class FireBall : MonoBehaviour
 {
     public float speed;
     public float lifeTime;
+    public float magicEfficiency;
     public GameObject hitParticlePrefab;
     [ReadOnly]public float age;
     private bool exprosed = false;
@@ -28,6 +29,7 @@ public class FireBall : MonoBehaviour
     }
     void Bakuhatu(){
         GameObject hitParticle = Instantiate(hitParticlePrefab,transform.position,transform.rotation);
+        hitParticle.GetComponent<AttackBase>().damage *= magicEfficiency/50;
         Destroy(hitParticle,2);
         Destroy(hitParticle.GetComponent<AttackBase>(),0.2f);
         Destroy(gameObject);

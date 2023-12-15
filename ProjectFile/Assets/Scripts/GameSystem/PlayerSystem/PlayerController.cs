@@ -10,8 +10,11 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     [Header("States")]
-    public float movementSpeed = 5; //movementSpeed * 入力(最大値1) = velocity.x
-    public float JumpForce = 5; //JumpForce * 入力(最大値1) = velocity.y
+    public float movementSpeed = 5;   //movementSpeed * 入力(最大値1) = velocity.x
+    public float JumpForce = 5;       //JumpForce * 入力(最大値1) = velocity.y
+    public float damage_Weapon = 50;  //基準は50
+    public float magicEfficiency = 50;//基準は50
+
     public float jumpInputArrowableTime = 0.5f;
     public float enchantDuraction = 5;
     public float enchantDetectionRadius = 2;
@@ -481,6 +484,7 @@ public class PlayerController : MonoBehaviour
         FireBall bullet = Instantiate((GameObject)Resources.Load(path),transform.position + new Vector3(0.3f * direction,0.3f,0),transform.rotation).GetComponent<FireBall>();
         bullet.speed *= direction;
         bullet.gameObject.tag = "Player";
+        bullet.magicEfficiency = magicEfficiency;
         magicStones --;
         yield break;
     }
@@ -498,7 +502,7 @@ public class PlayerController : MonoBehaviour
                 DMGObject.GetComponent<BoxCollider2D>().offset *= new Vector2(direction,1);
 
                 AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
-                attackBase.damage *= 1;
+                attackBase.damage *= damage_Weapon/50;
                 DMGObject.tag = "Player";
                 attackBase.knockBack = new Vector2(attackBase.knockBack.x * direction,attackBase.knockBack.y);
                 attackBase.magicAttribute = eBase.myMagicAttribute;
@@ -517,7 +521,7 @@ public class PlayerController : MonoBehaviour
                     GameObject DMGObject = Instantiate(attackColliders.Thrust,transform.position,transform.rotation);
                     DMGObject.transform.GetChild(0).eulerAngles = new Vector3(0,0,0);
                     AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
-                    attackBase.damage *= 1;
+                    attackBase.damage *= damage_Weapon/50;
                     DMGObject.tag = "Player";
                     attackBase.knockBack = new Vector2(attackBase.knockBack.x,attackBase.knockBack.y);
                     Destroy(DMGObject.GetComponent<AttackBase>(),0.2f);
@@ -533,7 +537,7 @@ public class PlayerController : MonoBehaviour
                     DMGObject.transform.GetChild(0).localPosition = Vector3.Scale(new Vector3(-1,1,1),DMGObject.transform.GetChild(0).localPosition);
 
                     AttackBase attackBase = DMGObject.GetComponent<AttackBase>();
-                    attackBase.damage *= 1;
+                    attackBase.damage *= damage_Weapon/50;
                     DMGObject.tag = "Player";
                     attackBase.knockBack = new Vector2(-attackBase.knockBack.x,attackBase.knockBack.y);
                     attackBase.magicAttribute = eBase.myMagicAttribute;
